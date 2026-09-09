@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Aorila Labs API — Atraly v1.5</title>
-  <meta name="description" content="Aorila Labs business API. Model SKU Atraly v1.5 (atraly-v1.5). Auth, chat completions, and commercial SKUs." />
+  <meta name="description" content="Aorila Labs business API. Model SKU Atraly v1.5 (atraly-v1.5). Shared $199/mo early access or dedicated at 1.5× RunPod. Keys via sales@aorilalabs.com." />
   <meta property="og:title" content="Aorila Labs API — Atraly v1.5" />
-  <meta property="og:description" content="Business API docs for atraly-v1.5. Keys via sales@aorilalabs.com." />
+  <meta property="og:description" content="Business API docs for atraly-v1.5. Shared $199/mo. Keys via sales@aorilalabs.com." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorilalabs.com/api" />
   <link rel="canonical" href="https://aorilalabs.com/api" />
@@ -34,7 +34,7 @@
       <h1>Atraly v1.5</h1>
       <p class="lede">Commercial completions for companies. Higher-quality access path, dedicated option, Labs-issued keys.</p>
       <div class="cta-row">
-        <a class="cta primary" href="mailto:sales@aorilalabs.com?subject=Aorila%20Labs%20API%20key">Get a Labs key</a>
+        <a class="cta primary" href="#keys">Get a Labs key</a>
         <a class="cta ghost" href="#call">Call the API</a>
       </div>
     </section>
@@ -74,11 +74,40 @@
 
     <section id="keys" class="section">
       <h2>How to get API keys</h2>
+      <p>Public Shared early access is <strong>$199/mo</strong>. Dedicated is 1.5× current RunPod list. <span class="price-note-inline">Early access — may change.</span></p>
       <ol class="steps">
-        <li>Write <a href="mailto:sales@aorilalabs.com">sales@aorilalabs.com</a>. Say shared ($99/mo early) or dedicated L40S (1.5× RunPod list).</li>
+        <li>Write <a href="mailto:sales@aorilalabs.com">sales@aorilalabs.com</a> or use the form. Say Shared ($199/mo early) or dedicated (1.5× RunPod).</li>
         <li>We issue a Labs bearer token. Consumer keys from aorila.com will not work here.</li>
         <li>Send <code class="inline">Authorization: Bearer &lt;key&gt;</code> and <code class="inline">model: "atraly-v1.5"</code>.</li>
       </ol>
+      <form class="waitlist" data-mailto="sales@aorilalabs.com" data-subject="Aorila Labs access — Atraly v1.5">
+        <label>
+          Work email
+          <input type="email" name="email" autocomplete="email" required placeholder="you@company.com" />
+        </label>
+        <label>
+          Company
+          <input type="text" name="company" autocomplete="organization" required placeholder="Company name" />
+        </label>
+        <label>
+          Plan
+          <select name="plan" required>
+            <option value="" disabled selected>Choose a plan</option>
+            <option value="shared-199">Shared — $199/mo early business</option>
+            <option value="dedicated">Dedicated — 1.5× RunPod</option>
+            <option value="sales">Contact sales</option>
+          </select>
+        </label>
+        <label>
+          Notes
+          <textarea name="notes" rows="3" placeholder="Optional"></textarea>
+        </label>
+        <div class="cta-row">
+          <button class="cta primary" type="submit">Email access request</button>
+          <a class="cta ghost" href="mailto:sales@aorilalabs.com?subject=Aorila%20Labs%20API%20key">Or write sales directly</a>
+        </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
     </section>
 
     <section id="call" class="section wide">
@@ -98,7 +127,7 @@
 
     <section class="section final">
       <h2>Capacity</h2>
-      <p>Shared early access is $99/month. Dedicated is an NVIDIA L40S at 1.5× the current RunPod L40S list. Ask sales which pool your key is on.</p>
+      <p>Public Shared early access is $199/month. Dedicated is an NVIDIA L40S at 1.5× the current RunPod list. The $99/mo figure is an Atraly-partner internal rate only — not a public Labs plan. Ask sales which pool your key is on.</p>
       <div class="cta-row">
         <a class="cta primary" href="mailto:sales@aorilalabs.com">Contact Labs</a>
         <a class="cta ghost" href="/#pricing">Pricing on the landing</a>

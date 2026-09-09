@@ -33,7 +33,7 @@
       <h1>Atraly v1</h1>
       <p class="lede">The Aorila consumer API. Same underlying model as Labs; this SKU is the public consumer face.</p>
       <div class="cta-row">
-        <a class="cta primary" href="mailto:hello@aorila.com?subject=Aorila%20consumer%20API%20key">Get an API key</a>
+        <a class="cta primary" href="#waitlist">Get an API key</a>
         <a class="cta ghost" href="#call">Call the API</a>
       </div>
     </section>
@@ -73,11 +73,36 @@
 
     <section id="keys" class="section">
       <h2>Get a consumer key</h2>
+      <p>Early access Builder is <strong>$29/mo</strong>. Docs stay free. <span class="price-note-inline">Early access — may change.</span></p>
       <ol class="steps">
-        <li>Email <a href="mailto:hello@aorila.com">hello@aorila.com</a> and ask for an <span class="sku">Atraly v1</span> key.</li>
+        <li>Email <a href="mailto:hello@aorila.com">hello@aorila.com</a> or use the waitlist form and ask for an <span class="sku">Atraly v1</span> key.</li>
         <li>You receive a bearer token scoped to the consumer API.</li>
         <li>Send <code class="inline">Authorization: Bearer &lt;key&gt;</code> on every request.</li>
       </ol>
+    </section>
+
+    <section id="waitlist" class="section">
+      <h2>API key waitlist</h2>
+      <p>This form opens mail to <a href="mailto:hello@aorila.com">hello@aorila.com</a>. There is no card checkout on this site.</p>
+      <form class="waitlist" data-mailto="hello@aorila.com" data-subject="Aorila Builder waitlist — Atraly v1">
+        <label>
+          Email
+          <input type="email" name="email" autocomplete="email" required placeholder="you@company.com" />
+        </label>
+        <label>
+          Name
+          <input type="text" name="name" autocomplete="name" placeholder="Optional" />
+        </label>
+        <label>
+          What you want to build
+          <textarea name="use_case" rows="3" placeholder="Optional"></textarea>
+        </label>
+        <div class="cta-row">
+          <button class="cta primary" type="submit">Email waitlist request</button>
+          <a class="cta ghost" href="mailto:hello@aorila.com?subject=Aorila%20consumer%20API%20key">Or write us directly</a>
+        </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
     </section>
 
     <section id="call" class="section wide">
@@ -97,7 +122,7 @@
 
     <section class="section final">
       <h2>Need business quality?</h2>
-      <p><span class="sku">Atraly v1.5</span> is the Labs business API — shared early access or dedicated L40S. The Atraly app uses <span class="sku">Atraly v2.0</span> and buys through Labs.</p>
+      <p><span class="sku">Atraly v1.5</span> is the Labs business API — Shared $199/mo early access or dedicated at 1.5× RunPod. The Atraly app uses <span class="sku">Atraly v2.0</span> and buys through Labs.</p>
       <div class="cta-row">
         <a class="cta primary" href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a>
         <a class="cta ghost" href="mailto:hello@aorila.com">hello@aorila.com</a>

@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Aorila — We build the AI</title>
-  <meta name="description" content="Aorila builds the AI. The consumer API is Atraly v1. Products like Atraly are powered by Aorila." />
+  <meta name="description" content="Aorila builds the AI. Consumer API SKU: Atraly v1. Early access Builder $29/mo. Request a key at hello@aorila.com." />
   <meta property="og:title" content="Aorila — We build the AI" />
-  <meta property="og:description" content="Weights, training, inference — owned by the lab. Consumer API: Atraly v1." />
+  <meta property="og:description" content="Weights, training, inference — owned by the lab. Consumer API: Atraly v1. Early access Builder $29/mo." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorila.com" />
   <link rel="canonical" href="https://aorila.com" />
@@ -23,6 +23,7 @@
     <nav class="nav-links">
       <a class="nav-link" href="#ai">The AI</a>
       <a class="nav-link" href="/api">API</a>
+      <a class="nav-link" href="#pricing">Pricing</a>
       <a class="nav-link" href="#powered">Powered products</a>
       <a class="nav-link" href="https://aorilalabs.com" data-local-site="labs">Labs</a>
     </nav>
@@ -34,8 +35,8 @@
       <h1>We build the AI.</h1>
       <p class="lede">Aorila owns the model — weights, training, and inference. The consumer product is the Aorila API. Atraly v1 is the name of that API.</p>
       <div class="cta-row">
-        <a class="cta primary" href="/api">Try the consumer API</a>
-        <a class="cta ghost" href="#ai">What the AI is</a>
+        <a class="cta primary" href="#pricing">Start Builder — $29/mo</a>
+        <a class="cta ghost" href="/api">Read the docs</a>
       </div>
     </section>
 
@@ -79,18 +80,69 @@
       <p>Business access lives on <a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a>.</p>
     </section>
 
+    <section id="pricing" class="section wide">
+      <h2>Pricing</h2>
+      <p>Consumer access to <span class="sku">Atraly v1</span>. Start from the docs, or join Builder for an early-access key.</p>
+      <p class="price-note">Early access — may change.</p>
+      <div class="price-grid">
+        <article class="card">
+          <p class="badge">Free</p>
+          <h3>Docs</h3>
+          <p class="price">$0</p>
+          <p>SKU map, curl examples, and how keys work. No checkout.</p>
+          <div class="cta-row">
+            <a class="cta ghost" href="/api">Read the docs</a>
+          </div>
+        </article>
+        <article class="card featured">
+          <p class="badge">Early access</p>
+          <h3>Builder</h3>
+          <p class="price">$29 <span>/ month</span></p>
+          <p>Consumer API key for <span class="sku">Atraly v1</span>. Email us — we are not running card checkout on this page.</p>
+          <div class="cta-row">
+            <a class="cta primary" href="#waitlist">Join the waitlist</a>
+            <a class="cta ghost" href="mailto:hello@aorila.com?subject=Aorila%20Builder%20%2429%2Fmo">hello@aorila.com</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="waitlist" class="section">
+      <h2>Request an API key</h2>
+      <p>Join the Builder waitlist. This form opens your mail client to <a href="mailto:hello@aorila.com">hello@aorila.com</a>. We issue <span class="sku">Atraly v1</span> keys by hand during early access.</p>
+      <form class="waitlist" data-mailto="hello@aorila.com" data-subject="Aorila Builder waitlist — Atraly v1">
+        <label>
+          Email
+          <input type="email" name="email" autocomplete="email" required placeholder="you@company.com" />
+        </label>
+        <label>
+          Name
+          <input type="text" name="name" autocomplete="name" placeholder="Optional" />
+        </label>
+        <label>
+          What you want to build
+          <textarea name="use_case" rows="3" placeholder="Optional — product, agent, or personal use"></textarea>
+        </label>
+        <div class="cta-row">
+          <button class="cta primary" type="submit">Email waitlist request</button>
+          <a class="cta ghost" href="mailto:hello@aorila.com?subject=Aorila%20consumer%20API%20key">Or write us directly</a>
+        </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
     <section id="powered" class="section">
       <h2>Powered products</h2>
       <p><a href="https://atraly.com">Atraly</a> is a separate consumer app — a Claude- and Cursor-like workspace. It is <strong>Powered by Aorila</strong>. Atraly buys model access through Aorila Labs and serves it as the <span class="sku">Atraly v2.0</span> partner SKU.</p>
-      <p>We do not host that product here. Use Atraly for the app; use this site for the consumer API.</p>
+      <p>We do not host that product here. Use <a href="https://atraly.com">atraly.com</a> for the app; use this site for the consumer API.</p>
     </section>
 
     <section class="section final">
       <h2>Start with Atraly v1</h2>
-      <p>Request a consumer key and call the Aorila API. Docs include curl, auth, and the SKU list.</p>
+      <p>Read the docs for free, or request a Builder key at $29/mo early access.</p>
       <div class="cta-row">
-        <a class="cta primary" href="/api">Consumer API docs</a>
-        <a class="cta ghost" href="mailto:hello@aorila.com">Get an API key</a>
+        <a class="cta primary" href="#waitlist">Request a key</a>
+        <a class="cta ghost" href="/api">Consumer API docs</a>
       </div>
     </section>
   </main>

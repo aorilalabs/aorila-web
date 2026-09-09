@@ -285,6 +285,74 @@ table.sku-table {
   margin: 0.35rem 0 0.6rem;
 }
 .price span { font-size: 0.95rem; color: var(--muted); font-weight: 600; }
+.price-note,
+.price-note-inline {
+  font-size: 0.88rem;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+.price-note { margin: -0.35rem 0 1.25rem; }
+.price-note-inline { display: inline; font-weight: 500; }
+.card.featured {
+  border-color: rgba(31, 107, 255, 0.35);
+  box-shadow: 0 0 0 1px rgba(31, 107, 255, 0.12);
+}
+.card .cta-row { margin-top: 1rem; }
+.partner-note {
+  margin-top: 1.35rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.waitlist {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 28rem;
+  margin: 1.25rem 0 0.5rem;
+}
+.waitlist label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.waitlist input,
+.waitlist select,
+.waitlist textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.7rem 0.8rem;
+  width: 100%;
+}
+.waitlist input:focus,
+.waitlist select:focus,
+.waitlist textarea:focus {
+  outline: 2px solid rgba(31, 107, 255, 0.35);
+  outline-offset: 1px;
+  border-color: var(--signal);
+}
+.waitlist textarea { resize: vertical; min-height: 5.5rem; }
+.waitlist .cta-row { margin-top: 0.25rem; }
+.waitlist button.cta {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+.form-status {
+  min-height: 1.4em;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
 
 pre, code {
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
