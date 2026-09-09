@@ -2,5 +2,6 @@
 
 We build the AI. Atraly sells it.
 
-## Vercel
-Import this folder/repo. No secrets required. Attach domains `aorila.com` and `aorilalabs.com`.
+**Home base: Render** — https://github.com/nbaldwin098/aorila-web
+
+See **RENDER.md**. Push `main` to update. No env secrets required.

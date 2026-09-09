@@ -1,0 +1,14 @@
+# Connect this repo in Render → Blueprint, or create a Web Service / Static Site.
+# No secrets required for the marketing site.
+services:
+  - type: web
+    name: aorila
+    runtime: node
+    plan: starter
+    region: oregon
+    buildCommand: npm install --omit=dev
+    startCommand: npm start
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_VERSION
+        value: "20"

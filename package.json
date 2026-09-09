@@ -3,6 +3,13 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "start": "npx --yes serve -l 3002 ."
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
   }
 }
