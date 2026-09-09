@@ -2,6 +2,7 @@
 const path = require('path');
 const express = require('express');
 const { resolveSite, isPreviewHost } = require('./lib/resolve-site');
+const { createLeadStore } = require('./lib/leads');
 
 function cookieSite(req) {
   const raw = req.get('cookie') || '';
@@ -29,10 +30,19 @@ function sendPage(res, site, file) {
   return true;
 }
 
-function createApp() {
+function wantsJson(req) {
+  const accept = String(req.get('accept') || '');
+  const type = String(req.get('content-type') || '');
+  return type.includes('application/json') || accept.includes('application/json');
+}
+
+function createApp(options = {}) {
   const app = express();
+  const leadStore = options.leadStore || createLeadStore(options.leadsPath);
 
   app.disable('x-powered-by');
+  app.use(express.json({ limit: '32kb' }));
+  app.use(express.urlencoded({ extended: false, limit: '32kb' }));
 
   app.use((req, res, next) => {
     res.locals.site = siteFromRequest(req);
@@ -53,6 +63,35 @@ function createApp() {
     sendPage(res, res.locals.site, 'api.html');
   });
 
+  app.post('/leads', (req, res) => {
+    try {
+      const result = leadStore.add(req.body || {}, {
+        site: req.body?.site || res.locals.site,
+        kind: req.body?.kind,
+        host: req.hostname || req.get('host') || null,
+      });
+      if (wantsJson(req)) {
+        return res.status(201).json({ ok: true, id: result.id || null, ignored: Boolean(result.ignored) });
+      }
+      const dest = res.locals.site === 'labs' ? '/?sent=1#contact' : '/?sent=1#waitlist';
+      return res.redirect(303, dest);
+    } catch (err) {
+      const status = err.status || 500;
+      if (wantsJson(req)) {
+        return res.status(status).json({ ok: false, error: err.message || 'Could not store lead.' });
+      }
+      return res.status(status).type('html').send(`<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Could not send — Aorila</title><link rel="stylesheet" href="/styles.css" /></head>
+<body data-site="${res.locals.site}">
+<header class="nav"><a class="wordmark" href="/">${res.locals.site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a></header>
+<main><section class="hero compact"><p class="eyebrow">Form</p><h1>Could not send that.</h1>
+<p class="lede">${err.message || 'Try again, or email us directly.'}</p>
+<div class="cta-row"><a class="cta primary" href="/">Home</a></div>
+</section></main></body></html>`);
+    }
+  });
+
   app.get('/healthz', (req, res) => {
     res.json({ ok: true, site: res.locals.site });
   });
@@ -64,7 +103,7 @@ function createApp() {
 <title>Not found — Aorila</title><link rel="stylesheet" href="/styles.css" /></head>
 <body data-site="${res.locals.site}">
 <header class="nav"><a class="wordmark" href="/">${res.locals.site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a></header>
-<main><section class="hero in"><p class="eyebrow">404</p><h1>This page is not on this site.</h1>
+<main><section class="hero compact"><p class="eyebrow">404</p><h1>This page is not on this site.</h1>
 <p class="lede">Try the home page or the API docs.</p>
 <div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="/api">API</a></div>
 </section></main></body></html>`);

@@ -11,12 +11,14 @@ Aorila builds the AI. Atraly is a separate consumer app (Powered by Aorila) and 
 
 Early-access sell path (prices may change; no Stripe on this site):
 
-| Face | Public plan | Access |
+| Face | Public offer | Access |
 | --- | --- | --- |
-| Consumer | **Builder $29/mo** · docs free | `hello@aorila.com` + waitlist form |
-| Labs | **Shared $199/mo** · Dedicated 1.5× RunPod | `sales@aorilalabs.com` + waitlist form |
+| Consumer | **compute cost + Aorila fee** · docs free | Waitlist → `POST /leads` · `hello@aorila.com` |
+| Labs | **Quoted** · Dedicated 1.5× RunPod | Contact form → `POST /leads` · `sales@aorilalabs.com` secondary |
 
-The $99/mo figure is an **Atraly-partner internal** rate only — not a public Labs plan.
+No self-serve $29 / $199 checkout. The Atraly **app** is $20/mo on [atraly.com](https://atraly.com) — not this API. $99 is not a public Labs plan.
+
+Leads are stored in `data/leads.json` (or `LEADS_PATH`). On Render the disk is ephemeral unless you attach a persistent disk.
 
 **Home base: Render** — https://github.com/nbaldwin098/aorila-web
 

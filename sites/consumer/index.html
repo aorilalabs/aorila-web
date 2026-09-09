@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Aorila — We build the AI</title>
-  <meta name="description" content="Aorila builds the AI. Consumer API SKU: Atraly v1. Early access Builder $29/mo. Request a key at hello@aorila.com." />
+  <meta name="description" content="Aorila builds the AI. Consumer API SKU: Atraly v1. You pay compute cost plus an Aorila fee. Request a key at hello@aorila.com." />
   <meta property="og:title" content="Aorila — We build the AI" />
-  <meta property="og:description" content="Weights, training, inference — owned by the lab. Consumer API: Atraly v1. Early access Builder $29/mo." />
+  <meta property="og:description" content="Weights, training, inference — owned by the lab. Consumer API: Atraly v1. Cost plus Aorila fee. No fake token price." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorila.com" />
   <link rel="canonical" href="https://aorila.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body data-site="consumer">
@@ -35,7 +35,7 @@
       <h1>We build the AI.</h1>
       <p class="lede">Aorila owns the model — weights, training, and inference. The consumer product is the Aorila API. Atraly v1 is the name of that API.</p>
       <div class="cta-row">
-        <a class="cta primary" href="#pricing">Start Builder — $29/mo</a>
+        <a class="cta primary" href="#waitlist">Request an API key</a>
         <a class="cta ghost" href="/api">Read the docs</a>
       </div>
     </section>
@@ -82,7 +82,8 @@
 
     <section id="pricing" class="section wide">
       <h2>Pricing</h2>
-      <p>Consumer access to <span class="sku">Atraly v1</span>. Start from the docs, or join Builder for an early-access key.</p>
+      <p>The consumer API is not a self-serve monthly plan. You pay what it costs to run the model, plus a clear Aorila fee. We do not publish a fake dollars-per-token rate.</p>
+      <p class="formula">invoice = compute cost + Aorila fee</p>
       <p class="price-note">Early access — may change.</p>
       <div class="price-grid">
         <article class="card">
@@ -95,13 +96,13 @@
           </div>
         </article>
         <article class="card featured">
-          <p class="badge">Early access</p>
-          <h3>Builder</h3>
-          <p class="price">$29 <span>/ month</span></p>
-          <p>Consumer API key for <span class="sku">Atraly v1</span>. Email us — we are not running card checkout on this page.</p>
+          <p class="badge">Consumer API</p>
+          <h3>Cost + fee</h3>
+          <p class="price">Quoted</p>
+          <p><span class="sku">Atraly v1</span> access. We quote compute cost plus the Aorila fee when we issue your key.</p>
           <div class="cta-row">
-            <a class="cta primary" href="#waitlist">Join the waitlist</a>
-            <a class="cta ghost" href="mailto:hello@aorila.com?subject=Aorila%20Builder%20%2429%2Fmo">hello@aorila.com</a>
+            <a class="cta primary" href="#waitlist">Request a key</a>
+            <a class="cta ghost" href="mailto:hello@aorila.com?subject=Aorila%20consumer%20API%20key">hello@aorila.com</a>
           </div>
         </article>
       </div>
@@ -109,8 +110,13 @@
 
     <section id="waitlist" class="section">
       <h2>Request an API key</h2>
-      <p>Join the Builder waitlist. This form opens your mail client to <a href="mailto:hello@aorila.com">hello@aorila.com</a>. We issue <span class="sku">Atraly v1</span> keys by hand during early access.</p>
-      <form class="waitlist" data-mailto="hello@aorila.com" data-subject="Aorila Builder waitlist — Atraly v1">
+      <p>Join the waitlist. We store the request and follow up from <a href="mailto:hello@aorila.com">hello@aorila.com</a>. Keys are issued by hand during early access. No card checkout on this site.</p>
+      <form class="waitlist" action="/leads" method="post" data-kind="waitlist">
+        <input type="hidden" name="site" value="consumer" />
+        <input type="hidden" name="kind" value="waitlist" />
+        <label class="hp" aria-hidden="true">Website
+          <input type="text" name="website" tabindex="-1" autocomplete="off" />
+        </label>
         <label>
           Email
           <input type="email" name="email" autocomplete="email" required placeholder="you@company.com" />
@@ -124,8 +130,8 @@
           <textarea name="use_case" rows="3" placeholder="Optional — product, agent, or personal use"></textarea>
         </label>
         <div class="cta-row">
-          <button class="cta primary" type="submit">Email waitlist request</button>
-          <a class="cta ghost" href="mailto:hello@aorila.com?subject=Aorila%20consumer%20API%20key">Or write us directly</a>
+          <button class="cta primary" type="submit">Join the waitlist</button>
+          <a class="cta ghost" href="mailto:hello@aorila.com?subject=Aorila%20consumer%20API%20key">Or email us</a>
         </div>
         <p class="form-status" role="status" aria-live="polite"></p>
       </form>
@@ -134,12 +140,12 @@
     <section id="powered" class="section">
       <h2>Powered products</h2>
       <p><a href="https://atraly.com">Atraly</a> is a separate consumer app — a Claude- and Cursor-like workspace. It is <strong>Powered by Aorila</strong>. Atraly buys model access through Aorila Labs and serves it as the <span class="sku">Atraly v2.0</span> partner SKU.</p>
-      <p>We do not host that product here. Use <a href="https://atraly.com">atraly.com</a> for the app; use this site for the consumer API.</p>
+      <p>The Atraly app is <strong>$20/mo</strong> on <a href="https://atraly.com">atraly.com</a> — that is the product price, not this API. Use Atraly for the app; use this site for the consumer API.</p>
     </section>
 
     <section class="section final">
       <h2>Start with Atraly v1</h2>
-      <p>Read the docs for free, or request a Builder key at $29/mo early access.</p>
+      <p>Read the docs for free, or request a consumer key. Pricing is cost plus fee — quoted when we issue access.</p>
       <div class="cta-row">
         <a class="cta primary" href="#waitlist">Request a key</a>
         <a class="cta ghost" href="/api">Consumer API docs</a>

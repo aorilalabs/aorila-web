@@ -41,12 +41,16 @@ describe('host-based pages', () => {
     assert.match(res.body, /Atraly v2\.0/);
     assert.match(res.body, /Powered by Aorila/);
     assert.match(res.body, /https:\/\/atraly\.com/);
-    assert.match(res.body, /\$29/);
-    assert.match(res.body, /Builder/);
+    assert.match(res.body, /compute cost \+ Aorila fee/);
+    assert.match(res.body, /\$20\/mo/);
     assert.match(res.body, /Early access — may change/);
     assert.match(res.body, /hello@aorila\.com/);
     assert.match(res.body, /form class="waitlist"/);
-    assert.match(res.body, /data-mailto="hello@aorila\.com"/);
+    assert.match(res.body, /action="\/leads"/);
+    assert.match(res.body, /Request an API key/);
+    assert.doesNotMatch(res.body, /\$29/);
+    assert.doesNotMatch(res.body, /\$199/);
+    assert.doesNotMatch(res.body, /\$0\.\d+ *\/ *tok/i);
     assert.doesNotMatch(res.body, /stripe/i);
     assert.doesNotMatch(res.body, /Higher-quality AI for businesses/);
   });
@@ -58,19 +62,19 @@ describe('host-based pages', () => {
     assert.match(res.body, /Aorila Labs/);
     assert.match(res.body, /Higher-quality AI for businesses/);
     assert.match(res.body, /Atraly v1\.5/);
-    assert.match(res.body, /\$199/);
-    assert.match(res.body, /Shared/);
+    assert.match(res.body, /Contact us/);
     assert.match(res.body, /1\.5×/);
     assert.match(res.body, /RunPod/);
     assert.match(res.body, /sales@aorilalabs\.com/);
     assert.match(res.body, /Early access — may change/);
     assert.match(res.body, /form class="waitlist"/);
-    assert.match(res.body, /data-mailto="sales@aorilalabs\.com"/);
-    assert.match(res.body, /Atraly-partner internal/);
+    assert.match(res.body, /action="\/leads"/);
+    assert.match(res.body, /id="contact"/);
+    assert.doesNotMatch(res.body, /\$99/);
+    assert.doesNotMatch(res.body, /\$199/);
+    assert.doesNotMatch(res.body, /\$29/);
     assert.doesNotMatch(res.body, /stripe/i);
     assert.doesNotMatch(res.body, /We build the AI/);
-    const publicPrice = res.body.replace(/<p class="partner-note">[\s\S]*?<\/p>/, '');
-    assert.doesNotMatch(publicPrice, /\$99 \/ month/);
   });
 
   it('preview via ?site=labs on localhost', async () => {
@@ -94,7 +98,7 @@ describe('host-based pages', () => {
       headers: { host: 'aorila.onrender.com', 'x-aorila-site': 'labs' },
     });
     assert.equal(res.headers['x-aorila-site'], 'labs');
-    assert.match(res.body, /Request access/);
+    assert.match(res.body, /Contact us/);
   });
 
   it('serves site-specific API docs with SKU ids', async () => {
@@ -102,28 +106,35 @@ describe('host-based pages', () => {
     assert.match(consumer.body, /atraly-v1/);
     assert.match(consumer.body, /Atraly v1/);
     assert.match(consumer.body, /api\.aorila\.com/);
-    assert.match(consumer.body, /\$29\/mo/);
+    assert.match(consumer.body, /compute cost \+ Aorila fee/);
     assert.match(consumer.body, /hello@aorila\.com/);
     assert.match(consumer.body, /form class="waitlist"/);
+    assert.match(consumer.body, /action="\/leads"/);
+    assert.doesNotMatch(consumer.body, /\$29/);
     assert.doesNotMatch(consumer.body, /stripe/i);
 
     const labs = await request(port, { path: '/docs', headers: { host: 'aorilalabs.com' } });
     assert.match(labs.body, /atraly-v1\.5/);
     assert.match(labs.body, /Atraly v1\.5/);
     assert.match(labs.body, /api\.aorilalabs\.com/);
-    assert.match(labs.body, /\$199\/mo/);
     assert.match(labs.body, /sales@aorilalabs\.com/);
     assert.match(labs.body, /form class="waitlist"/);
-    assert.match(labs.body, /Atraly-partner internal/);
-    assert.doesNotMatch(labs.body, /shared \(\$99/i);
+    assert.match(labs.body, /action="\/leads"/);
+    assert.match(labs.body, /Contact us/);
+    assert.doesNotMatch(labs.body, /\$99/);
+    assert.doesNotMatch(labs.body, /\$199/);
     assert.doesNotMatch(labs.body, /stripe/i);
   });
 
-  it('shares one stylesheet', async () => {
+  it('shares one Apple black-and-white stylesheet', async () => {
     const css = await request(port, { path: '/styles.css' });
     assert.equal(css.status, 200);
-    assert.match(css.body, /--font-display/);
-    assert.match(css.body, /data-site="labs"/);
+    assert.match(css.body, /--ink: #000000/);
+    assert.match(css.body, /--paper: #ffffff/);
+    assert.match(css.body, /Inter/);
+    assert.match(css.body, /--radius-pill/);
     assert.match(css.body, /\.waitlist/);
+    assert.doesNotMatch(css.body, /#1f6bff/);
+    assert.doesNotMatch(css.body, /Syne/);
   });
 });

@@ -15,6 +15,8 @@ The `*.onrender.com` hostname defaults to consumer. Preview Labs with `?site=lab
 
 Push to `main` → Render auto-deploys. No secrets needed for this site.
 
+Contact / waitlist posts go to `POST /leads` and append `data/leads.json` (override with `LEADS_PATH`). The Render filesystem is ephemeral unless you attach a disk to that path.
+
 ## One-time setup
 
 1. Render → **New → Web Service** → connect **nbaldwin098/aorila-web** (or apply `render.yaml`).
