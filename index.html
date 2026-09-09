@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aorila — We build the AI</title>
+  <meta name="description" content="Aorila owns and builds the model. Atraly sells access." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <header class="nav">
+    <a class="wordmark" href="/">Aorila</a>
+    <a class="nav-link" href="https://atraly.com">Product (Atraly)</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="brand">Aorila</p>
+      <h1>We build the AI.</h1>
+      <p class="lede">Weights, training, inference — owned by the lab. Not rented from someone else’s API.</p>
+      <div class="cta-row">
+        <a class="cta primary" href="https://atraly.com">Use it on Atraly</a>
+        <a class="cta ghost" href="#build">How we build</a>
+      </div>
+    </section>
+
+    <section id="build" class="section">
+      <h2>What we build</h2>
+      <p>Aorila Labs trains and hosts the company model — adapters, datasets, and the API that powers product surfaces. The stack runs on our infrastructure.</p>
+    </section>
+
+    <section class="section">
+      <h2>Who sells it</h2>
+      <p>Atraly.com is the sales channel: accounts, billing, and the customer workspace. Aorila remains the owner and builder of the intelligence underneath.</p>
+    </section>
+
+    <section class="section final">
+      <h2>Labs</h2>
+      <p>aorila.com · aorilalabs.com</p>
+      <a class="cta primary" href="mailto:hello@aorila.com">Contact the lab</a>
+    </section>
+  </main>
+
+  <footer>
+    <span>© Aorila</span>
+    <span>Sold through <a href="https://atraly.com">Atraly</a></span>
+  </footer>
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.section, .hero').forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>
