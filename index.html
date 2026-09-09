@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Aorila — We build the AI</title>
   <meta name="description" content="Aorila owns and builds the model. Atraly sells access." />
+  <meta property="og:title" content="Aorila — We build the AI" />
+  <meta property="og:description" content="Weights, training, inference — owned by the lab." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aorila.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
@@ -12,6 +16,7 @@
 </head>
 <body>
   <div class="atmosphere" aria-hidden="true"></div>
+  <div class="grid-fade" aria-hidden="true"></div>
   <header class="nav">
     <a class="wordmark" href="/">Aorila</a>
     <a class="nav-link" href="https://atraly.com">Product (Atraly)</a>
@@ -52,7 +57,7 @@
   <script>
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('in'); });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.12 });
     document.querySelectorAll('.section, .hero').forEach((el) => io.observe(el));
   </script>
 </body>
