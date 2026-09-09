@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aorila — We build the AI</title>
+  <meta name="description" content="Aorila builds the AI. The consumer API is Atraly v1. Products like Atraly are powered by Aorila." />
+  <meta property="og:title" content="Aorila — We build the AI" />
+  <meta property="og:description" content="Weights, training, inference — owned by the lab. Consumer API: Atraly v1." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aorila.com" />
+  <link rel="canonical" href="https://aorila.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body data-site="consumer">
+  <div class="atmosphere" aria-hidden="true"></div>
+  <div class="grid-fade" aria-hidden="true"></div>
+  <header class="nav">
+    <a class="wordmark" href="/">Aorila</a>
+    <nav class="nav-links">
+      <a class="nav-link" href="#ai">The AI</a>
+      <a class="nav-link" href="/api">API</a>
+      <a class="nav-link" href="#powered">Powered products</a>
+      <a class="nav-link" href="https://aorilalabs.com" data-local-site="labs">Labs</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="brand">Aorila</p>
+      <h1>We build the AI.</h1>
+      <p class="lede">Aorila owns the model — weights, training, and inference. The consumer product is the Aorila API. Atraly v1 is the name of that API.</p>
+      <div class="cta-row">
+        <a class="cta primary" href="/api">Try the consumer API</a>
+        <a class="cta ghost" href="#ai">What the AI is</a>
+      </div>
+    </section>
+
+    <section id="ai" class="section">
+      <h2>What the AI is</h2>
+      <p>Aorila is the lab that trains and hosts the company model. We do not rent someone else’s weights. The same underlying model is served under versioned SKUs so products and businesses can call a stable name.</p>
+      <p>On aorila.com you get the <span class="sku">Atraly v1</span> consumer API — the public face of that intelligence for builders and people who want to try it.</p>
+    </section>
+
+    <section id="skus" class="section">
+      <h2>Model SKUs</h2>
+      <p>One model family. Three names you will see in copy and in the API.</p>
+      <div class="table-wrap">
+        <table class="sku-table">
+          <thead>
+            <tr>
+              <th>SKU</th>
+              <th>API id</th>
+              <th>Where</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="sku">Atraly v1</td>
+              <td><code class="inline">atraly-v1</code></td>
+              <td class="muted">Consumer API — this site</td>
+            </tr>
+            <tr>
+              <td class="sku">Atraly v1.5</td>
+              <td><code class="inline">atraly-v1.5</code></td>
+              <td class="muted">Labs business API</td>
+            </tr>
+            <tr>
+              <td class="sku">Atraly v2.0</td>
+              <td><code class="inline">atraly-v2.0</code></td>
+              <td class="muted">Partner SKU — Atraly product</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Business access lives on <a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a>.</p>
+    </section>
+
+    <section id="powered" class="section">
+      <h2>Powered products</h2>
+      <p><a href="https://atraly.com">Atraly</a> is a separate consumer app — a Claude- and Cursor-like workspace. It is <strong>Powered by Aorila</strong>. Atraly buys model access through Aorila Labs and serves it as the <span class="sku">Atraly v2.0</span> partner SKU.</p>
+      <p>We do not host that product here. Use Atraly for the app; use this site for the consumer API.</p>
+    </section>
+
+    <section class="section final">
+      <h2>Start with Atraly v1</h2>
+      <p>Request a consumer key and call the Aorila API. Docs include curl, auth, and the SKU list.</p>
+      <div class="cta-row">
+        <a class="cta primary" href="/api">Consumer API docs</a>
+        <a class="cta ghost" href="mailto:hello@aorila.com">Get an API key</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© Aorila</span>
+    <span>Consumer API · <span class="sku">Atraly v1</span></span>
+    <span>Business: <a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
+  </footer>
+  <script src="/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aorila Labs API — Atraly v1.5</title>
+  <meta name="description" content="Aorila Labs business API. Model SKU Atraly v1.5 (atraly-v1.5). Auth, chat completions, and commercial SKUs." />
+  <meta property="og:title" content="Aorila Labs API — Atraly v1.5" />
+  <meta property="og:description" content="Business API docs for atraly-v1.5. Keys via sales@aorilalabs.com." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aorilalabs.com/api" />
+  <link rel="canonical" href="https://aorilalabs.com/api" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body data-site="labs">
+  <div class="atmosphere" aria-hidden="true"></div>
+  <div class="grid-fade" aria-hidden="true"></div>
+  <header class="nav">
+    <a class="wordmark" href="/">Aorila <span class="soft">Labs</span></a>
+    <nav class="nav-links">
+      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link" href="/api" aria-current="page">API</a>
+      <a class="nav-link" href="/#pricing">Pricing</a>
+      <a class="nav-link" href="https://aorila.com" data-local-site="consumer">Aorila</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero compact">
+      <p class="eyebrow">Business API</p>
+      <h1>Atraly v1.5</h1>
+      <p class="lede">Commercial completions for companies. Higher-quality access path, dedicated option, Labs-issued keys.</p>
+      <div class="cta-row">
+        <a class="cta primary" href="mailto:sales@aorilalabs.com?subject=Aorila%20Labs%20API%20key">Get a Labs key</a>
+        <a class="cta ghost" href="#call">Call the API</a>
+      </div>
+    </section>
+
+    <section id="skus" class="section wide">
+      <h2>Model SKUs</h2>
+      <p>Use <span class="sku">Atraly v1.5</span> on this host. Other names exist so invoices, partner contracts, and consumer docs stay aligned.</p>
+      <div class="table-wrap">
+        <table class="sku-table">
+          <thead>
+            <tr>
+              <th>SKU name</th>
+              <th>API id</th>
+              <th>Surface</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="sku">Atraly v1</td>
+              <td><code class="inline">atraly-v1</code></td>
+              <td>Consumer API — <a href="https://aorila.com/api" data-local-site="consumer">aorila.com/api</a></td>
+            </tr>
+            <tr>
+              <td class="sku">Atraly v1.5</td>
+              <td><code class="inline">atraly-v1.5</code></td>
+              <td>Labs business API (this key)</td>
+            </tr>
+            <tr>
+              <td class="sku">Atraly v2.0</td>
+              <td><code class="inline">atraly-v2.0</code></td>
+              <td>Partner SKU — Atraly product (buys via Labs)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="keys" class="section">
+      <h2>How to get API keys</h2>
+      <ol class="steps">
+        <li>Write <a href="mailto:sales@aorilalabs.com">sales@aorilalabs.com</a>. Say shared ($99/mo early) or dedicated L40S (1.5× RunPod list).</li>
+        <li>We issue a Labs bearer token. Consumer keys from aorila.com will not work here.</li>
+        <li>Send <code class="inline">Authorization: Bearer &lt;key&gt;</code> and <code class="inline">model: "atraly-v1.5"</code>.</li>
+      </ol>
+    </section>
+
+    <section id="call" class="section wide">
+      <h2>Chat completions</h2>
+      <p>Base URL: <code class="inline">https://api.aorilalabs.com/v1</code></p>
+      <pre class="code">curl https://api.aorilalabs.com/v1/chat/completions \
+  -H "Authorization: Bearer $AORILA_LABS_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "atraly-v1.5",
+    "messages": [
+      {"role": "user", "content": "Summarize this contract risk."}
+    ]
+  }'</pre>
+      <p>Same chat-completions shape as the consumer API. Stream with <code class="inline">"stream": true</code>.</p>
+    </section>
+
+    <section class="section final">
+      <h2>Capacity</h2>
+      <p>Shared early access is $99/month. Dedicated is an NVIDIA L40S at 1.5× the current RunPod L40S list. Ask sales which pool your key is on.</p>
+      <div class="cta-row">
+        <a class="cta primary" href="mailto:sales@aorilalabs.com">Contact Labs</a>
+        <a class="cta ghost" href="/#pricing">Pricing on the landing</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© Aorila Labs</span>
+    <span>SKU <span class="sku">Atraly v1.5</span> · <code class="inline">atraly-v1.5</code></span>
+  </footer>
+  <script src="/site.js"></script>
+</body>
+</html>

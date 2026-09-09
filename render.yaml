@@ -1,4 +1,5 @@
-# Connect this repo in Render → Blueprint, or create a Web Service / Static Site.
+# One web service. Attach aorila.com + aorilalabs.com (and www) as custom domains.
+# Host header selects consumer vs Labs pages — see server.js and RENDER.md.
 # No secrets required for the marketing site.
 services:
   - type: web
