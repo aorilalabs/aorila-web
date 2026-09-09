@@ -60,6 +60,16 @@ describe('host-based pages', () => {
     const res = await request(port, { path: '/?site=labs', headers: { host: 'localhost' } });
     assert.equal(res.headers['x-aorila-site'], 'labs');
     assert.match(res.body, /Atraly v1\.5/);
+    assert.match(String(res.headers['set-cookie'] || ''), /aorila_site=labs/);
+  });
+
+  it('keeps Labs preview on later paths via cookie', async () => {
+    const res = await request(port, {
+      path: '/api',
+      headers: { host: 'localhost', cookie: 'aorila_site=labs' },
+    });
+    assert.equal(res.headers['x-aorila-site'], 'labs');
+    assert.match(res.body, /atraly-v1\.5/);
   });
 
   it('preview via X-Aorila-Site header', async () => {

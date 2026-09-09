@@ -22,7 +22,8 @@ npm start
 
 - Consumer: http://localhost:3000
 - Labs preview: http://localhost:3000/?site=labs  
-  or `curl -H 'X-Aorila-Site: labs' http://localhost:3000/`
+  or `curl -H 'X-Aorila-Site: labs' http://localhost:3000/`  
+  On localhost / `*.onrender.com`, `?site=` also sets a cookie so `/api` stays on that face.
 
 ```bash
 npm test

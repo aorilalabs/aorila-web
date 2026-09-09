@@ -1,4 +1,5 @@
-# One web service. Attach aorila.com + aorilalabs.com (and www) as custom domains.
+# ONE web service, ONE deploy. aorilalabs.com is a second custom domain on this
+# same service — do not create a second Render service for Labs.
 # Host header selects consumer vs Labs pages — see server.js and RENDER.md.
 # No secrets required for the marketing site.
 services:

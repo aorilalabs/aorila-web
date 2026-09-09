@@ -2,7 +2,9 @@
 
 Repo: `https://github.com/nbaldwin098/aorila-web`
 
-One Node web service serves **both** public hosts. Routing is Host-based in `server.js` — not two Render services.
+**One Render web service. One deploy.** `aorilalabs.com` is another custom domain on the **same** service as `aorila.com` — not a second Blueprint service, not a second start command.
+
+Routing is Host-based in `server.js` only. Attach both apex + www names to that single service.
 
 | Custom domain | Face | Default page |
 | --- | --- | --- |

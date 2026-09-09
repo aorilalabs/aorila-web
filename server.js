@@ -1,7 +1,13 @@
 /** Dual-site Aorila — consumer (aorila.com) + Labs (aorilalabs.com) via Host */
 const path = require('path');
 const express = require('express');
-const { resolveSite } = require('./lib/resolve-site');
+const { resolveSite, isPreviewHost } = require('./lib/resolve-site');
+
+function cookieSite(req) {
+  const raw = req.get('cookie') || '';
+  const match = raw.match(/(?:^|;\s*)aorila_site=(labs|consumer)(?:;|$)/i);
+  return match ? match[1] : null;
+}
 
 const SITES_DIR = path.join(__dirname, 'sites');
 const PUBLIC_DIR = path.join(__dirname, 'public');
@@ -12,6 +18,7 @@ function siteFromRequest(req) {
     host: req.hostname || req.get('host'),
     querySite: req.query.site,
     headerSite: req.get('x-aorila-site'),
+    cookieSite: cookieSite(req),
   });
 }
 
@@ -29,6 +36,10 @@ function createApp() {
 
   app.use((req, res, next) => {
     res.locals.site = siteFromRequest(req);
+    const host = req.hostname || req.get('host');
+    if (isPreviewHost(host) && (req.query.site === 'labs' || req.query.site === 'consumer')) {
+      res.cookie('aorila_site', req.query.site, { path: '/', sameSite: 'lax' });
+    }
     next();
   });
 

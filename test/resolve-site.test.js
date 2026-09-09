@@ -38,4 +38,11 @@ describe('resolveSite', () => {
       'consumer'
     );
   });
+
+  it('honors preview cookie on localhost / onrender, not on custom domains', () => {
+    assert.equal(resolveSite({ host: 'localhost', cookieSite: 'labs' }), 'labs');
+    assert.equal(resolveSite({ host: 'aorila.onrender.com', cookieSite: 'labs' }), 'labs');
+    assert.equal(resolveSite({ host: 'aorila.com', cookieSite: 'labs' }), 'consumer');
+    assert.equal(resolveSite({ host: 'aorilalabs.com', cookieSite: 'consumer' }), 'labs');
+  });
 });
