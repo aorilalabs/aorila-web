@@ -21,6 +21,9 @@
         a.setAttribute('href', '/?site=' + site);
       }
     });
+    document.querySelectorAll('a[href^="https://api.aorila.com"]').forEach((a) => {
+      a.setAttribute('href', '/api');
+    });
   }
 
   if (sent === '1') {

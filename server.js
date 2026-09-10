@@ -1,7 +1,7 @@
 /** Dual-site Aorila — consumer (aorila.com) + Labs (aorilalabs.com) via Host */
 const path = require('path');
 const express = require('express');
-const { resolveSite, isPreviewHost } = require('./lib/resolve-site');
+const { resolveSite, isPreviewHost, isApiHost, CONSUMER_API_URL } = require('./lib/resolve-site');
 const { createLeadStore } = require('./lib/leads');
 
 function cookieSite(req) {
@@ -56,10 +56,21 @@ function createApp(options = {}) {
   app.use(express.static(PUBLIC_DIR, { extensions: ['html'], index: false }));
 
   app.get(['/', '/index.html'], (req, res) => {
+    const host = req.hostname || req.get('host');
+    if (isApiHost(host)) {
+      return sendPage(res, 'consumer', 'api.html');
+    }
     sendPage(res, res.locals.site, 'index.html');
   });
 
-  app.get(['/api', '/api.html'], (req, res) => {
+  app.get(['/api', '/api/', '/api.html'], (req, res) => {
+    const host = req.hostname || req.get('host');
+    if (isApiHost(host)) {
+      return res.redirect(301, '/');
+    }
+    if (res.locals.site === 'consumer' && !isPreviewHost(host)) {
+      return res.redirect(301, CONSUMER_API_URL);
+    }
     sendPage(res, res.locals.site, 'api.html');
   });
 
@@ -89,7 +100,7 @@ function createApp(options = {}) {
       if (wantsJson(req)) {
         return res.status(201).json({ ok: true, id: result.id || null, ignored: Boolean(result.ignored) });
       }
-      const dest = res.locals.site === 'labs' ? '/?sent=1#contact' : '/api';
+      const dest = res.locals.site === 'labs' ? '/?sent=1#contact' : CONSUMER_API_URL;
       return res.redirect(303, dest);
     } catch (err) {
       const status = err.status || 500;
@@ -129,7 +140,7 @@ function createApp(options = {}) {
 <header class="nav"><a class="wordmark" href="/">${res.locals.site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a></header>
 <main><section class="hero compact"><p class="eyebrow">404</p><h1>This page is not on this site.</h1>
 <p class="lede">Try home, API access, About, Privacy, or Terms.</p>
-<div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="/api">API access</a><a class="cta ghost" href="/about">About</a></div>
+<div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="${res.locals.site === 'labs' ? '/api' : CONSUMER_API_URL}">API access</a><a class="cta ghost" href="/about">About</a></div>
 </section></main>
 <footer>
 <nav class="footer-links" aria-label="Legal">
@@ -148,7 +159,7 @@ const PORT = Number(process.env.PORT || 3000);
 
 if (require.main === module) {
   createApp().listen(PORT, '0.0.0.0', () => {
-    console.log(`aorila-web :${PORT} (host → consumer | aorilalabs.com → labs)`);
+    console.log(`aorila-web :${PORT} (host → consumer | api.aorila.com → API | aorilalabs.com → labs)`);
   });
 }
 

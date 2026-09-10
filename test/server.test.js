@@ -71,11 +71,11 @@ describe('host-based pages', () => {
   it('sends every consumer request-key CTA to the same href as the nav API control', async () => {
     const home = await request(port, { headers: { host: 'aorila.com' } });
     const navApi = hrefs(home.body, 'API');
-    assert.deepEqual(navApi, ['/api']);
+    assert.deepEqual(navApi, ['https://api.aorila.com']);
     const requestKey = hrefs(home.body, 'Request an API key');
     assert.ok(requestKey.length >= 1);
     for (const href of requestKey) {
-      assert.equal(href, '/api');
+      assert.equal(href, 'https://api.aorila.com');
       assert.doesNotMatch(href, /^mailto:/i);
     }
     assert.doesNotMatch(home.body, /href="#waitlist"/);
@@ -83,12 +83,16 @@ describe('host-based pages', () => {
   });
 
   it('puts Ally beside API on the consumer nav', async () => {
-    const paths = ['/', '/api', '/docs', '/about', '/privacy', '/terms'];
+    const paths = ['/', '/docs', '/about', '/privacy', '/terms'];
     for (const path of paths) {
       const res = await request(port, { path, headers: { host: 'aorila.com' } });
       assert.deepEqual(hrefs(res.body, 'Ally'), ['https://ally.atraly.com']);
       assert.match(res.body, /API<\/a>\s*<a class="nav-link" href="https:\/\/ally\.atraly\.com">Ally<\/a>/);
+      assert.deepEqual(hrefs(res.body, 'API'), ['https://api.aorila.com']);
     }
+    const apiFace = await request(port, { path: '/', headers: { host: 'api.aorila.com' } });
+    assert.deepEqual(hrefs(apiFace.body, 'Ally'), ['https://ally.atraly.com']);
+    assert.match(apiFace.body, /API<\/a>\s*<a class="nav-link" href="https:\/\/ally\.atraly\.com">Ally<\/a>/);
     const labs = await request(port, { headers: { host: 'aorilalabs.com' } });
     assert.doesNotMatch(labs.body, />Ally</);
   });
@@ -160,19 +164,21 @@ describe('host-based pages', () => {
     assert.match(res.body, /Request access/);
   });
 
-  it('strips the consumer API page to Atraly + api@aorila.com', async () => {
-    const consumer = await request(port, { path: '/api', headers: { host: 'aorila.com' } });
+  it('serves the slim consumer API page at / on api.aorila.com', async () => {
+    const consumer = await request(port, { path: '/', headers: { host: 'api.aorila.com' } });
     assert.equal(consumer.status, 200);
+    assert.equal(consumer.headers['x-aorila-site'], 'consumer');
+    assert.match(consumer.body, /<title>Aorila API<\/title>/);
     assert.match(consumer.body, /Find Aorila on/);
     assert.match(consumer.body, /https:\/\/atraly\.com/);
     assert.match(consumer.body, />Atraly</);
     assert.match(consumer.body, /<hr class="hairline"/);
     assert.match(consumer.body, /Contact <a href="mailto:api@aorila\.com">api@aorila\.com<\/a> for Commercial API inquiries/);
+    assert.match(consumer.body, /canonical" href="https:\/\/api\.aorila\.com\/"/);
     assert.doesNotMatch(consumer.body, /form class="waitlist"/);
     assert.doesNotMatch(consumer.body, /action="\/leads"/);
     assert.doesNotMatch(consumer.body, /hello@aorila\.com/);
     assert.doesNotMatch(consumer.body, /chat\/completions/);
-    assert.doesNotMatch(consumer.body, /api\.aorila\.com/);
     assert.doesNotMatch(consumer.body, /compute cost \+ Aorila fee/);
     assert.doesNotMatch(consumer.body, /Request an API key/);
     assert.doesNotMatch(consumer.body, /\$29/);
@@ -182,6 +188,39 @@ describe('host-based pages', () => {
     assert.doesNotMatch(consumer.body, /Where to start/);
     assert.doesNotMatch(consumer.body, /This page is the inquire path/);
     assert.match(consumer.body, /class="api-lock"/);
+  });
+
+  it('redirects consumer /api to https://api.aorila.com/ and keeps Labs /api', async () => {
+    const consumer = await request(port, { path: '/api', headers: { host: 'aorila.com' } });
+    assert.equal(consumer.status, 301);
+    assert.equal(consumer.headers.location, 'https://api.aorila.com/');
+
+    const www = await request(port, { path: '/api.html', headers: { host: 'www.aorila.com' } });
+    assert.equal(www.status, 301);
+    assert.equal(www.headers.location, 'https://api.aorila.com/');
+
+    const apiHost = await request(port, { path: '/api', headers: { host: 'api.aorila.com' } });
+    assert.equal(apiHost.status, 301);
+    assert.equal(apiHost.headers.location, '/');
+
+    const labs = await request(port, { path: '/api', headers: { host: 'aorilalabs.com' } });
+    assert.equal(labs.status, 200);
+    assert.match(labs.body, /Request API access/);
+    assert.doesNotMatch(String(labs.headers.location || ''), /api\.aorila\.com/);
+
+    const preview = await request(port, { path: '/api', headers: { host: 'localhost' } });
+    assert.equal(preview.status, 200);
+    assert.match(preview.body, /class="api-lock"/);
+    assert.match(preview.body, /Find Aorila on/);
+  });
+
+  it('keeps /healthz on the API host', async () => {
+    const res = await request(port, { path: '/healthz', headers: { host: 'api.aorila.com' } });
+    assert.equal(res.status, 200);
+    assert.match(res.headers['content-type'] || '', /json/);
+    const body = JSON.parse(res.body);
+    assert.equal(body.ok, true);
+    assert.equal(body.site, 'consumer');
   });
 
   it('serves the Labs API page as the request-access form', async () => {
@@ -314,6 +353,7 @@ describe('host-based pages', () => {
     assert.equal(res.status, 404);
     assert.match(res.body, /Try home, API access, About, Privacy, or Terms/);
     assert.match(res.body, />API access</);
+    assert.match(res.body, /href="https:\/\/api\.aorila\.com\/"/);
     assert.doesNotMatch(res.body, /API docs/);
     assert.match(res.body, /href="\/about"/);
     assert.match(res.body, /href="\/privacy"/);
