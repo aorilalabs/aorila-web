@@ -53,7 +53,7 @@ a { color: inherit; }
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  gap: 4px;
+  gap: 22px;
 }
 .wordmark {
   font-family: var(--font);
@@ -68,19 +68,17 @@ a { color: inherit; }
 .nav-link {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 8px 16px;
+  padding: 0;
   font-size: 14px;
   font-weight: 500;
-  color: var(--ink);
+  color: var(--muted);
   text-decoration: none;
-  border-radius: var(--radius-pill);
   border: none;
-  background: transparent;
-  transition: background 0.2s ease;
+  background: none;
+  transition: color 0.2s ease;
 }
 .nav-link:hover,
-.nav-link[aria-current="page"] { background: #e8e8ed; }
+.nav-link[aria-current="page"] { color: var(--ink); background: none; }
 
 .hero {
   min-height: calc(100vh - 64px);
@@ -431,7 +429,7 @@ footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 720px) {
   :root { --pad: 18px; }
   .nav { height: 56px; min-height: 56px; padding: 0 14px; }
-  .nav-link { padding: 7px 10px; font-size: 12px; }
+  .nav-link { padding: 0; font-size: 13px; }
   .hero, .section { padding-left: var(--pad); padding-right: var(--pad); }
   .price-grid { grid-template-columns: 1fr; }
   .brand { font-size: 2.6rem; }
