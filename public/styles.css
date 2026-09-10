@@ -24,6 +24,27 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+body.landing {
+  height: 100dvh;
+  max-height: 100dvh;
+  min-height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+body.landing main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+body.landing .hero {
+  flex: 1;
+  min-height: 0;
+  justify-content: center;
+  padding: 40px var(--pad) 56px;
+  max-width: none;
+  margin: 0;
+}
 a { color: inherit; }
 :focus-visible {
   outline: 2px solid var(--ink);
@@ -431,8 +452,16 @@ footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
   .nav { height: 56px; min-height: 56px; padding: 0 14px; }
   .nav-link { padding: 0; font-size: 13px; }
   .hero, .section { padding-left: var(--pad); padding-right: var(--pad); }
+  body.landing .hero { padding: 28px var(--pad) 36px; }
   .price-grid { grid-template-columns: 1fr; }
   .brand { font-size: 2.6rem; }
+}
+
+@media (max-height: 640px) {
+  body.landing .hero { padding-top: 20px; padding-bottom: 24px; }
+  body.landing .hero-badge { margin-bottom: 18px; }
+  body.landing .hero h1 { font-size: clamp(1.75rem, 6vh, 2.6rem); margin-bottom: 12px; }
+  body.landing .lede { margin-bottom: 20px; font-size: 15px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

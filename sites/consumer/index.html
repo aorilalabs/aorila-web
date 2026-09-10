@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
-<body data-site="consumer">
+<body class="landing" data-site="consumer">
   <header class="nav">
     <a class="wordmark" href="/">Aorila</a>
     <nav class="nav-links">
@@ -29,39 +29,9 @@
       <p class="hero-badge">Atraly v1 · Early access</p>
       <h1>We build the AI.</h1>
       <p class="lede">The consumer API. Invoice is compute cost + Aorila fee — quoted when we issue a key. No checkout on this page.</p>
-      <a class="cta primary" href="#waitlist">Request an API key</a>
-    </section>
-
-    <section id="waitlist" class="section">
-      <h2>Request an API key</h2>
-      <p class="formula">invoice = compute cost + Aorila fee</p>
-      <p class="price-note">Early access — may change.</p>
-      <p>A worked $/1M-token example lands when BENCH exists. Optional seat if you want a cap. <a href="mailto:hello@aorila.com">hello@aorila.com</a> is the backup.</p>
-      <form class="waitlist" action="/leads" method="post" data-kind="waitlist">
-        <input type="hidden" name="site" value="consumer" />
-        <input type="hidden" name="kind" value="waitlist" />
-        <label class="hp" aria-hidden="true">Website
-          <input type="text" name="website" tabindex="-1" autocomplete="off" />
-        </label>
-        <label>
-          Email
-          <input type="email" name="email" autocomplete="email" required placeholder="you@company.com" />
-        </label>
-        <label>
-          Name
-          <input type="text" name="name" autocomplete="name" placeholder="Optional" />
-        </label>
-        <button class="cta primary" type="submit">Get an API key</button>
-        <p class="form-status" role="status" aria-live="polite"></p>
-      </form>
-      <p class="partner-note"><span class="sku">Atraly v1</span> here. <span class="sku">Atraly v1.5</span> is Labs. <a href="https://atraly.com">Atraly</a> is a separate app — <strong>Powered by Aorila</strong>, <span class="sku">Atraly v2.0</span>, <strong>$20/mo</strong> on atraly.com.</p>
+      <a class="cta primary" href="mailto:hello@aorila.com?subject=API%20key%20request">Request an API key</a>
     </section>
   </main>
-
-  <footer>
-    <span>Aorila · <span class="sku">Atraly v1</span></span>
-    <span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
-  </footer>
   <script src="/site.js"></script>
 </body>
 </html>
