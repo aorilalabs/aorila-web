@@ -40,17 +40,19 @@ describe('host-based pages', () => {
     const res = await request(port, { headers: { host: 'aorila.com' } });
     assert.equal(res.status, 200);
     assert.equal(res.headers['x-aorila-site'], 'consumer');
-    assert.match(res.body, /Aorila builds and operates AI/);
+    assert.match(res.body, /<title>Aorila<\/title>/);
+    assert.match(res.body, /class="landing"/);
+    assert.match(res.body, /Aorila builds AI/);
     assert.match(res.body, /Request an API key/);
-    assert.match(res.body, /Atraly workspace/);
-    assert.match(res.body, /voice presence/);
-    assert.match(res.body, /Aorila Labs/);
-    assert.match(res.body, /class="lede"/);
+    assert.match(res.body, /href="https:\/\/aorilalabs\.com"[^>]*>Labs</);
     assert.match(res.body, /<footer/);
     assert.match(res.body, /href="\/about"/);
     assert.match(res.body, /href="\/privacy"/);
     assert.match(res.body, /href="\/terms"/);
-    assert.match(res.body, /https:\/\/atraly\.com\/status/);
+    assert.doesNotMatch(res.body, /Aorila — API access/);
+    assert.doesNotMatch(res.body, /What you are requesting/);
+    assert.doesNotMatch(res.body, /Workspace, presence/);
+    assert.doesNotMatch(res.body, /How access works/);
     assert.doesNotMatch(res.body, /Atraly V1 • Early Access/);
     assert.doesNotMatch(res.body, /The Future Of AI Innovation/);
     assert.doesNotMatch(res.body, /We build the AI/);
@@ -122,9 +124,11 @@ describe('host-based pages', () => {
     assert.doesNotMatch(res.body, /\$29/);
     assert.doesNotMatch(res.body, /stripe/i);
     assert.doesNotMatch(res.body, /We build the AI/);
-    assert.match(res.body, /API access for builders and companies/);
-    assert.match(res.body, /Who it's for/);
-    assert.match(res.body, /After you request/);
+    assert.doesNotMatch(res.body, /API access for builders and companies/);
+    assert.doesNotMatch(res.body, /Who it's for/);
+    assert.doesNotMatch(res.body, /After you request/);
+    assert.doesNotMatch(res.body, /Powered by/i);
+    assert.doesNotMatch(res.body, /partnership/i);
     assert.match(res.body, /href="\/about"/);
     assert.match(res.body, /href="\/privacy"/);
     assert.match(res.body, /href="\/terms"/);
@@ -173,10 +177,11 @@ describe('host-based pages', () => {
     assert.doesNotMatch(consumer.body, /Request an API key/);
     assert.doesNotMatch(consumer.body, /\$29/);
     assert.doesNotMatch(consumer.body, /stripe/i);
-    assert.match(consumer.body, /Request API access/);
-    assert.match(consumer.body, /href="\/about"/);
-    assert.match(consumer.body, /href="\/privacy"/);
-    assert.match(consumer.body, /href="\/terms"/);
+    assert.doesNotMatch(consumer.body, /What you are requesting/);
+    assert.doesNotMatch(consumer.body, /Request API access/);
+    assert.doesNotMatch(consumer.body, /Where to start/);
+    assert.doesNotMatch(consumer.body, /This page is the inquire path/);
+    assert.match(consumer.body, /class="api-lock"/);
   });
 
   it('serves the Labs API page as the request-access form', async () => {
@@ -274,10 +279,9 @@ describe('host-based pages', () => {
 
     const consumerAbout = await request(port, { path: '/about', headers: { host: 'aorila.com' } });
     assert.equal(consumerAbout.headers['x-aorila-site'], 'consumer');
-    assert.match(consumerAbout.body, /Aorila is the AI company/);
-    assert.match(consumerAbout.body, /Atraly is a separate product brand/);
+    assert.match(consumerAbout.body, /Aorila builds AI/);
     assert.match(consumerAbout.body, /https:\/\/ally\.atraly\.com/);
-    assert.match(consumerAbout.body, /common ownership/);
+    assert.doesNotMatch(consumerAbout.body, /How the surfaces relate/);
     assert.deepEqual(hrefs(consumerAbout.body, 'Ally'), ['https://ally.atraly.com']);
 
     const consumerPrivacy = await request(port, { path: '/privacy', headers: { host: 'aorila.com' } });
@@ -296,8 +300,8 @@ describe('host-based pages', () => {
     assert.doesNotMatch(labsAbout.body, />Ally</);
 
     const labsPrivacy = await request(port, { path: '/privacy', headers: { host: 'aorilalabs.com' } });
-    assert.match(labsPrivacy.body, /Work email/);
-    assert.match(labsPrivacy.body, /Volume estimate/);
+    assert.match(labsPrivacy.body, /work email/i);
+    assert.match(labsPrivacy.body, /volume estimate/i);
     assert.doesNotMatch(labsPrivacy.body, /Atraly/);
 
     const labsTerms = await request(port, { path: '/terms', headers: { host: 'aorilalabs.com' } });

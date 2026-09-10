@@ -4,7 +4,7 @@ One Express app. The **Host** header chooses the face:
 
 | Host | Site | Face |
 | --- | --- | --- |
-| `aorila.com` / `www.aorila.com` | Consumer | **API access** |
+| `aorila.com` / `www.aorila.com` | Consumer | **Aorila builds AI** |
 | `aorilalabs.com` / `www.aorilalabs.com` | Aorila Labs | **Request API access** |
 
 Atraly is a separate consumer app and is **not** built in this repo.
@@ -42,9 +42,9 @@ npm test
 
 ## Pages
 
-- `/` — consumer: Aorila positioning + API-access CTAs · Labs: landing (who / what / after) + request form
-- `/api` — consumer: API access overview (not a console) · Labs: request form
-- `/docs` — both hosts: honest outline (docs ship with a key; no public reference)
-- `/about` `/privacy` `/terms` — both hosts
+- `/` — consumer: one-line landing + key / Labs CTAs · Labs: request form
+- `/api` — consumer: Atraly link + `api@aorila.com` · Labs: request form
+- `/docs` — both hosts: docs ship with a key (no public reference)
+- `/about` `/privacy` `/terms` — both hosts, short
 
 Leads (`POST /leads`) store to `data/leads.json` or `LEADS_PATH`. Labs fields: company, name, email, use case, volume, optional website. Honeypot field is `fax` (hidden). No extra env is required for the form to accept posts.

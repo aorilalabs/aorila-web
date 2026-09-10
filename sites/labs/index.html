@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Aorila Labs — Request API access</title>
-  <meta name="description" content="Aorila Labs is commercial API access for builders and companies. Request access; we follow up by email at api@aorila.com." />
+  <meta name="description" content="Request API access for Aorila Labs. Company, contact, use case, and volume. Follow up at api@aorila.com." />
   <meta property="og:title" content="Aorila Labs — Request API access" />
-  <meta property="og:description" content="What Labs is, who it’s for, and how to request API access." />
+  <meta property="og:description" content="Request API access for your company." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorilalabs.com" />
   <link rel="canonical" href="https://aorilalabs.com" />
@@ -20,7 +20,7 @@
   <header class="nav">
     <a class="wordmark" href="/">Aorila <span class="soft">Labs</span></a>
     <nav class="nav-links">
-      <a class="nav-link" href="/#contact" aria-current="page">Request API access</a>
+      <a class="nav-link" href="/" aria-current="page">Request API access</a>
       <a class="nav-link" href="https://aorila.com" data-local-site="consumer">Aorila</a>
     </nav>
   </header>
@@ -28,38 +28,11 @@
   <main>
     <section class="hero compact">
       <p class="hero-badge">Aorila Labs</p>
-      <h1>API access for builders and companies.</h1>
-      <p class="lede">Aorila builds and operates AI models and systems. Labs is the commercial request path — not a self-serve console and not a public reference. Tell us what you need. We follow up by email.</p>
-      <div class="cta-row">
-        <a class="cta primary" href="#contact">Request access</a>
-        <a class="cta ghost" href="mailto:api@aorila.com">api@aorila.com</a>
-      </div>
-    </section>
-
-    <section id="for" class="section wide">
-      <h2>Before you send the form</h2>
-      <div class="cards">
-        <article class="card">
-          <p class="badge">Who it's for</p>
-          <h3>Builders and companies</h3>
-          <p>Teams that want to call the API from a product, an agent, or an internal tool. Not a consumer workspace.</p>
-        </article>
-        <article class="card">
-          <p class="badge">What you get</p>
-          <h3>Access after review</h3>
-          <p>A key, when we issue one, and the reference that goes with it. No public endpoint list on this host.</p>
-        </article>
-        <article class="card">
-          <p class="badge">After you request</p>
-          <h3>We email you</h3>
-          <p>We read company, use case, and volume, then reply at the work email you give. There is no checkout here.</p>
-        </article>
-      </div>
+      <h1>Request API access</h1>
+      <p class="lede">Tell us about your company and how you plan to use the API. We follow up by email.</p>
     </section>
 
     <section id="contact" class="section labs-request">
-      <h2>Request API access</h2>
-      <p>Required fields so we can tell if the request fits. Or skip the form and email <a href="mailto:api@aorila.com">api@aorila.com</a>.</p>
       <form class="waitlist" action="/leads" method="post" data-kind="contact">
         <input type="hidden" name="site" value="labs" />
         <input type="hidden" name="kind" value="contact" />
@@ -87,12 +60,13 @@
           <input type="text" name="volume" autocomplete="off" required placeholder="e.g. 10M tokens / month or 50 seats" />
         </label>
         <label>
-          <span class="label-line">Website <span class="optional">optional</span></span>
+          Website <span class="optional">optional</span>
           <input type="text" name="website" autocomplete="url" placeholder="https://" />
         </label>
         <button class="cta primary" type="submit">Request access</button>
         <p class="form-status" role="status" aria-live="polite"></p>
       </form>
+      <p class="form-alt">Or email <a href="mailto:api@aorila.com">api@aorila.com</a>.</p>
     </section>
   </main>
 
