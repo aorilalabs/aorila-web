@@ -143,8 +143,14 @@ a { color: inherit; }
   margin-bottom: 16px;
 }
 body.landing .hero h1 {
-  max-width: 14ch;
+  max-width: 18ch;
   margin-bottom: 32px;
+}
+body.landing footer {
+  width: 100%;
+  max-width: none;
+  padding-top: 16px;
+  padding-bottom: 20px;
 }
 .lede {
   font-size: 17px;
