@@ -12,7 +12,7 @@ function cookieSite(req) {
 
 const SITES_DIR = path.join(__dirname, 'sites');
 const PUBLIC_DIR = path.join(__dirname, 'public');
-const PAGES = new Set(['index.html', 'api.html', 'about.html', 'privacy.html', 'terms.html']);
+const PAGES = new Set(['index.html', 'api.html', 'docs.html', 'about.html', 'privacy.html', 'terms.html']);
 
 function siteFromRequest(req) {
   return resolveSite({
@@ -59,8 +59,12 @@ function createApp(options = {}) {
     sendPage(res, res.locals.site, 'index.html');
   });
 
-  app.get(['/api', '/api.html', '/docs', '/docs.html'], (req, res) => {
+  app.get(['/api', '/api.html'], (req, res) => {
     sendPage(res, res.locals.site, 'api.html');
+  });
+
+  app.get(['/docs', '/docs.html'], (req, res) => {
+    sendPage(res, res.locals.site, 'docs.html');
   });
 
   app.get(['/about', '/about.html'], (req, res) => {
@@ -94,7 +98,7 @@ function createApp(options = {}) {
       }
       return res.status(status).type('html').send(`<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Could not send — Aorila</title><link rel="stylesheet" href="/styles.css" /></head>
+<title>Could not send — Aorila</title><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css" /></head>
 <body data-site="${res.locals.site}">
 <header class="nav"><a class="wordmark" href="/">${res.locals.site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a></header>
 <main><section class="hero compact"><p class="eyebrow">Form</p><h1>Could not send that.</h1>
@@ -120,12 +124,12 @@ function createApp(options = {}) {
     res.status(404).set('X-Aorila-Site', res.locals.site);
     res.type('html').send(`<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Not found — Aorila</title><link rel="stylesheet" href="/styles.css" /></head>
+<title>Not found — Aorila</title><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css" /></head>
 <body data-site="${res.locals.site}">
 <header class="nav"><a class="wordmark" href="/">${res.locals.site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a></header>
 <main><section class="hero compact"><p class="eyebrow">404</p><h1>This page is not on this site.</h1>
-<p class="lede">Try home, API access, or About.</p>
-<div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="/api">API</a><a class="cta ghost" href="/about">About</a></div>
+<p class="lede">Try home, API access, About, Privacy, or Terms.</p>
+<div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="/api">API access</a><a class="cta ghost" href="/about">About</a></div>
 </section></main>
 <footer>
 <nav class="footer-links" aria-label="Legal">

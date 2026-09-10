@@ -42,8 +42,9 @@ npm test
 
 ## Pages
 
-- `/` — consumer: Aorila API-access story · Labs: request-API-access form
-- `/api` (also `/docs`) — consumer: request path + Atraly pointer + `api@aorila.com` · Labs: same request-access form
+- `/` — consumer: Aorila positioning + API-access CTAs · Labs: landing (who / what / after) + request form
+- `/api` — consumer: API access overview (not a console) · Labs: request form
+- `/docs` — both hosts: honest outline (docs ship with a key; no public reference)
 - `/about` `/privacy` `/terms` — both hosts
 
 Leads (`POST /leads`) store to `data/leads.json` or `LEADS_PATH`. Labs fields: company, name, email, use case, volume, optional website. Honeypot field is `fax` (hidden). No extra env is required for the form to accept posts.

@@ -470,9 +470,11 @@ hr.hairline {
   color: var(--muted);
   letter-spacing: 0;
 }
-body[data-site="labs"] .labs-request {
-  border-top: none;
-  padding-top: 0;
+.waitlist .label-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: baseline;
 }
 body[data-site="labs"] .form-alt {
   margin-top: 8px;
