@@ -4,7 +4,7 @@ One Express app. The **Host** header chooses the face:
 
 | Host | Site | Face |
 | --- | --- | --- |
-| `aorila.com` / `www.aorila.com` | Consumer | **Aorila builds AI** |
+| `aorila.com` / `www.aorila.com` | Consumer | **The Future of AI Innovation** |
 | `api.aorila.com` | Consumer API face | Slim **Aorila API** at `/` (same copy as today’s `/api`) |
 | `aorilalabs.com` / `www.aorilalabs.com` | Aorila Labs | **Request API access** |
 

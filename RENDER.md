@@ -8,7 +8,7 @@ Routing is Host-based in `server.js` only. Attach consumer, Labs, and API names 
 
 | Custom domain | Face | Default page |
 | --- | --- | --- |
-| `aorila.com` and `www.aorila.com` | Consumer | Aorila / **Aorila builds AI** |
+| `aorila.com` and `www.aorila.com` | Consumer | Aorila / **The Future of AI Innovation** |
 | `api.aorila.com` | Consumer API face | Slim **Aorila API** (`sites/consumer/api.html`) at `GET /` |
 | `aorilalabs.com` and `www.aorilalabs.com` | Labs | Aorila Labs / **Request API access** |
 
