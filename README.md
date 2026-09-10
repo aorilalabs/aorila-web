@@ -2,19 +2,19 @@
 
 One Express app. The **Host** header chooses the face:
 
-| Host | Site | SKU |
+| Host | Site | Face |
 | --- | --- | --- |
 | `aorila.com` / `www.aorila.com` | Consumer | **Atraly v1** |
-| `aorilalabs.com` / `www.aorilalabs.com` | Aorila Labs (B2B) | **Atraly v1.5** |
+| `aorilalabs.com` / `www.aorilalabs.com` | Aorila Labs | **Request API access** |
 
-Aorila builds the AI. Atraly is a separate consumer app (Powered by Aorila) and is **not** built in this repo. Partner SKU **Atraly v2.0** is named in consumer copy only.
+Atraly is a separate consumer app and is **not** built in this repo.
 
 Early-access sell path (prices may change; no Stripe on this site):
 
 | Face | Public offer | Access |
 | --- | --- | --- |
 | Consumer | **compute cost + Aorila fee** | `/api` — Atraly link + `api@aorila.com` (one path; same as the nav API control) |
-| Labs | **Quoted** · Dedicated 1.5× RunPod | B2B contact form → `POST /leads` · `api@aorila.com` secondary |
+| Labs | Request API access | B2B contact form → `POST /leads` · `api@aorila.com` secondary |
 
 No self-serve $29 / $199 checkout. The Atraly **app** is $20/mo on [atraly.com](https://atraly.com) — not this API. $99 is not a public Labs plan.
 
@@ -42,7 +42,7 @@ npm test
 
 ## Pages
 
-- `/` — site landing (consumer story · Labs business API request)
-- `/api` (also `/docs`) — consumer: Atraly + `api@aorila.com` only · Labs: same B2B request form
+- `/` — site landing (consumer story · Labs request-API-access form)
+- `/api` (also `/docs`) — consumer: Atraly + `api@aorila.com` only · Labs: same request-access form
 
 Leads (`POST /leads`) store to `data/leads.json` or `LEADS_PATH`. Labs fields: company, name, email, use case, volume, optional website. Honeypot field is `fax` (hidden). No extra env is required for the form to accept posts.

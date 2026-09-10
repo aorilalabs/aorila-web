@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aorila Labs — Business API access</title>
-  <meta name="description" content="Aorila Labs is higher-quality AI for businesses. Powered by Aorila — Aorila builds the AI. Request API access for your company." />
-  <meta property="og:title" content="Aorila Labs — Higher-quality AI for businesses" />
-  <meta property="og:description" content="Business API access. Powered by Aorila. Aorila builds the AI. Contact-first — no self-serve checkout." />
+  <title>Aorila Labs — Request API access</title>
+  <meta name="description" content="Request API access for Aorila Labs. Company, contact, use case, and volume. Follow up at api@aorila.com." />
+  <meta property="og:title" content="Aorila Labs — Request API access" />
+  <meta property="og:description" content="Request API access for your company." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorilalabs.com" />
   <link rel="canonical" href="https://aorilalabs.com" />
@@ -19,22 +19,19 @@
   <header class="nav">
     <a class="wordmark" href="/">Aorila <span class="soft">Labs</span></a>
     <nav class="nav-links">
-      <a class="nav-link" href="/api">API</a>
+      <a class="nav-link" href="/" aria-current="page">Request API access</a>
       <a class="nav-link" href="https://aorila.com" data-local-site="consumer">Aorila</a>
     </nav>
   </header>
 
   <main>
     <section class="hero compact">
-      <p class="hero-badge">Aorila Labs · Business API</p>
-      <h1>Higher-quality AI for businesses.</h1>
-      <p class="lede"><strong>Powered by Aorila.</strong> Aorila builds the AI. Aorila Labs is the commercial API for companies that need a dedicated, higher-quality path — quoted access, not a self-serve checkout.</p>
+      <p class="hero-badge">Aorila Labs</p>
+      <h1>Request API access</h1>
+      <p class="lede">Tell us about your company and how you plan to use the API. We follow up by email.</p>
     </section>
 
-    <section id="contact" class="section">
-      <h2>Request API access</h2>
-      <p>Tell us who you are and what the workload looks like. We follow up by email with access and a quote. Dedicated capacity is priced at 1.5× current RunPod list. Early access — may change.</p>
-      <p class="formula">dedicated = 1.5 × current RunPod list</p>
+    <section id="contact" class="section labs-request">
       <form class="waitlist" action="/leads" method="post" data-kind="contact">
         <input type="hidden" name="site" value="labs" />
         <input type="hidden" name="kind" value="contact" />
@@ -42,7 +39,7 @@
           <input type="text" name="fax" tabindex="-1" autocomplete="off" />
         </label>
         <label>
-          Company name
+          Company
           <input type="text" name="company" autocomplete="organization" required placeholder="Acme Inc." />
         </label>
         <label>
@@ -55,7 +52,7 @@
         </label>
         <label>
           Use case
-          <textarea name="use_case" rows="4" required placeholder="What should the Labs API do for your team?"></textarea>
+          <textarea name="use_case" rows="4" required placeholder="What will you use the API for?"></textarea>
         </label>
         <label>
           Volume estimate
@@ -68,12 +65,12 @@
         <button class="cta primary" type="submit">Request access</button>
         <p class="form-status" role="status" aria-live="polite"></p>
       </form>
-      <p class="partner-note">SKU <span class="sku">Atraly v1.5</span> on Aorila Labs. Or email <a href="mailto:api@aorila.com">api@aorila.com</a>.</p>
+      <p class="form-alt">Or email <a href="mailto:api@aorila.com">api@aorila.com</a>.</p>
     </section>
   </main>
 
   <footer>
-    <span>Aorila Labs · <span class="sku">Atraly v1.5</span></span>
+    <span>Aorila Labs</span>
     <span><a href="https://aorila.com" data-local-site="consumer">aorila.com</a></span>
   </footer>
   <script src="/site.js"></script>
