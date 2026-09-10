@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aorila Labs — Business API</title>
-  <meta name="description" content="Aorila Labs. Business API. Atraly v1.5. Contact us for a quote. Dedicated at 1.5× RunPod." />
+  <title>Aorila Labs — Business API access</title>
+  <meta name="description" content="Aorila Labs is higher-quality AI for businesses. Powered by Aorila — Aorila builds the AI. Request API access for your company." />
   <meta property="og:title" content="Aorila Labs — Higher-quality AI for businesses" />
-  <meta property="og:description" content="Atraly v1.5. Contact-first. Dedicated GPU at 1.5× RunPod. Early access — may change." />
+  <meta property="og:description" content="Business API access. Powered by Aorila. Aorila builds the AI. Contact-first — no self-serve checkout." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorilalabs.com" />
   <link rel="canonical" href="https://aorilalabs.com" />
@@ -26,40 +26,49 @@
 
   <main>
     <section class="hero compact">
-      <p class="hero-badge">Atraly v1.5 · Early access</p>
+      <p class="hero-badge">Aorila Labs · Business API</p>
       <h1>Higher-quality AI for businesses.</h1>
-      <p class="lede">Aorila Labs is the commercial face. Business API named <span class="sku">Atraly v1.5</span>. Contact us — no self-serve checkout.</p>
+      <p class="lede"><strong>Powered by Aorila.</strong> Aorila builds the AI. Aorila Labs is the commercial API for companies that need a dedicated, higher-quality path — quoted access, not a self-serve checkout.</p>
     </section>
 
     <section id="contact" class="section">
+      <h2>Request API access</h2>
+      <p>Tell us who you are and what the workload looks like. We follow up by email with access and a quote. Dedicated capacity is priced at 1.5× current RunPod list. Early access — may change.</p>
       <p class="formula">dedicated = 1.5 × current RunPod list</p>
-      <p class="price-note">Early access — may change.</p>
       <form class="waitlist" action="/leads" method="post" data-kind="contact">
         <input type="hidden" name="site" value="labs" />
         <input type="hidden" name="kind" value="contact" />
-        <label class="hp" aria-hidden="true">Website
-          <input type="text" name="website" tabindex="-1" autocomplete="off" />
+        <label class="hp" aria-hidden="true">Fax
+          <input type="text" name="fax" tabindex="-1" autocomplete="off" />
         </label>
         <label>
-          Name
-          <input type="text" name="name" autocomplete="name" required />
+          Company name
+          <input type="text" name="company" autocomplete="organization" required placeholder="Acme Inc." />
+        </label>
+        <label>
+          Contact name
+          <input type="text" name="name" autocomplete="name" required placeholder="Jordan Lee" />
         </label>
         <label>
           Work email
           <input type="email" name="email" autocomplete="email" required placeholder="you@company.com" />
         </label>
         <label>
-          Company
-          <input type="text" name="company" autocomplete="organization" required />
+          Use case
+          <textarea name="use_case" rows="4" required placeholder="What should the Labs API do for your team?"></textarea>
         </label>
         <label>
-          Use-case
-          <textarea name="use_case" rows="3" required placeholder="What should Atraly v1.5 do?"></textarea>
+          Volume estimate
+          <input type="text" name="volume" autocomplete="off" required placeholder="e.g. 10M tokens / month or 50 seats" />
         </label>
-        <button class="cta primary" type="submit">Contact us</button>
+        <label>
+          Website <span class="optional">optional</span>
+          <input type="text" name="website" autocomplete="url" placeholder="https://" />
+        </label>
+        <button class="cta primary" type="submit">Request access</button>
         <p class="form-status" role="status" aria-live="polite"></p>
       </form>
-      <p class="partner-note"><a href="mailto:sales@aorilalabs.com">sales@aorilalabs.com</a></p>
+      <p class="partner-note">SKU <span class="sku">Atraly v1.5</span> on Aorila Labs. Or email <a href="mailto:sales@aorilalabs.com">sales@aorilalabs.com</a>.</p>
     </section>
   </main>
 
