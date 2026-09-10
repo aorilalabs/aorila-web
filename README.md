@@ -14,7 +14,7 @@ Early-access sell path (prices may change; no Stripe on this site):
 | Face | Public offer | Access |
 | --- | --- | --- |
 | Consumer | **compute cost + Aorila fee** | `/api` — Atraly link + `api@aorila.com` (one path; same as the nav API control) |
-| Labs | **Quoted** · Dedicated 1.5× RunPod | B2B contact form → `POST /leads` · `sales@aorilalabs.com` secondary |
+| Labs | **Quoted** · Dedicated 1.5× RunPod | B2B contact form → `POST /leads` · `api@aorila.com` secondary |
 
 No self-serve $29 / $199 checkout. The Atraly **app** is $20/mo on [atraly.com](https://atraly.com) — not this API. $99 is not a public Labs plan.
 

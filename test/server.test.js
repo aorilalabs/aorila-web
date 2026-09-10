@@ -82,7 +82,8 @@ describe('host-based pages', () => {
     assert.match(res.body, /Request access/);
     assert.match(res.body, /1\.5×/);
     assert.match(res.body, /RunPod/);
-    assert.match(res.body, /sales@aorilalabs\.com/);
+    assert.match(res.body, /api@aorila\.com/);
+    assert.doesNotMatch(res.body, /sales@aorilalabs\.com/);
     assert.match(res.body, /Early access — may change/);
     assert.match(res.body, /form class="waitlist"/);
     assert.match(res.body, /action="\/leads"/);
@@ -150,7 +151,8 @@ describe('host-based pages', () => {
     assert.match(labs.body, /Powered by Aorila/);
     assert.match(labs.body, /Aorila builds the AI/);
     assert.match(labs.body, /Higher-quality AI for businesses/);
-    assert.match(labs.body, /sales@aorilalabs\.com/);
+    assert.match(labs.body, /api@aorila\.com/);
+    assert.doesNotMatch(labs.body, /sales@aorilalabs\.com/);
     assert.match(labs.body, /form class="waitlist"/);
     assert.match(labs.body, /action="\/leads"/);
     assert.match(labs.body, /name="company"/);
