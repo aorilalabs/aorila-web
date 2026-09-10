@@ -36,13 +36,12 @@ describe('host-based pages', () => {
     assert.equal(res.status, 200);
     assert.equal(res.headers['x-aorila-site'], 'consumer');
     assert.match(res.body, /class="landing"/);
-    assert.match(res.body, /We build the AI/);
-    assert.match(res.body, /Atraly v1/);
-    assert.match(res.body, /Early access/i);
-    assert.match(res.body, /compute cost \+ Aorila fee/);
-    assert.match(res.body, /No checkout on this page/);
-    assert.match(res.body, /hello@aorila\.com/);
+    assert.match(res.body, /Atraly V1 • Early Access/);
+    assert.match(res.body, /The Future Of AI Innovation/);
     assert.match(res.body, /Request an API key/);
+    assert.match(res.body, /hello@aorila\.com/);
+    assert.doesNotMatch(res.body, /We build the AI/);
+    assert.doesNotMatch(res.body, /class="lede"/);
     assert.doesNotMatch(res.body, /form class="waitlist"/);
     assert.doesNotMatch(res.body, /<footer/);
     assert.doesNotMatch(res.body, /\$29/);

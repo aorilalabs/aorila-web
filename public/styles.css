@@ -142,6 +142,10 @@ a { color: inherit; }
   line-height: 1.05;
   margin-bottom: 16px;
 }
+body.landing .hero h1 {
+  max-width: 14ch;
+  margin-bottom: 32px;
+}
 .lede {
   font-size: 17px;
   line-height: 1.5;
