@@ -68,9 +68,6 @@ function createApp(options = {}) {
     if (isApiHost(host)) {
       return res.redirect(301, '/');
     }
-    if (res.locals.site === 'consumer' && !isPreviewHost(host)) {
-      return res.redirect(301, CONSUMER_API_URL);
-    }
     sendPage(res, res.locals.site, 'api.html');
   });
 
