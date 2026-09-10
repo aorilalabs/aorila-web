@@ -4,12 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Aorila Labs — Request API access</title>
-  <meta name="description" content="Request API access for Aorila Labs. Company, contact, use case, and volume. Follow up at api@aorila.com." />
+  <meta name="description" content="Aorila Labs is commercial API access for builders and companies. Request access; we follow up by email at api@aorila.com." />
   <meta property="og:title" content="Aorila Labs — Request API access" />
-  <meta property="og:description" content="Request API access for your company." />
+  <meta property="og:description" content="Request commercial API access for your company." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorilalabs.com/api" />
   <link rel="canonical" href="https://aorilalabs.com/api" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -19,7 +20,7 @@
   <header class="nav">
     <a class="wordmark" href="/">Aorila <span class="soft">Labs</span></a>
     <nav class="nav-links">
-      <a class="nav-link" href="/" aria-current="page">Request API access</a>
+      <a class="nav-link" href="/#contact" aria-current="page">Request API access</a>
       <a class="nav-link" href="https://aorila.com" data-local-site="consumer">Aorila</a>
     </nav>
   </header>
@@ -28,10 +29,16 @@
     <section class="hero compact">
       <p class="hero-badge">Aorila Labs</p>
       <h1>Request API access</h1>
-      <p class="lede">Tell us about your company and how you plan to use the API. We follow up by email.</p>
+      <p class="lede">Same request path as the Labs home page. Aorila Labs is the commercial request-access surface. There is no public console on this URL.</p>
+      <div class="cta-row">
+        <a class="cta primary" href="#contact">Request access</a>
+        <a class="cta ghost" href="/docs">Docs outline</a>
+      </div>
     </section>
 
     <section id="contact" class="section labs-request">
+      <h2>Request API access</h2>
+      <p>Required fields so we can tell if the request fits. Or skip the form and email <a href="mailto:api@aorila.com">api@aorila.com</a>.</p>
       <form class="waitlist" action="/leads" method="post" data-kind="contact">
         <input type="hidden" name="site" value="labs" />
         <input type="hidden" name="kind" value="contact" />
@@ -59,18 +66,22 @@
           <input type="text" name="volume" autocomplete="off" required placeholder="e.g. 10M tokens / month or 50 seats" />
         </label>
         <label>
-          Website <span class="optional">optional</span>
+          <span class="label-line">Website <span class="optional">optional</span></span>
           <input type="text" name="website" autocomplete="url" placeholder="https://" />
         </label>
         <button class="cta primary" type="submit">Request access</button>
         <p class="form-status" role="status" aria-live="polite"></p>
       </form>
-      <p class="form-alt">Or email <a href="mailto:api@aorila.com">api@aorila.com</a>.</p>
     </section>
   </main>
 
   <footer>
     <span>Aorila Labs</span>
+    <nav class="footer-links" aria-label="Legal">
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
     <span><a href="https://aorila.com" data-local-site="consumer">aorila.com</a></span>
   </footer>
   <script src="/site.js"></script>

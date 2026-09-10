@@ -8,7 +8,7 @@ Routing is Host-based in `server.js` only. Attach both apex + www names to that 
 
 | Custom domain | Face | Default page |
 | --- | --- | --- |
-| `aorila.com` and `www.aorila.com` | Consumer | Aorila / **Atraly v1** |
+| `aorila.com` and `www.aorila.com` | Consumer | Aorila / **API access** |
 | `aorilalabs.com` and `www.aorilalabs.com` | Labs | Aorila Labs / **Request API access** |
 
 The `*.onrender.com` hostname defaults to consumer. Preview Labs with `?site=labs` or header `X-Aorila-Site: labs`.
