@@ -12,7 +12,7 @@ function cookieSite(req) {
 
 const SITES_DIR = path.join(__dirname, 'sites');
 const PUBLIC_DIR = path.join(__dirname, 'public');
-const PAGES = new Set(['index.html', 'api.html']);
+const PAGES = new Set(['index.html', 'api.html', 'about.html', 'privacy.html', 'terms.html']);
 
 function siteFromRequest(req) {
   return resolveSite({
@@ -63,6 +63,18 @@ function createApp(options = {}) {
     sendPage(res, res.locals.site, 'api.html');
   });
 
+  app.get(['/about', '/about.html'], (req, res) => {
+    sendPage(res, res.locals.site, 'about.html');
+  });
+
+  app.get(['/privacy', '/privacy.html'], (req, res) => {
+    sendPage(res, res.locals.site, 'privacy.html');
+  });
+
+  app.get(['/terms', '/terms.html'], (req, res) => {
+    sendPage(res, res.locals.site, 'terms.html');
+  });
+
   app.post('/leads', (req, res) => {
     try {
       const result = leadStore.add(req.body || {}, {
@@ -87,8 +99,16 @@ function createApp(options = {}) {
 <header class="nav"><a class="wordmark" href="/">${res.locals.site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a></header>
 <main><section class="hero compact"><p class="eyebrow">Form</p><h1>Could not send that.</h1>
 <p class="lede">${err.message || 'Try again, or email us directly.'}</p>
-<div class="cta-row"><a class="cta primary" href="/">Home</a></div>
-</section></main></body></html>`);
+<div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="mailto:api@aorila.com">api@aorila.com</a></div>
+</section></main>
+<footer>
+<nav class="footer-links" aria-label="Legal">
+<a href="/about">About</a>
+<a href="/privacy">Privacy</a>
+<a href="/terms">Terms</a>
+</nav>
+</footer>
+</body></html>`);
     }
   });
 
@@ -104,9 +124,17 @@ function createApp(options = {}) {
 <body data-site="${res.locals.site}">
 <header class="nav"><a class="wordmark" href="/">${res.locals.site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a></header>
 <main><section class="hero compact"><p class="eyebrow">404</p><h1>This page is not on this site.</h1>
-<p class="lede">Try the home page or the API docs.</p>
-<div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="/api">API</a></div>
-</section></main></body></html>`);
+<p class="lede">Try home, API access, or About.</p>
+<div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="/api">API</a><a class="cta ghost" href="/about">About</a></div>
+</section></main>
+<footer>
+<nav class="footer-links" aria-label="Legal">
+<a href="/about">About</a>
+<a href="/privacy">Privacy</a>
+<a href="/terms">Terms</a>
+</nav>
+</footer>
+</body></html>`);
   });
 
   return app;
