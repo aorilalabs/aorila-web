@@ -147,7 +147,7 @@ describe('host-based pages', () => {
     assert.match(consumer.body, /https:\/\/atraly\.com/);
     assert.match(consumer.body, />Atraly</);
     assert.match(consumer.body, /<hr class="hairline"/);
-    assert.match(consumer.body, /Contact <a href="mailto:api@aorila\.com">api@aorila\.com<\/a> for API inquiries/);
+    assert.match(consumer.body, /Contact <a href="mailto:api@aorila\.com">api@aorila\.com<\/a> for Commercial API inquiries/);
     assert.doesNotMatch(consumer.body, /form class="waitlist"/);
     assert.doesNotMatch(consumer.body, /action="\/leads"/);
     assert.doesNotMatch(consumer.body, /hello@aorila\.com/);
