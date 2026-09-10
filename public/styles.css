@@ -470,6 +470,14 @@ hr.hairline {
   color: var(--muted);
   letter-spacing: 0;
 }
+body[data-site="labs"] .labs-request {
+  border-top: none;
+  padding-top: 0;
+}
+body[data-site="labs"] .form-alt {
+  margin-top: 8px;
+  font-size: 14px;
+}
 
 footer {
   display: flex;

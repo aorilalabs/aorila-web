@@ -70,21 +70,15 @@ describe('host-based pages', () => {
     assert.doesNotMatch(home.body, /mailto:hello@aorila\.com/);
   });
 
-  it('serves Labs commercial copy on aorilalabs.com', async () => {
+  it('serves Labs as a request-API-access page on aorilalabs.com', async () => {
     const res = await request(port, { headers: { host: 'www.aorilalabs.com' } });
     assert.equal(res.status, 200);
     assert.equal(res.headers['x-aorila-site'], 'labs');
+    assert.match(res.body, /<title>Aorila Labs — Request API access<\/title>/);
     assert.match(res.body, /Aorila Labs/);
-    assert.match(res.body, /Higher-quality AI for businesses/);
-    assert.match(res.body, /Powered by Aorila/);
-    assert.match(res.body, /Aorila builds the AI/);
-    assert.match(res.body, /Atraly v1\.5/);
+    assert.match(res.body, /Request API access/);
     assert.match(res.body, /Request access/);
-    assert.match(res.body, /1\.5×/);
-    assert.match(res.body, /RunPod/);
     assert.match(res.body, /api@aorila\.com/);
-    assert.doesNotMatch(res.body, /sales@aorilalabs\.com/);
-    assert.match(res.body, /Early access — may change/);
     assert.match(res.body, /form class="waitlist"/);
     assert.match(res.body, /action="\/leads"/);
     assert.match(res.body, /id="contact"/);
@@ -95,6 +89,13 @@ describe('host-based pages', () => {
     assert.match(res.body, /name="volume"/);
     assert.match(res.body, /name="website"/);
     assert.match(res.body, /name="fax"/);
+    assert.doesNotMatch(res.body, /Powered/i);
+    assert.doesNotMatch(res.body, /Atraly/);
+    assert.doesNotMatch(res.body, /RunPod/i);
+    assert.doesNotMatch(res.body, /1\.5\s*[×x]/);
+    assert.doesNotMatch(res.body, /Higher-quality AI for businesses/);
+    assert.doesNotMatch(res.body, /Aorila builds the AI/);
+    assert.doesNotMatch(res.body, /sales@aorilalabs\.com/);
     assert.doesNotMatch(res.body, /\$99/);
     assert.doesNotMatch(res.body, /\$199/);
     assert.doesNotMatch(res.body, /\$29/);
@@ -105,7 +106,8 @@ describe('host-based pages', () => {
   it('preview via ?site=labs on localhost', async () => {
     const res = await request(port, { path: '/?site=labs', headers: { host: 'localhost' } });
     assert.equal(res.headers['x-aorila-site'], 'labs');
-    assert.match(res.body, /Atraly v1\.5/);
+    assert.match(res.body, /Request API access/);
+    assert.doesNotMatch(res.body, /Atraly/);
     assert.match(String(res.headers['set-cookie'] || ''), /aorila_site=labs/);
   });
 
@@ -115,7 +117,8 @@ describe('host-based pages', () => {
       headers: { host: 'localhost', cookie: 'aorila_site=labs' },
     });
     assert.equal(res.headers['x-aorila-site'], 'labs');
-    assert.match(res.body, /Atraly v1\.5/);
+    assert.match(res.body, /Request API access/);
+    assert.doesNotMatch(res.body, /Atraly/);
   });
 
   it('preview via X-Aorila-Site header', async () => {
@@ -145,13 +148,16 @@ describe('host-based pages', () => {
     assert.doesNotMatch(consumer.body, /stripe/i);
   });
 
-  it('serves the Labs API page as the same business request form', async () => {
+  it('serves the Labs API page as the same request-access form', async () => {
     const labs = await request(port, { path: '/docs', headers: { host: 'aorilalabs.com' } });
-    assert.match(labs.body, /Atraly v1\.5/);
-    assert.match(labs.body, /Powered by Aorila/);
-    assert.match(labs.body, /Aorila builds the AI/);
-    assert.match(labs.body, /Higher-quality AI for businesses/);
+    assert.match(labs.body, /<title>Aorila Labs — Request API access<\/title>/);
+    assert.match(labs.body, /Request API access/);
     assert.match(labs.body, /api@aorila\.com/);
+    assert.doesNotMatch(labs.body, /Powered/i);
+    assert.doesNotMatch(labs.body, /Atraly/);
+    assert.doesNotMatch(labs.body, /RunPod/i);
+    assert.doesNotMatch(labs.body, /Higher-quality AI for businesses/);
+    assert.doesNotMatch(labs.body, /Aorila builds the AI/);
     assert.doesNotMatch(labs.body, /sales@aorilalabs\.com/);
     assert.match(labs.body, /form class="waitlist"/);
     assert.match(labs.body, /action="\/leads"/);
