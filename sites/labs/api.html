@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aorila Labs API — Atraly v1.5</title>
-  <meta name="description" content="Aorila Labs business API. Atraly v1.5 (atraly-v1.5). Contact us. sales@aorilalabs.com." />
-  <meta property="og:title" content="Aorila Labs API — Atraly v1.5" />
-  <meta property="og:description" content="atraly-v1.5. Contact form or sales@aorilalabs.com." />
+  <title>Aorila Labs API — Request access</title>
+  <meta name="description" content="Request Aorila Labs API access for your company. Higher-quality AI for businesses. Powered by Aorila." />
+  <meta property="og:title" content="Aorila Labs API — Request access" />
+  <meta property="og:description" content="Business API contact. Powered by Aorila. Aorila builds the AI." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorilalabs.com/api" />
   <link rel="canonical" href="https://aorilalabs.com/api" />
@@ -26,52 +26,53 @@
 
   <main>
     <section class="hero compact">
-      <p class="hero-badge">Business API</p>
-      <h1>Atraly v1.5</h1>
-      <p class="lede">model <code class="inline">atraly-v1.5</code>. Keys via the form or <a href="mailto:sales@aorilalabs.com">sales@aorilalabs.com</a>.</p>
-      <a class="cta primary" href="#contact">Contact us</a>
-    </section>
-
-    <section id="call" class="section wide">
-      <p>Base <code class="inline">https://api.aorilalabs.com/v1</code></p>
-      <pre class="code">curl https://api.aorilalabs.com/v1/chat/completions \
-  -H "Authorization: Bearer $AORILA_LABS_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "atraly-v1.5",
-    "messages": [
-      {"role": "user", "content": "Summarize this contract risk."}
-    ]
-  }'</pre>
+      <p class="hero-badge">Aorila Labs · API access</p>
+      <h1>Request business API access.</h1>
+      <p class="lede">Higher-quality AI for businesses. <strong>Powered by Aorila</strong> — Aorila builds the AI. One form. We quote dedicated capacity and issue keys after review.</p>
     </section>
 
     <section id="contact" class="section">
+      <h2>Company request</h2>
+      <p>Company name, contact, workload, and volume. Optional website. No checkout on this page.</p>
       <form class="waitlist" action="/leads" method="post" data-kind="contact">
         <input type="hidden" name="site" value="labs" />
         <input type="hidden" name="kind" value="contact" />
-        <label class="hp" aria-hidden="true">Website
-          <input type="text" name="website" tabindex="-1" autocomplete="off" />
+        <label class="hp" aria-hidden="true">Fax
+          <input type="text" name="fax" tabindex="-1" autocomplete="off" />
+        </label>
+        <label>
+          Company name
+          <input type="text" name="company" autocomplete="organization" required placeholder="Acme Inc." />
+        </label>
+        <label>
+          Contact name
+          <input type="text" name="name" autocomplete="name" required placeholder="Jordan Lee" />
         </label>
         <label>
           Work email
-          <input type="email" name="email" autocomplete="email" required />
+          <input type="email" name="email" autocomplete="email" required placeholder="you@company.com" />
         </label>
         <label>
-          Company
-          <input type="text" name="company" autocomplete="organization" required />
+          Use case
+          <textarea name="use_case" rows="4" required placeholder="What should the Labs API do for your team?"></textarea>
         </label>
         <label>
-          Use-case
-          <textarea name="use_case" rows="3" required></textarea>
+          Volume estimate
+          <input type="text" name="volume" autocomplete="off" required placeholder="e.g. 10M tokens / month or 50 seats" />
         </label>
-        <button class="cta primary" type="submit">Contact us</button>
+        <label>
+          Website <span class="optional">optional</span>
+          <input type="text" name="website" autocomplete="url" placeholder="https://" />
+        </label>
+        <button class="cta primary" type="submit">Request access</button>
         <p class="form-status" role="status" aria-live="polite"></p>
       </form>
+      <p class="partner-note">SKU <span class="sku">Atraly v1.5</span>. Or email <a href="mailto:api@aorila.com">api@aorila.com</a>.</p>
     </section>
   </main>
 
   <footer>
-    <span>Aorila Labs · <code class="inline">atraly-v1.5</code></span>
+    <span>Aorila Labs · <span class="sku">Atraly v1.5</span></span>
     <span><a href="https://aorila.com" data-local-site="consumer">aorila.com</a></span>
   </footer>
   <script src="/site.js"></script>

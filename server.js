@@ -73,7 +73,7 @@ function createApp(options = {}) {
       if (wantsJson(req)) {
         return res.status(201).json({ ok: true, id: result.id || null, ignored: Boolean(result.ignored) });
       }
-      const dest = res.locals.site === 'labs' ? '/?sent=1#contact' : '/api?sent=1#waitlist';
+      const dest = res.locals.site === 'labs' ? '/?sent=1#contact' : '/api';
       return res.redirect(303, dest);
     } catch (err) {
       const status = err.status || 500;

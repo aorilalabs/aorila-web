@@ -51,9 +51,32 @@ describe('lead store', () => {
   it('ignores honeypot spam', () => {
     const file = path.join(os.tmpdir(), `aorila-leads-spam-${process.pid}.json`);
     const store = createLeadStore(file);
-    const result = store.add({ email: 'bot@spam.test', website: 'https://spam.test' }, { site: 'labs' });
+    const result = store.add({ email: 'bot@spam.test', fax: 'https://spam.test' }, { site: 'labs' });
     assert.equal(result.ignored, true);
     assert.equal(store.list().length, 0);
+  });
+
+  it('stores optional website and volume on a Labs contact', () => {
+    const file = path.join(os.tmpdir(), `aorila-leads-web-${process.pid}-${Date.now()}.json`);
+    const store = createLeadStore(file);
+    const result = store.add(
+      {
+        email: 'ops@acme.com',
+        name: 'Pat',
+        company: 'Acme',
+        use_case: 'Internal agents',
+        volume: '10M tokens / month',
+        website: 'https://acme.com',
+      },
+      { site: 'labs', kind: 'contact', host: 'aorilalabs.com' }
+    );
+    assert.equal(result.ok, true);
+    const row = store.list()[0];
+    assert.equal(row.website, 'https://acme.com');
+    assert.equal(row.volume, '10M tokens / month');
+    assert.match(row.notes, /Internal agents/);
+    assert.match(row.notes, /10M tokens \/ month/);
+    fs.unlinkSync(file);
   });
 });
 
@@ -80,9 +103,11 @@ describe('POST /leads', () => {
   it('stores a Labs contact as JSON', async () => {
     const body = JSON.stringify({
       email: 'sales-lead@example.com',
+      name: 'Sam Example',
       company: 'Example Co',
-      plan: 'shared',
-      notes: 'API for agents',
+      use_case: 'API for agents',
+      volume: '50 seats',
+      website: 'https://example.com',
       kind: 'contact',
     });
     const res = await request(port, {
@@ -104,6 +129,9 @@ describe('POST /leads', () => {
     assert.equal(rows.at(-1).email, 'sales-lead@example.com');
     assert.equal(rows.at(-1).site, 'labs');
     assert.equal(rows.at(-1).kind, 'contact');
+    assert.equal(rows.at(-1).website, 'https://example.com');
+    assert.equal(rows.at(-1).volume, '50 seats');
+    assert.match(rows.at(-1).notes, /API for agents/);
   });
 
   it('stores a consumer waitlist lead', async () => {
