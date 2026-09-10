@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Aorila Labs API — Atraly v1.5</title>
-  <meta name="description" content="Aorila Labs business API. Model SKU Atraly v1.5 (atraly-v1.5). Contact us for a quote. Dedicated at 1.5× RunPod. Keys via sales@aorilalabs.com." />
+  <meta name="description" content="Aorila Labs business API. Atraly v1.5 (atraly-v1.5). Contact us. sales@aorilalabs.com." />
   <meta property="og:title" content="Aorila Labs API — Atraly v1.5" />
-  <meta property="og:description" content="Business API docs for atraly-v1.5. Contact us for access. Keys via sales@aorilalabs.com." />
+  <meta property="og:description" content="atraly-v1.5. Contact form or sales@aorilalabs.com." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorilalabs.com/api" />
   <link rel="canonical" href="https://aorilalabs.com/api" />
@@ -16,109 +16,24 @@
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body data-site="labs">
-  <div class="atmosphere" aria-hidden="true"></div>
-  <div class="grid-fade" aria-hidden="true"></div>
   <header class="nav">
     <a class="wordmark" href="/">Aorila <span class="soft">Labs</span></a>
     <nav class="nav-links">
-      <a class="nav-link" href="/">Home</a>
       <a class="nav-link" href="/api" aria-current="page">API</a>
-      <a class="nav-link" href="/#pricing">Pricing</a>
-      <a class="nav-link" href="/#contact">Contact</a>
       <a class="nav-link" href="https://aorila.com" data-local-site="consumer">Aorila</a>
     </nav>
   </header>
 
   <main>
     <section class="hero compact">
-      <p class="eyebrow">Business API</p>
+      <p class="hero-badge">Business API</p>
       <h1>Atraly v1.5</h1>
-      <p class="lede">Commercial completions for companies. Higher-quality access path, dedicated option, Labs-issued keys.</p>
-      <div class="cta-row">
-        <a class="cta primary" href="#contact">Contact us</a>
-        <a class="cta ghost" href="#call">Call the API</a>
-      </div>
-    </section>
-
-    <section id="skus" class="section wide">
-      <h2>Model SKUs</h2>
-      <p>Use <span class="sku">Atraly v1.5</span> on this host. Other names exist so invoices, partner contracts, and consumer docs stay aligned.</p>
-      <div class="table-wrap">
-        <table class="sku-table">
-          <thead>
-            <tr>
-              <th>SKU name</th>
-              <th>API id</th>
-              <th>Surface</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="sku">Atraly v1</td>
-              <td><code class="inline">atraly-v1</code></td>
-              <td>Consumer API — <a href="https://aorila.com/api" data-local-site="consumer">aorila.com/api</a></td>
-            </tr>
-            <tr>
-              <td class="sku">Atraly v1.5</td>
-              <td><code class="inline">atraly-v1.5</code></td>
-              <td>Labs business API (this key)</td>
-            </tr>
-            <tr>
-              <td class="sku">Atraly v2.0</td>
-              <td><code class="inline">atraly-v2.0</code></td>
-              <td>Partner SKU — Atraly product (buys via Labs)</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="contact" class="section">
-      <h2>How to get API keys</h2>
-      <p>Access is quoted. Dedicated is 1.5× current RunPod list. <span class="price-note-inline">Early access — may change.</span></p>
-      <ol class="steps">
-        <li>Send the contact form, or write <a href="mailto:sales@aorilalabs.com">sales@aorilalabs.com</a> as a backup.</li>
-        <li>We issue a Labs bearer token. Consumer keys from aorila.com will not work here.</li>
-        <li>Send <code class="inline">Authorization: Bearer &lt;key&gt;</code> and <code class="inline">model: "atraly-v1.5"</code>.</li>
-      </ol>
-      <form class="waitlist" action="/leads" method="post" data-kind="contact">
-        <input type="hidden" name="site" value="labs" />
-        <input type="hidden" name="kind" value="contact" />
-        <label class="hp" aria-hidden="true">Website
-          <input type="text" name="website" tabindex="-1" autocomplete="off" />
-        </label>
-        <label>
-          Work email
-          <input type="email" name="email" autocomplete="email" required placeholder="you@company.com" />
-        </label>
-        <label>
-          Company
-          <input type="text" name="company" autocomplete="organization" required placeholder="Company name" />
-        </label>
-        <label>
-          What you need
-          <select name="plan" required>
-            <option value="" disabled selected>Choose one</option>
-            <option value="shared">Shared — quoted</option>
-            <option value="dedicated">Dedicated — 1.5× RunPod</option>
-            <option value="unsure">Not sure yet</option>
-          </select>
-        </label>
-        <label>
-          Notes
-          <textarea name="notes" rows="3" placeholder="Optional"></textarea>
-        </label>
-        <div class="cta-row">
-          <button class="cta primary" type="submit">Send request</button>
-          <a class="cta ghost" href="mailto:sales@aorilalabs.com?subject=Aorila%20Labs%20API%20key">Or email sales</a>
-        </div>
-        <p class="form-status" role="status" aria-live="polite"></p>
-      </form>
+      <p class="lede">model <code class="inline">atraly-v1.5</code>. Keys via the form or <a href="mailto:sales@aorilalabs.com">sales@aorilalabs.com</a>.</p>
+      <a class="cta primary" href="#contact">Contact us</a>
     </section>
 
     <section id="call" class="section wide">
-      <h2>Chat completions</h2>
-      <p>Base URL: <code class="inline">https://api.aorilalabs.com/v1</code></p>
+      <p>Base <code class="inline">https://api.aorilalabs.com/v1</code></p>
       <pre class="code">curl https://api.aorilalabs.com/v1/chat/completions \
   -H "Authorization: Bearer $AORILA_LABS_KEY" \
   -H "Content-Type: application/json" \
@@ -128,22 +43,36 @@
       {"role": "user", "content": "Summarize this contract risk."}
     ]
   }'</pre>
-      <p>Same chat-completions shape as the consumer API. Stream with <code class="inline">"stream": true</code>.</p>
     </section>
 
-    <section class="section final">
-      <h2>Capacity</h2>
-      <p>Shared access is quoted. Dedicated is an NVIDIA L40S at 1.5× the current RunPod list. Ask which pool your key is on.</p>
-      <div class="cta-row">
-        <a class="cta primary" href="#contact">Contact us</a>
-        <a class="cta ghost" href="/#pricing">Pricing on the landing</a>
-      </div>
+    <section id="contact" class="section">
+      <form class="waitlist" action="/leads" method="post" data-kind="contact">
+        <input type="hidden" name="site" value="labs" />
+        <input type="hidden" name="kind" value="contact" />
+        <label class="hp" aria-hidden="true">Website
+          <input type="text" name="website" tabindex="-1" autocomplete="off" />
+        </label>
+        <label>
+          Work email
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+        <label>
+          Company
+          <input type="text" name="company" autocomplete="organization" required />
+        </label>
+        <label>
+          Use-case
+          <textarea name="use_case" rows="3" required></textarea>
+        </label>
+        <button class="cta primary" type="submit">Contact us</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
     </section>
   </main>
 
   <footer>
-    <span>© Aorila Labs</span>
-    <span>SKU <span class="sku">Atraly v1.5</span> · <code class="inline">atraly-v1.5</code></span>
+    <span>Aorila Labs · <code class="inline">atraly-v1.5</code></span>
+    <span><a href="https://aorila.com" data-local-site="consumer">aorila.com</a></span>
   </footer>
   <script src="/site.js"></script>
 </body>

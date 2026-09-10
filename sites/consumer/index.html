@@ -6,7 +6,7 @@
   <title>Aorila — We build the AI</title>
   <meta name="description" content="Aorila builds the AI. Consumer API SKU: Atraly v1. You pay compute cost plus an Aorila fee. Request a key at hello@aorila.com." />
   <meta property="og:title" content="Aorila — We build the AI" />
-  <meta property="og:description" content="Weights, training, inference — owned by the lab. Consumer API: Atraly v1. Cost plus Aorila fee. No fake token price." />
+  <meta property="og:description" content="Consumer API: Atraly v1. Compute cost plus Aorila fee. No fake token price." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorila.com" />
   <link rel="canonical" href="https://aorila.com" />
@@ -16,101 +16,27 @@
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body data-site="consumer">
-  <div class="atmosphere" aria-hidden="true"></div>
-  <div class="grid-fade" aria-hidden="true"></div>
   <header class="nav">
     <a class="wordmark" href="/">Aorila</a>
     <nav class="nav-links">
-      <a class="nav-link" href="#ai">The AI</a>
       <a class="nav-link" href="/api">API</a>
-      <a class="nav-link" href="#pricing">Pricing</a>
-      <a class="nav-link" href="#powered">Powered products</a>
       <a class="nav-link" href="https://aorilalabs.com" data-local-site="labs">Labs</a>
     </nav>
   </header>
 
   <main>
     <section class="hero">
-      <p class="brand">Aorila</p>
+      <p class="hero-badge">Atraly v1 · Early access</p>
       <h1>We build the AI.</h1>
-      <p class="lede">Aorila owns the model — weights, training, and inference. The consumer product is the Aorila API. Atraly v1 is the name of that API.</p>
-      <div class="cta-row">
-        <a class="cta primary" href="#waitlist">Request an API key</a>
-        <a class="cta ghost" href="/api">Read the docs</a>
-      </div>
-    </section>
-
-    <section id="ai" class="section">
-      <h2>What the AI is</h2>
-      <p>Aorila is the lab that trains and hosts the company model. We do not rent someone else’s weights. The same underlying model is served under versioned SKUs so products and businesses can call a stable name.</p>
-      <p>On aorila.com you get the <span class="sku">Atraly v1</span> consumer API — the public face of that intelligence for builders and people who want to try it.</p>
-    </section>
-
-    <section id="skus" class="section">
-      <h2>Model SKUs</h2>
-      <p>One model family. Three names you will see in copy and in the API.</p>
-      <div class="table-wrap">
-        <table class="sku-table">
-          <thead>
-            <tr>
-              <th>SKU</th>
-              <th>API id</th>
-              <th>Where</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="sku">Atraly v1</td>
-              <td><code class="inline">atraly-v1</code></td>
-              <td class="muted">Consumer API — this site</td>
-            </tr>
-            <tr>
-              <td class="sku">Atraly v1.5</td>
-              <td><code class="inline">atraly-v1.5</code></td>
-              <td class="muted">Labs business API</td>
-            </tr>
-            <tr>
-              <td class="sku">Atraly v2.0</td>
-              <td><code class="inline">atraly-v2.0</code></td>
-              <td class="muted">Partner SKU — Atraly product</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p>Business access lives on <a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a>.</p>
-    </section>
-
-    <section id="pricing" class="section wide">
-      <h2>Pricing</h2>
-      <p>The consumer API is not a self-serve monthly plan. You pay what it costs to run the model, plus a clear Aorila fee. We do not publish a fake dollars-per-token rate.</p>
-      <p class="formula">invoice = compute cost + Aorila fee</p>
-      <p class="price-note">Early access — may change.</p>
-      <div class="price-grid">
-        <article class="card">
-          <p class="badge">Free</p>
-          <h3>Docs</h3>
-          <p class="price">$0</p>
-          <p>SKU map, curl examples, and how keys work. No checkout.</p>
-          <div class="cta-row">
-            <a class="cta ghost" href="/api">Read the docs</a>
-          </div>
-        </article>
-        <article class="card featured">
-          <p class="badge">Consumer API</p>
-          <h3>Cost + fee</h3>
-          <p class="price">Quoted</p>
-          <p><span class="sku">Atraly v1</span> access. We quote compute cost plus the Aorila fee when we issue your key.</p>
-          <div class="cta-row">
-            <a class="cta primary" href="#waitlist">Request a key</a>
-            <a class="cta ghost" href="mailto:hello@aorila.com?subject=Aorila%20consumer%20API%20key">hello@aorila.com</a>
-          </div>
-        </article>
-      </div>
+      <p class="lede">The consumer API. Invoice is compute cost + Aorila fee — quoted when we issue a key. No checkout on this page.</p>
+      <a class="cta primary" href="#waitlist">Request an API key</a>
     </section>
 
     <section id="waitlist" class="section">
       <h2>Request an API key</h2>
-      <p>Join the waitlist. We store the request and follow up from <a href="mailto:hello@aorila.com">hello@aorila.com</a>. Keys are issued by hand during early access. No card checkout on this site.</p>
+      <p class="formula">invoice = compute cost + Aorila fee</p>
+      <p class="price-note">Early access — may change.</p>
+      <p>A worked $/1M-token example lands when BENCH exists. Optional seat if you want a cap. <a href="mailto:hello@aorila.com">hello@aorila.com</a> is the backup.</p>
       <form class="waitlist" action="/leads" method="post" data-kind="waitlist">
         <input type="hidden" name="site" value="consumer" />
         <input type="hidden" name="kind" value="waitlist" />
@@ -125,38 +51,16 @@
           Name
           <input type="text" name="name" autocomplete="name" placeholder="Optional" />
         </label>
-        <label>
-          What you want to build
-          <textarea name="use_case" rows="3" placeholder="Optional — product, agent, or personal use"></textarea>
-        </label>
-        <div class="cta-row">
-          <button class="cta primary" type="submit">Join the waitlist</button>
-          <a class="cta ghost" href="mailto:hello@aorila.com?subject=Aorila%20consumer%20API%20key">Or email us</a>
-        </div>
+        <button class="cta primary" type="submit">Get an API key</button>
         <p class="form-status" role="status" aria-live="polite"></p>
       </form>
-    </section>
-
-    <section id="powered" class="section">
-      <h2>Powered products</h2>
-      <p><a href="https://atraly.com">Atraly</a> is a separate consumer app — a Claude- and Cursor-like workspace. It is <strong>Powered by Aorila</strong>. Atraly buys model access through Aorila Labs and serves it as the <span class="sku">Atraly v2.0</span> partner SKU.</p>
-      <p>The Atraly app is <strong>$20/mo</strong> on <a href="https://atraly.com">atraly.com</a> — that is the product price, not this API. Use Atraly for the app; use this site for the consumer API.</p>
-    </section>
-
-    <section class="section final">
-      <h2>Start with Atraly v1</h2>
-      <p>Read the docs for free, or request a consumer key. Pricing is cost plus fee — quoted when we issue access.</p>
-      <div class="cta-row">
-        <a class="cta primary" href="#waitlist">Request a key</a>
-        <a class="cta ghost" href="/api">Consumer API docs</a>
-      </div>
+      <p class="partner-note"><span class="sku">Atraly v1</span> here. <span class="sku">Atraly v1.5</span> is Labs. <a href="https://atraly.com">Atraly</a> is a separate app — <strong>Powered by Aorila</strong>, <span class="sku">Atraly v2.0</span>, <strong>$20/mo</strong> on atraly.com.</p>
     </section>
   </main>
 
   <footer>
-    <span>© Aorila</span>
-    <span>Consumer API · <span class="sku">Atraly v1</span></span>
-    <span>Business: <a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
+    <span>Aorila · <span class="sku">Atraly v1</span></span>
+    <span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
   </footer>
   <script src="/site.js"></script>
 </body>

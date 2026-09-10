@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aorila consumer API — Atraly v1</title>
-  <meta name="description" content="Aorila consumer API docs. Model SKU Atraly v1 (atraly-v1). Cost plus Aorila fee. Request a key via the waitlist." />
-  <meta property="og:title" content="Aorila consumer API — Atraly v1" />
-  <meta property="og:description" content="Call the Aorila consumer API with model atraly-v1. Invoice = compute cost + Aorila fee." />
+  <title>Aorila API — Atraly v1</title>
+  <meta name="description" content="Aorila consumer API. Atraly v1 (atraly-v1). Compute cost plus Aorila fee." />
+  <meta property="og:title" content="Aorila API — Atraly v1" />
+  <meta property="og:description" content="Call atraly-v1. Invoice = compute cost + Aorila fee." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorila.com/api" />
   <link rel="canonical" href="https://aorila.com/api" />
@@ -16,105 +16,23 @@
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body data-site="consumer">
-  <div class="atmosphere" aria-hidden="true"></div>
-  <div class="grid-fade" aria-hidden="true"></div>
   <header class="nav">
     <a class="wordmark" href="/">Aorila</a>
     <nav class="nav-links">
-      <a class="nav-link" href="/">Home</a>
       <a class="nav-link" href="/api" aria-current="page">API</a>
-      <a class="nav-link" href="/#pricing">Pricing</a>
       <a class="nav-link" href="https://aorilalabs.com" data-local-site="labs">Labs</a>
     </nav>
   </header>
 
   <main>
     <section class="hero compact">
-      <p class="eyebrow">Consumer API</p>
+      <p class="hero-badge">Consumer API</p>
       <h1>Atraly v1</h1>
-      <p class="lede">The Aorila consumer API. Same underlying model as Labs; this SKU is the public consumer face.</p>
-      <div class="cta-row">
-        <a class="cta primary" href="#waitlist">Get an API key</a>
-        <a class="cta ghost" href="#call">Call the API</a>
-      </div>
-    </section>
-
-    <section id="skus" class="section wide">
-      <h2>Model SKUs</h2>
-      <p>Pass the API id as <code class="inline">model</code>. Names in product copy match these ids.</p>
-      <div class="table-wrap">
-        <table class="sku-table">
-          <thead>
-            <tr>
-              <th>SKU name</th>
-              <th>API id</th>
-              <th>Surface</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="sku">Atraly v1</td>
-              <td><code class="inline">atraly-v1</code></td>
-              <td>Aorila consumer API (this key)</td>
-            </tr>
-            <tr>
-              <td class="sku">Atraly v1.5</td>
-              <td><code class="inline">atraly-v1.5</code></td>
-              <td>Aorila Labs business API — <a href="https://aorilalabs.com/api" data-local-site="labs">docs</a></td>
-            </tr>
-            <tr>
-              <td class="sku">Atraly v2.0</td>
-              <td><code class="inline">atraly-v2.0</code></td>
-              <td>Partner SKU for the Atraly product</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="keys" class="section">
-      <h2>Get a consumer key</h2>
-      <p>Invoice is <strong>compute cost + Aorila fee</strong> — not a published dollars-per-token rate. Docs stay free. <span class="price-note-inline">Early access — may change.</span></p>
-      <p class="formula">invoice = compute cost + Aorila fee</p>
-      <ol class="steps">
-        <li>Use the waitlist form or email <a href="mailto:hello@aorila.com">hello@aorila.com</a> and ask for an <span class="sku">Atraly v1</span> key.</li>
-        <li>You receive a bearer token scoped to the consumer API.</li>
-        <li>Send <code class="inline">Authorization: Bearer &lt;key&gt;</code> on every request.</li>
-      </ol>
-    </section>
-
-    <section id="waitlist" class="section">
-      <h2>API key waitlist</h2>
-      <p>This form is stored on our server. <a href="mailto:hello@aorila.com">hello@aorila.com</a> is the backup. There is no card checkout on this site.</p>
-      <form class="waitlist" action="/leads" method="post" data-kind="waitlist">
-        <input type="hidden" name="site" value="consumer" />
-        <input type="hidden" name="kind" value="waitlist" />
-        <label class="hp" aria-hidden="true">Website
-          <input type="text" name="website" tabindex="-1" autocomplete="off" />
-        </label>
-        <label>
-          Email
-          <input type="email" name="email" autocomplete="email" required placeholder="you@company.com" />
-        </label>
-        <label>
-          Name
-          <input type="text" name="name" autocomplete="name" placeholder="Optional" />
-        </label>
-        <label>
-          What you want to build
-          <textarea name="use_case" rows="3" placeholder="Optional"></textarea>
-        </label>
-        <div class="cta-row">
-          <button class="cta primary" type="submit">Join the waitlist</button>
-          <a class="cta ghost" href="mailto:hello@aorila.com?subject=Aorila%20consumer%20API%20key">Or email us</a>
-        </div>
-        <p class="form-status" role="status" aria-live="polite"></p>
-      </form>
+      <p class="lede">model <code class="inline">atraly-v1</code>. Invoice is compute cost + Aorila fee. <a href="mailto:hello@aorila.com">hello@aorila.com</a></p>
     </section>
 
     <section id="call" class="section wide">
-      <h2>Chat completions</h2>
-      <p>Base URL: <code class="inline">https://api.aorila.com/v1</code></p>
+      <p>Base <code class="inline">https://api.aorila.com/v1</code></p>
       <pre class="code">curl https://api.aorila.com/v1/chat/completions \
   -H "Authorization: Bearer $AORILA_KEY" \
   -H "Content-Type: application/json" \
@@ -124,22 +42,28 @@
       {"role": "user", "content": "What does Aorila build?"}
     ]
   }'</pre>
-      <p>OpenAI-compatible <code class="inline">messages</code> payload. Stream with <code class="inline">"stream": true</code> when you need tokens as they land.</p>
     </section>
 
-    <section class="section final">
-      <h2>Need business quality?</h2>
-      <p><span class="sku">Atraly v1.5</span> is the Labs business API — quoted shared access or dedicated at 1.5× RunPod. The Atraly app is $20/mo on <a href="https://atraly.com">atraly.com</a> and uses <span class="sku">Atraly v2.0</span>.</p>
-      <div class="cta-row">
-        <a class="cta primary" href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a>
-        <a class="cta ghost" href="mailto:hello@aorila.com">hello@aorila.com</a>
-      </div>
+    <section id="waitlist" class="section">
+      <form class="waitlist" action="/leads" method="post" data-kind="waitlist">
+        <input type="hidden" name="site" value="consumer" />
+        <input type="hidden" name="kind" value="waitlist" />
+        <label class="hp" aria-hidden="true">Website
+          <input type="text" name="website" tabindex="-1" autocomplete="off" />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+        <button class="cta primary" type="submit">Request an API key</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
     </section>
   </main>
 
   <footer>
-    <span>© Aorila</span>
-    <span>SKU <span class="sku">Atraly v1</span> · <code class="inline">atraly-v1</code></span>
+    <span>Aorila · <code class="inline">atraly-v1</code></span>
+    <span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
   </footer>
   <script src="/site.js"></script>
 </body>
