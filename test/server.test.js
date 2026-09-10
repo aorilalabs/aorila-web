@@ -70,6 +70,17 @@ describe('host-based pages', () => {
     assert.doesNotMatch(home.body, /mailto:hello@aorila\.com/);
   });
 
+  it('puts Ally beside API on the consumer nav', async () => {
+    const home = await request(port, { headers: { host: 'aorila.com' } });
+    const api = await request(port, { path: '/api', headers: { host: 'aorila.com' } });
+    for (const body of [home.body, api.body]) {
+      assert.deepEqual(hrefs(body, 'Ally'), ['https://ally.atraly.com']);
+      assert.match(body, /API<\/a>\s*<a class="nav-link" href="https:\/\/ally\.atraly\.com">Ally<\/a>/);
+    }
+    const labs = await request(port, { headers: { host: 'aorilalabs.com' } });
+    assert.doesNotMatch(labs.body, />Ally</);
+  });
+
   it('serves Labs as a request-API-access page on aorilalabs.com', async () => {
     const res = await request(port, { headers: { host: 'www.aorilalabs.com' } });
     assert.equal(res.status, 200);
