@@ -1,6 +1,7 @@
-# ONE web service, ONE deploy. aorilalabs.com is a second custom domain on this
-# same service — do not create a second Render service for Labs.
-# Host header selects consumer vs Labs pages — see server.js and RENDER.md.
+# ONE web service, ONE deploy. aorilalabs.com and api.aorila.com are extra
+# custom domains on this same service — do not create a second Render service.
+# Host header selects consumer vs Labs vs the consumer API face — see
+# server.js and RENDER.md. CNAME api.aorila.com to this service’s onrender host.
 # No secrets required for the marketing site.
 services:
   - type: web

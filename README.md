@@ -5,6 +5,7 @@ One Express app. The **Host** header chooses the face:
 | Host | Site | Face |
 | --- | --- | --- |
 | `aorila.com` / `www.aorila.com` | Consumer | **Aorila builds AI** |
+| `api.aorila.com` | Consumer API face | Slim **Aorila API** at `/` (same copy as today’s `/api`) |
 | `aorilalabs.com` / `www.aorilalabs.com` | Aorila Labs | **Request API access** |
 
 Atraly is a separate consumer app and is **not** built in this repo.
@@ -13,7 +14,7 @@ Early-access sell path (prices may change; no Stripe on this site):
 
 | Face | Public offer | Access |
 | --- | --- | --- |
-| Consumer | **compute cost + Aorila fee** | `/api` — Atraly link + `api@aorila.com` (one path; same as the nav API control) |
+| Consumer | **compute cost + Aorila fee** | `https://api.aorila.com` — Atraly link + `api@aorila.com` (`aorila.com/api` 301s here) |
 | Labs | Request API access | B2B contact form → `POST /leads` · `api@aorila.com` secondary |
 
 No self-serve $29 / $199 checkout. The Atraly **app** is $20/mo on [atraly.com](https://atraly.com) — not this API. $99 is not a public Labs plan.
@@ -22,7 +23,7 @@ Leads are stored in `data/leads.json` (or `LEADS_PATH`). On Render the disk is e
 
 **Home base: Render** — https://github.com/nbaldwin098/aorila-web
 
-See **RENDER.md**. Both custom domains attach to the **same** web service. Push `main` (or merge this branch) to deploy. No env secrets required.
+See **RENDER.md**. Consumer, Labs, and `api.aorila.com` attach to the **same** web service. Push `main` (or merge this branch) to deploy. No env secrets required.
 
 ## Local
 
@@ -42,8 +43,8 @@ npm test
 
 ## Pages
 
-- `/` — consumer: one-line landing + key / Labs CTAs · Labs: request form
-- `/api` — consumer: Atraly link + `api@aorila.com` · Labs: request form
+- `/` — consumer: one-line landing + key / Labs CTAs · API host: slim Atraly + `api@aorila.com` · Labs: request form
+- `/api` — consumer custom domains: 301 → `https://api.aorila.com/` · preview hosts: slim page · Labs: request form
 - `/docs` — both hosts: docs ship with a key (no public reference)
 - `/about` `/privacy` `/terms` — both hosts, short
 

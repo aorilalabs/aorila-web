@@ -1,12 +1,22 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
-const { resolveSite } = require('../lib/resolve-site');
+const { resolveSite, isApiHost } = require('../lib/resolve-site');
 
 describe('resolveSite', () => {
   it('maps aorila.com and www to consumer', () => {
     assert.equal(resolveSite({ host: 'aorila.com' }), 'consumer');
     assert.equal(resolveSite({ host: 'www.aorila.com' }), 'consumer');
     assert.equal(resolveSite({ host: 'AORILA.COM:443' }), 'consumer');
+  });
+
+  it('maps api.aorila.com to consumer', () => {
+    assert.equal(resolveSite({ host: 'api.aorila.com' }), 'consumer');
+    assert.equal(resolveSite({ host: 'API.AORILA.COM:443' }), 'consumer');
+    assert.equal(isApiHost('api.aorila.com'), true);
+    assert.equal(isApiHost('API.AORILA.COM:443'), true);
+    assert.equal(isApiHost('www.api.aorila.com'), false);
+    assert.equal(isApiHost('aorila.com'), false);
+    assert.equal(isApiHost('aorilalabs.com'), false);
   });
 
   it('maps aorilalabs.com and www to labs', () => {
