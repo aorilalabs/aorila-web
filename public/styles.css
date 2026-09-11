@@ -142,6 +142,22 @@ a { color: inherit; }
   line-height: 1.05;
   margin-bottom: 16px;
 }
+body[data-site="labs"] .hero h1 {
+  font-size: clamp(1.85rem, 8.2vw, 3.4rem);
+  max-width: 14ch;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+body[data-site="labs"] .nav-links {
+  gap: 14px;
+  max-width: min(100%, 16rem);
+}
+body[data-site="labs"] .nav-link {
+  text-align: right;
+  line-height: 1.25;
+  white-space: normal;
+}
+body[data-site="labs"] .nav-short { display: none; }
 body.landing .hero h1 {
   max-width: 18ch;
   margin-bottom: 32px;
@@ -493,11 +509,12 @@ footer {
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 920px;
   padding: 28px var(--pad) 48px;
   border-top: 1px solid var(--line);
   font-size: 13px;
   color: var(--muted);
-  max-width: 920px;
   margin: 0 auto;
 }
 .footer-links {
@@ -515,8 +532,44 @@ footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 @media (max-width: 720px) {
   :root { --pad: 18px; }
-  .nav { height: 56px; min-height: 56px; padding: 0 14px; }
+  .nav { height: auto; min-height: 56px; padding: 12px 14px; }
   .nav-link { padding: 0; font-size: 13px; }
+  body[data-site="labs"] .nav {
+    align-items: flex-start;
+    gap: 12px;
+  }
+  body[data-site="labs"] .nav-links {
+    gap: 10px;
+    max-width: none;
+  }
+  body[data-site="labs"] .nav-link {
+    font-size: 12px;
+  }
+  body[data-site="labs"] .nav-long { display: none; }
+  body[data-site="labs"] .nav-short { display: inline; }
+  body[data-site="labs"] .hero.compact {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+  body[data-site="labs"] .hero h1 {
+    font-size: clamp(1.7rem, 9vw, 2.35rem);
+    max-width: 11ch;
+    margin-bottom: 12px;
+  }
+  body[data-site="labs"] .lede {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+  body[data-site="labs"] .waitlist,
+  body[data-site="labs"] .section,
+  body[data-site="labs"] .hero {
+    max-width: 100%;
+  }
+  body[data-site="labs"] .waitlist input,
+  body[data-site="labs"] .waitlist select,
+  body[data-site="labs"] .waitlist textarea {
+    max-width: 100%;
+  }
   .hero, .section, .api-lock { padding-left: var(--pad); padding-right: var(--pad); }
   body.landing .hero { padding: 28px var(--pad) 36px; }
   .price-grid { grid-template-columns: 1fr; }
