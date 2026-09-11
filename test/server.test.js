@@ -106,8 +106,10 @@ describe('host-based pages', () => {
     assert.equal(res.headers['x-aorila-site'], 'labs');
     assert.match(res.body, /<title>Aorila Labs — Commercial API access<\/title>/);
     assert.match(res.body, /Aorila Labs/);
-    assert.match(res.body, /Commercial API access/);
+    assert.match(res.body, /<h1>Commercial API access<\/h1>/);
     assert.doesNotMatch(res.body, /hero-badge/);
+    assert.doesNotMatch(res.body, /nav-link"[^>]*>\s*(?:<span[^>]*>)?(?:Commercial API access|Access)\b/);
+    assert.deepEqual(hrefs(res.body, 'Aorila'), ['https://aorila.com']);
     assert.match(res.body, /Request access/);
     assert.match(res.body, /api@aorila\.com/);
     assert.match(res.body, /form class="waitlist"/);
