@@ -111,6 +111,29 @@ describe('host-based pages', () => {
     assert.doesNotMatch(labs.body, />Ally</);
   });
 
+  it('keeps marketing links inside a far-right hamburger menu', async () => {
+    const res = await request(port, { headers: { host: 'aorila.com' } });
+    assert.match(res.body, /class="nav-toggle"/);
+    assert.match(res.body, /id="site-nav" hidden/);
+    assert.match(
+      res.body,
+      /nav-utility[\s\S]*nav-toggle[\s\S]*id="site-nav"[\s\S]*>Product</
+    );
+    assert.match(res.body, /id="site-nav"[\s\S]*>Use Cases</);
+    assert.match(res.body, /id="site-nav"[\s\S]*>Resources</);
+    assert.match(res.body, /id="site-nav"[\s\S]*>Company</);
+    assert.match(res.body, /id="site-nav"[\s\S]*>Docs</);
+    assert.match(res.body, /id="site-nav"[\s\S]*>Pricing</);
+    assert.match(res.body, /id="site-nav"[\s\S]*>Enterprise</);
+    assert.match(res.body, /id="site-nav"[\s\S]*>Search</);
+    assert.match(res.body, /id="site-nav"[\s\S]*>Contact Sales</);
+    assert.match(res.body, /id="site-nav"[\s\S]*>Sign in</);
+    assert.match(res.body, /id="site-nav"[\s\S]*>Sign Up</);
+    assert.match(res.body, /nav-utility[\s\S]*>API</);
+    assert.match(res.body, /nav-utility[\s\S]*>Ally</);
+    assert.match(res.body, /nav-utility[\s\S]*>Labs</);
+  });
+
   it('serves consumer marketing pages from the header menu', async () => {
     const checks = [
       ['/pods', /On-demand GPUs across 31 regions/],

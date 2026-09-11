@@ -89,11 +89,14 @@
 
   const header = document.querySelector('header.nav');
   const toggle = document.querySelector('.nav-toggle');
-  if (header && toggle) {
+  const shell = document.querySelector('.nav-shell');
+  if (header && toggle && shell) {
     toggle.addEventListener('click', () => {
       const open = header.classList.toggle('is-open');
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      if (open) shell.removeAttribute('hidden');
+      else shell.setAttribute('hidden', '');
     });
   }
 
