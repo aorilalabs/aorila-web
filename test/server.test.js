@@ -107,6 +107,11 @@ describe('host-based pages', () => {
     assert.match(res.body, /<title>Aorila Labs — Commercial API access<\/title>/);
     assert.match(res.body, /Aorila Labs/);
     assert.match(res.body, /<h1>Commercial API access<\/h1>/);
+    assert.match(res.body, /class="labs-split"/);
+    assert.match(res.body, /class="labs-split-form"/);
+    assert.match(res.body, /class="labs-split-copy"/);
+    assert.match(res.body, /Tell us about your company and how you plan to use the API\./);
+    assert.doesNotMatch(res.body, /We follow up by email/);
     assert.doesNotMatch(res.body, /hero-badge/);
     assert.doesNotMatch(res.body, /nav-link"[^>]*>\s*(?:<span[^>]*>)?(?:Commercial API access|Access)\b/);
     assert.match(res.body, /class="nav-link" href="https:\/\/aorila\.com"[^>]*>Aorila<\/a>/);
@@ -341,7 +346,9 @@ describe('host-based pages', () => {
 
     const consumerSupport = await request(port, { path: '/support', headers: { host: 'aorila.com' } });
     assert.equal(consumerSupport.status, 200);
-    assert.match(consumerSupport.body, /<h1>Support<\/h1>/);
+    assert.doesNotMatch(consumerSupport.body, /<h1>Support<\/h1>/);
+    assert.doesNotMatch(consumerSupport.body, /class="hero/);
+    assert.match(consumerSupport.body, /class="section undivided"/);
     assert.match(consumerSupport.body, /Questions:/);
     assert.match(consumerSupport.body, /api@aorila\.com/);
     assert.doesNotMatch(consumerSupport.body, /Effective/);
