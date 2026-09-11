@@ -104,9 +104,10 @@ describe('host-based pages', () => {
     const res = await request(port, { headers: { host: 'www.aorilalabs.com' } });
     assert.equal(res.status, 200);
     assert.equal(res.headers['x-aorila-site'], 'labs');
-    assert.match(res.body, /<title>Aorila Labs — Request API access<\/title>/);
+    assert.match(res.body, /<title>Aorila Labs — Commercial API access<\/title>/);
     assert.match(res.body, /Aorila Labs/);
-    assert.match(res.body, /Request API access/);
+    assert.match(res.body, /Commercial API access/);
+    assert.doesNotMatch(res.body, /hero-badge/);
     assert.match(res.body, /Request access/);
     assert.match(res.body, /api@aorila\.com/);
     assert.match(res.body, /form class="waitlist"/);
@@ -144,7 +145,7 @@ describe('host-based pages', () => {
   it('preview via ?site=labs on localhost', async () => {
     const res = await request(port, { path: '/?site=labs', headers: { host: 'localhost' } });
     assert.equal(res.headers['x-aorila-site'], 'labs');
-    assert.match(res.body, /Request API access/);
+    assert.match(res.body, /Commercial API access/);
     assert.doesNotMatch(res.body, /Atraly/);
     assert.match(String(res.headers['set-cookie'] || ''), /aorila_site=labs/);
   });
@@ -155,7 +156,7 @@ describe('host-based pages', () => {
       headers: { host: 'localhost', cookie: 'aorila_site=labs' },
     });
     assert.equal(res.headers['x-aorila-site'], 'labs');
-    assert.match(res.body, /Request API access/);
+    assert.match(res.body, /Commercial API access/);
     assert.doesNotMatch(res.body, /Atraly/);
   });
 
@@ -214,7 +215,7 @@ describe('host-based pages', () => {
 
     const labs = await request(port, { path: '/api', headers: { host: 'aorilalabs.com' } });
     assert.equal(labs.status, 200);
-    assert.match(labs.body, /Request API access/);
+    assert.match(labs.body, /Commercial API access/);
     assert.doesNotMatch(String(labs.headers.location || ''), /api\.aorila\.com/);
 
     const preview = await request(port, { path: '/api', headers: { host: 'localhost' } });
@@ -234,8 +235,8 @@ describe('host-based pages', () => {
 
   it('serves the Labs API page as the request-access form', async () => {
     const labs = await request(port, { path: '/api', headers: { host: 'aorilalabs.com' } });
-    assert.match(labs.body, /<title>Aorila Labs — Request API access<\/title>/);
-    assert.match(labs.body, /Request API access/);
+    assert.match(labs.body, /<title>Aorila Labs — Commercial API access<\/title>/);
+    assert.match(labs.body, /Commercial API access/);
     assert.match(labs.body, /api@aorila\.com/);
     assert.match(labs.body, /og:url" content="https:\/\/aorilalabs.com\/api"/);
     assert.doesNotMatch(labs.body, /Powered/i);
