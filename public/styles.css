@@ -155,23 +155,14 @@ body[data-site="labs"] .hero h1 {
   text-wrap: balance;
   overflow-wrap: break-word;
 }
-body[data-site="labs"] .nav-links {
-  gap: 14px;
-}
-body[data-site="labs"] .nav-link {
-  text-align: right;
-  line-height: 1.25;
-  white-space: normal;
-}
 body.landing .hero h1 {
   max-width: 18ch;
   margin-bottom: 32px;
 }
-body.landing footer {
-  width: 100%;
-  max-width: none;
-  padding-top: 16px;
-  padding-bottom: 20px;
+body.landing .api-lock {
+  flex: 1;
+  min-height: 0;
+  justify-content: center;
 }
 .lede {
   font-size: 17px;
@@ -179,6 +170,12 @@ body.landing footer {
   color: var(--muted);
   max-width: 34rem;
   margin-bottom: 32px;
+}
+.hero a:not(.cta) {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .cta-row { display: flex; flex-wrap: wrap; gap: 10px; }
 .cta {
@@ -516,12 +513,12 @@ footer {
   flex-wrap: wrap;
   flex-shrink: 0;
   width: 100%;
-  max-width: 920px;
-  padding: 28px var(--pad) 48px;
+  max-width: none;
+  padding: 16px var(--pad) 20px;
   border-top: 1px solid var(--line);
   font-size: 13px;
   color: var(--muted);
-  margin: 0 auto;
+  margin: 0;
 }
 .footer-links {
   display: flex;
@@ -538,19 +535,8 @@ footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 @media (max-width: 720px) {
   :root { --pad: 18px; }
-  .nav { height: auto; min-height: 56px; padding: 12px 14px; }
+  .nav { height: 56px; min-height: 56px; padding: 0 14px; }
   .nav-link { padding: 0; font-size: 13px; }
-  body[data-site="labs"] .nav {
-    align-items: flex-start;
-    gap: 12px;
-  }
-  body[data-site="labs"] .nav-links {
-    gap: 10px;
-    max-width: none;
-  }
-  body[data-site="labs"] .nav-link {
-    font-size: 12px;
-  }
   body[data-site="labs"] .hero.compact {
     padding-top: 28px;
     padding-bottom: 28px;

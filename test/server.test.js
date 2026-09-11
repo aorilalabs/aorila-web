@@ -21,6 +21,24 @@ function hrefs(body, label) {
   return [...body.matchAll(re)].map((m) => m[1]);
 }
 
+function assertHomepageFooter(body) {
+  assert.match(body, /<footer/);
+  assert.match(body, /<span>Aorila<\/span>/);
+  assert.match(body, /footer-links" aria-label="Legal"/);
+  assert.match(body, /href="\/tp"/);
+  assert.match(body, /href="\/support"/);
+  assert.match(body, />T &amp; P</);
+  assert.match(body, />Support</);
+  assert.match(body, /href="https:\/\/aorilalabs\.com"[^>]*>Aorila Labs</);
+}
+
+function assertConsumerHeader(body) {
+  assert.match(body, /<header class="nav">/);
+  assert.match(body, /class="wordmark"[^>]*>Aorila</);
+  assert.match(body, /API<\/a>\s*<a class="nav-link" href="https:\/\/ally\.atraly\.com">Ally<\/a>/);
+  assert.match(body, /href="https:\/\/aorilalabs\.com"[^>]*>Labs</);
+}
+
 describe('host-based pages', () => {
   let server;
   let port;
@@ -46,10 +64,9 @@ describe('host-based pages', () => {
     assert.doesNotMatch(res.body, /Aorila builds AI/);
     assert.match(res.body, /Request an API key/);
     assert.match(res.body, /href="https:\/\/aorilalabs\.com"[^>]*>Labs</);
-    assert.match(res.body, /<footer/);
+    assertConsumerHeader(res.body);
+    assertHomepageFooter(res.body);
     assert.doesNotMatch(res.body, /href="\/about"/);
-    assert.match(res.body, /href="\/tp"/);
-    assert.match(res.body, /href="\/support"/);
     assert.doesNotMatch(res.body, /href="\/privacy"/);
     assert.doesNotMatch(res.body, /href="\/terms"/);
     assert.doesNotMatch(res.body, /Aorila — API access/);
@@ -141,14 +158,9 @@ describe('host-based pages', () => {
     assert.doesNotMatch(res.body, /Powered by/i);
     assert.doesNotMatch(res.body, /partnership/i);
     assert.doesNotMatch(res.body, /href="\/about"/);
-    assert.match(res.body, /href="\/tp"/);
-    assert.match(res.body, /href="\/support"/);
+    assertHomepageFooter(res.body);
     assert.doesNotMatch(res.body, /href="\/privacy"/);
     assert.doesNotMatch(res.body, /href="\/terms"/);
-    assert.match(res.body, />T &amp; P</);
-    assert.match(res.body, />Support</);
-    assert.match(res.body, /<span>Aorila<\/span>/);
-    assert.match(res.body, /href="https:\/\/aorilalabs\.com"[^>]*>Aorila Labs</);
   });
 
   it('preview via ?site=labs on localhost', async () => {
@@ -201,6 +213,9 @@ describe('host-based pages', () => {
     assert.doesNotMatch(consumer.body, /Where to start/);
     assert.doesNotMatch(consumer.body, /This page is the inquire path/);
     assert.match(consumer.body, /class="api-lock"/);
+    assert.match(consumer.body, /class="landing"/);
+    assertConsumerHeader(consumer.body);
+    assertHomepageFooter(consumer.body);
   });
 
   it('serves consumer /api on aorila.com and only redirects /api on the API host', async () => {
@@ -305,6 +320,8 @@ describe('host-based pages', () => {
     assert.doesNotMatch(css.body, /#1f6bff/);
     assert.doesNotMatch(css.body, /Syne/);
     assert.match(css.body, /\.footer-links/);
+    assert.match(css.body, /footer \{[\s\S]*max-width: none/);
+    assert.doesNotMatch(css.body, /body\[data-site="labs"\] \.nav-links/);
   });
 
   it('serves a favicon', async () => {
@@ -316,13 +333,14 @@ describe('host-based pages', () => {
   it('serves T & P and Support on both hosts with matching footers', async () => {
     const consumerTp = await request(port, { path: '/tp', headers: { host: 'aorila.com' } });
     assert.equal(consumerTp.status, 200);
+    assert.match(consumerTp.body, /class="landing"/);
     assert.match(consumerTp.body, /<h1>T &amp; P<\/h1>/);
     assert.match(consumerTp.body, /What we collect/);
     assert.match(consumerTp.body, /Emails you send to/);
     assert.match(consumerTp.body, /api@aorila\.com/);
+    assertConsumerHeader(consumerTp.body);
+    assertHomepageFooter(consumerTp.body);
     assert.doesNotMatch(consumerTp.body, /href="\/about"/);
-    assert.match(consumerTp.body, /href="\/tp"/);
-    assert.match(consumerTp.body, /href="\/support"/);
     assert.doesNotMatch(consumerTp.body, /href="\/privacy"/);
     assert.doesNotMatch(consumerTp.body, /href="\/terms"/);
     assert.doesNotMatch(consumerTp.body, /This page covers aorila\.com/);
@@ -337,9 +355,12 @@ describe('host-based pages', () => {
 
     const consumerSupport = await request(port, { path: '/support', headers: { host: 'aorila.com' } });
     assert.equal(consumerSupport.status, 200);
+    assert.match(consumerSupport.body, /class="landing"/);
     assert.match(consumerSupport.body, /<h1>Support<\/h1>/);
     assert.match(consumerSupport.body, /Questions:/);
     assert.match(consumerSupport.body, /api@aorila\.com/);
+    assertConsumerHeader(consumerSupport.body);
+    assertHomepageFooter(consumerSupport.body);
     assert.doesNotMatch(consumerSupport.body, /Effective/);
     assert.doesNotMatch(consumerSupport.body, /hero-badge/);
     assert.doesNotMatch(consumerSupport.body, /These terms cover/);
@@ -359,12 +380,11 @@ describe('host-based pages', () => {
       assert.match(res.body, /<h1>/);
       assert.match(res.body, /api@aorila\.com/);
       assert.doesNotMatch(res.body, /href="\/about"/);
-      assert.match(res.body, /href="\/tp"/);
-      assert.match(res.body, /href="\/support"/);
+      assert.match(res.body, /<header class="nav">/);
+      assert.match(res.body, /class="wordmark" href="\/"/);
+      assertHomepageFooter(res.body);
       assert.doesNotMatch(res.body, /href="\/privacy"/);
       assert.doesNotMatch(res.body, /href="\/terms"/);
-      assert.match(res.body, /<span>Aorila<\/span>/);
-      assert.match(res.body, /href="https:\/\/aorilalabs\.com"[^>]*>Aorila Labs</);
       assert.doesNotMatch(res.body, /lorem ipsum/i);
       assert.doesNotMatch(res.body, /\bTBD\b/);
       assert.doesNotMatch(res.body, /coming soon/i);
