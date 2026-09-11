@@ -194,6 +194,7 @@ describe('host-based pages', () => {
     assert.match(res.body, /<title>Aorila Labs — Commercial API access<\/title>/);
     assert.match(res.body, /Aorila Labs/);
     assert.match(res.body, /<h1>Commercial API access<\/h1>/);
+    assert.match(res.body, /class="labs-split"/);
     assert.doesNotMatch(res.body, /hero-badge/);
     assert.doesNotMatch(res.body, /nav-link"[^>]*>\s*(?:<span[^>]*>)?(?:Commercial API access|Access)\b/);
     assert.match(res.body, /class="nav-link" href="https:\/\/aorila\.com"[^>]*>Aorila<\/a>/);
@@ -288,6 +289,7 @@ describe('host-based pages', () => {
     assert.doesNotMatch(consumer.body, /Where to start/);
     assert.doesNotMatch(consumer.body, /This page is the inquire path/);
     assert.match(consumer.body, /class="api-lock"/);
+    assert.match(consumer.body, /class="landing"/);
     assert.match(consumer.body, /href="\/tp"/);
     assert.match(consumer.body, /href="\/support"/);
     assert.doesNotMatch(consumer.body, /<span>Aorila<\/span>/);
@@ -337,6 +339,7 @@ describe('host-based pages', () => {
     const labs = await request(port, { path: '/api', headers: { host: 'aorilalabs.com' } });
     assert.match(labs.body, /<title>Aorila Labs — Commercial API access<\/title>/);
     assert.match(labs.body, /Commercial API access/);
+    assert.match(labs.body, /class="labs-split"/);
     assert.match(labs.body, /api@aorila\.com/);
     assert.match(labs.body, /og:url" content="https:\/\/aorilalabs.com\/api"/);
     assert.doesNotMatch(labs.body, /Powered/i);
@@ -396,6 +399,8 @@ describe('host-based pages', () => {
     assert.doesNotMatch(css.body, /#1f6bff/);
     assert.doesNotMatch(css.body, /Syne/);
     assert.match(css.body, /\.footer-links/);
+    assert.match(css.body, /footer \{[\s\S]*max-width: none/);
+    assert.match(css.body, /\.labs-split/);
   });
 
   it('serves a favicon', async () => {
@@ -407,6 +412,7 @@ describe('host-based pages', () => {
   it('serves T & P and Support on both hosts with matching footers', async () => {
     const consumerTp = await request(port, { path: '/tp', headers: { host: 'aorila.com' } });
     assert.equal(consumerTp.status, 200);
+    assert.match(consumerTp.body, /class="landing"/);
     assert.match(consumerTp.body, /<h1>T &amp; P<\/h1>/);
     assert.match(consumerTp.body, /What we collect/);
     assert.match(consumerTp.body, /Emails you send to/);
@@ -428,7 +434,8 @@ describe('host-based pages', () => {
 
     const consumerSupport = await request(port, { path: '/support', headers: { host: 'aorila.com' } });
     assert.equal(consumerSupport.status, 200);
-    assert.match(consumerSupport.body, /<h1>Support<\/h1>/);
+    assert.match(consumerSupport.body, /class="landing"/);
+    assert.doesNotMatch(consumerSupport.body, /<h1>Support<\/h1>/);
     assert.match(consumerSupport.body, /Questions:/);
     assert.match(consumerSupport.body, /api@aorila\.com/);
     assert.doesNotMatch(consumerSupport.body, /Effective/);

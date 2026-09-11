@@ -25,46 +25,47 @@
   </header>
 
   <main>
-    <section class="hero compact">
-      <h1>Commercial API access</h1>
-      <p class="lede">Tell us about your company and how you plan to use the API.</p>
-    </section>
-
-    <section id="contact" class="section labs-request">
-      <form class="waitlist" action="/leads" method="post" data-kind="contact">
-        <input type="hidden" name="site" value="labs" />
-        <input type="hidden" name="kind" value="contact" />
-        <label class="hp" aria-hidden="true">Fax
-          <input type="text" name="fax" tabindex="-1" autocomplete="off" />
-        </label>
-        <label>
-          Company
-          <input type="text" name="company" autocomplete="organization" required placeholder="Acme Inc." />
-        </label>
-        <label>
-          Contact name
-          <input type="text" name="name" autocomplete="name" required placeholder="Jordan Lee" />
-        </label>
-        <label>
-          Work email
-          <input type="email" name="email" autocomplete="email" required placeholder="you@company.com" />
-        </label>
-        <label>
-          Use case
-          <textarea name="use_case" rows="4" required placeholder="What will you use the API for?"></textarea>
-        </label>
-        <label>
-          Volume estimate
-          <input type="text" name="volume" autocomplete="off" required placeholder="e.g. 10M tokens / month or 50 seats" />
-        </label>
-        <label>
-          Website <span class="optional">optional</span>
-          <input type="text" name="website" autocomplete="url" placeholder="https://" />
-        </label>
-        <button class="cta primary" type="submit">Request access</button>
-        <p class="form-status" role="status" aria-live="polite"></p>
-      </form>
-      <p class="form-alt">Or email <a href="mailto:api@aorila.com">api@aorila.com</a>.</p>
+    <section id="contact" class="labs-split">
+      <div class="labs-split-form">
+        <form class="waitlist" action="/leads" method="post" data-kind="contact">
+          <input type="hidden" name="site" value="labs" />
+          <input type="hidden" name="kind" value="contact" />
+          <label class="hp" aria-hidden="true">Fax
+            <input type="text" name="fax" tabindex="-1" autocomplete="off" />
+          </label>
+          <label>
+            Company
+            <input type="text" name="company" autocomplete="organization" required placeholder="Acme Inc." />
+          </label>
+          <label>
+            Contact name
+            <input type="text" name="name" autocomplete="name" required placeholder="Jordan Lee" />
+          </label>
+          <label>
+            Work email
+            <input type="email" name="email" autocomplete="email" required placeholder="you@company.com" />
+          </label>
+          <label>
+            Use case
+            <textarea name="use_case" rows="4" required placeholder="What will you use the API for?"></textarea>
+          </label>
+          <label>
+            Volume estimate
+            <input type="text" name="volume" autocomplete="off" required placeholder="e.g. 10M tokens / month or 50 seats" />
+          </label>
+          <label>
+            Website <span class="optional">optional</span>
+            <input type="text" name="website" autocomplete="url" placeholder="https://" />
+          </label>
+          <button class="cta primary" type="submit">Request access</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+        <p class="form-alt">Or email <a href="mailto:api@aorila.com">api@aorila.com</a>.</p>
+      </div>
+      <div class="labs-split-copy">
+        <h1>Commercial API access</h1>
+        <p class="lede">Tell us about your company and how you plan to use the API.</p>
+      </div>
     </section>
   </main>
 
