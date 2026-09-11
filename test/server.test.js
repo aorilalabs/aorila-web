@@ -333,11 +333,17 @@ describe('host-based pages', () => {
 
     const consumerPrivacy = await request(port, { path: '/privacy', headers: { host: 'aorila.com' } });
     assert.match(consumerPrivacy.body, /What we collect/);
-    assert.match(consumerPrivacy.body, /request logs/);
+    assert.match(consumerPrivacy.body, /Emails you send to/);
+    assert.doesNotMatch(consumerPrivacy.body, /request logs/);
+    assert.doesNotMatch(consumerPrivacy.body, /We do not sell it/);
+    assert.doesNotMatch(consumerPrivacy.body, /have their own pages/);
 
     const consumerTerms = await request(port, { path: '/terms', headers: { host: 'aorila.com' } });
-    assert.match(consumerTerms.body, /Access is granted by Aorila/);
-    assert.match(consumerTerms.body, /not automatic/);
+    assert.match(consumerTerms.body, /Questions:/);
+    assert.match(consumerTerms.body, /api@aorila\.com/);
+    assert.doesNotMatch(consumerTerms.body, /There is no checkout/);
+    assert.doesNotMatch(consumerTerms.body, /Access is granted by Aorila/);
+    assert.doesNotMatch(consumerTerms.body, /have their own terms/);
 
     const labsAbout = await request(port, { path: '/about', headers: { host: 'aorilalabs.com' } });
     assert.equal(labsAbout.headers['x-aorila-site'], 'labs');
