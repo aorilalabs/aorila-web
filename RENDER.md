@@ -12,7 +12,7 @@ Routing is Host-based in `server.js` only. Attach consumer, Labs, and API names 
 | `api.aorila.com` | Consumer API face | Slim **Aorila API** (`sites/consumer/api.html`) at `GET /` |
 | `aorilalabs.com` and `www.aorilalabs.com` | Labs | Aorila Labs / **Request API access** |
 
-`aorila.com/api` **301**s to `https://api.aorila.com/`. Labs `/api` stays on the Labs host.
+`aorila.com/api` serves the same slim API page as `api.aorila.com/`. On `api.aorila.com`, `/api` **301**s to `/`. Labs `/api` stays on the Labs host.
 
 The `*.onrender.com` hostname defaults to consumer. Preview Labs with `?site=labs` or header `X-Aorila-Site: labs`. Local / preview `/api` still serves the slim page (no redirect off-box).
 
