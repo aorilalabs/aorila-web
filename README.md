@@ -46,6 +46,6 @@ npm test
 - `/` — consumer: one-line landing + key / Labs CTAs · API host: slim Atraly + `api@aorila.com` · Labs: request form
 - `/api` — consumer custom domains: 301 → `https://api.aorila.com/` · preview hosts: slim page · Labs: request form
 - `/docs` — both hosts: docs ship with a key (no public reference)
-- `/about` `/privacy` `/terms` — both hosts, short
+- `/privacy` `/terms` — both hosts, short
 
 Leads (`POST /leads`) store to `data/leads.json` or `LEADS_PATH`. Labs fields: company, name, email, use case, volume, optional website. Honeypot field is `fax` (hidden). No extra env is required for the form to accept posts.
