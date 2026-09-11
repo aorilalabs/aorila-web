@@ -12,7 +12,7 @@ function cookieSite(req) {
 
 const SITES_DIR = path.join(__dirname, 'sites');
 const PUBLIC_DIR = path.join(__dirname, 'public');
-const PAGES = new Set(['index.html', 'api.html', 'docs.html', 'about.html', 'privacy.html', 'terms.html']);
+const PAGES = new Set(['index.html', 'api.html', 'docs.html', 'privacy.html', 'terms.html']);
 
 function siteFromRequest(req) {
   return resolveSite({
@@ -75,10 +75,6 @@ function createApp(options = {}) {
     sendPage(res, res.locals.site, 'docs.html');
   });
 
-  app.get(['/about', '/about.html'], (req, res) => {
-    sendPage(res, res.locals.site, 'about.html');
-  });
-
   app.get(['/privacy', '/privacy.html'], (req, res) => {
     sendPage(res, res.locals.site, 'privacy.html');
   });
@@ -115,7 +111,6 @@ function createApp(options = {}) {
 </section></main>
 <footer>
 <nav class="footer-links" aria-label="Legal">
-<a href="/about">About</a>
 <a href="/privacy">Privacy</a>
 <a href="/terms">Terms</a>
 </nav>
@@ -136,12 +131,11 @@ function createApp(options = {}) {
 <body data-site="${res.locals.site}">
 <header class="nav"><a class="wordmark" href="/">${res.locals.site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a></header>
 <main><section class="hero compact"><p class="eyebrow">404</p><h1>This page is not on this site.</h1>
-<p class="lede">Try home, API access, About, Privacy, or Terms.</p>
-<div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="${res.locals.site === 'labs' ? '/api' : CONSUMER_API_URL}">API access</a><a class="cta ghost" href="/about">About</a></div>
+<p class="lede">Try home, API access, Privacy, or Terms.</p>
+<div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="${res.locals.site === 'labs' ? '/api' : CONSUMER_API_URL}">API access</a></div>
 </section></main>
 <footer>
 <nav class="footer-links" aria-label="Legal">
-<a href="/about">About</a>
 <a href="/privacy">Privacy</a>
 <a href="/terms">Terms</a>
 </nav>
