@@ -141,8 +141,14 @@ describe('host-based pages', () => {
     assert.doesNotMatch(res.body, /Powered by/i);
     assert.doesNotMatch(res.body, /partnership/i);
     assert.doesNotMatch(res.body, /href="\/about"/);
-    assert.match(res.body, /href="\/privacy"/);
-    assert.match(res.body, /href="\/terms"/);
+    assert.match(res.body, /href="\/tp"/);
+    assert.match(res.body, /href="\/support"/);
+    assert.doesNotMatch(res.body, /href="\/privacy"/);
+    assert.doesNotMatch(res.body, /href="\/terms"/);
+    assert.match(res.body, />T &amp; P</);
+    assert.match(res.body, />Support</);
+    assert.match(res.body, /<span>Aorila<\/span>/);
+    assert.match(res.body, /href="https:\/\/aorilalabs\.com"[^>]*>Aorila Labs</);
   });
 
   it('preview via ?site=labs on localhost', async () => {
@@ -307,7 +313,7 @@ describe('host-based pages', () => {
     assert.match(res.body, /<svg/);
   });
 
-  it('serves T & P and Support on consumer, Privacy and Terms on Labs', async () => {
+  it('serves T & P and Support on both hosts with matching footers', async () => {
     const consumerTp = await request(port, { path: '/tp', headers: { host: 'aorila.com' } });
     assert.equal(consumerTp.status, 200);
     assert.match(consumerTp.body, /<h1>T &amp; P<\/h1>/);
@@ -347,14 +353,18 @@ describe('host-based pages', () => {
     assert.equal(termsRedirect.status, 301);
     assert.match(String(termsRedirect.headers.location || ''), /\/support/);
 
-    for (const path of ['/privacy', '/terms']) {
+    for (const path of ['/tp', '/support']) {
       const res = await request(port, { path, headers: { host: 'aorilalabs.com' } });
       assert.equal(res.status, 200, `aorilalabs.com${path}`);
       assert.match(res.body, /<h1>/);
       assert.match(res.body, /api@aorila\.com/);
       assert.doesNotMatch(res.body, /href="\/about"/);
-      assert.match(res.body, /href="\/privacy"/);
-      assert.match(res.body, /href="\/terms"/);
+      assert.match(res.body, /href="\/tp"/);
+      assert.match(res.body, /href="\/support"/);
+      assert.doesNotMatch(res.body, /href="\/privacy"/);
+      assert.doesNotMatch(res.body, /href="\/terms"/);
+      assert.match(res.body, /<span>Aorila<\/span>/);
+      assert.match(res.body, /href="https:\/\/aorilalabs\.com"[^>]*>Aorila Labs</);
       assert.doesNotMatch(res.body, /lorem ipsum/i);
       assert.doesNotMatch(res.body, /\bTBD\b/);
       assert.doesNotMatch(res.body, /coming soon/i);
@@ -370,14 +380,21 @@ describe('host-based pages', () => {
     const labsAboutGone = await request(port, { path: '/about', headers: { host: 'aorilalabs.com' } });
     assert.equal(labsAboutGone.status, 404);
 
-    const labsPrivacy = await request(port, { path: '/privacy', headers: { host: 'aorilalabs.com' } });
-    assert.match(labsPrivacy.body, /work email/i);
-    assert.match(labsPrivacy.body, /volume estimate/i);
-    assert.doesNotMatch(labsPrivacy.body, /Atraly/);
+    const labsTp = await request(port, { path: '/tp', headers: { host: 'aorilalabs.com' } });
+    assert.match(labsTp.body, /work email/i);
+    assert.match(labsTp.body, /volume estimate/i);
+    assert.doesNotMatch(labsTp.body, /Atraly/);
 
-    const labsTerms = await request(port, { path: '/terms', headers: { host: 'aorilalabs.com' } });
-    assert.match(labsTerms.body, /Submitting the form is a request/);
-    assert.doesNotMatch(labsTerms.body, /Atraly/);
+    const labsSupport = await request(port, { path: '/support', headers: { host: 'aorilalabs.com' } });
+    assert.match(labsSupport.body, /Submitting the form is a request/);
+    assert.doesNotMatch(labsSupport.body, /Atraly/);
+
+    const labsPrivacyRedirect = await request(port, { path: '/privacy', headers: { host: 'aorilalabs.com' } });
+    assert.equal(labsPrivacyRedirect.status, 301);
+    assert.match(String(labsPrivacyRedirect.headers.location || ''), /\/tp/);
+    const labsTermsRedirect = await request(port, { path: '/terms', headers: { host: 'aorilalabs.com' } });
+    assert.equal(labsTermsRedirect.status, 301);
+    assert.match(String(labsTermsRedirect.headers.location || ''), /\/support/);
   });
 
   it('returns a filled 404 with legal links', async () => {
