@@ -112,7 +112,7 @@ body[data-site="consumer"] .nav-actions {
   position: fixed;
   inset: 0;
   z-index: 45;
-  background: rgba(0, 0, 0, 0.34);
+  background: transparent;
   border: none;
   padding: 0;
   cursor: pointer;
@@ -131,7 +131,7 @@ body[data-site="consumer"] .nav-actions {
   padding: 18px 18px 28px;
   background: var(--paper);
   border-left: 1px solid var(--line);
-  box-shadow: -18px 0 48px rgba(0, 0, 0, 0.12);
+  box-shadow: none;
   overflow-y: auto;
   transform: translateX(100%);
   transition: transform 0.22s ease;
@@ -148,30 +148,23 @@ body[data-site="consumer"] .nav-actions {
 .nav-sidebar-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 12px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--line);
 }
-.nav-sidebar-title {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
 .nav-sidebar-close {
   border: none;
-  background: var(--surface);
+  background: transparent;
   color: var(--ink);
   font: inherit;
   font-size: 13px;
   font-weight: 600;
-  padding: 8px 12px;
-  border-radius: 999px;
+  padding: 8px 4px;
+  border-radius: 0;
   cursor: pointer;
 }
-.nav-sidebar-close:hover { background: #e8e8ed; }
+.nav-sidebar-close:hover { background: transparent; color: var(--muted); }
 body.nav-sidebar-open {
   overflow: hidden;
 }
@@ -223,8 +216,8 @@ body.nav-sidebar-open {
   width: 40px;
   height: 40px;
   border: none;
-  background: var(--surface);
-  border-radius: 12px;
+  background: transparent;
+  border-radius: 0;
   cursor: pointer;
   align-items: center;
   justify-content: center;

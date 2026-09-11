@@ -17,7 +17,11 @@ function request(port, { path = '/', headers = {} } = {}) {
 }
 
 function hrefs(body, label) {
-  const re = new RegExp(`href="([^"]+)"[^>]*>\\s*${label}\\s*<`, 'g');
+  // Allow an optional wrapper tag (e.g. menu-item-title span) between the anchor and label.
+  const re = new RegExp(
+    `href="([^"]+)"[^>]*>(?:\\s*<span[^>]*>)?\\s*${label}\\s*<`,
+    'g'
+  );
   return [...body.matchAll(re)].map((m) => m[1]);
 }
 
@@ -82,10 +86,12 @@ describe('host-based pages', () => {
     assert.doesNotMatch(res.body, /Higher-quality AI for businesses/);
   });
 
-  it('sends every consumer request-key CTA to the same href as the nav API control', async () => {
+  it('sends every consumer request-key CTA to the same href as Product → APIs', async () => {
     const home = await request(port, { headers: { host: 'aorila.com' } });
-    const navApi = hrefs(home.body, 'API');
-    assert.deepEqual(navApi, ['https://api.aorila.com']);
+    const navApis = hrefs(home.body, 'APIs');
+    assert.deepEqual(navApis, ['https://api.aorila.com']);
+    assert.match(home.body, /id="site-nav"[\s\S]*menu-item-title">APIs</);
+    assert.doesNotMatch(home.body, /nav-utility[\s\S]*>API</);
     const requestKey = hrefs(home.body, 'Request an API key');
     assert.ok(requestKey.length >= 1);
     for (const href of requestKey) {
@@ -96,17 +102,25 @@ describe('host-based pages', () => {
     assert.doesNotMatch(home.body, /mailto:hello@aorila\.com/);
   });
 
-  it('puts Ally beside API on the consumer nav', async () => {
+  it('puts Ally beside Labs on the consumer nav (API lives under Product)', async () => {
     const paths = ['/', '/api', '/docs', '/tp', '/support', '/about', '/pricing'];
     for (const path of paths) {
       const res = await request(port, { path, headers: { host: 'aorila.com' } });
       assert.deepEqual(hrefs(res.body, 'Ally'), ['https://ally.atraly.com']);
-      assert.match(res.body, /API<\/a>\s*<a class="nav-link" href="https:\/\/ally\.atraly\.com">Ally<\/a>/);
-      assert.deepEqual(hrefs(res.body, 'API'), ['https://api.aorila.com']);
+      assert.match(
+        res.body,
+        /Ally<\/a>\s*<a class="nav-link" href="https:\/\/aorilalabs\.com"[^>]*>Labs<\/a>/
+      );
+      assert.deepEqual(hrefs(res.body, 'APIs'), ['https://api.aorila.com']);
+      assert.doesNotMatch(res.body, /nav-utility[\s\S]*>API</);
     }
     const apiFace = await request(port, { path: '/', headers: { host: 'api.aorila.com' } });
     assert.deepEqual(hrefs(apiFace.body, 'Ally'), ['https://ally.atraly.com']);
-    assert.match(apiFace.body, /API<\/a>\s*<a class="nav-link" href="https:\/\/ally\.atraly\.com">Ally<\/a>/);
+    assert.match(
+      apiFace.body,
+      /Ally<\/a>\s*<a class="nav-link" href="https:\/\/aorilalabs\.com"[^>]*>Labs<\/a>/
+    );
+    assert.match(apiFace.body, /href="https:\/\/api\.aorila\.com"[^>]*aria-current="page"[\s\S]*?>[\s\S]*?APIs</);
     const labs = await request(port, { headers: { host: 'aorilalabs.com' } });
     assert.doesNotMatch(labs.body, />Ally</);
   });
@@ -116,10 +130,13 @@ describe('host-based pages', () => {
     assert.match(res.body, /class="nav-toggle"/);
     assert.match(res.body, /class="nav-sidebar"[^>]*id="site-nav" hidden/);
     assert.match(res.body, /class="nav-backdrop"/);
+    assert.doesNotMatch(res.body, /nav-sidebar-title/);
+    assert.doesNotMatch(res.body, />Menu</);
     assert.match(
       res.body,
       /nav-utility[\s\S]*nav-toggle[\s\S]*id="site-nav"[\s\S]*>Product</
     );
+    assert.match(res.body, /id="site-nav"[\s\S]*menu-item-title">APIs</);
     assert.match(res.body, /id="site-nav"[\s\S]*>Use Cases</);
     assert.match(res.body, /id="site-nav"[\s\S]*>Resources</);
     assert.match(res.body, /id="site-nav"[\s\S]*>Company</);
@@ -130,7 +147,7 @@ describe('host-based pages', () => {
     assert.match(res.body, /id="site-nav"[\s\S]*>Contact Sales</);
     assert.match(res.body, /id="site-nav"[\s\S]*>Sign in</);
     assert.match(res.body, /id="site-nav"[\s\S]*>Sign Up</);
-    assert.match(res.body, /nav-utility[\s\S]*>API</);
+    assert.doesNotMatch(res.body, /nav-utility[\s\S]*>API</);
     assert.match(res.body, /nav-utility[\s\S]*>Ally</);
     assert.match(res.body, /nav-utility[\s\S]*>Labs</);
   });
