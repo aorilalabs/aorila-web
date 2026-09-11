@@ -640,6 +640,10 @@ footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
   margin-top: 8px;
 }
 
+.legal-cta-row {
+  margin-top: 28px;
+}
+
 @media (max-width: 900px) {
   body.labs-home main.labs-main {
     grid-template-columns: 1fr;
@@ -649,6 +653,8 @@ footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
     align-items: start;
   }
   .labs-intro { max-width: none; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-grid .span-2 { grid-column: auto; }
 }
 
 @media (max-width: 720px) {
@@ -659,8 +665,6 @@ footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
   body.landing .hero { padding: 28px var(--pad) 36px; }
   .price-grid { grid-template-columns: 1fr; }
   .brand { font-size: 2.6rem; }
-  .form-grid { grid-template-columns: 1fr; }
-  .form-grid .span-2 { grid-column: auto; }
   .legal-hero { padding-top: 40px; }
 }
 

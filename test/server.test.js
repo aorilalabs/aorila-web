@@ -105,7 +105,6 @@ describe('host-based pages', () => {
     assert.match(res.body, /<title>Aorila Labs — Request API access<\/title>/);
     assert.match(res.body, /Aorila Labs/);
     assert.match(res.body, /Request API access/);
-    assert.match(res.body, /Request access/);
     assert.match(res.body, /api@aorila\.com/);
     assert.match(res.body, /form class="waitlist"/);
     assert.match(res.body, /action="\/leads"/);
@@ -162,7 +161,7 @@ describe('host-based pages', () => {
       headers: { host: 'aorila.onrender.com', 'x-aorila-site': 'labs' },
     });
     assert.equal(res.headers['x-aorila-site'], 'labs');
-    assert.match(res.body, /Request access/);
+    assert.match(res.body, /Request API access/);
   });
 
   it('serves the slim consumer API page at / on api.aorila.com', async () => {
@@ -250,7 +249,7 @@ describe('host-based pages', () => {
     assert.match(labs.body, /name="use_case"/);
     assert.match(labs.body, /name="volume"/);
     assert.match(labs.body, /name="website"/);
-    assert.match(labs.body, /Request access/);
+    assert.match(labs.body, /Request API access/);
     assert.doesNotMatch(labs.body, /chat\/completions/);
     assert.doesNotMatch(labs.body, /\$99/);
     assert.doesNotMatch(labs.body, /\$199/);
@@ -328,10 +327,10 @@ describe('host-based pages', () => {
 
     const consumerAbout = await request(port, { path: '/about', headers: { host: 'aorila.com' } });
     assert.equal(consumerAbout.headers['x-aorila-site'], 'consumer');
-    assert.match(consumerAbout.body, /<h1>About Aorila<\/h1>/);
-    assert.match(consumerAbout.body, /The Future of AI Innovation/);
+    assert.match(consumerAbout.body, /<h1>The Future of AI Innovation<\/h1>/);
     assert.match(consumerAbout.body, /Aorila is an AI company/);
     assert.doesNotMatch(consumerAbout.body, /Aorila builds AI/);
+    assert.doesNotMatch(consumerAbout.body, /<h1>About Aorila<\/h1>/);
     assert.match(consumerAbout.body, /https:\/\/ally\.atraly\.com/);
     assert.doesNotMatch(consumerAbout.body, /How the surfaces relate/);
     assert.deepEqual(hrefs(consumerAbout.body, 'Ally'), ['https://ally.atraly.com']);

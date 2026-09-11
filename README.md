@@ -14,7 +14,7 @@ Early-access sell path (prices may change; no Stripe on this site):
 
 | Face | Public offer | Access |
 | --- | --- | --- |
-| Consumer | **compute cost + Aorila fee** | `https://api.aorila.com` — Atraly link + `api@aorila.com` (`aorila.com/api` 301s here) |
+| Consumer | **compute cost + Aorila fee** | `https://api.aorila.com` and `aorila.com/api` — Atraly link + `api@aorila.com` |
 | Labs | Request API access | B2B contact form → `POST /leads` · `api@aorila.com` secondary |
 
 No self-serve $29 / $199 checkout. The Atraly **app** is $20/mo on [atraly.com](https://atraly.com) — not this API. $99 is not a public Labs plan.
@@ -44,7 +44,7 @@ npm test
 ## Pages
 
 - `/` — consumer: one-line landing + key / Labs CTAs · API host: slim Atraly + `api@aorila.com` · Labs: request form
-- `/api` — consumer custom domains: 301 → `https://api.aorila.com/` · preview hosts: slim page · Labs: request form
+- `/api` — consumer (`aorila.com`) and API host (`api.aorila.com` `/`): slim page · `api.aorila.com/api` 301 → `/` · Labs: request form
 - `/docs` — both hosts: docs ship with a key (no public reference)
 - `/about` `/privacy` `/terms` — both hosts (company about + standard privacy/terms)
 
