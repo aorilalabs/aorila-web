@@ -12,7 +12,7 @@ function cookieSite(req) {
 
 const SITES_DIR = path.join(__dirname, 'sites');
 const PUBLIC_DIR = path.join(__dirname, 'public');
-const PAGES = new Set(['index.html', 'api.html', 'docs.html', 'privacy.html', 'terms.html']);
+const PAGES = new Set(['index.html', 'api.html', 'docs.html', 'privacy.html', 'terms.html', 'support.html']);
 
 function siteFromRequest(req) {
   return resolveSite({
@@ -79,8 +79,18 @@ function createApp(options = {}) {
     sendPage(res, res.locals.site, 'privacy.html');
   });
 
+  app.get(['/support', '/support.html'], (req, res) => {
+    if (res.locals.site === 'labs') {
+      return res.redirect(301, '/terms');
+    }
+    sendPage(res, 'consumer', 'support.html');
+  });
+
   app.get(['/terms', '/terms.html'], (req, res) => {
-    sendPage(res, res.locals.site, 'terms.html');
+    if (res.locals.site === 'consumer') {
+      return res.redirect(301, '/support');
+    }
+    sendPage(res, 'labs', 'terms.html');
   });
 
   app.post('/leads', (req, res) => {
@@ -100,6 +110,8 @@ function createApp(options = {}) {
       if (wantsJson(req)) {
         return res.status(status).json({ ok: false, error: err.message || 'Could not store lead.' });
       }
+      const legalHref = res.locals.site === 'labs' ? '/terms' : '/support';
+      const legalLabel = res.locals.site === 'labs' ? 'Terms' : 'Support';
       return res.status(status).type('html').send(`<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Could not send — Aorila</title><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css" /></head>
@@ -112,7 +124,7 @@ function createApp(options = {}) {
 <footer>
 <nav class="footer-links" aria-label="Legal">
 <a href="/privacy">Privacy</a>
-<a href="/terms">Terms</a>
+<a href="${legalHref}">${legalLabel}</a>
 </nav>
 </footer>
 </body></html>`);
@@ -125,19 +137,21 @@ function createApp(options = {}) {
 
   app.use((req, res) => {
     res.status(404).set('X-Aorila-Site', res.locals.site);
+    const legalHref = res.locals.site === 'labs' ? '/terms' : '/support';
+    const legalLabel = res.locals.site === 'labs' ? 'Terms' : 'Support';
     res.type('html').send(`<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Not found — Aorila</title><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css" /></head>
 <body data-site="${res.locals.site}">
 <header class="nav"><a class="wordmark" href="/">${res.locals.site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a></header>
 <main><section class="hero compact"><p class="eyebrow">404</p><h1>This page is not on this site.</h1>
-<p class="lede">Try home, API access, Privacy, or Terms.</p>
+<p class="lede">Try home, API access, Privacy, or ${legalLabel}.</p>
 <div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="${res.locals.site === 'labs' ? '/api' : CONSUMER_API_URL}">API access</a></div>
 </section></main>
 <footer>
 <nav class="footer-links" aria-label="Legal">
 <a href="/privacy">Privacy</a>
-<a href="/terms">Terms</a>
+<a href="${legalHref}">${legalLabel}</a>
 </nav>
 </footer>
 </body></html>`);

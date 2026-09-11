@@ -49,7 +49,8 @@ describe('host-based pages', () => {
     assert.match(res.body, /<footer/);
     assert.doesNotMatch(res.body, /href="\/about"/);
     assert.match(res.body, /href="\/privacy"/);
-    assert.match(res.body, /href="\/terms"/);
+    assert.match(res.body, /href="\/support"/);
+    assert.doesNotMatch(res.body, /href="\/terms"/);
     assert.doesNotMatch(res.body, /Aorila — API access/);
     assert.doesNotMatch(res.body, /What you are requesting/);
     assert.doesNotMatch(res.body, /Workspace, presence/);
@@ -84,7 +85,7 @@ describe('host-based pages', () => {
   });
 
   it('puts Ally beside API on the consumer nav', async () => {
-    const paths = ['/', '/api', '/docs', '/privacy', '/terms'];
+    const paths = ['/', '/api', '/docs', '/privacy', '/support'];
     for (const path of paths) {
       const res = await request(port, { path, headers: { host: 'aorila.com' } });
       assert.deepEqual(hrefs(res.body, 'Ally'), ['https://ally.atraly.com']);
@@ -301,26 +302,49 @@ describe('host-based pages', () => {
     assert.match(res.body, /<svg/);
   });
 
-  it('serves Privacy and Terms on both hosts', async () => {
-    const paths = ['/privacy', '/terms'];
-    for (const host of ['aorila.com', 'aorilalabs.com']) {
-      for (const path of paths) {
-        const res = await request(port, { path, headers: { host } });
-        assert.equal(res.status, 200, `${host}${path}`);
-        assert.match(res.body, /<h1>/);
-        assert.match(res.body, /api@aorila\.com/);
-        assert.doesNotMatch(res.body, /href="\/about"/);
-        assert.match(res.body, /href="\/privacy"/);
-        assert.match(res.body, /href="\/terms"/);
-        assert.doesNotMatch(res.body, /lorem ipsum/i);
-        assert.doesNotMatch(res.body, /\bTBD\b/);
-        assert.doesNotMatch(res.body, /coming soon/i);
-        assert.doesNotMatch(res.body, /stripe/i);
-        assert.doesNotMatch(res.body, /RunPod/i);
-        assert.doesNotMatch(res.body, /Supabase/i);
-        assert.doesNotMatch(res.body, /Vertex/i);
-        assert.doesNotMatch(res.body, /Ollama/i);
-      }
+  it('serves Privacy on both hosts, Support on consumer, Terms on Labs', async () => {
+    const consumerPrivacy = await request(port, { path: '/privacy', headers: { host: 'aorila.com' } });
+    assert.equal(consumerPrivacy.status, 200);
+    assert.match(consumerPrivacy.body, /<h1>/);
+    assert.match(consumerPrivacy.body, /api@aorila\.com/);
+    assert.doesNotMatch(consumerPrivacy.body, /href="\/about"/);
+    assert.match(consumerPrivacy.body, /href="\/privacy"/);
+    assert.match(consumerPrivacy.body, /href="\/support"/);
+    assert.doesNotMatch(consumerPrivacy.body, /href="\/terms"/);
+
+    const consumerSupport = await request(port, { path: '/support', headers: { host: 'aorila.com' } });
+    assert.equal(consumerSupport.status, 200);
+    assert.match(consumerSupport.body, /<h1>Support<\/h1>/);
+    assert.match(consumerSupport.body, /Questions:/);
+    assert.match(consumerSupport.body, /api@aorila\.com/);
+    assert.doesNotMatch(consumerSupport.body, /Effective/);
+    assert.doesNotMatch(consumerSupport.body, /hero-badge/);
+    assert.doesNotMatch(consumerSupport.body, /These terms cover/);
+    assert.doesNotMatch(consumerSupport.body, /There is no checkout/);
+    assert.doesNotMatch(consumerSupport.body, /Access is granted by Aorila/);
+    assert.doesNotMatch(consumerSupport.body, /have their own terms/);
+    assert.match(consumerSupport.body, /href="\/support"/);
+
+    const termsRedirect = await request(port, { path: '/terms', headers: { host: 'aorila.com' }, redirect: 'manual' });
+    assert.equal(termsRedirect.status, 301);
+    assert.match(String(termsRedirect.headers.location || ''), /\/support/);
+
+    for (const path of ['/privacy', '/terms']) {
+      const res = await request(port, { path, headers: { host: 'aorilalabs.com' } });
+      assert.equal(res.status, 200, `aorilalabs.com${path}`);
+      assert.match(res.body, /<h1>/);
+      assert.match(res.body, /api@aorila\.com/);
+      assert.doesNotMatch(res.body, /href="\/about"/);
+      assert.match(res.body, /href="\/privacy"/);
+      assert.match(res.body, /href="\/terms"/);
+      assert.doesNotMatch(res.body, /lorem ipsum/i);
+      assert.doesNotMatch(res.body, /\bTBD\b/);
+      assert.doesNotMatch(res.body, /coming soon/i);
+      assert.doesNotMatch(res.body, /stripe/i);
+      assert.doesNotMatch(res.body, /RunPod/i);
+      assert.doesNotMatch(res.body, /Supabase/i);
+      assert.doesNotMatch(res.body, /Vertex/i);
+      assert.doesNotMatch(res.body, /Ollama/i);
     }
 
     const aboutGone = await request(port, { path: '/about', headers: { host: 'aorila.com' } });
@@ -328,20 +352,11 @@ describe('host-based pages', () => {
     const labsAboutGone = await request(port, { path: '/about', headers: { host: 'aorilalabs.com' } });
     assert.equal(labsAboutGone.status, 404);
 
-    const consumerPrivacy = await request(port, { path: '/privacy', headers: { host: 'aorila.com' } });
     assert.match(consumerPrivacy.body, /What we collect/);
     assert.match(consumerPrivacy.body, /Emails you send to/);
     assert.doesNotMatch(consumerPrivacy.body, /request logs/);
     assert.doesNotMatch(consumerPrivacy.body, /We do not sell it/);
     assert.doesNotMatch(consumerPrivacy.body, /have their own pages/);
-
-    const consumerTerms = await request(port, { path: '/terms', headers: { host: 'aorila.com' } });
-    assert.match(consumerTerms.body, /Questions:/);
-    assert.match(consumerTerms.body, /api@aorila\.com/);
-    assert.doesNotMatch(consumerTerms.body, /These terms cover aorila\.com/);
-    assert.doesNotMatch(consumerTerms.body, /There is no checkout/);
-    assert.doesNotMatch(consumerTerms.body, /Access is granted by Aorila/);
-    assert.doesNotMatch(consumerTerms.body, /have their own terms/);
 
     const labsPrivacy = await request(port, { path: '/privacy', headers: { host: 'aorilalabs.com' } });
     assert.match(labsPrivacy.body, /work email/i);
@@ -356,12 +371,13 @@ describe('host-based pages', () => {
   it('returns a filled 404 with legal links', async () => {
     const res = await request(port, { path: '/missing-page', headers: { host: 'aorila.com' } });
     assert.equal(res.status, 404);
-    assert.match(res.body, /Try home, API access, Privacy, or Terms/);
+    assert.match(res.body, /Try home, API access, Privacy, or Support/);
     assert.match(res.body, />API access</);
     assert.match(res.body, /href="https:\/\/api\.aorila\.com\/"/);
     assert.doesNotMatch(res.body, /API docs/);
     assert.doesNotMatch(res.body, /href="\/about"/);
     assert.match(res.body, /href="\/privacy"/);
-    assert.match(res.body, /href="\/terms"/);
+    assert.match(res.body, /href="\/support"/);
+    assert.doesNotMatch(res.body, /href="\/terms"/);
   });
 });
