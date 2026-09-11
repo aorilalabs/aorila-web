@@ -111,10 +111,11 @@ describe('host-based pages', () => {
     assert.doesNotMatch(labs.body, />Ally</);
   });
 
-  it('keeps marketing links inside a far-right hamburger menu', async () => {
+  it('keeps marketing links in a far-right sidebar menu', async () => {
     const res = await request(port, { headers: { host: 'aorila.com' } });
     assert.match(res.body, /class="nav-toggle"/);
-    assert.match(res.body, /id="site-nav" hidden/);
+    assert.match(res.body, /class="nav-sidebar"[^>]*id="site-nav" hidden/);
+    assert.match(res.body, /class="nav-backdrop"/);
     assert.match(
       res.body,
       /nav-utility[\s\S]*nav-toggle[\s\S]*id="site-nav"[\s\S]*>Product</

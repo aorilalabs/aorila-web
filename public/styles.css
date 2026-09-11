@@ -39,10 +39,10 @@ body.landing {
   display: flex;
   flex-direction: column;
 }
-body.landing:has(.nav.is-open) {
-  height: auto;
-  max-height: none;
-  overflow: auto;
+body.landing.nav-sidebar-open {
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
 }
 body.landing main {
   flex: 1;
@@ -81,22 +81,9 @@ a { color: inherit; }
   background: var(--paper);
   z-index: 40;
   border-bottom: 1px solid transparent;
-  flex-wrap: wrap;
 }
 body[data-site="consumer"] .nav {
   border-bottom-color: var(--line);
-}
-.nav-shell {
-  display: none;
-  width: 100%;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 18px;
-  padding: 12px 0 8px;
-  min-width: 0;
-}
-body[data-site="consumer"] .nav.is-open .nav-shell {
-  display: flex;
 }
 .nav-primary,
 .nav-actions,
@@ -120,6 +107,73 @@ body[data-site="consumer"] .nav-actions {
   gap: 14px;
   flex-shrink: 0;
   margin-left: auto;
+}
+.nav-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  background: rgba(0, 0, 0, 0.34);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.nav-backdrop[hidden] { display: none !important; }
+.nav-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  width: min(360px, 92vw);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 18px 18px 28px;
+  background: var(--paper);
+  border-left: 1px solid var(--line);
+  box-shadow: -18px 0 48px rgba(0, 0, 0, 0.12);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.22s ease;
+  visibility: hidden;
+}
+.nav-sidebar.is-open {
+  transform: translateX(0);
+  visibility: visible;
+}
+.nav-sidebar[hidden] {
+  display: flex !important;
+  visibility: hidden;
+}
+.nav-sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+.nav-sidebar-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.nav-sidebar-close {
+  border: none;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.nav-sidebar-close:hover { background: #e8e8ed; }
+body.nav-sidebar-open {
+  overflow: hidden;
 }
 .wordmark {
   font-family: var(--font);
