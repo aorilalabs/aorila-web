@@ -81,17 +81,22 @@ a { color: inherit; }
   background: var(--paper);
   z-index: 40;
   border-bottom: 1px solid transparent;
+  flex-wrap: wrap;
 }
 body[data-site="consumer"] .nav {
   border-bottom-color: var(--line);
 }
 .nav-shell {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 18px;
+  padding: 12px 0 8px;
   min-width: 0;
+}
+body[data-site="consumer"] .nav.is-open .nav-shell {
+  display: flex;
 }
 .nav-primary,
 .nav-actions,
@@ -102,12 +107,17 @@ body[data-site="consumer"] .nav {
   justify-content: flex-end;
   gap: 12px;
 }
-.nav-primary { gap: 4px 12px; justify-content: flex-start; flex-wrap: wrap; }
-.nav-actions { gap: 10px; flex-shrink: 0; }
+body[data-site="consumer"] .nav-primary,
+body[data-site="consumer"] .nav-actions {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 4px;
+}
+.nav-primary { gap: 4px; }
+.nav-actions { gap: 4px; flex-shrink: 0; }
 .nav-utility {
   gap: 14px;
-  padding-left: 12px;
-  border-left: 1px solid var(--line);
   flex-shrink: 0;
   margin-left: auto;
 }
@@ -166,6 +176,9 @@ body[data-site="consumer"] .nav {
   justify-content: center;
   flex-shrink: 0;
 }
+body[data-site="consumer"] .nav-toggle {
+  display: inline-flex;
+}
 .nav-toggle-bars,
 .nav-toggle-bars::before,
 .nav-toggle-bars::after {
@@ -183,7 +196,7 @@ body[data-site="consumer"] .nav {
 }
 .nav-toggle-bars::before { top: -5px; }
 .nav-toggle-bars::after { top: 5px; }
-.nav-dropdown { position: relative; }
+.nav-dropdown { position: relative; width: 100%; }
 .nav-dropdown-toggle::after {
   content: "";
   width: 0;
@@ -194,18 +207,32 @@ body[data-site="consumer"] .nav {
   border-top: 5px solid currentColor;
   opacity: 0.55;
 }
+body[data-site="consumer"] .nav-dropdown-toggle {
+  width: 100%;
+  min-height: 40px;
+  justify-content: space-between;
+}
+body[data-site="consumer"] .nav-primary > .nav-link,
+body[data-site="consumer"] .nav-actions > .nav-link {
+  width: 100%;
+  min-height: 40px;
+  justify-content: space-between;
+}
+body[data-site="consumer"] .nav-cta {
+  width: 100%;
+  justify-content: center;
+}
 .nav-dropdown-panel {
   display: none;
-  position: absolute;
-  top: calc(100% + 12px);
-  left: 0;
-  min-width: 280px;
-  max-width: min(360px, calc(100vw - 32px));
-  padding: 10px;
-  background: var(--paper);
+  position: static;
+  min-width: 0;
+  max-width: none;
+  padding: 8px;
+  background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 18px;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  box-shadow: none;
+  margin-top: 4px;
   z-index: 50;
 }
 .nav-dropdown.is-open > .nav-dropdown-panel { display: grid; gap: 2px; }
@@ -713,57 +740,6 @@ footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
   font-size: 13px;
   color: var(--muted);
   margin-top: 8px;
-}
-
-@media (max-width: 1440px) {
-  body[data-site="consumer"] .nav {
-    height: auto;
-    min-height: 56px;
-    padding: 10px var(--pad);
-    flex-wrap: wrap;
-  }
-  body[data-site="consumer"] .nav-toggle {
-    display: inline-flex;
-    order: 2;
-    margin-left: 0;
-  }
-  body[data-site="consumer"] .wordmark { order: 1; }
-  body[data-site="consumer"] .nav-utility {
-    order: 3;
-    margin-left: auto;
-    border-left: none;
-    padding-left: 0;
-  }
-  body[data-site="consumer"] .nav-shell {
-    display: none;
-    order: 4;
-    width: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 18px;
-    padding: 12px 0 8px;
-  }
-  body[data-site="consumer"] .nav.is-open .nav-shell { display: flex; }
-  body[data-site="consumer"] .nav-primary,
-  body[data-site="consumer"] .nav-actions {
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    gap: 4px;
-  }
-  body[data-site="consumer"] .nav-dropdown-panel {
-    position: static;
-    min-width: 0;
-    max-width: none;
-    box-shadow: none;
-    border: none;
-    background: var(--surface);
-    margin-top: 4px;
-  }
-  body[data-site="consumer"] .nav-cta {
-    justify-content: center;
-    width: 100%;
-  }
 }
 
 @media (max-width: 720px) {
