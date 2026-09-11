@@ -147,7 +147,7 @@ describe('host-based pages', () => {
     assert.doesNotMatch(res.body, /href="\/terms"/);
     assert.match(res.body, />T &amp; P</);
     assert.match(res.body, />Support</);
-    assert.match(res.body, /<span>Aorila<\/span>/);
+    assert.doesNotMatch(res.body, /<span>Aorila<\/span>/);
     assert.match(res.body, /href="https:\/\/aorilalabs\.com"[^>]*>Aorila Labs</);
   });
 
@@ -201,6 +201,10 @@ describe('host-based pages', () => {
     assert.doesNotMatch(consumer.body, /Where to start/);
     assert.doesNotMatch(consumer.body, /This page is the inquire path/);
     assert.match(consumer.body, /class="api-lock"/);
+    assert.match(consumer.body, /href="\/tp"/);
+    assert.match(consumer.body, /href="\/support"/);
+    assert.doesNotMatch(consumer.body, /<span>Aorila<\/span>/);
+    assert.match(consumer.body, /href="https:\/\/aorilalabs\.com"[^>]*>Aorila Labs</);
   });
 
   it('serves consumer /api on aorila.com and only redirects /api on the API host', async () => {
@@ -363,7 +367,7 @@ describe('host-based pages', () => {
       assert.match(res.body, /href="\/support"/);
       assert.doesNotMatch(res.body, /href="\/privacy"/);
       assert.doesNotMatch(res.body, /href="\/terms"/);
-      assert.match(res.body, /<span>Aorila<\/span>/);
+      assert.doesNotMatch(res.body, /<span>Aorila<\/span>/);
       assert.match(res.body, /href="https:\/\/aorilalabs\.com"[^>]*>Aorila Labs</);
       assert.doesNotMatch(res.body, /lorem ipsum/i);
       assert.doesNotMatch(res.body, /\bTBD\b/);

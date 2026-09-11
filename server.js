@@ -118,7 +118,6 @@ function createApp(options = {}) {
 <div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="mailto:api@aorila.com">api@aorila.com</a></div>
 </section></main>
 <footer>
-<span>Aorila</span>
 <nav class="footer-links" aria-label="Legal">
 <a href="/tp">T &amp; P</a>
 <a href="/support">Support</a>
@@ -145,7 +144,6 @@ function createApp(options = {}) {
 <div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="${res.locals.site === 'labs' ? '/api' : CONSUMER_API_URL}">API access</a></div>
 </section></main>
 <footer>
-<span>Aorila</span>
 <nav class="footer-links" aria-label="Legal">
 <a href="/tp">T &amp; P</a>
 <a href="/support">Support</a>
