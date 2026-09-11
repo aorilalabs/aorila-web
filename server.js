@@ -12,7 +12,7 @@ function cookieSite(req) {
 
 const SITES_DIR = path.join(__dirname, 'sites');
 const PUBLIC_DIR = path.join(__dirname, 'public');
-const PAGES = new Set(['index.html', 'api.html', 'docs.html', 'privacy.html', 'terms.html', 'support.html', 'tp.html']);
+const PAGES = new Set(['index.html', 'api.html', 'docs.html', 'support.html', 'tp.html']);
 
 function siteFromRequest(req) {
   return resolveSite({
@@ -76,31 +76,19 @@ function createApp(options = {}) {
   });
 
   app.get(['/tp', '/tp.html'], (req, res) => {
-    if (res.locals.site === 'labs') {
-      return res.redirect(301, '/privacy');
-    }
-    sendPage(res, 'consumer', 'tp.html');
+    sendPage(res, res.locals.site, 'tp.html');
   });
 
   app.get(['/privacy', '/privacy.html'], (req, res) => {
-    if (res.locals.site === 'consumer') {
-      return res.redirect(301, '/tp');
-    }
-    sendPage(res, 'labs', 'privacy.html');
+    return res.redirect(301, '/tp');
   });
 
   app.get(['/support', '/support.html'], (req, res) => {
-    if (res.locals.site === 'labs') {
-      return res.redirect(301, '/terms');
-    }
-    sendPage(res, 'consumer', 'support.html');
+    sendPage(res, res.locals.site, 'support.html');
   });
 
   app.get(['/terms', '/terms.html'], (req, res) => {
-    if (res.locals.site === 'consumer') {
-      return res.redirect(301, '/support');
-    }
-    sendPage(res, 'labs', 'terms.html');
+    return res.redirect(301, '/support');
   });
 
   app.post('/leads', (req, res) => {
@@ -120,10 +108,6 @@ function createApp(options = {}) {
       if (wantsJson(req)) {
         return res.status(status).json({ ok: false, error: err.message || 'Could not store lead.' });
       }
-      const policyHref = res.locals.site === 'labs' ? '/privacy' : '/tp';
-      const policyLabel = res.locals.site === 'labs' ? 'Privacy' : 'T &amp; P';
-      const legalHref = res.locals.site === 'labs' ? '/terms' : '/support';
-      const legalLabel = res.locals.site === 'labs' ? 'Terms' : 'Support';
       return res.status(status).type('html').send(`<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Could not send — Aorila</title><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css" /></head>
@@ -134,10 +118,12 @@ function createApp(options = {}) {
 <div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="mailto:api@aorila.com">api@aorila.com</a></div>
 </section></main>
 <footer>
+<span>Aorila</span>
 <nav class="footer-links" aria-label="Legal">
-<a href="${policyHref}">${policyLabel}</a>
-<a href="${legalHref}">${legalLabel}</a>
+<a href="/tp">T &amp; P</a>
+<a href="/support">Support</a>
 </nav>
+<span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
 </footer>
 </body></html>`);
     }
@@ -149,24 +135,22 @@ function createApp(options = {}) {
 
   app.use((req, res) => {
     res.status(404).set('X-Aorila-Site', res.locals.site);
-    const policyHref = res.locals.site === 'labs' ? '/privacy' : '/tp';
-    const policyLabel = res.locals.site === 'labs' ? 'Privacy' : 'T &amp; P';
-    const legalHref = res.locals.site === 'labs' ? '/terms' : '/support';
-    const legalLabel = res.locals.site === 'labs' ? 'Terms' : 'Support';
     res.type('html').send(`<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Not found — Aorila</title><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css" /></head>
 <body data-site="${res.locals.site}">
 <header class="nav"><a class="wordmark" href="/">${res.locals.site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a></header>
 <main><section class="hero compact"><p class="eyebrow">404</p><h1>This page is not on this site.</h1>
-<p class="lede">Try home, API access, ${policyLabel}, or ${legalLabel}.</p>
+<p class="lede">Try home, API access, T &amp; P, or Support.</p>
 <div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="${res.locals.site === 'labs' ? '/api' : CONSUMER_API_URL}">API access</a></div>
 </section></main>
 <footer>
+<span>Aorila</span>
 <nav class="footer-links" aria-label="Legal">
-<a href="${policyHref}">${policyLabel}</a>
-<a href="${legalHref}">${legalLabel}</a>
+<a href="/tp">T &amp; P</a>
+<a href="/support">Support</a>
 </nav>
+<span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
 </footer>
 </body></html>`);
   });
