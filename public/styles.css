@@ -39,6 +39,11 @@ body.landing {
   display: flex;
   flex-direction: column;
 }
+body.landing:has(.nav.is-open) {
+  height: auto;
+  max-height: none;
+  overflow: auto;
+}
 body.landing main {
   flex: 1;
   min-height: 0;
