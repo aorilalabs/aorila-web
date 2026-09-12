@@ -134,6 +134,7 @@ body.landing .hero h1 { max-width: 18ch; margin-bottom: 32px; }
 .cta.primary { background: var(--ink); color: var(--paper); }
 .cta.ghost { background: var(--surface); color: var(--ink); }
 .section { padding: 72px var(--pad); max-width: 860px; margin: 0 auto; border-top: 1px solid var(--line); }
+.section.undivided { border-top: none; }
 .section h2 { font-size: 28px; font-weight: 700; margin-bottom: 10px; }
 .section p, .section li { font-size: 16px; line-height: 1.55; color: var(--muted); }
 .section p { margin-bottom: 16px; }
@@ -142,7 +143,26 @@ body.landing .hero h1 { max-width: 18ch; margin-bottom: 32px; }
 .sku-table { width: 100%; border-collapse: collapse; font-size: 15px; }
 .sku-table th, .sku-table td { text-align: left; padding: 14px 12px; border-bottom: 1px solid var(--line); }
 .sku-table th { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-.price-note { font-size: 13px; color: var(--muted); }
+.price-note { font-size: 13px; color: var(--muted); margin: 16px 0 0; }
+.offer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 20px 0 8px;
+}
+.offer-card {
+  display: grid;
+  gap: 8px;
+  padding: 20px 18px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper);
+}
+.offer-gpu { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; }
+.offer-meta { font-size: 13px; color: var(--muted); }
+.offer-price { font-size: 28px; font-weight: 700; letter-spacing: -0.04em; }
+.offer-price span { font-size: 14px; font-weight: 500; color: var(--muted); }
+.offer-card .cta { width: 100%; }
 .waitlist { display: grid; gap: 14px; max-width: 28rem; margin: 20px 0 8px; }
 .waitlist label { display: grid; gap: 6px; font-size: 13px; font-weight: 600; }
 .waitlist .hp { position: absolute; left: -9999px; }
