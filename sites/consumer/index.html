@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Aorila</title>
-  <meta name="description" content="The Future of AI Innovation. Request an API key." />
+  <meta name="description" content="GPU compute from many pools. One Aorila catalog and bill." />
   <meta property="og:title" content="Aorila" />
-  <meta property="og:description" content="The Future of AI Innovation. Request an API key." />
+  <meta property="og:description" content="GPU compute from many pools. One Aorila catalog and bill." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorila.com" />
   <link rel="canonical" href="https://aorila.com" />
@@ -16,23 +16,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
-<body class="landing" data-site="consumer">
+<body data-site="consumer">
   <header class="nav">
     <a class="wordmark" href="/">Aorila</a>
-    <nav class="nav-links">
-      <a class="nav-link" href="https://api.aorila.com">API</a>
-      <a class="nav-link" href="https://ally.atraly.com">Ally</a>
-      <a class="nav-link" href="https://aorilalabs.com" data-local-site="labs">Labs</a>
-    </nav>
   </header>
 
   <main>
-    <section class="hero">
-      <h1>The Future of AI Innovation</h1>
+    <section class="hero compact">
+      <p class="hero-badge">Compute</p>
+      <h1>GPUs from many pools. One Aorila bill.</h1>
+      <p class="lede">On-demand pods at a live Aorila price. Planned VMs and reserved hours sit under Commercial.</p>
       <div class="cta-row">
-        <a class="cta primary" href="https://api.aorila.com">Request an API key</a>
-        <a class="cta ghost" href="https://aorilalabs.com" data-local-site="labs">Labs</a>
+        <a class="cta primary" href="/pods">Live pods</a>
+        <a class="cta ghost" href="/commercial">Commercial</a>
+        <a class="cta ghost" href="https://api.aorila.com">AI API</a>
       </div>
+    </section>
+    <section class="section undivided">
+      <h2>Live catalog</h2>
+      <p>Prices include the Aorila fee. Names are Aorila SKUs only.</p>
+      <div data-live-prices></div>
     </section>
   </main>
 
@@ -44,5 +47,6 @@
     <span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
   </footer>
   <script src="/site.js"></script>
+  <script src="/price.js"></script>
 </body>
 </html>

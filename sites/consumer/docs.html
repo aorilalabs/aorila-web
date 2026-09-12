@@ -4,40 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Docs — Aorila</title>
-  <meta name="description" content="Documentation ships with access. There is no public API reference on aorila.com." />
-  <meta property="og:title" content="Docs — Aorila" />
-  <meta property="og:description" content="Documentation ships with access." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://aorila.com/docs" />
+  <meta name="description" content="Aorila compute catalog and the separate AI API." />
   <link rel="canonical" href="https://aorila.com/docs" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body data-site="consumer">
   <header class="nav">
     <a class="wordmark" href="/">Aorila</a>
-    <nav class="nav-links">
-      <a class="nav-link" href="https://api.aorila.com">API</a>
-      <a class="nav-link" href="https://ally.atraly.com">Ally</a>
-      <a class="nav-link" href="https://aorilalabs.com" data-local-site="labs">Labs</a>
-    </nav>
   </header>
-
   <main>
     <section class="hero compact">
       <p class="hero-badge">Docs</p>
-      <h1>Documentation ships with access.</h1>
-      <p class="lede">There is no public API reference on this host.</p>
+      <h1>Two products. Do not mix them.</h1>
+      <p class="lede">Compute rents GPUs. The AI API runs models. Agents should fetch this page first.</p>
+    </section>
+    <section class="section">
+      <h2>Compute</h2>
+      <p>Public catalog: <a href="/compute/v1/gpus">/compute/v1/gpus</a> on this host. Control plane start/stop lives on the compute service.</p>
+      <p>SKUs are Aorila-branded. Planned VMs are Commercial only.</p>
       <div class="cta-row">
-        <a class="cta primary" href="https://api.aorila.com">Request an API key</a>
-        <a class="cta ghost" href="mailto:api@aorila.com">api@aorila.com</a>
+        <a class="cta primary" href="/pods">Live pods</a>
+        <a class="cta ghost" href="/commercial/vms">Planned VMs</a>
       </div>
     </section>
+    <section class="section">
+      <h2>AI API</h2>
+      <p>Keys and model access: <a href="https://api.aorila.com">api.aorila.com</a>. Not for starting pods.</p>
+    </section>
   </main>
-
   <footer>
     <nav class="footer-links" aria-label="Legal">
       <a href="/tp">T &amp; P</a>
