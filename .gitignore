@@ -4,6 +4,5 @@ node_modules/
 !.env.example
 .vercel/
 .DS_Store
-data/leads.json
-data/jobs.json
-data/*.tmp
+data/
+!data/.gitkeep
