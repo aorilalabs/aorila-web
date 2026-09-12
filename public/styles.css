@@ -142,8 +142,10 @@ body[data-site="consumer"] .nav-actions {
   visibility: visible;
 }
 .nav-sidebar[hidden] {
+  /* Keep flex for slide animation; inert + aria-hidden keep it out of AT when closed. */
   display: flex !important;
   visibility: hidden;
+  pointer-events: none;
 }
 .nav-sidebar-head {
   display: flex;

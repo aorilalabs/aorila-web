@@ -29,7 +29,14 @@ describe('lead store', () => {
     const file = path.join(os.tmpdir(), `aorila-leads-${process.pid}-${Date.now()}.json`);
     const store = createLeadStore(file);
     const result = store.add(
-      { email: 'ops@acme.com', company: 'Acme', plan: 'dedicated', notes: 'Need an L40S' },
+      {
+        email: 'ops@acme.com',
+        name: 'Pat Ops',
+        company: 'Acme',
+        plan: 'dedicated',
+        notes: 'Need an L40S',
+        volume: '4 GPUs',
+      },
       { site: 'labs', kind: 'contact', host: 'aorilalabs.com' }
     );
     assert.equal(result.ok, true);
@@ -46,6 +53,52 @@ describe('lead store', () => {
     const file = path.join(os.tmpdir(), `aorila-leads-bad-${process.pid}.json`);
     const store = createLeadStore(file);
     assert.throws(() => store.add({ company: 'Acme' }, { site: 'labs' }), /email/i);
+  });
+
+  it('rejects Labs contact missing required fields', () => {
+    const file = path.join(os.tmpdir(), `aorila-leads-fields-${process.pid}.json`);
+    const store = createLeadStore(file);
+    assert.throws(
+      () => store.add({ email: 'ops@acme.com' }, { site: 'labs', kind: 'contact' }),
+      /company/i
+    );
+    assert.throws(
+      () =>
+        store.add(
+          { email: 'ops@acme.com', company: 'Acme' },
+          { site: 'labs', kind: 'contact' }
+        ),
+      /name/i
+    );
+    assert.throws(
+      () =>
+        store.add(
+          { email: 'ops@acme.com', company: 'Acme', name: 'Pat' },
+          { site: 'labs', kind: 'contact' }
+        ),
+      /use case/i
+    );
+    assert.throws(
+      () =>
+        store.add(
+          { email: 'ops@acme.com', company: 'Acme', name: 'Pat', use_case: 'Agents' },
+          { site: 'labs', kind: 'contact' }
+        ),
+      /volume/i
+    );
+  });
+
+  it('rejects provider application missing required fields', () => {
+    const file = path.join(os.tmpdir(), `aorila-leads-provider-fields-${process.pid}.json`);
+    const store = createLeadStore(file);
+    assert.throws(
+      () =>
+        store.add(
+          { email: 'host@example.com', kind: 'provider' },
+          { site: 'consumer', kind: 'provider' }
+        ),
+      /company/i
+    );
   });
 
   it('ignores honeypot spam', () => {
@@ -206,5 +259,52 @@ describe('POST /leads', () => {
     });
     assert.equal(res.status, 400);
     assert.match(res.body, /email/i);
+  });
+
+  it('returns 400 when Labs contact omits use case', async () => {
+    const body = JSON.stringify({
+      email: 'ops@acme.com',
+      name: 'Pat',
+      company: 'Acme',
+      volume: '10M tokens',
+      kind: 'contact',
+    });
+    const res = await request(port, {
+      path: '/leads',
+      method: 'POST',
+      headers: {
+        host: 'aorilalabs.com',
+        'content-type': 'application/json',
+        accept: 'application/json',
+        'content-length': Buffer.byteLength(body),
+      },
+      body,
+    });
+    assert.equal(res.status, 400);
+    assert.match(res.body, /use case/i);
+  });
+
+  it('rejects cross-origin lead posts', async () => {
+    const body = JSON.stringify({
+      email: 'ops@acme.com',
+      name: 'Pat',
+      company: 'Acme',
+      use_case: 'Agents',
+      volume: '10M',
+      kind: 'contact',
+    });
+    const res = await request(port, {
+      path: '/leads',
+      method: 'POST',
+      headers: {
+        host: 'aorilalabs.com',
+        origin: 'https://evil.example',
+        'content-type': 'application/json',
+        accept: 'application/json',
+        'content-length': Buffer.byteLength(body),
+      },
+      body,
+    });
+    assert.equal(res.status, 403);
   });
 });

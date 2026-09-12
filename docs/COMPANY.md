@@ -14,7 +14,7 @@ That is the same structural bet as Vast.ai / RunPod Community Cloud — with a c
 | --- | --- |
 | Brand + IA (Pods, Serverless, Clusters, Hub, Hybrid Cloud) | Marketing shells |
 | Labs commercial API request + lead store | Real (file-backed; ephemeral on Render without a disk) |
-| Auth / Sign in / Sign Up | Links only — no sessions |
+| Auth / API access CTAs | Links to `api.aorila.com` only — no sessions |
 | Checkout / payouts | None in this repo (by design today) |
 | Host agent, scheduler, capacity inventory | Not in this repo |
 | Atraly / Ally | Separate products |
