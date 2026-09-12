@@ -210,4 +210,20 @@
       if (event.target === overlay) closeSearch();
     });
   }
+
+  const mark = document.querySelector('header.nav a.wordmark');
+  function floatMark() {
+    if (!mark || mark.classList.contains('is-float')) return;
+    const r = mark.getBoundingClientRect();
+    const slot = document.createElement('span');
+    slot.className = 'wordmark-slot';
+    slot.style.width = r.width + 'px';
+    slot.style.height = r.height + 'px';
+    mark.parentNode.insertBefore(slot, mark);
+    mark.style.top = r.top + 'px';
+    mark.style.left = r.left + 'px';
+    mark.classList.add('is-float');
+  }
+  window.addEventListener('scroll', floatMark, { once: true, passive: true });
+  window.addEventListener('pointerdown', floatMark, { once: true });
 })();
