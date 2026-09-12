@@ -4,44 +4,47 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Aorila</title>
-  <meta name="description" content="GPU compute from many pools. One Aorila catalog and bill." />
-  <meta property="og:title" content="Aorila" />
-  <meta property="og:description" content="GPU compute from many pools. One Aorila catalog and bill." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://aorila.com" />
+  <meta name="description" content="GPU compute from many pools. One Aorila catalog, account, and bill." />
   <link rel="canonical" href="https://aorila.com" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body data-site="consumer">
   <header class="nav">
     <a class="wordmark" href="/">Aorila</a>
   </header>
-
   <main>
     <section class="hero compact">
-      <p class="hero-badge">Compute</p>
+      <p class="hero-badge">The Future of AI Innovation</p>
       <h1>GPUs from many pools. One Aorila bill.</h1>
-      <p class="lede">On-demand pods at a live Aorila price. Planned VMs and reserved hours sit under Commercial.</p>
+      <p class="lede">Create an account. Add credits. Start a live pod. Book planned VMs under Commercial.</p>
       <div class="cta-row">
-        <a class="cta primary" href="/pods">Live pods</a>
-        <a class="cta ghost" href="/commercial">Commercial</a>
-        <a class="cta ghost" href="https://api.aorila.com">AI API</a>
+        <a class="cta primary" href="/signup">Create account</a>
+        <a class="cta ghost" href="/login">Sign in</a>
+        <a class="cta ghost" href="/pods">Live pods</a>
       </div>
     </section>
     <section class="section undivided">
+      <h2>What you can do here</h2>
+      <ul>
+        <li>Open a console and see your machines.</li>
+        <li>Start and stop on-demand GPUs at the live Aorila price.</li>
+        <li>Hold credits so a start is paid before the box comes up.</li>
+        <li>File planned VMs and reserved hours in the Commercial portal.</li>
+      </ul>
+      <div class="cta-row">
+        <a class="cta primary" href="/console">Console</a>
+        <a class="cta ghost" href="/commercial">Commercial</a>
+      </div>
+    </section>
+    <section class="section">
       <h2>Live catalog</h2>
-      <p>Prices include the Aorila fee. Names are Aorila SKUs only.</p>
-      <div data-live-prices></div>
+      <div data-live-prices data-start="1"></div>
     </section>
   </main>
-
   <footer>
     <nav class="footer-links" aria-label="Legal">
-      <a href="/tp">T &amp; P</a>
+      <a href="/tp">T & P</a>
       <a href="/support">Support</a>
     </nav>
     <span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
