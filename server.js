@@ -111,8 +111,8 @@ function notFoundHtml(site) {
 <nav class="footer-links" aria-label="Legal">
 <a href="/tp">T & P</a>
 <a href="/support">Support</a>
+<a href="https://api.aorila.com">Developer</a>
 </nav>
-<span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
 </footer>
 <script src="/site.js"></script>
 </body></html>`;
@@ -181,13 +181,7 @@ function createApp(options = {}) {
     res.set('X-Aorila-Site', 'consumer').type('html').send(html);
   });
 
-  app.get(['/clusters', '/clusters/'], (req, res) => {
-    if (res.locals.site === 'consumer') return res.redirect(302, '/commercial/vms');
-    return res.status(404).type('html').send(notFoundHtml(res.locals.site));
-  });
-
   for (const slug of MARKETING_SLUGS) {
-    if (slug === 'clusters') continue;
     app.get([`/${slug}`, `/${slug}/`], (req, res) => {
       if (res.locals.site !== 'consumer') {
         return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
