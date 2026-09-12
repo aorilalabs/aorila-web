@@ -4,7 +4,9 @@
   fetch('/compute/v1/gpus')
     .then((r) => r.json())
     .then((data) => {
-      const offers = (data && data.offers) || [];
+      const offers = ((data && data.offers) || [])
+        .slice()
+        .sort((a, b) => Number(a.usdPerHour || 99) - Number(b.usdPerHour || 99));
       const html = !offers.length
         ? '<p class="price-note">Live catalog is warming up.</p>'
         : `<div class="offer-grid">${offers
@@ -12,10 +14,11 @@
             .map((o) => {
               const price = Number(o.usdPerHour || 0).toFixed(3);
               const sku = encodeURIComponent(String(o.sku || o.name || ''));
+              const offerId = encodeURIComponent(String(o.offerId || ''));
               const name = String(o.name || o.sku || 'GPU');
               const region = String(o.region || 'Global');
               const tier = String(o.tier || 'on-demand');
-              const href = '/console/start?sku=' + sku;
+              const href = '/console/start?sku=' + sku + (offerId ? '&offerId=' + offerId : '');
               return `<article class="offer-card">
                 <p class="offer-gpu">${name}</p>
                 <p class="offer-meta">${tier} · ${region}</p>
