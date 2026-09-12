@@ -10,19 +10,30 @@ One Express app. The **Host** header chooses the face:
 
 Atraly is a separate consumer app and is **not** built in this repo.
 
-**Company direction:** Aorila is an AI compute marketplace — many GPU providers, one customer front door. See [docs/COMPANY.md](docs/COMPANY.md) and [docs/CONNECT.md](docs/CONNECT.md).
+**Company direction:** Aorila is an AI compute marketplace — many GPU providers, one customer front door. See [docs/COMPANY.md](docs/COMPANY.md), [docs/CONNECT.md](docs/CONNECT.md), and [docs/SYSTEM.md](docs/SYSTEM.md) (modular boundaries — this app does **not** do everything).
 
 Early-access sell path (prices may change; no Stripe on this site):
 
 | Face | Public offer | Access |
 | --- | --- | --- |
 | Consumer | **compute cost + Aorila fee** | `https://api.aorila.com` and `https://aorila.com/api` — Atraly link + `api@aorila.com` |
-| Providers | List GPUs on the network | `/providers` application → `POST /leads` (`kind=provider`) |
+| Providers | List GPUs on the network | `/providers` → lead + vendor draft (`kind=provider`) |
 | Labs | Request API access | B2B contact form → `POST /leads` · `api@aorila.com` secondary |
+
+### Subsystems in this repo
+
+| Module | Responsibility |
+| --- | --- |
+| Marketing | Pages + IA |
+| Leads | Form capture |
+| Vendors | Provider registry + SKU/region catalog (`GET /api/vendors`, ops with `VENDOR_OPS_TOKEN`) |
+| Routing | Host → consumer / API / Labs |
+
+Auth, billing, host agent, and scheduling stay **out** of this repo.
 
 No self-serve $29 / $199 checkout. The Atraly **app** is $20/mo on [atraly.com](https://atraly.com) — not this API. $99 is not a public Labs plan.
 
-Leads are stored in `data/leads.json` (or `LEADS_PATH`). On Render the disk is ephemeral unless you attach a persistent disk.
+Leads: `data/leads.json` (or `LEADS_PATH`). Vendors: `data/vendors.json` (or `VENDORS_PATH`). On Render the disk is ephemeral unless you attach a persistent disk. Set `VENDOR_OPS_TOKEN` to manage the registry.
 
 **Home base: Render** — https://github.com/nbaldwin098/aorila-web
 

@@ -6,6 +6,7 @@ const { resolveSite, isPreviewHost, isApiHost, CONSUMER_API_URL } = require('./l
 const { createLeadStore } = require('./lib/leads');
 const { injectConsumerNav } = require('./lib/consumer-nav');
 const { MARKETING_SLUGS, renderMarketingPage } = require('./lib/marketing-pages');
+const { createVendorStore, createVendorRouter } = require('./lib/vendors');
 
 function cookieSite(req) {
   const raw = req.get('cookie') || '';
@@ -80,6 +81,7 @@ function notFoundHtml(site) {
 function createApp(options = {}) {
   const app = express();
   const leadStore = options.leadStore || createLeadStore(options.leadsPath);
+  const vendorStore = options.vendorStore || createVendorStore(options.vendorsPath);
 
   app.disable('x-powered-by');
   app.use(express.json({ limit: '32kb' }));
@@ -95,6 +97,7 @@ function createApp(options = {}) {
   });
 
   app.use(express.static(PUBLIC_DIR, { extensions: ['html'], index: false }));
+  app.use('/api', createVendorRouter(vendorStore));
 
   app.get(['/', '/index.html'], (req, res) => {
     const host = req.hostname || req.get('host');
@@ -154,8 +157,22 @@ function createApp(options = {}) {
         kind: req.body?.kind,
         host: req.hostname || req.get('host') || null,
       });
+
+      let vendorId = null;
+      if (!result.ignored && result.lead && result.lead.kind === 'provider') {
+        const vendor = vendorStore.applyFromLead(result.lead, {
+          tier: String(req.body?.tier || '').trim() === 'secure' ? 'secure' : 'open',
+        });
+        vendorId = vendor.id;
+      }
+
       if (wantsJson(req)) {
-        return res.status(201).json({ ok: true, id: result.id || null, ignored: Boolean(result.ignored) });
+        return res.status(201).json({
+          ok: true,
+          id: result.id || null,
+          ignored: Boolean(result.ignored),
+          vendorId,
+        });
       }
       const kind = String(req.body?.kind || '').trim();
       let dest = CONSUMER_API_URL;
@@ -188,7 +205,11 @@ function createApp(options = {}) {
   });
 
   app.get('/healthz', (req, res) => {
-    res.json({ ok: true, site: res.locals.site });
+    res.json({
+      ok: true,
+      site: res.locals.site,
+      subsystems: ['marketing', 'leads', 'vendors', 'routing'],
+    });
   });
 
   app.use((req, res) => {

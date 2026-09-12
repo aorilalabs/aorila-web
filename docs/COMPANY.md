@@ -16,7 +16,8 @@ That is the same structural bet as Vast.ai / RunPod Community Cloud — with a c
 | Labs commercial API request + lead store | Real (file-backed; ephemeral on Render without a disk) |
 | Auth / Sign in / Sign Up | Links only — no sessions |
 | Checkout / payouts | None in this repo (by design today) |
-| Host agent, scheduler, capacity inventory | Not in this repo |
+| Host agent, scheduler, capacity inventory | Not in this repo — see [SYSTEM.md](./SYSTEM.md) |
+| Vendor registry + SKU catalog (Phase 0) | In this repo (`lib/vendors/`) — applications only until ops activates |
 | Atraly / Ally | Separate products |
 
 Until inventory, billing, and fulfillment are real, public copy must stay **access-request** honest — not fake SKUs or fake prices.
