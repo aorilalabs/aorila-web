@@ -1,0 +1,214 @@
+body.console {
+  background: #111111;
+  color: #f2f2f2;
+  min-height: 100dvh;
+}
+.console-app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+.console-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #2a2a2a;
+  background: #111111;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.console-brand {
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.03em;
+  color: #fff;
+  text-decoration: none;
+}
+.console-balance {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #2f2f2f;
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 600;
+}
+.console-balance span {
+  padding: 8px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.console-balance span::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3d9a4a;
+}
+.console-balance a {
+  padding: 8px 12px;
+  background: #1f3d2a;
+  color: #fff;
+  text-decoration: none;
+}
+.console-menu-btn {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+.console-close {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+}
+.console-frame {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+.console-nav {
+  width: min(320px, 92vw);
+  background: #161616;
+  border-right: 1px solid #2a2a2a;
+  padding: 16px 12px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.console-search {
+  margin: 0 4px 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #2f2f2f;
+  background: #111;
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+}
+.console-nav a,
+.console-nav .nav-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: #d8d8d8;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+}
+.console-nav a[aria-current="page"],
+.console-nav a:hover {
+  background: #2a2a2a;
+  color: #fff;
+}
+.console-nav .nav-label {
+  color: #8a8a8a;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 10px;
+  padding-bottom: 2px;
+}
+.console-main {
+  flex: 1;
+  padding: 28px 20px 48px;
+  max-width: 880px;
+}
+.console-main h1 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  letter-spacing: -0.04em;
+  margin: 8px 0 18px;
+}
+.console-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.console-actions .cta {
+  border-radius: 10px;
+}
+.console-tabs {
+  display: flex;
+  gap: 18px;
+  border-bottom: 1px solid #2a2a2a;
+  margin-bottom: 22px;
+}
+.console-tabs a {
+  padding: 10px 0;
+  color: #9a9a9a;
+  text-decoration: none;
+  font-weight: 600;
+}
+.console-tabs a[aria-current="page"] {
+  color: #fff;
+  box-shadow: inset 0 -2px 0 #fff;
+}
+.console-card {
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 14px;
+  background: #181818;
+}
+.console-card h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+.console-pod {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid #2a2a2a;
+}
+.console-pod:first-of-type { border-top: 0; padding-top: 0; }
+.console-pod b { display: block; margin-bottom: 6px; }
+.console-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #b5b5b5;
+  font-size: 13px;
+}
+.console-meta span {
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+.console-note { color: #9a9a9a; font-size: 14px; line-height: 1.5; }
+.console-main .form-status { margin-bottom: 16px; }
+.console-main .offer-card {
+  background: #181818;
+  border-color: #2a2a2a;
+  color: #f2f2f2;
+}
+.console-main .offer-meta,
+.console-main .offer-price span { color: #9a9a9a; }
+.console-main .sku-table th,
+.console-main .sku-table td { border-color: #2a2a2a; color: inherit; }
+@media (max-width: 860px) {
+  .console-nav { display: none; }
+  body.console-nav-open .console-nav {
+    display: flex;
+    position: fixed;
+    inset: 56px 0 0 auto;
+    z-index: 30;
+    height: calc(100dvh - 56px);
+    overflow: auto;
+  }
+}
