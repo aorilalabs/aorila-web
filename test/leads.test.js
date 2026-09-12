@@ -161,6 +161,36 @@ describe('POST /leads', () => {
     assert.equal(last.notes, 'Personal agent');
   });
 
+  it('stores a provider application lead', async () => {
+    const body = JSON.stringify({
+      email: 'host@example.com',
+      name: 'Alex Rivera',
+      company: 'Northwind Colo',
+      use_case: '8x H100 Ashburn',
+      volume: '64 GPUs',
+      kind: 'provider',
+      site: 'consumer',
+    });
+    const res = await request(port, {
+      path: '/leads',
+      method: 'POST',
+      headers: {
+        host: 'aorila.com',
+        'content-type': 'application/json',
+        accept: 'application/json',
+        'content-length': Buffer.byteLength(body),
+      },
+      body,
+    });
+    assert.equal(res.status, 201);
+    const rows = JSON.parse(fs.readFileSync(leadsPath, 'utf8'));
+    const last = rows.at(-1);
+    assert.equal(last.kind, 'provider');
+    assert.equal(last.site, 'consumer');
+    assert.equal(last.company, 'Northwind Colo');
+    assert.match(last.notes, /8x H100/);
+  });
+
   it('returns 400 for invalid email', async () => {
     const body = JSON.stringify({ email: 'not-an-email', company: 'X' });
     const res = await request(port, {

@@ -157,7 +157,10 @@ function createApp(options = {}) {
       if (wantsJson(req)) {
         return res.status(201).json({ ok: true, id: result.id || null, ignored: Boolean(result.ignored) });
       }
-      const dest = res.locals.site === 'labs' ? '/?sent=1#contact' : CONSUMER_API_URL;
+      const kind = String(req.body?.kind || '').trim();
+      let dest = CONSUMER_API_URL;
+      if (res.locals.site === 'labs') dest = '/?sent=1#contact';
+      else if (kind === 'provider') dest = '/providers?sent=1#apply';
       return res.redirect(303, dest);
     } catch (err) {
       const status = err.status || 500;
