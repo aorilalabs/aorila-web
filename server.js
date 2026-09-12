@@ -6,6 +6,8 @@ const { resolveSite, isPreviewHost, isApiHost, CONSUMER_API_URL } = require('./l
 const { createLeadStore } = require('./lib/leads');
 const { injectConsumerNav } = require('./lib/consumer-nav');
 const { MARKETING_SLUGS, renderMarketingPage } = require('./lib/marketing-pages');
+const { renderCommercialPage } = require('./lib/commercial-pages');
+const { proxyGpus } = require('./lib/compute-proxy');
 
 function cookieSite(req) {
   const raw = req.get('cookie') || '';
@@ -59,20 +61,15 @@ function wantsJson(req) {
 
 function escHtml(value) {
   return String(value == null ? '' : value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/&/g, '&')
+    .replace(/</g, '<')
+    .replace(/>/g, '>')
+    .replace(/"/g, '"');
 }
 
 const LEAD_ORIGIN_HOSTS = new Set([
-  'aorila.com',
-  'www.aorila.com',
-  'api.aorila.com',
-  'aorilalabs.com',
-  'www.aorilalabs.com',
-  'localhost',
-  '127.0.0.1',
+  'aorila.com', 'www.aorila.com', 'api.aorila.com',
+  'aorilalabs.com', 'www.aorilalabs.com', 'localhost', '127.0.0.1',
 ]);
 
 function leadOriginAllowed(req) {
@@ -87,17 +84,11 @@ function leadOriginAllowed(req) {
 }
 
 const leadHits = new Map();
-
 function leadRateOk(ip) {
   const key = String(ip || 'unknown');
   const now = Date.now();
-  const windowMs = 60_000;
-  const max = 30;
-  const recent = (leadHits.get(key) || []).filter((t) => now - t < windowMs);
-  if (recent.length >= max) {
-    leadHits.set(key, recent);
-    return false;
-  }
+  const recent = (leadHits.get(key) || []).filter((t) => now - t < 60_000);
+  if (recent.length >= 30) { leadHits.set(key, recent); return false; }
   recent.push(now);
   leadHits.set(key, recent);
   return true;
@@ -108,14 +99,14 @@ function notFoundHtml(site) {
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Not found — Aorila</title><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css" /></head>
 <body data-site="${site}">
-<header class="nav"><a class="wordmark" href="/">${site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a></header>
+<header class="nav"><a class="wordmark" href="/">${site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a><a class="nav-commercial" href="/commercial">Commercial</a></header>
 <main><section class="hero compact"><p class="eyebrow">404</p><h1>This page is not on this site.</h1>
-<p class="lede">Try home, API access, T &amp; P, or Support.</p>
+<p class="lede">Try home, API access, T & P, or Support.</p>
 <div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="${site === 'labs' ? '/api' : CONSUMER_API_URL}">API access</a></div>
 </section></main>
 <footer>
 <nav class="footer-links" aria-label="Legal">
-<a href="/tp">T &amp; P</a>
+<a href="/tp">T & P</a>
 <a href="/support">Support</a>
 </nav>
 <span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
@@ -144,25 +135,20 @@ function createApp(options = {}) {
 
   app.use(express.static(PUBLIC_DIR, { extensions: ['html'], index: false }));
 
+  app.get('/compute/v1/gpus', proxyGpus);
+
   app.get(['/', '/index.html'], (req, res) => {
     const host = req.hostname || req.get('host');
     if (isApiHost(host)) {
-      return sendPage(res, 'consumer', 'api.html', {
-        wordmarkHref: 'https://aorila.com',
-        apiCurrent: true,
-      });
+      return sendPage(res, 'consumer', 'api.html', { wordmarkHref: 'https://aorila.com', apiCurrent: true });
     }
     sendPage(res, res.locals.site, 'index.html');
   });
 
   app.get(['/api', '/api/', '/api.html'], (req, res) => {
     const host = req.hostname || req.get('host');
-    if (isApiHost(host)) {
-      return res.redirect(301, '/');
-    }
-    if (res.locals.site === 'consumer') {
-      return sendPage(res, 'consumer', 'api.html', { apiCurrent: true });
-    }
+    if (isApiHost(host)) return res.redirect(301, '/');
+    if (res.locals.site === 'consumer') return sendPage(res, 'consumer', 'api.html', { apiCurrent: true });
     sendPage(res, res.locals.site, 'api.html');
   });
 
@@ -170,7 +156,29 @@ function createApp(options = {}) {
     sendPage(res, res.locals.site, 'docs.html');
   });
 
+  app.get(['/commercial', '/commercial/'], (req, res) => {
+    if (res.locals.site !== 'consumer') {
+      return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
+    }
+    res.set('X-Aorila-Site', 'consumer').type('html').send(renderCommercialPage(''));
+  });
+
+  app.get(['/commercial/:slug', '/commercial/:slug/'], (req, res) => {
+    if (res.locals.site !== 'consumer') {
+      return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
+    }
+    const html = renderCommercialPage(req.params.slug);
+    if (!html) return res.status(404).type('html').send(notFoundHtml('consumer'));
+    res.set('X-Aorila-Site', 'consumer').type('html').send(html);
+  });
+
+  app.get(['/clusters', '/clusters/'], (req, res) => {
+    if (res.locals.site === 'consumer') return res.redirect(302, '/commercial/vms');
+    return res.status(404).type('html').send(notFoundHtml(res.locals.site));
+  });
+
   for (const slug of MARKETING_SLUGS) {
+    if (slug === 'clusters') continue;
     app.get([`/${slug}`, `/${slug}/`], (req, res) => {
       if (res.locals.site !== 'consumer') {
         return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
@@ -179,63 +187,31 @@ function createApp(options = {}) {
     });
   }
 
-  app.get(['/tp', '/tp.html'], (req, res) => {
-    sendPage(res, res.locals.site, 'tp.html');
-  });
-
-  app.get(['/privacy', '/privacy.html'], (req, res) => {
-    return res.redirect(301, '/tp');
-  });
-
-  app.get(['/support', '/support.html'], (req, res) => {
-    sendPage(res, res.locals.site, 'support.html');
-  });
-
-  app.get(['/terms', '/terms.html'], (req, res) => {
-    return res.redirect(301, '/support');
-  });
+  app.get(['/tp', '/tp.html'], (req, res) => sendPage(res, res.locals.site, 'tp.html'));
+  app.get(['/privacy', '/privacy.html'], (req, res) => res.redirect(301, '/tp'));
+  app.get(['/support', '/support.html'], (req, res) => sendPage(res, res.locals.site, 'support.html'));
+  app.get(['/terms', '/terms.html'], (req, res) => res.redirect(301, '/support'));
 
   app.post('/leads', (req, res) => {
     const fail = (status, message) => {
-      if (wantsJson(req)) {
-        return res.status(status).json({ ok: false, error: message });
-      }
+      if (wantsJson(req)) return res.status(status).json({ ok: false, error: message });
       return res.status(status).type('html').send(`<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Could not send — Aorila</title><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css" /></head>
+<title>Could not send — Aorila</title><link rel="stylesheet" href="/styles.css" /></head>
 <body data-site="${escHtml(res.locals.site)}">
-<header class="nav"><a class="wordmark" href="/">${res.locals.site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a></header>
-<main><section class="hero compact"><p class="eyebrow">Form</p><h1>Could not send that.</h1>
-<p class="lede">${escHtml(message)}</p>
-<div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="mailto:api@aorila.com">api@aorila.com</a></div>
-</section></main>
-<footer>
-<nav class="footer-links" aria-label="Legal">
-<a href="/tp">T &amp; P</a>
-<a href="/support">Support</a>
-</nav>
-<span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
-</footer>
-<script src="/site.js"></script>
-</body></html>`);
+<header class="nav"><a class="wordmark" href="/">Aorila</a><a class="nav-commercial" href="/commercial">Commercial</a></header>
+<main><section class="hero compact"><h1>Could not send that.</h1><p class="lede">${escHtml(message)}</p></section></main>
+<script src="/site.js"></script></body></html>`);
     };
-
-    if (!leadOriginAllowed(req)) {
-      return fail(403, 'This form can only be submitted from Aorila sites.');
-    }
-    if (!leadRateOk(req.ip || req.socket?.remoteAddress)) {
-      return fail(429, 'Too many requests. Try again in a minute, or email api@aorila.com.');
-    }
-
+    if (!leadOriginAllowed(req)) return fail(403, 'This form can only be submitted from Aorila sites.');
+    if (!leadRateOk(req.ip || req.socket?.remoteAddress)) return fail(429, 'Too many requests.');
     try {
       const result = leadStore.add(req.body || {}, {
         site: req.body?.site || res.locals.site,
         kind: req.body?.kind,
         host: req.hostname || req.get('host') || null,
       });
-      if (wantsJson(req)) {
-        return res.status(201).json({ ok: true, id: result.id || null, ignored: Boolean(result.ignored) });
-      }
+      if (wantsJson(req)) return res.status(201).json({ ok: true, id: result.id || null, ignored: Boolean(result.ignored) });
       const kind = String(req.body?.kind || '').trim();
       let dest = CONSUMER_API_URL;
       if (res.locals.site === 'labs') dest = '/?sent=1#contact';
@@ -246,24 +222,18 @@ function createApp(options = {}) {
     }
   });
 
-  app.get('/healthz', (req, res) => {
-    res.json({ ok: true, site: res.locals.site });
-  });
-
+  app.get('/healthz', (req, res) => res.json({ ok: true, site: res.locals.site }));
   app.use((req, res) => {
     res.status(404).set('X-Aorila-Site', res.locals.site);
     res.type('html').send(notFoundHtml(res.locals.site));
   });
-
   return app;
 }
 
 const PORT = Number(process.env.PORT || 3000);
-
 if (require.main === module) {
   createApp().listen(PORT, '0.0.0.0', () => {
-    console.log(`aorila-web :${PORT} (host → consumer | api.aorila.com → API | aorilalabs.com → labs)`);
+    console.log(`aorila-web :${PORT}`);
   });
 }
-
 module.exports = { createApp, siteFromRequest };
