@@ -57,6 +57,52 @@ function wantsJson(req) {
   return type.includes('application/json') || accept.includes('application/json');
 }
 
+function escHtml(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+const LEAD_ORIGIN_HOSTS = new Set([
+  'aorila.com',
+  'www.aorila.com',
+  'api.aorila.com',
+  'aorilalabs.com',
+  'www.aorilalabs.com',
+  'localhost',
+  '127.0.0.1',
+]);
+
+function leadOriginAllowed(req) {
+  const origin = req.get('origin');
+  if (!origin) return true;
+  try {
+    const host = new URL(origin).hostname.toLowerCase();
+    return LEAD_ORIGIN_HOSTS.has(host) || host.endsWith('.onrender.com');
+  } catch {
+    return false;
+  }
+}
+
+const leadHits = new Map();
+
+function leadRateOk(ip) {
+  const key = String(ip || 'unknown');
+  const now = Date.now();
+  const windowMs = 60_000;
+  const max = 30;
+  const recent = (leadHits.get(key) || []).filter((t) => now - t < windowMs);
+  if (recent.length >= max) {
+    leadHits.set(key, recent);
+    return false;
+  }
+  recent.push(now);
+  leadHits.set(key, recent);
+  return true;
+}
+
 function notFoundHtml(site) {
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -74,6 +120,7 @@ function notFoundHtml(site) {
 </nav>
 <span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
 </footer>
+<script src="/site.js"></script>
 </body></html>`;
 }
 
@@ -82,6 +129,7 @@ function createApp(options = {}) {
   const leadStore = options.leadStore || createLeadStore(options.leadsPath);
 
   app.disable('x-powered-by');
+  app.set('trust proxy', 1);
   app.use(express.json({ limit: '32kb' }));
   app.use(express.urlencoded({ extended: false, limit: '32kb' }));
 
@@ -148,6 +196,37 @@ function createApp(options = {}) {
   });
 
   app.post('/leads', (req, res) => {
+    const fail = (status, message) => {
+      if (wantsJson(req)) {
+        return res.status(status).json({ ok: false, error: message });
+      }
+      return res.status(status).type('html').send(`<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Could not send — Aorila</title><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css" /></head>
+<body data-site="${escHtml(res.locals.site)}">
+<header class="nav"><a class="wordmark" href="/">${res.locals.site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a></header>
+<main><section class="hero compact"><p class="eyebrow">Form</p><h1>Could not send that.</h1>
+<p class="lede">${escHtml(message)}</p>
+<div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="mailto:api@aorila.com">api@aorila.com</a></div>
+</section></main>
+<footer>
+<nav class="footer-links" aria-label="Legal">
+<a href="/tp">T &amp; P</a>
+<a href="/support">Support</a>
+</nav>
+<span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
+</footer>
+<script src="/site.js"></script>
+</body></html>`);
+    };
+
+    if (!leadOriginAllowed(req)) {
+      return fail(403, 'This form can only be submitted from Aorila sites.');
+    }
+    if (!leadRateOk(req.ip || req.socket?.remoteAddress)) {
+      return fail(429, 'Too many requests. Try again in a minute, or email api@aorila.com.');
+    }
+
     try {
       const result = leadStore.add(req.body || {}, {
         site: req.body?.site || res.locals.site,
@@ -163,27 +242,7 @@ function createApp(options = {}) {
       else if (kind === 'provider') dest = '/providers?sent=1#apply';
       return res.redirect(303, dest);
     } catch (err) {
-      const status = err.status || 500;
-      if (wantsJson(req)) {
-        return res.status(status).json({ ok: false, error: err.message || 'Could not store lead.' });
-      }
-      return res.status(status).type('html').send(`<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Could not send — Aorila</title><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css" /></head>
-<body data-site="${res.locals.site}">
-<header class="nav"><a class="wordmark" href="/">${res.locals.site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a></header>
-<main><section class="hero compact"><p class="eyebrow">Form</p><h1>Could not send that.</h1>
-<p class="lede">${err.message || 'Try again, or email us directly.'}</p>
-<div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="mailto:api@aorila.com">api@aorila.com</a></div>
-</section></main>
-<footer>
-<nav class="footer-links" aria-label="Legal">
-<a href="/tp">T &amp; P</a>
-<a href="/support">Support</a>
-</nav>
-<span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
-</footer>
-</body></html>`);
+      return fail(err.status || 500, err.message || 'Could not store lead.');
     }
   });
 

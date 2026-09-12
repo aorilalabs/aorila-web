@@ -64,8 +64,8 @@ describe('host-based pages', () => {
     assert.match(res.body, /href="\/pricing"/);
     assert.match(res.body, /href="\/enterprise"/);
     assert.match(res.body, /href="\/contact"/);
-    assert.match(res.body, />Sign in</);
-    assert.match(res.body, />Sign Up</);
+    assert.match(res.body, />API access</);
+    assert.match(res.body, />Get API access</);
     assert.match(res.body, /data-search-open/);
     assert.doesNotMatch(res.body, /Aorila — API access/);
     assert.doesNotMatch(res.body, /What you are requesting/);
@@ -146,8 +146,8 @@ describe('host-based pages', () => {
     assert.match(res.body, /id="site-nav"[\s\S]*>Enterprise</);
     assert.match(res.body, /id="site-nav"[\s\S]*>Search</);
     assert.match(res.body, /id="site-nav"[\s\S]*>Contact Sales</);
-    assert.match(res.body, /id="site-nav"[\s\S]*>Sign in</);
-    assert.match(res.body, /id="site-nav"[\s\S]*>Sign Up</);
+    assert.match(res.body, /id="site-nav"[\s\S]*>API access</);
+    assert.match(res.body, /id="site-nav"[\s\S]*>Get API access</);
     assert.doesNotMatch(res.body, /nav-utility[\s\S]*>API</);
     assert.match(res.body, /nav-utility[\s\S]*>Ally</);
     assert.match(res.body, /nav-utility[\s\S]*>Labs</);
@@ -175,7 +175,7 @@ describe('host-based pages', () => {
       ['/pricing', /Compute cost plus an Aorila fee/],
       ['/enterprise', /Enterprise AI compute and access/],
       ['/contact', /Talk to sales/],
-      ['/search?q=pods', /Results for/],
+      ['/search?q=pods', /Looking for/],
     ];
     for (const [path, pattern] of checks) {
       const res = await request(port, { path, headers: { host: 'aorila.com' } });
@@ -427,6 +427,7 @@ describe('host-based pages', () => {
     assert.match(consumerTp.body, /<h1>T &amp; P<\/h1>/);
     assert.match(consumerTp.body, /What we collect/);
     assert.match(consumerTp.body, /Emails you send to/);
+    assert.match(consumerTp.body, /provider applications/);
     assert.match(consumerTp.body, /api@aorila\.com/);
     assert.match(consumerTp.body, /href="\/about"/);
     assert.match(consumerTp.body, /href="\/tp"/);
@@ -513,6 +514,7 @@ describe('host-based pages', () => {
     assert.match(res.body, /Try home, API access, T &amp; P, or Support/);
     assert.match(res.body, />API access</);
     assert.match(res.body, /href="https:\/\/api\.aorila\.com\/"/);
+    assert.match(res.body, /src="\/site\.js"/);
     assert.doesNotMatch(res.body, /API docs/);
     assert.doesNotMatch(res.body, /href="\/about"/);
     assert.match(res.body, /href="\/tp"/);

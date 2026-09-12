@@ -11,7 +11,14 @@ services:
     region: oregon
     buildCommand: npm install --omit=dev
     startCommand: npm start
+    healthCheckPath: /healthz
     autoDeployTrigger: commit
+    disk:
+      name: leads
+      mountPath: /var/data
+      sizeGB: 1
     envVars:
       - key: NODE_VERSION
         value: "20"
+      - key: LEADS_PATH
+        value: /var/data/leads.json

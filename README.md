@@ -6,7 +6,7 @@ One Express app. The **Host** header chooses the face:
 | --- | --- | --- |
 | `aorila.com` / `www.aorila.com` | Consumer | **The Future of AI Innovation** |
 | `api.aorila.com` | Consumer API face | Slim **Aorila API** at `/` (same copy as today’s `/api`) |
-| `aorilalabs.com` / `www.aorilalabs.com` | Aorila Labs | **Request API access** |
+| `aorilalabs.com` / `www.aorilalabs.com` | Aorila Labs | **Commercial API access** |
 
 Atraly is a separate consumer app and is **not** built in this repo.
 
@@ -18,11 +18,11 @@ Early-access sell path (prices may change; no Stripe on this site):
 | --- | --- | --- |
 | Consumer | **compute cost + Aorila fee** | `https://api.aorila.com` and `https://aorila.com/api` — Atraly link + `api@aorila.com` |
 | Providers | List GPUs on the network | `/providers` application → `POST /leads` (`kind=provider`) |
-| Labs | Request API access | B2B contact form → `POST /leads` · `api@aorila.com` secondary |
+| Labs | Commercial API access | B2B contact form → `POST /leads` · `api@aorila.com` secondary |
 
 No self-serve $29 / $199 checkout. The Atraly **app** is $20/mo on [atraly.com](https://atraly.com) — not this API. $99 is not a public Labs plan.
 
-Leads are stored in `data/leads.json` (or `LEADS_PATH`). On Render the disk is ephemeral unless you attach a persistent disk.
+Leads are stored in `data/leads.json` (or `LEADS_PATH`). On Render, `render.yaml` mounts a disk at `/var/data` and sets `LEADS_PATH` so Labs and provider submissions survive restarts.
 
 **Home base: Render** — https://github.com/nbaldwin098/aorila-web
 

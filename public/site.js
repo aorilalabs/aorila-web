@@ -10,11 +10,12 @@
   document.querySelectorAll('.section, .hero').forEach((el) => io.observe(el));
 
   const host = location.hostname;
-  const local = host === 'localhost' || host === '127.0.0.1';
+  const previewHost =
+    host === 'localhost' || host === '127.0.0.1' || host.endsWith('.onrender.com');
   const preview = new URLSearchParams(location.search).get('site');
   const sent = new URLSearchParams(location.search).get('sent');
 
-  if (local) {
+  if (previewHost) {
     document.querySelectorAll('[data-local-site]').forEach((a) => {
       const site = a.getAttribute('data-local-site');
       if (site === 'labs' || site === 'consumer') {
@@ -100,12 +101,16 @@
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     if (open) {
       sidebar.removeAttribute('hidden');
+      sidebar.removeAttribute('aria-hidden');
+      sidebar.removeAttribute('inert');
       if (backdrop) backdrop.removeAttribute('hidden');
       requestAnimationFrame(() => {
         sidebar.classList.add('is-open');
       });
     } else {
       sidebar.classList.remove('is-open');
+      sidebar.setAttribute('aria-hidden', 'true');
+      sidebar.setAttribute('inert', '');
       document.querySelectorAll('.nav-dropdown.is-open').forEach((el) => {
         el.classList.remove('is-open');
         const btn = el.querySelector('.nav-dropdown-toggle');
@@ -118,6 +123,11 @@
         }
       }, 220);
     }
+  }
+
+  if (sidebar && !sidebar.classList.contains('is-open')) {
+    sidebar.setAttribute('aria-hidden', 'true');
+    sidebar.setAttribute('inert', '');
   }
 
   if (header && toggle && sidebar) {
