@@ -34,7 +34,15 @@
     });
   }
 
+  function isLeadForm(form) {
+    if (form.hasAttribute('data-native')) return false;
+    const action = String(form.getAttribute('action') || '');
+    if (/\/(login|signup|logout|console|commercial|account)/i.test(action)) return false;
+    return action === '' || action === '/leads' || form.hasAttribute('data-lead');
+  }
+
   document.querySelectorAll('form.waitlist').forEach((form) => {
+    if (!isLeadForm(form)) return;
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       const status = form.querySelector('.form-status');
