@@ -1,0 +1,57 @@
+# Aorila AI API
+
+Base: https://api.aorila.com
+Auth: Authorization: Bearer <key>
+Compatible with the OpenAI chat schema.
+
+## Hosts
+
+| Host | What it is |
+| --- | --- |
+| https://api.aorila.com | AI API (this product) |
+| https://aorila.com | Marketing |
+| https://aorilalabs.com | Labs |
+
+Do not send GPU/pod create calls to api.aorila.com.
+
+## Models
+
+- atraly-v1
+- atraly-v1.5
+- atraly-v2.0
+
+List live IDs: GET https://api.aorila.com/v1/models
+
+## Endpoints
+
+GET /health
+GET /v1/models
+POST /v1/chat/completions
+
+## Chat
+
+```
+curl https://api.aorila.com/v1/chat/completions \
+  -H "Authorization: Bearer $AORILA_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "atraly-v2.0",
+    "messages": [{"role":"user","content":"Hello"}]
+  }'
+```
+
+OpenAI SDK:
+
+```
+from openai import OpenAI
+client = OpenAI(base_url="https://api.aorila.com/v1", api_key=os.environ["AORILA_API_KEY"])
+client.chat.completions.create(model="atraly-v2.0", messages=[{"role":"user","content":"Hello"}])
+```
+
+Config for operators (environment, not a database):
+
+- AORILA_API_KEY — customer key
+- AORILA_UPSTREAM_URL — inference backend
+- AORILA_MODEL_MAP — public SKU → weights
+
+Keys never go in git or Supabase.

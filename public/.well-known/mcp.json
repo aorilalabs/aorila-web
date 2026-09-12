@@ -1,0 +1,12 @@
+{
+  "mcpServers": {},
+  "docs": {
+    "llms": "https://aorila.com/llms.txt",
+    "full": "https://aorila.com/llms-full.txt",
+    "ai": "https://aorila.com/docs/ai.md"
+  },
+  "api": {
+    "base": "https://api.aorila.com",
+    "kind": "openai-compatible-chat"
+  }
+}
