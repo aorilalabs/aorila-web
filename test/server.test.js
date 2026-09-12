@@ -140,6 +140,7 @@ describe('host-based pages', () => {
     assert.match(res.body, /id="site-nav"[\s\S]*>Use Cases</);
     assert.match(res.body, /id="site-nav"[\s\S]*>Resources</);
     assert.match(res.body, /id="site-nav"[\s\S]*>Company</);
+    assert.match(res.body, /id="site-nav"[\s\S]*href="\/providers"[\s\S]*>Providers</);
     assert.match(res.body, /id="site-nav"[\s\S]*>Docs</);
     assert.match(res.body, /id="site-nav"[\s\S]*>Pricing</);
     assert.match(res.body, /id="site-nav"[\s\S]*>Enterprise</);
@@ -168,6 +169,7 @@ describe('host-based pages', () => {
       ['/press', /Press and media/],
       ['/blog', /Product news and notes/],
       ['/about', /The Future of AI Innovation/],
+      ['/providers', /Put your GPUs to work on Aorila/],
       ['/partner', /Partner with Aorila/],
       ['/careers', /Build with us/],
       ['/pricing', /Compute cost plus an Aorila fee/],
@@ -183,6 +185,15 @@ describe('host-based pages', () => {
       assert.match(res.body, />Product</);
       assert.doesNotMatch(res.body, /RunPod/i);
     }
+    const providers = await request(port, { path: '/providers', headers: { host: 'aorila.com' } });
+    assert.equal(providers.status, 200);
+    assert.match(providers.body, /kind" value="provider"/);
+    assert.match(providers.body, /action="\/leads"/);
+    assert.match(providers.body, /id="apply"/);
+    assert.match(providers.body, /Submit application/);
+    assert.match(providers.body, /href="\/providers"/);
+    assert.doesNotMatch(providers.body, /stripe/i);
+    assert.doesNotMatch(providers.body, /coming soon/i);
     const labsAbout = await request(port, { path: '/about', headers: { host: 'aorilalabs.com' } });
     assert.equal(labsAbout.status, 404);
   });
