@@ -178,6 +178,7 @@ body.console {
 }
 .console-pod:first-of-type { border-top: 0; padding-top: 0; }
 .console-pod b { display: block; margin-bottom: 6px; }
+.console-pod a { color: inherit; text-decoration: none; }
 .console-meta {
   display: flex;
   flex-wrap: wrap;
@@ -201,6 +202,28 @@ body.console {
 .console-main .offer-price span { color: #9a9a9a; }
 .console-main .sku-table th,
 .console-main .sku-table td { border-color: #2a2a2a; color: inherit; }
+.chooser-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.chooser {
+  display: block;
+  padding: 18px;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  background: #181818;
+  color: inherit;
+  text-decoration: none;
+}
+.chooser b { display: block; margin-bottom: 8px; font-size: 16px; }
+.chooser span { color: #9a9a9a; font-size: 13px; line-height: 1.4; }
+.console-main .check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 @media (max-width: 860px) {
   .console-nav { display: none; }
   body.console-nav-open .console-nav {
