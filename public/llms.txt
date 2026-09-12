@@ -1,18 +1,10 @@
 # Aorila
 
-> Aorila is an AI API. Base URL: https://api.aorila.com
-> OpenAI-compatible chat. Compute rental is a separate product — not on this host.
-
-Keys, model aliases, and upstream URLs live in process environment on the API host. Not in Supabase.
+> Product site and agent docs. Start here, then fetch /agent.
 
 ## Fetch these
 
-- [AI API](https://aorila.com/docs/ai.md): models, auth, chat completions
-- [Full text](https://aorila.com/llms-full.txt): same docs in one file
-- [Request access](https://api.aorila.com/): key request page
-
-## Optional
-
-- [Site](https://aorila.com/)
+- [Agent setup](https://aorila.com/agent): install Aorila in a coding agent
+- [Agent (md)](https://aorila.com/agent.md): same file
+- [Request access](https://api.aorila.com/)
 - [Labs](https://aorilalabs.com/)
-- [Support](https://aorila.com/support)
