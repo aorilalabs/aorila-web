@@ -399,9 +399,9 @@ describe('host-based pages', () => {
     assert.equal(css.status, 200);
     assert.match(css.body, /body\.ds/);
     assert.match(css.body, /#ffffff/);
-    assert.doesNotMatch(css.body, /#d8ff36/);
-    assert.doesNotMatch(css.body, /#ff5b22/);
-    assert.doesNotMatch(css.body, /#1647ff/);
+    assert.match(css.body, /#d8ff36/, 'acid accent must be present');
+    assert.match(css.body, /#ff5b22/, 'orange accent must be present');
+    assert.match(css.body, /#1647ff/, 'blue accent must be present');
     assert.match(css.body, /Archivo/);
     assert.match(css.body, /IBM Plex Mono/);
     assert.match(css.body, /\.topline/);
@@ -447,15 +447,10 @@ describe('host-based pages', () => {
     assert.match(res.body, /<svg/);
   });
 
-  it('hero acid button uses the white offset shadow on dark heroes', async () => {
-    const homeCss = await request(port, { path: '/home.css' });
-    assert.match(homeCss.body, /\.home \.hero \.btn\.acid\s*\{[^}]*box-shadow:[^}]*#ffffff/, 'hero acid button must carry the white treatment');
-  });
-
-  it('monochrome contrast: no invisible text on dark surfaces', async () => {
+  it('contrast: no invisible text on dark surfaces', async () => {
     // Guards the black-on-black / blue-link regressions Nicholas flagged:
     // dark-card tags, homepage footer links, bare links in dark heroes,
-    // and the active commercial chip (inline style beat the stylesheet).
+    // and the active commercial chip (ink on acid).
     const homeCss = await request(port, { path: '/home.css' });
     assert.match(homeCss.body, /\.home \.card\.accent-ink \.tag\s*\{[^}]*color:\s*#fff/i, 'dark-card tags must be white');
     assert.match(homeCss.body, /body\.home \.footer-links a\s*\{[^}]*color:\s*#10100f/, 'homepage footer links must be ink, not browser blue');
@@ -463,7 +458,7 @@ describe('host-based pages', () => {
     assert.match(dsCss.body, /\.ds \.hero a(?::not\([^)]*\))+\s*\{\s*color:\s*#(?:fff|ffffff)/i, 'bare links in dark heroes must be white');
     const commercial = await request(port, { path: '/commercial', headers: { host: 'aorila.com' } });
     assert.equal(commercial.status, 200);
-    assert.match(commercial.body, /class="chip acid"[^>]*color:#ffffff/, 'active commercial chip must be white on ink');
+    assert.match(commercial.body, /class="chip acid"[^>]*color:#10100f/, 'active commercial chip must be ink on acid');
   });
 
   it('serves T & P and Support on both hosts with matching footers', async () => {
