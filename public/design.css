@@ -2,6 +2,7 @@
    Tokens: ink/paper only (black and white). Archivo + IBM Plex Mono.
    2px ink borders, hard offset shadows, gradient topline.
    Applied via <body class="ds">. JS hooks from site.js are preserved. */
+*, *::before, *::after { box-sizing: border-box; }
 body.ds {
   background: #ffffff;
   color: #10100f;
