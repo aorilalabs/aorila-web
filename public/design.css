@@ -64,6 +64,7 @@ body.ds main { display: block; }
 .ds .nav-primary, .ds .nav-actions { display: grid; gap: 4px; margin-bottom: 18px; }
 .ds .nav-primary .nav-dropdown-panel { position: static; display: block; border: none; box-shadow: none; background: none; padding: 0 0 0 12px; }
 .ds .search-overlay { position: fixed; inset: 0; z-index: 60; background: rgba(16,16,15,.6); display: flex; align-items: flex-start; justify-content: center; padding: 12vh 20px 0; }
+.ds .search-overlay[hidden] { display: none; }
 .ds .search-dialog { background: #f7f7f4; border: 2px solid #10100f; box-shadow: 8px 8px 0 #10100f; padding: 26px; width: min(560px, 100%); }
 .ds .search-form { display: flex; gap: 10px; flex-wrap: wrap; }
 .ds .search-form input[type="search"] { flex: 1; min-width: 200px; padding: 12px 14px; font: 500 15px "Archivo", sans-serif; border: 2px solid #10100f; }
