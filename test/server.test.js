@@ -171,7 +171,7 @@ describe('host-based pages', () => {
       ['/articles', /Guides\./],
       ['/press', /Press\./],
       ['/blog', /Notes\./],
-      ['/about', /We run AI infrastructure\./],
+      ['/about', /Aorila is the parent company\./],
       ['/providers', /Put your GPUs to work/],
       ['/partner', /Partner with Aorila/],
       ['/careers', /Careers\./],
@@ -519,7 +519,7 @@ describe('host-based pages', () => {
 
     const aboutPage = await request(port, { path: '/about', headers: { host: 'aorila.com' } });
     assert.equal(aboutPage.status, 200);
-    assert.match(aboutPage.body, /We run AI infrastructure\./);
+    assert.match(aboutPage.body, /Aorila is the parent company\./);
     const labsAboutGone = await request(port, { path: '/about', headers: { host: 'aorilalabs.com' } });
     assert.equal(labsAboutGone.status, 404);
 
