@@ -22,3 +22,12 @@ services:
         value: "20"
       - key: LEADS_PATH
         value: /var/data/leads.json
+      # Account data (users, sessions, machines, credits) must survive deploys:
+      # the persistent disk is mounted at /var/data.
+      - key: DATA_DIR
+        value: /var/data/aorila
+      # Shared identity with atraly.com. The anon key is public by design
+      # (atraly.com serves it to every browser); the server also accepts an
+      # override via dashboard env vars for rotation.
+      - key: SUPABASE_URL
+        value: https://fvxvvilgvplztbmovmxi.supabase.co
