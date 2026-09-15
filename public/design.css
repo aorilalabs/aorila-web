@@ -15,6 +15,8 @@ body.ds main { display: block; }
 .ds .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
 .ds .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 .ds a { color: #10100f; }
+/* Bare links inside dark heroes must stay readable — white on ink. */
+.ds .hero a:not(.btn):not(.cta):not(.chip):not(.nav-link):not(.menu-item) { color: #ffffff; }
 .ds .topline { height: 8px; background: linear-gradient(90deg, #10100f 0 40%, #6f6f6f 40% 70%, #ffffff 70%); }
 
 /* ---------- nav ---------- */
