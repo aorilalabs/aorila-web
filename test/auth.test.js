@@ -6,6 +6,7 @@ const path = require('node:path');
 const fs = require('node:fs');
 
 process.env.COMPUTE_ORIGIN = 'http://127.0.0.1:1'; // no live provider data in tests
+process.env.AORILA_AUTH_MODE = 'local'; // hermetic auth in tests: no live Supabase calls
 const { createApp } = require('../server');
 
 const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'aorila-auth-'));
