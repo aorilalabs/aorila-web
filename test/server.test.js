@@ -66,7 +66,7 @@ describe('host-based pages', () => {
     assert.match(res.body, />Company</);
     assert.match(res.body, /href="\/docs"/);
     assert.match(res.body, /href="\/pricing"/);
-    assert.match(res.body, /href="\/enterprise"/);
+    assert.match(res.body, /href="\/commercial"[\s\S]*>Enterprise/);
     assert.match(res.body, /href="\/contact"/);
     assert.match(res.body, /data-search-open/);
     assert.doesNotMatch(res.body, /Aorila — API access/);
@@ -137,7 +137,7 @@ describe('host-based pages', () => {
     assert.match(res.body, />Use Cases</);
     assert.match(res.body, />Resources</);
     assert.match(res.body, />Company</);
-    assert.match(res.body, /href="\/providers"[\s\S]*>Providers/);
+    assert.match(res.body, /href="\/providers"[\s\S]*>Become a provider/);
     assert.match(res.body, />Docs</);
     assert.match(res.body, />Pricing</);
     assert.match(res.body, />Enterprise</);
@@ -175,10 +175,15 @@ describe('host-based pages', () => {
       ['/partner', /Partner with Aorila/],
       ['/careers', /Careers\./],
       ['/pricing', /Live Aorila price\./],
-      ['/enterprise', /Enterprise compute/],
       ['/contact', /Talk to sales/],
       ['/search?q=pods', /Browse Aorila/],
     ];
+    // /enterprise merged into /commercial.
+    {
+      const res = await request(port, { path: '/enterprise', headers: { host: 'aorila.com' } });
+      assert.equal(res.status, 301, '/enterprise');
+      assert.equal(res.headers.location, '/commercial');
+    }
     for (const [path, pattern] of checks) {
       const res = await request(port, { path, headers: { host: 'aorila.com' } });
       assert.equal(res.status, 200, path);
@@ -187,8 +192,16 @@ describe('host-based pages', () => {
       assert.match(res.body, />Product</);
       assert.match(res.body, /class="ds"/);
       assert.match(res.body, /href="\/design\.css"/);
-      assert.match(res.body, /The goal is to love/);
-      assert.doesNotMatch(res.body, /RunPod/i);
+      assert.match(res.body, /Trust and security is number one/);
+    }
+    // Provider transparency: we name our capacity partners on buyer pages.
+    for (const p of ['/', '/about', '/pods']) {
+      const r = await request(port, { path: p, headers: { host: 'aorila.com' } });
+      assert.equal(r.status, 200, p);
+      assert.match(r.body, /RunPod/, p);
+      assert.match(r.body, /Vast\.ai/, p);
+      assert.match(r.body, /TensorDock/, p);
+      assert.match(r.body, /Voltage Park/, p);
     }
     const providers = await request(port, { path: '/providers', headers: { host: 'aorila.com' } });
     assert.equal(providers.status, 200);
