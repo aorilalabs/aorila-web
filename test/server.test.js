@@ -44,12 +44,13 @@ describe('host-based pages', () => {
     const res = await request(port, { headers: { host: 'aorila.com' } });
     assert.equal(res.status, 200);
     assert.equal(res.headers['x-aorila-site'], 'consumer');
-    assert.match(res.body, /<title>Aorila<\/title>/);
-    assert.match(res.body, /class="landing"/);
-    assert.match(res.body, /<h1>The Future of AI Innovation<\/h1>/);
+    assert.match(res.body, /<title>Aorila — Home robots/);
+    assert.doesNotMatch(res.body, /class="landing"/);
+    assert.match(res.body, /<h1>The goal is to love.<\/h1>/);
     assert.doesNotMatch(res.body, /Aorila builds AI/);
-    assert.match(res.body, /Request an API key/);
-    assert.match(res.body, /href="https:\/\/aorilalabs\.com"[^>]*>Labs</);
+    assert.match(res.body, /Join the waitlist/);
+    assert.match(res.body, /Trust and security is number one/);
+    assert.match(res.body, /action="\/leads"/);
     assert.match(res.body, /<footer/);
     assert.match(res.body, /href="\/about"/);
     assert.match(res.body, /href="\/tp"/);
@@ -64,8 +65,6 @@ describe('host-based pages', () => {
     assert.match(res.body, /href="\/pricing"/);
     assert.match(res.body, /href="\/enterprise"/);
     assert.match(res.body, /href="\/contact"/);
-    assert.match(res.body, />API access</);
-    assert.match(res.body, />Get API access</);
     assert.match(res.body, /data-search-open/);
     assert.doesNotMatch(res.body, /Aorila — API access/);
     assert.doesNotMatch(res.body, /What you are requesting/);
@@ -77,7 +76,6 @@ describe('host-based pages', () => {
     assert.doesNotMatch(res.body, /\bAtraly V1\b/);
     assert.doesNotMatch(res.body, /v2\.0/i);
     assert.doesNotMatch(res.body, /v1\.5/i);
-    assert.doesNotMatch(res.body, /form class="waitlist"/);
     assert.doesNotMatch(res.body, /mailto:hello@aorila\.com/);
     assert.doesNotMatch(res.body, /\$29/);
     assert.doesNotMatch(res.body, /\$199/);
@@ -86,19 +84,15 @@ describe('host-based pages', () => {
     assert.doesNotMatch(res.body, /Higher-quality AI for businesses/);
   });
 
-  it('sends every consumer request-key CTA to the same href as Product → APIs', async () => {
+  it('routes consumer waitlist CTAs to the on-page waitlist form', async () => {
     const home = await request(port, { headers: { host: 'aorila.com' } });
-    const navApis = hrefs(home.body, 'APIs');
-    assert.deepEqual(navApis, ['https://api.aorila.com']);
-    assert.match(home.body, /id="site-nav"[\s\S]*menu-item-title">APIs</);
-    assert.doesNotMatch(home.body, /nav-utility[\s\S]*>API</);
-    const requestKey = hrefs(home.body, 'Request an API key');
-    assert.ok(requestKey.length >= 1);
-    for (const href of requestKey) {
-      assert.equal(href, 'https://api.aorila.com');
-      assert.doesNotMatch(href, /^mailto:/i);
+    const waitlist = hrefs(home.body, 'Join the waitlist');
+    assert.ok(waitlist.length >= 1);
+    for (const href of waitlist) {
+      assert.equal(href, '#waitlist');
     }
-    assert.doesNotMatch(home.body, /href="#waitlist"/);
+    assert.match(home.body, /<form class="waitlist"[^>]*action="\/leads"/);
+    assert.match(home.body, /data-kind="waitlist"/);
     assert.doesNotMatch(home.body, /mailto:hello@aorila\.com/);
   });
 
