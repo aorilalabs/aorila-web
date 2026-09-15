@@ -502,6 +502,15 @@ describe('host-based pages', () => {
     assert.equal(labsTermsRedirect.status, 301);
     assert.match(String(labsTermsRedirect.headers.location || ''), /\/support/);
   });
+  it('footer carries Partners and Contact on consumer pages', async () => {
+    for (const path of ['/', '/pods', '/pricing', '/about', '/commercial']) {
+      const res = await request(port, { path, headers: { host: 'aorila.com' } });
+      assert.equal(res.status, 200, path);
+      assert.match(res.body, /href="\/partner">Partners</, path);
+      assert.match(res.body, /href="\/contact">Contact</, path);
+    }
+  });
+
   it('returns a filled 404 with legal links', async () => {
     const res = await request(port, { path: '/missing-page', headers: { host: 'aorila.com' } });
     assert.equal(res.status, 404);
