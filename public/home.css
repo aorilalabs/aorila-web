@@ -1,6 +1,7 @@
 /* Aorila consumer homepage — playbook design language.
    Tokens: ink/paper only (black and white). Archivo + IBM Plex Mono,
    2px ink borders, hard offset shadows, gradient topline. */
+*, *::before, *::after { box-sizing: border-box; }
 body.home {
   background: #ffffff;
   color: #10100f;
