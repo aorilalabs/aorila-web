@@ -98,22 +98,24 @@ function leadRateOk(ip) {
 }
 
 function notFoundHtml(site) {
+  const wordmark = site === 'labs' ? 'Aorila <span class="soft">Labs</span>' : 'Aorila';
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Not found — Aorila</title><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css" /></head>
-<body data-site="${site}">
-<header class="nav"><a class="wordmark" href="/">${site === 'labs' ? 'Aorila Labs' : 'Aorila'}</a><a class="nav-commercial" href="/commercial">Commercial</a></header>
-<main><section class="hero compact"><p class="eyebrow">404</p><h1>This page is not on this site.</h1>
+<title>Not found — Aorila</title><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" /><link rel="stylesheet" href="/design.css" /></head>
+<body class="ds" data-site="${site}">
+<div class="topline"></div>
+<header class="nav"><a class="wordmark" href="/">${wordmark}</a></header>
+<main><section class="hero compact"><div class="wrap"><span class="hero-badge">404</span><h1>This page is not on this site.</h1>
 <p class="lede">Try home, console, T & P, or Support.</p>
-<div class="cta-row"><a class="cta primary" href="/">Home</a><a class="cta ghost" href="/console">Console</a></div>
-</section></main>
-<footer>
+<div class="btn-row"><a class="btn acid" href="/">Home</a><a class="btn" href="/console">Console</a></div>
+</div></section></main>
+<footer class="site-footer"><div class="wrap">
 <nav class="footer-links" aria-label="Legal">
 <a href="/tp">T & P</a>
 <a href="/support">Support</a>
 <a href="https://api.aorila.com">Developer</a>
 </nav>
-</footer>
+</div></footer>
 <script src="/site.js"></script>
 </body></html>`;
 }
@@ -200,10 +202,11 @@ function createApp(options = {}) {
       if (wantsJson(req)) return res.status(status).json({ ok: false, error: message });
       return res.status(status).type('html').send(`<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Could not send — Aorila</title><link rel="stylesheet" href="/styles.css" /></head>
-<body data-site="${escHtml(res.locals.site)}">
-<header class="nav"><a class="wordmark" href="/">Aorila</a><a class="nav-commercial" href="/commercial">Commercial</a></header>
-<main><section class="hero compact"><h1>Could not send that.</h1><p class="lede">${escHtml(message)}</p></section></main>
+<title>Could not send — Aorila</title><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" /><link rel="stylesheet" href="/design.css" /></head>
+<body class="ds" data-site="${escHtml(res.locals.site)}">
+<div class="topline"></div>
+<header class="nav"><a class="wordmark" href="/">Aorila</a></header>
+<main><section class="hero compact"><div class="wrap"><span class="hero-badge">Error</span><h1>Could not send that.</h1><p class="lede">${escHtml(message)}</p><div class="btn-row"><a class="btn acid" href="/">Home</a></div></div></section></main>
 <script src="/site.js"></script></body></html>`);
     };
     if (!leadOriginAllowed(req)) return fail(403, 'This form can only be submitted from Aorila sites.');
@@ -236,6 +239,10 @@ function createApp(options = {}) {
 
 const PORT = Number(process.env.PORT || 3000);
 if (require.main === module) {
+  if (process.env.NODE_ENV === 'production' && !process.env.SESSION_SECRET) {
+    console.error('FATAL: SESSION_SECRET must be set in production. Refusing to start with the fallback secret.');
+    process.exit(1);
+  }
   createApp().listen(PORT, '0.0.0.0', () => {
     console.log('aorila-web :' + PORT);
   });
