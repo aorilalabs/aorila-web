@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aorila Labs — Commercial API access</title>
-  <meta name="description" content="Commercial API access for Aorila Labs. Company, contact, use case, and volume. Follow up at api@aorila.com." />
-  <meta property="og:title" content="Aorila Labs — Commercial API access" />
-  <meta property="og:description" content="Commercial API access for Aorila Labs. Company, contact, use case, and volume. Follow up at api@aorila.com." />
+  <title>Compute API — Aorila Labs</title>
+  <meta name="description" content="Aorila Compute: one catalog, one job API, one bill — across every peer-listed host. Per-minute billing, 1 credit = $1, workloads stop at $0. Documentation ships with access." />
+  <meta property="og:title" content="Compute API — Aorila Labs" />
+  <meta property="og:description" content="One catalog, one job API, one bill — across every peer-listed host. Per-minute billing, 1 credit = $1, workloads stop at $0." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorilalabs.com/api" />
   <link rel="canonical" href="https://aorilalabs.com/api" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  
   <link rel="stylesheet" href="/design.css" />
 </head>
 <body class="ds" data-site="labs">
@@ -20,44 +19,64 @@
   <header class="nav">
     <a class="wordmark" href="/">Aorila <span class="soft">Labs</span></a>
     <nav class="nav-links">
+      <a class="nav-link" href="/#how">How it works</a>
+      <a class="nav-link" href="/#hosts">For hosts</a>
+      <a class="nav-link" href="/#trust">Trust</a>
+      <a class="nav-link" href="/docs">Docs</a>
+      <a class="nav-link" href="/support">Support</a>
+      <a class="nav-link" href="/console">Console</a>
       <a class="nav-link" href="https://aorila.com" data-local-site="consumer">Aorila</a>
     </nav>
   </header>
   <main>
     <section class="hero compact">
       <div class="wrap">
-        <span class="hero-badge">Aorila Labs</span>
-        <h1>Commercial API access.</h1>
-        <p class="lede">Tell us about your company and how you plan to use the API.</p>
-        
+        <span class="hero-badge">AORILA COMPUTE · DEVELOPERS</span>
+        <h1>One API for the whole marketplace.</h1>
+        <p class="lede">One catalog, one job API, one bill — across every peer-listed host. Per-minute billing, 1 credit = $1, workloads stop at $0. Documentation ships with access.</p>
+        <div class="btn-row"><a class="btn acid" href="/console">Open console</a><a class="btn" href="/docs">Read docs</a></div>
       </div>
     </section>
     <section class="section"><div class="wrap">
-        <form class="waitlist" action="/leads" method="post" data-kind="contact">
-          <input type="hidden" name="site" value="labs" />
-          <input type="hidden" name="kind" value="contact" />
-          <label class="hp" aria-hidden="true">Fax<input type="text" name="fax" tabindex="-1" autocomplete="off" /></label>
-          <label>COMPANY<input type="text" name="company" autocomplete="organization" required placeholder="Acme Inc." /></label>
-          <label>CONTACT NAME<input type="text" name="name" autocomplete="name" required placeholder="Jordan Lee" /></label>
-          <label>WORK EMAIL<input type="email" name="email" autocomplete="email" required placeholder="you@company.com" /></label>
-          <label>USE CASE<textarea name="use_case" rows="4" required placeholder="What will you use the API for?"></textarea></label>
-          <label>VOLUME ESTIMATE<input type="text" name="volume" autocomplete="off" required placeholder="e.g. 10M tokens / month or 50 seats" /></label>
-          <label>WEBSITE <span class="price-note">optional</span><input type="text" name="website" autocomplete="url" placeholder="https://" /></label>
-          <button class="btn acid" type="submit">Request access</button>
-          <p class="form-status" role="status" aria-live="polite"></p>
-        </form>
-        <p class="price-note" style="margin-top:14px">Or email <a href="mailto:api@aorila.com">api@aorila.com</a>.</p>
-      </div></section>
-      <div class="love-band"><div class="wrap"><h2>Trust and security is number one.</h2></div></div>
-
+      <div class="section-head">
+        <span class="snum">EARLY ACCESS</span>
+        <div>
+          <h2>The catalog opens as hosts come online.</h2>
+          <p class="lede">Host onboarding is underway now. API reference and host guides publish with access — request it in the console. Questions: <a href="mailto:api@aorila.com">api@aorila.com</a>.</p>
+        </div>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <span class="tag">ONE JOB API</span>
+          <h3>One endpoint, every host</h3>
+          <p>Submit workloads the same way no matter whose hardware they land on. You never touch a host’s account.</p>
+        </div>
+        <div class="card">
+          <span class="tag">SELF-SERVE KEYS</span>
+          <h3>API keys, self-serve</h3>
+          <p>Create and manage your own API keys in the console. Keys you don’t rotate are keys you don’t own.</p>
+        </div>
+        <div class="card">
+          <span class="tag">BILLING</span>
+          <h3>Metered per minute</h3>
+          <p>1 credit = $1, metered per minute, workloads stop at $0. No surprise bills, no hidden breakdowns.</p>
+        </div>
+      </div>
+    </div></section>
+    <div class="love-band"><div class="wrap"><h2>Trust and security is number one.</h2></div></div>
   </main>
   <footer class="site-footer">
     <div class="wrap">
       <nav class="footer-links" aria-label="Legal">
+        <a href="/docs">Docs</a>
         <a href="/tp">T &amp; P</a>
         <a href="/support">Support</a>
+        <a href="/console">Console</a>
       </nav>
-      <div class="footer-meta"><span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span></div>
+      <div class="footer-meta">
+        <span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
+        <span>Aorila Compute · Columbia, SC</span>
+      </div>
     </div>
   </footer>
   <script src="/site.js"></script>

@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aorila Labs — Commercial API access</title>
-  <meta name="description" content="Commercial API access for Aorila Labs. Company, contact, use case, and volume. Follow up at api@aorila.com." />
-  <meta property="og:title" content="Aorila Labs — Commercial API access" />
-  <meta property="og:description" content="Commercial API access for Aorila Labs. Company, contact, use case, and volume. Follow up at api@aorila.com." />
+  <title>Aorila Compute — Peer-powered GPU marketplace | Aorila Labs</title>
+  <meta name="description" content="Aorila Compute is a peer-powered GPU marketplace. Hosts list their own hardware and get paid per minute; renters get GPUs on one simple bill. Per-minute billing, 1 credit = $1, workloads stop at $0. Trust and security is number one." />
+  <meta property="og:title" content="Aorila Compute — Peer-powered GPU marketplace | Aorila Labs" />
+  <meta property="og:description" content="Rent GPUs straight from the people and businesses that own them. Per-minute billing, one simple bill — and trust and security is number one." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorilalabs.com" />
   <link rel="canonical" href="https://aorilalabs.com" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  
   <link rel="stylesheet" href="/design.css" />
 </head>
 <body class="ds" data-site="labs">
@@ -20,44 +19,161 @@
   <header class="nav">
     <a class="wordmark" href="/">Aorila <span class="soft">Labs</span></a>
     <nav class="nav-links">
+      <a class="nav-link" href="#how">How it works</a>
+      <a class="nav-link" href="#hosts">For hosts</a>
+      <a class="nav-link" href="#trust">Trust</a>
+      <a class="nav-link" href="/docs">Docs</a>
+      <a class="nav-link" href="/support">Support</a>
+      <a class="nav-link" href="/console">Console</a>
       <a class="nav-link" href="https://aorila.com" data-local-site="consumer">Aorila</a>
     </nav>
   </header>
   <main>
-    <section class="hero compact">
-      <div class="wrap">
-        <span class="hero-badge">Aorila Labs</span>
-        <h1>Commercial API access.</h1>
-        <p class="lede">Tell us about your company and how you plan to use the API.</p>
-        
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="hero-badge">AORILA COMPUTE · PEER-POWERED GPU MARKETPLACE</span>
+          <h1>GPUs, from the people who <em>own</em> them.</h1>
+          <p class="hero-copy">Aorila Compute is a peer-powered GPU marketplace. Individuals and businesses list their own hardware and get paid per minute — you get GPUs on one simple bill. Per-minute billing. 1 credit = $1. Workloads stop at $0.</p>
+          <div class="btn-row">
+            <a class="btn acid" href="#hosts">Become a host</a>
+            <a class="btn" href="/console">Open console</a>
+          </div>
+        </div>
+        <aside class="hero-aside">
+          <strong>Early access — hosts onboarding now.</strong>
+          <p>The marketplace catalog opens as hosts come online. Supply appears here as their GPUs go live. Own GPUs? <a href="#hosts">List them and earn.</a></p>
+        </aside>
       </div>
     </section>
-    <section class="section"><div class="wrap">
-        <form class="waitlist" action="/leads" method="post" data-kind="contact">
+
+    <section class="section" id="how">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="snum">01 / HOW IT WORKS</span>
+          <div>
+            <h2>Two sides. One marketplace.</h2>
+            <p class="lede">Hosts list hardware; renters get GPUs. Aorila runs the marketplace in between — one catalog, one job API, one bill.</p>
+          </div>
+        </div>
+        <div class="cards">
+          <div class="card accent-ink">
+            <span class="tag">FOR HOSTS</span>
+            <h3>List your GPUs. Get paid per minute.</h3>
+            <p>Own a GPU? List the hardware you already have — you set your per-minute price and payouts accrue per minute of rented time. Aorila takes a small marketplace fee; we carry zero upfront capacity cost, and so do you. Every listing is hardware the host owns: no third-party cloud resale, ever.</p>
+            <div class="btn-row"><a class="btn acid" href="#hosts">Become a host</a></div>
+          </div>
+          <div class="card">
+            <span class="tag">FOR RENTERS</span>
+            <h3>Rent GPUs. One simple bill.</h3>
+            <p>Browse the catalog, deploy a pod, and pay per minute from your Aorila credit balance. 1 credit = $1. Your workload stops automatically when your balance hits $0 — you can’t wake up to a surprise bill.</p>
+            <div class="btn-row"><a class="btn" href="/console">Open console</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="billing">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="snum">02 / BILLING</span>
+          <div>
+            <h2>Billing that can’t surprise you.</h2>
+            <p class="lede">One honest unit of money. Metered by the minute. With a hard stop at zero.</p>
+          </div>
+        </div>
+        <div class="cards">
+          <div class="card">
+            <span class="tag">PER-MINUTE</span>
+            <h3>Per-minute billing</h3>
+            <p>GPU time is metered by the minute, not the hour. Short job, short bill.</p>
+          </div>
+          <div class="card">
+            <span class="tag">1 CREDIT = $1</span>
+            <h3>One credit, one dollar</h3>
+            <p>Buy credit packs and spend 1 credit = $1. One number — no hidden breakdowns, no surprises.</p>
+          </div>
+          <div class="card">
+            <span class="tag">HARD STOP</span>
+            <h3>Workloads stop at $0</h3>
+            <p>When your balance runs out, workloads stop automatically. You can’t spend what you don’t have.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="trust">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="snum">03 / TRUST &amp; SECURITY</span>
+          <div>
+            <h2>Trust and security is number one.</h2>
+            <p class="lede">You hand us your workloads and your spend. That trust is our first engineering requirement — not a feature.</p>
+          </div>
+        </div>
+        <div class="cards">
+          <div class="card accent-ink">
+            <span class="tag">SUPPLY</span>
+            <h3>Compliant supply, only</h3>
+            <p>Every host lists hardware they own — individuals and businesses, peer to peer. No third-party cloud resale. One hundred percent of marketplace supply is peer-listed hardware.</p>
+          </div>
+          <div class="card">
+            <span class="tag">POLICY</span>
+            <h3>Clean marketplace</h3>
+            <p>Cryptominers, malware, and spam are excluded by policy. If a workload isn’t legitimate compute, it doesn’t run here.</p>
+          </div>
+          <div class="card">
+            <span class="tag">PLATFORM</span>
+            <h3>Fail-closed by default</h3>
+            <p>Production won’t start without operator credentials — there is no open mode. Raw provider errors never reach customers.</p>
+          </div>
+          <div class="card">
+            <span class="tag">BILLING</span>
+            <h3>One bill, no leaks</h3>
+            <p>You never touch a host’s account and never see a host’s name. One Aorila bill covers everything you run.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="hosts">
+      <div class="wrap" id="contact">
+        <div class="section-head">
+          <span class="snum">04 / BECOME A HOST</span>
+          <div>
+            <h2>Turn your idle GPUs into revenue.</h2>
+            <p class="lede">Host onboarding is open. Tell us about your hardware and we’ll follow up by email.</p>
+          </div>
+        </div>
+        <form class="waitlist" action="/leads" method="post" data-kind="host">
           <input type="hidden" name="site" value="labs" />
-          <input type="hidden" name="kind" value="contact" />
+          <input type="hidden" name="kind" value="host" />
           <label class="hp" aria-hidden="true">Fax<input type="text" name="fax" tabindex="-1" autocomplete="off" /></label>
-          <label>COMPANY<input type="text" name="company" autocomplete="organization" required placeholder="Acme Inc." /></label>
-          <label>CONTACT NAME<input type="text" name="name" autocomplete="name" required placeholder="Jordan Lee" /></label>
-          <label>WORK EMAIL<input type="email" name="email" autocomplete="email" required placeholder="you@company.com" /></label>
-          <label>USE CASE<textarea name="use_case" rows="4" required placeholder="What will you use the API for?"></textarea></label>
-          <label>VOLUME ESTIMATE<input type="text" name="volume" autocomplete="off" required placeholder="e.g. 10M tokens / month or 50 seats" /></label>
-          <label>WEBSITE <span class="price-note">optional</span><input type="text" name="website" autocomplete="url" placeholder="https://" /></label>
-          <button class="btn acid" type="submit">Request access</button>
+          <label>NAME<input type="text" name="name" autocomplete="name" required placeholder="Jordan Lee" /></label>
+          <label>EMAIL<input type="email" name="email" autocomplete="email" required placeholder="you@example.com" /></label>
+          <label>GPU MODELS &amp; COUNT<textarea name="hardware" rows="3" required placeholder="e.g. 2× RTX 4090, 1× H100 80GB"></textarea></label>
+          <label>AVAILABILITY <span class="price-note">optional</span><input type="text" name="availability" autocomplete="off" placeholder="e.g. 24/7, or weekends only" /></label>
+          <button class="btn acid" type="submit">Apply to host</button>
           <p class="form-status" role="status" aria-live="polite"></p>
         </form>
-        <p class="price-note" style="margin-top:14px">Or email <a href="mailto:api@aorila.com">api@aorila.com</a>.</p>
-      </div></section>
-      <div class="love-band"><div class="wrap"><h2>The goal is to love.</h2></div></div>
+        <p class="price-note" style="margin-top:14px">No listing cost — Aorila takes a small marketplace fee when your GPUs earn. Or email <a href="mailto:api@aorila.com">api@aorila.com</a>.</p>
+      </div>
+    </section>
 
+    <div class="love-band"><div class="wrap"><h2>Trust and security is number one.</h2></div></div>
   </main>
   <footer class="site-footer">
     <div class="wrap">
       <nav class="footer-links" aria-label="Legal">
+        <a href="/docs">Docs</a>
         <a href="/tp">T &amp; P</a>
         <a href="/support">Support</a>
+        <a href="/console">Console</a>
       </nav>
-      <div class="footer-meta"><span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span></div>
+      <div class="footer-meta">
+        <span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
+        <span>Aorila Compute · Columbia, SC</span>
+      </div>
     </div>
   </footer>
   <script src="/site.js"></script>
