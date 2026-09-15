@@ -1,9 +1,9 @@
 /* Aorila consumer homepage — playbook design language.
-   Tokens: ink/paper only (black and white). Archivo + IBM Plex Mono,
+   Tokens: ink/paper/acid/orange/blue. Archivo + IBM Plex Mono,
    2px ink borders, hard offset shadows, gradient topline. */
 *, *::before, *::after { box-sizing: border-box; }
 body.home {
-  background: #ffffff;
+  background: #f7f7f4;
   color: #10100f;
   font-family: "Archivo", "Inter", -apple-system, "Segoe UI", system-ui, sans-serif;
 }
@@ -14,11 +14,11 @@ body.home main { display: block; }
 /* gradient topline */
 .home .topline {
   height: 8px;
-  background: linear-gradient(90deg, #10100f 0 40%, #6f6f6f 40% 70%, #ffffff 70%);
+  background: linear-gradient(90deg, #ff5b22 0 37%, #d8ff36 37% 64%, #1647ff 64%);
 }
 
 /* nav sits on paper with a hard rule */
-body.home .nav { background: #ffffff; border-bottom: 2px solid #10100f; }
+body.home .nav { background: #f7f7f4; border-bottom: 2px solid #10100f; }
 body.home .nav-sidebar { border-left: 2px solid #10100f; }
 
 /* kicker: mono label with acid tick */
@@ -27,9 +27,9 @@ body.home .nav-sidebar { border-left: 2px solid #10100f; }
   font: 600 12px/1.2 "IBM Plex Mono", monospace;
   letter-spacing: .05em; margin-bottom: 22px;
 }
-.home .kicker::before { content: ""; width: 38px; height: 2px; background: #ffffff; }
+.home .kicker::before { content: ""; width: 38px; height: 2px; background: #d8ff36; }
 .home .kicker.on-light { color: #10100f; }
-.home .kicker.on-light::before { background: #10100f; }
+.home .kicker.on-light::before { background: #ff5b22; }
 
 /* dark hero */
 .home .hero {
@@ -42,10 +42,10 @@ body.home .nav-sidebar { border-left: 2px solid #10100f; }
   font-size: clamp(44px, 7vw, 88px); line-height: .98;
   letter-spacing: -.045em; font-weight: 800; margin: 0 0 18px; color: #fff;
 }
-.home .hero-copy { font-size: 18px; line-height: 1.5; color: #d6d6d6; max-width: 34rem; margin: 0 0 30px; }
-.home .hero-aside { border-left: 2px solid #ffffff; padding-left: 22px; }
+.home .hero-copy { font-size: 18px; line-height: 1.5; color: #d7d7d0; max-width: 34rem; margin: 0 0 30px; }
+.home .hero-aside { border-left: 2px solid #d8ff36; padding-left: 22px; }
 .home .hero-aside strong { display: block; font-size: 22px; letter-spacing: -.02em; margin-bottom: 10px; }
-.home .hero-aside p { font-size: 15px; line-height: 1.55; color: #d6d6d6; margin: 0; }
+.home .hero-aside p { font-size: 15px; line-height: 1.55; color: #d7d7d0; margin: 0; }
 
 /* brutalist buttons */
 .home .btn {
@@ -57,12 +57,9 @@ body.home .nav-sidebar { border-left: 2px solid #10100f; }
 }
 .home .btn:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 #10100f; }
 .home .btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 #10100f; }
-.home .btn.acid { background: #10100f; color: #fff; }
-.home .btn.ink { background: #10100f; color: #fff; box-shadow: 5px 5px 0 #ffffff; }
-.home .btn.ink:hover { box-shadow: 7px 7px 0 #ffffff; }
-/* On dark heroes the acid button's ink shadow disappears — use the white treatment like .btn.ink. */
-.home .hero .btn.acid { box-shadow: 5px 5px 0 #ffffff; }
-.home .hero .btn.acid:hover { box-shadow: 7px 7px 0 #ffffff; }
+.home .btn.acid { background: #d8ff36; }
+.home .btn.ink { background: #10100f; color: #fff; box-shadow: 5px 5px 0 #d8ff36; }
+.home .btn.ink:hover { box-shadow: 7px 7px 0 #d8ff36; }
 .home .btn-row { display: flex; flex-wrap: wrap; gap: 14px; }
 
 /* sections */
@@ -78,7 +75,7 @@ body.home .nav-sidebar { border-left: 2px solid #10100f; }
   letter-spacing: -.045em; margin: 0 0 14px; font-weight: 800;
 }
 .home .section-head p.lede, .home p.lede {
-  font-size: 17px; line-height: 1.55; color: #5f5f5f; max-width: 40rem; margin: 0;
+  font-size: 17px; line-height: 1.55; color: #5d5e59; max-width: 40rem; margin: 0;
 }
 
 /* brutalist cards */
@@ -94,33 +91,33 @@ body.home .nav-sidebar { border-left: 2px solid #10100f; }
   display: inline-block; margin-bottom: 16px; color: #10100f;
 }
 .home .card h3 { font-size: 24px; line-height: 1.08; letter-spacing: -.02em; margin: 0 0 12px; }
-.home .card p { font-size: 15px; line-height: 1.55; color: #5f5f5f; margin: 0 0 18px; }
+.home .card p { font-size: 15px; line-height: 1.55; color: #5d5e59; margin: 0 0 18px; }
 .home .card .btn-row { margin-top: auto; }
-.home .card.accent-acid { background: #ececec; }
+.home .card.accent-acid { background: #d8ff36; }
 .home .card.accent-ink { background: #10100f; color: #fff; }
 .home .card.accent-ink .tag { color: #ffffff; }
-.home .card.accent-ink p { color: #d6d6d6; }
-.home .card.accent-blue { background: #10100f; color: #fff; }
-.home .card.accent-blue p { color: #d6d6d6; }
+.home .card.accent-ink p { color: #d7d7d0; }
+.home .card.accent-blue { background: #1647ff; color: #fff; }
+.home .card.accent-blue p { color: #e6ebff; }
 
-/* black mantra band */
-.home .mantra { background: #10100f; color: #fff; padding: 64px 0; }
+/* orange mantra band */
+.home .mantra { background: #ff5b22; color: #fff; padding: 64px 0; }
 .home .mantra h2 { color: #fff; margin: 0; }
 .home .mantra .kicker { color: #fff; }
 .home .mantra .kicker::before { background: #fff; }
 .home .mantra p { color: #fff; font-size: 17px; max-width: 40rem; }
 
-/* verdict panel */
+/* acid waitlist panel */
 .home .verdict {
   display: grid; grid-template-columns: 1fr 1fr;
-  background: #ffffff; border: 2px solid #10100f;
+  background: #d8ff36; border: 2px solid #10100f;
   box-shadow: 8px 8px 0 #10100f; margin: 8px 8px 8px 0;
 }
 .home .verdict-main { padding: 38px; }
 .home .verdict-main h2 { margin-bottom: 12px; }
 .home .verdict-main p { color: #10100f; font-size: 16px; line-height: 1.55; }
 .home .verdict-side { padding: 38px; background: #10100f; color: #fff; }
-.home .verdict-side .kicker { color: #ffffff; }
+.home .verdict-side .kicker { color: #d8ff36; }
 
 /* waitlist form */
 .home form.waitlist { display: grid; gap: 14px; max-width: none; margin: 0; }
@@ -130,11 +127,11 @@ body.home .nav-sidebar { border-left: 2px solid #10100f; }
   font: 500 15px "Archivo", sans-serif; background: #fff; color: #10100f;
   border: 2px solid #10100f; border-radius: 0; padding: 13px 14px; width: 100%;
 }
-.home form.waitlist input:focus { outline: 3px solid #10100f; outline-offset: 1px; }
+.home form.waitlist input:focus { outline: 3px solid #d8ff36; outline-offset: 1px; }
 .home .form-status { font: 600 13px "IBM Plex Mono", monospace; min-height: 1.4em; }
-.home .form-status.ok { color: #10100f; }
-.home .form-status.err { color: #10100f; }
-.home .verdict-side .form-status.ok { color: #ffffff; }
+.home .form-status.ok { color: #006b4b; }
+.home .form-status.err { color: #ff5b22; }
+.home .verdict-side .form-status.ok { color: #d8ff36; }
 
 /* faq */
 .home details { background: #fff; border-bottom: 2px solid #10100f; }
@@ -146,11 +143,11 @@ body.home .nav-sidebar { border-left: 2px solid #10100f; }
 .home summary::-webkit-details-marker { display: none; }
 .home summary::after { content: "+"; font-family: "IBM Plex Mono", monospace; font-weight: 600; }
 .home details[open] summary::after { content: "–"; }
-.home details p { padding: 0 4px 22px; margin: 0; color: #5f5f5f; font-size: 15px; line-height: 1.6; max-width: 44rem; }
+.home details p { padding: 0 4px 22px; margin: 0; color: #5d5e59; font-size: 15px; line-height: 1.6; max-width: 44rem; }
 .home .faq-list { max-width: 860px; }
 
 /* footer */
-body.home footer { border-top: 2px solid #10100f; background: #ffffff; }
+body.home footer { border-top: 2px solid #10100f; background: #f7f7f4; }
 body.home .footer-links { display: flex; gap: 22px; flex-wrap: wrap; padding: 30px 28px 44px; }
 body.home .footer-links a { font: 600 13px "IBM Plex Mono", monospace; color: #10100f; text-decoration: none; }
 body.home .footer-links a:hover { text-decoration: underline; }
@@ -174,9 +171,9 @@ body.home .nav { display: flex; align-items: center; gap: 18px; padding: 14px 28
 .home .nav-link:hover, .home .nav-link[aria-current="page"] { border-color: #10100f; background: #fff; }
 .home .nav-commercial {
   font: 700 13px "Archivo", sans-serif; text-decoration: none; color: #fff; background: #10100f;
-  border: 2px solid #10100f; padding: 8px 14px; box-shadow: 3px 3px 0 #6f6f6f; white-space: nowrap;
+  border: 2px solid #10100f; padding: 8px 14px; box-shadow: 3px 3px 0 #d8ff36; white-space: nowrap;
 }
-.home .nav-commercial:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 #6f6f6f; }
+.home .nav-commercial:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 #d8ff36; }
 .home .nav-utility { margin-left: auto; }
 .home .nav-dropdown { position: relative; }
 .home .nav-dropdown-panel {
@@ -187,7 +184,7 @@ body.home .nav { display: flex; align-items: center; gap: 18px; padding: 14px 28
 .home .menu-item { display: block; padding: 10px 12px; text-decoration: none; color: #10100f; border: 2px solid transparent; }
 .home .menu-item:hover { border-color: #10100f; background: #fff; }
 .home .menu-item-title { display: block; font-weight: 700; font-size: 14px; }
-.home .menu-item-desc { display: block; font-size: 12.5px; color: #5f5f5f; margin-top: 2px; }
+.home .menu-item-desc { display: block; font-size: 12.5px; color: #5d5e59; margin-top: 2px; }
 .home .nav-toggle { display: none; margin-left: auto; background: #fff; border: 2px solid #10100f; box-shadow: 3px 3px 0 #10100f; width: 44px; height: 40px; cursor: pointer; }
 .home .nav-toggle-bars, .home .nav-toggle-bars::before, .home .nav-toggle-bars::after {
   display: block; width: 20px; height: 2px; background: #10100f; margin: 0 auto; position: relative;
@@ -198,7 +195,7 @@ body.home .nav { display: flex; align-items: center; gap: 18px; padding: 14px 28
 .home .nav-backdrop[hidden] { display: none; }
 .home .nav-sidebar {
   position: fixed; top: 0; right: 0; bottom: 0; width: min(360px, 88vw); z-index: 45;
-  background: #fff; border-left: 2px solid #10100f; padding: 20px;
+  background: #f7f7f4; border-left: 2px solid #10100f; padding: 20px;
   transform: translateX(100%); transition: transform .22s ease; overflow-y: auto;
 }
 .home .nav-sidebar.is-open { transform: none; }
@@ -208,7 +205,7 @@ body.home .nav { display: flex; align-items: center; gap: 18px; padding: 14px 28
 .home .nav-primary .nav-dropdown-panel { position: static; display: block; border: none; box-shadow: none; background: none; padding: 0 0 0 12px; }
 .home .search-overlay { position: fixed; inset: 0; z-index: 60; background: rgba(16,16,15,.6); display: flex; align-items: flex-start; justify-content: center; padding: 12vh 20px 0; }
 .home .search-overlay[hidden] { display: none; }
-.home .search-dialog { background: #fff; border: 2px solid #10100f; box-shadow: 8px 8px 0 #10100f; padding: 26px; width: min(560px, 100%); }
+.home .search-dialog { background: #f7f7f4; border: 2px solid #10100f; box-shadow: 8px 8px 0 #10100f; padding: 26px; width: min(560px, 100%); }
 .home .search-form { display: flex; gap: 10px; flex-wrap: wrap; }
 .home .search-form input[type="search"] { flex: 1; min-width: 200px; padding: 12px 14px; font: 500 15px "Archivo", sans-serif; border: 2px solid #10100f; }
 /* legacy .cta aliases used by the search dialog */
@@ -218,7 +215,7 @@ body.home .nav { display: flex; align-items: center; gap: 18px; padding: 14px 28
   border: 2px solid #10100f; box-shadow: 5px 5px 0 #10100f;
   text-decoration: none; color: #10100f; background: #fff; cursor: pointer;
 }
-.home .cta.primary { background: #10100f; color: #fff; }
+.home .cta.primary { background: #d8ff36; }
 .home .cta.small { padding: 9px 16px; font-size: 13px; box-shadow: 3px 3px 0 #10100f; }
 
 @media (max-width: 900px) {
