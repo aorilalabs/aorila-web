@@ -11,6 +11,14 @@ const { proxyGpus } = require('./lib/compute-proxy');
 const { createAccountStore, parseSid } = require('./lib/accounts');
 const { mountAccountRoutes } = require('./lib/account-routes');
 
+const ALLOWED_CORS_ORIGINS = new Set([
+  'https://aorila.com',
+  'https://www.aorila.com',
+  'https://aorilalabs.com',
+  'https://www.aorilalabs.com',
+  'https://robotics.aorila.com',
+]);
+
 function cookieSite(req) {
   const raw = req.get('cookie') || '';
   const match = raw.match(/(?:^|;\s*)aorila_site=(labs|consumer)(?:;|$)/i);
@@ -72,7 +80,7 @@ function escHtml(value) {
 
 const LEAD_ORIGIN_HOSTS = new Set([
   'aorila.com', 'www.aorila.com', 'api.aorila.com',
-  'aorilalabs.com', 'www.aorilalabs.com', 'localhost', '127.0.0.1',
+  'aorilalabs.com', 'www.aorilalabs.com', 'robotics.aorila.com', 'localhost', '127.0.0.1',
 ]);
 
 function leadOriginAllowed(req) {
@@ -84,6 +92,10 @@ function leadOriginAllowed(req) {
   } catch {
     return false;
   }
+}
+
+function corsOriginAllowed(origin) {
+  return ALLOWED_CORS_ORIGINS.has(String(origin || '').trim().toLowerCase());
 }
 
 const leadHits = new Map();
@@ -132,6 +144,21 @@ function createApp(options = {}) {
   app.set('trust proxy', 1);
   app.use(express.json({ limit: '32kb' }));
   app.use(express.urlencoded({ extended: false, limit: '32kb' }));
+  app.use((req, res, next) => {
+    const origin = req.get('origin');
+    if (!origin) return next();
+    if (!corsOriginAllowed(origin)) {
+      if (req.method === 'OPTIONS') return res.status(403).end();
+      return next();
+    }
+    res.set('Access-Control-Allow-Origin', origin);
+    res.set('Access-Control-Allow-Credentials', 'true');
+    res.set('Access-Control-Allow-Headers', 'Accept, Content-Type');
+    res.set('Access-Control-Allow-Methods', 'GET, HEAD, POST, OPTIONS');
+    res.set('Vary', 'Origin');
+    if (req.method === 'OPTIONS') return res.status(204).end();
+    return next();
+  });
 
   app.use((req, res, next) => {
     res.locals.site = siteFromRequest(req);
@@ -253,4 +280,4 @@ if (require.main === module) {
     console.log('aorila-web :' + PORT);
   });
 }
-module.exports = { createApp, siteFromRequest };
+module.exports = { createApp, siteFromRequest, ALLOWED_CORS_ORIGINS };

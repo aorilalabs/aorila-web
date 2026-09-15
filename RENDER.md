@@ -1,45 +1,84 @@
-# Aorila + Aorila Labs on one Render service
+# Render runbook: backend API + three static sites
 
 Repo: `https://github.com/nbaldwin098/aorila-web`
 
-**One Render web service. One deploy.** `aorilalabs.com` and `api.aorila.com` are more custom domains on the **same** service as `aorila.com` — not a second Blueprint service, not a second start command.
+This repo now prepares Render for a zero-downtime split:
 
-Routing is Host-based in `server.js` only. Attach consumer, Labs, and API names to that single service.
+- **`aorila`** stays a Node web service for backend/API behavior.
+- **`aorila-site`** serves the consumer static frontend.
+- **`aorila-labs-site`** serves the Labs static frontend.
+- **`aorila-robotics-site`** serves the Robotics static frontend.
 
-| Custom domain | Face | Default page |
-| --- | --- | --- |
-| `aorila.com` and `www.aorila.com` | Consumer | Aorila / **The Future of AI Innovation** |
-| `api.aorila.com` | Consumer API face | Slim **Aorila API** (`sites/consumer/api.html`) at `GET /` |
-| `aorilalabs.com` and `www.aorilalabs.com` | Labs | Aorila Labs / **Commercial API access** |
+Do **not** deploy custom-domain cutovers all at once. Test Render subdomains first, then move domains one service at a time.
 
-`aorila.com/api` serves the same slim API page as `api.aorila.com/`. On `api.aorila.com`, `/api` **301**s to `/`. Labs `/api` stays on the Labs host.
+## Service intent
 
-The `*.onrender.com` hostname defaults to consumer. Preview Labs with `?site=labs` or header `X-Aorila-Site: labs`. Local / preview `/api` still serves the slim page (no redirect off-box).
+### Backend (`aorila`)
 
-Push to `main` → Render auto-deploys. No secrets needed for this site.
+Keep the Node service for dynamic behavior only:
 
-Contact / waitlist / provider posts go to `POST /leads` and append `data/leads.json` (override with `LEADS_PATH`). Blueprint attaches a 1 GB disk at `/var/data` and sets `LEADS_PATH=/var/data/leads.json` so submissions survive deploys. Disks force single-instance deploys (brief downtime on each deploy).
+- `POST /leads`
+- auth and account routes (`/login`, `/signup`, `/logout`, `/console`, `/account`, `/dashboard`)
+- compute proxy (`/compute/v1/gpus`)
+- `GET /healthz`
+- existing backend HTML/API behavior on `api.aorila.com`
 
-## One-time setup
+After cutover, the backend should keep only `api.aorila.com` as its custom domain.
 
-1. Render → **New → Web Service** → connect **nbaldwin098/aorila-web** (or apply `render.yaml`).
-2. Build: `npm install --omit=dev` · Start: `npm start` · bind is `0.0.0.0:$PORT`.
-3. **Custom domains** on **this same service** — add these (www optional except skip `www.api`):
-   - `aorila.com`
-   - `www.aorila.com`
-   - `api.aorila.com` — CNAME to the service’s `onrender.com` hostname
-   - `aorilalabs.com`
-   - `www.aorilalabs.com`
-4. DNS: CNAME `www`, `api.aorila.com`, and (if used) Labs www to the service’s `onrender.com` hostname. Apex names need ALIAS/ANAME or Render nameservers. Do **not** create a second web service for Labs or for the API face.
+### Static sites
 
-TLS is issued per hostname by Render once DNS verifies.
-
-## Day-to-day
+Build commands:
 
 ```bash
-git add -A && git commit -m "…" && git push origin main
+npm run build:site -- consumer
+npm run build:site -- labs
+npm run build:site -- robotics
 ```
 
-## Health
+Outputs:
 
-`GET /` returns 200 on consumer and Labs. On `api.aorila.com`, `GET /` is the slim API page (also 200). `GET /healthz` returns `{ ok, site }` on every host, including `api.aorila.com`. Blueprint sets `healthCheckPath: /healthz`.
+- `dist/consumer`
+- `dist/labs`
+- `dist/robotics`
+
+Each build copies shared `public/` assets and emits the correct root `index.html`.
+
+## Zero-downtime rollout
+
+1. **Deploy the blueprint without changing custom domains.**
+   - Keep the current Node service live.
+   - Let Render create the three static services on free plans.
+2. **Test Render subdomains first.**
+   - Open each `*.onrender.com` URL and verify the right root page loads:
+     - consumer
+     - Labs
+     - Robotics placeholder
+   - Verify shared assets load (`design.css`, `site.js`, `price.js`, favicon).
+3. **Test browser/API behavior before cutover.**
+   - Consumer: pricing page loads the live catalog, contact/provider forms submit, console/login links resolve to the backend/API origin.
+   - Labs: request-access form submits to the backend/API origin.
+   - Backend: `GET /healthz` returns 200 and `POST /leads` still works.
+4. **Move domains one at a time.**
+   - **Labs first:** attach `aorilalabs.com` and `www.aorilalabs.com` to `aorila-labs-site`, verify TLS, reload the form flow, and confirm API/browser requests still reach the backend.
+   - **Robotics second:** attach `robotics.aorila.com` to `aorila-robotics-site`, verify TLS, and confirm the placeholder page is the only public Robotics content.
+   - **Aorila last:** attach `aorila.com` and `www.aorila.com` to `aorila-site`, verify TLS, pricing, contact/provider flows, and backend-linked routes.
+5. **Leave only `api.aorila.com` on Node.**
+   - After consumer, Labs, and Robotics are stable on static services, remove their custom domains from the Node service.
+   - Keep `api.aorila.com` attached to the backend service.
+6. **Verify backend health after every move.**
+   - `GET https://api.aorila.com/healthz`
+   - auth/account paths load
+   - `/compute/v1/gpus` still answers
+   - lead forms still submit from all allowed frontend origins
+
+## Notes
+
+- The frontend API origin is centralized in browser code. Production defaults to `https://api.aorila.com`.
+- `STATIC_API_ORIGIN` can be set at build time if a temporary preview API origin is needed while testing static artifacts.
+- Backend CORS is intentionally restricted to:
+  - `https://aorila.com`
+  - `https://www.aorila.com`
+  - `https://aorilalabs.com`
+  - `https://www.aorilalabs.com`
+  - `https://robotics.aorila.com`
+- Do **not** touch Atraly, DNS outside the planned cutovers, Render secrets, or live Render resources from this repo change alone.

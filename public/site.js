@@ -1,4 +1,87 @@
 (function () {
+  'use strict';
+
+  const CUSTOM_API_ORIGIN = 'https://api.aorila.com';
+  const PREVIEW_API_ORIGIN = 'https://aorila.onrender.com';
+  const META_NAME = 'aorila-api-origin';
+  const DYNAMIC_PATHS = [
+    '/leads',
+    '/login',
+    '/signin',
+    '/signup',
+    '/register',
+    '/logout',
+    '/console',
+    '/account',
+    '/dashboard',
+    '/compute/',
+    '/commercial/console',
+  ];
+
+  function normalizeOrigin(origin) {
+    return String(origin || '').trim().replace(/\/+$/, '');
+  }
+
+  function resolveApiOrigin(loc, doc) {
+    const meta = doc && doc.querySelector ? doc.querySelector(`meta[name="${META_NAME}"]`) : null;
+    const metaOrigin = normalizeOrigin(meta && meta.getAttribute('content'));
+    if (metaOrigin) return metaOrigin;
+
+    const locationLike = loc || (typeof location !== 'undefined' ? location : null);
+    const host = String(locationLike && locationLike.hostname || '').toLowerCase();
+    if (!host) return CUSTOM_API_ORIGIN;
+    if (host === 'localhost' || host === '127.0.0.1') {
+      const protocol = locationLike.protocol || 'http:';
+      return `${protocol}//${host}:3000`;
+    }
+    if (host.endsWith('.onrender.com')) return PREVIEW_API_ORIGIN;
+    return CUSTOM_API_ORIGIN;
+  }
+
+  function isDynamicPath(pathname) {
+    return DYNAMIC_PATHS.some((prefix) => pathname === prefix || pathname.startsWith(prefix));
+  }
+
+  function toApiHref(href, loc, doc) {
+    if (!href || !href.startsWith('/')) return href;
+    const locationLike = loc || (typeof location !== 'undefined' ? location : null);
+    const base = locationLike ? locationLike.origin : 'https://aorila.com';
+    const url = new URL(href, base);
+    if (!isDynamicPath(url.pathname)) return href;
+    return resolveApiOrigin(locationLike, doc) + url.pathname + url.search + url.hash;
+  }
+
+  function apiUrl(pathname, loc, doc) {
+    const path = String(pathname || '/');
+    return resolveApiOrigin(loc, doc) + (path.startsWith('/') ? path : `/${path}`);
+  }
+
+  function rewriteDynamicAttrs(root, loc, doc) {
+    if (!root || !root.querySelectorAll) return;
+    root.querySelectorAll('a[href^="/"]').forEach((a) => {
+      const rewritten = toApiHref(a.getAttribute('href'), loc, doc);
+      if (rewritten) a.setAttribute('href', rewritten);
+    });
+    root.querySelectorAll('form[action^="/"]').forEach((form) => {
+      const rewritten = toApiHref(form.getAttribute('action'), loc, doc);
+      if (rewritten) form.setAttribute('action', rewritten);
+    });
+  }
+
+  const api = {
+    META_NAME,
+    DYNAMIC_PATHS,
+    resolveApiOrigin,
+    isDynamicPath,
+    toApiHref,
+    apiUrl,
+    rewriteDynamicAttrs,
+  };
+  if (typeof window !== 'undefined') window.AorilaSite = api;
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+
+  if (typeof document === 'undefined') return;
+
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
@@ -22,10 +105,9 @@
         a.setAttribute('href', '/?site=' + site);
       }
     });
-    document.querySelectorAll('a[href^="https://api.aorila.com"]').forEach((a) => {
-      a.setAttribute('href', '/api');
-    });
   }
+
+  rewriteDynamicAttrs(document, location, document);
 
   if (sent === '1') {
     document.querySelectorAll('.waitlist .form-status').forEach((el) => {
@@ -59,7 +141,7 @@
       }
       if (button) button.disabled = true;
       try {
-        const res = await fetch('/leads', {
+        const res = await fetch(apiUrl('/leads', location, document), {
           method: 'POST',
           headers: {
             Accept: 'application/json',

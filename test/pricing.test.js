@@ -7,6 +7,7 @@ const fs = require('node:fs');
 
 // Point at a dead origin so fetchOffers() sees no live provider catalog.
 process.env.COMPUTE_ORIGIN = 'http://127.0.0.1:1';
+process.env.AORILA_AUTH_MODE = 'local';
 const { createApp } = require('../server');
 
 const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'aorila-pricing-'));
