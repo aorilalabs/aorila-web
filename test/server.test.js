@@ -97,13 +97,13 @@ describe('host-based pages', () => {
     assert.doesNotMatch(home.body, /mailto:hello@aorila\.com/);
   });
 
-  it('shows Ally in the consumer nav utility and Product in the sidebar menu', async () => {
+  it('keeps Ally out of the consumer nav; Product lives in the sidebar menu', async () => {
     const paths = ['/', '/api', '/docs', '/tp', '/support', '/about', '/pricing'];
     for (const path of paths) {
       const res = await request(port, { path, headers: { host: 'aorila.com' } });
       assert.equal(res.headers['x-aorila-site'], 'consumer');
-      assert.deepEqual(hrefs(res.body, 'Ally'), ['https://ally.atraly.com']);
-      assert.match(res.body, /nav-utility[\s\S]*>Ally</);
+      assert.doesNotMatch(res.body, />Ally</);
+      assert.doesNotMatch(res.body, /ally\.atraly\.com/);
       assert.match(res.body, /class="nav-toggle"/);
       assert.match(res.body, /class="nav-sidebar"[^>]*id="site-nav" hidden/);
       assert.match(res.body, />Product</);
@@ -114,7 +114,7 @@ describe('host-based pages', () => {
       assert.match(res.body, /class="(ds|home)"/);
     }
     const apiFace = await request(port, { path: '/', headers: { host: 'api.aorila.com' } });
-    assert.deepEqual(hrefs(apiFace.body, 'Ally'), ['https://ally.atraly.com']);
+    assert.doesNotMatch(apiFace.body, />Ally</);
     const labs = await request(port, { headers: { host: 'aorilalabs.com' } });
     assert.doesNotMatch(labs.body, />Ally</);
   });
@@ -143,7 +143,8 @@ describe('host-based pages', () => {
     assert.match(res.body, />Enterprise</);
     assert.match(res.body, />Search</);
     assert.match(res.body, />Contact Sales</);
-    assert.match(res.body, /nav-utility[\s\S]*>Ally</);
+    assert.doesNotMatch(res.body, /nav-utility[\s\S]*>Ally</);
+    assert.doesNotMatch(res.body, /ally\.atraly\.com/);
     assert.match(res.body, /data-search-open/);
     assert.match(res.body, /href="\/(design|home)\.css"/);
     assert.match(res.body, /class="(ds|home)"/);
@@ -194,14 +195,15 @@ describe('host-based pages', () => {
       assert.match(res.body, /href="\/design\.css"/);
       assert.match(res.body, /Trust and security is number one/);
     }
-    // Provider transparency: we name our capacity partners on buyer pages.
+    // Upstream vendors are never named in user copy: "verified partner pools" only.
     for (const p of ['/', '/about', '/pods']) {
       const r = await request(port, { path: p, headers: { host: 'aorila.com' } });
       assert.equal(r.status, 200, p);
-      assert.match(r.body, /RunPod/, p);
-      assert.match(r.body, /Vast\.ai/, p);
-      assert.match(r.body, /TensorDock/, p);
-      assert.match(r.body, /Voltage Park/, p);
+      assert.doesNotMatch(r.body, /RunPod/, p);
+      assert.doesNotMatch(r.body, /Vast\.ai/, p);
+      assert.doesNotMatch(r.body, /TensorDock/, p);
+      assert.doesNotMatch(r.body, /Voltage Park/, p);
+      assert.match(r.body, /verified partner pools/, p);
     }
     const providers = await request(port, { path: '/providers', headers: { host: 'aorila.com' } });
     assert.equal(providers.status, 200);
