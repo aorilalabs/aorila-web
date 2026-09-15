@@ -3,42 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>T &amp; P — Aorila</title>
-  <meta name="description" content="T &amp; P for aorila.com." />
-  <meta property="og:title" content="T &amp; P — Aorila" />
-  <meta property="og:description" content="What Aorila collects on aorila.com." />
+  <title>T & P — Aorila</title>
+  <meta name="description" content="What Aorila collects." />
+  <meta property="og:title" content="T & P — Aorila" />
+  <meta property="og:description" content="What Aorila collects." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorila.com/tp" />
   <link rel="canonical" href="https://aorila.com/tp" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="/design.css" />
 </head>
-<body class="landing" data-site="consumer">
-  <header class="nav">
-    <a class="wordmark" href="/">Aorila</a>
-    <nav class="nav-links">
-      <a class="nav-link" href="https://api.aorila.com">API</a>
-      <a class="nav-link" href="https://ally.atraly.com">Ally</a>
-      <a class="nav-link" href="https://aorilalabs.com" data-local-site="labs">Labs</a>
-    </nav>
-  </header>
-
+<body class="ds" data-site="consumer">
+  <div class="topline"></div>
+  <header class="nav"><a class="wordmark" href="/">Aorila</a></header>
   <main>
-    <section class="hero">
-      <h1>T &amp; P</h1>
-      <p class="lede">What we collect. Emails you send to <a href="mailto:api@aorila.com">api@aorila.com</a>, and company or contact details you submit on forms on this site (including provider applications).</p>
+    <section class="hero compact">
+      <div class="wrap">
+        <span class="hero-badge">T & P</span>
+        <h1>What we collect.</h1>
+        <p class="lede">Emails you send to <a href="mailto:api@aorila.com">api@aorila.com</a>, and company or contact details you submit on forms on this site (including provider applications).</p>
+        
+      </div>
     </section>
-  </main>
+    <section class="section"><div class="wrap"><div class="section-head"><span class="snum">POLICY</span><div>
+        <h2>Plain terms.</h2>
+        <p class="lede">We collect what you send us and use it to respond. We do not sell it.</p>
+      </div></div></div></section>
+      <div class="love-band"><div class="wrap"><h2>The goal is to love.</h2></div></div>
 
-  <footer>
-    <nav class="footer-links" aria-label="Legal">
-      <a href="/tp" aria-current="page">T &amp; P</a>
-      <a href="/support">Support</a>
-    </nav>
-    <span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <nav class="footer-links" aria-label="Legal">
+        <a href="/tp">T &amp; P</a>
+        <a href="/support">Support</a>
+        <a href="https://api.aorila.com">Developer</a>
+      </nav>
+      <div class="footer-meta"><span>Aorila — to help people.</span><span><a href="https://aorilalabs.com" data-local-site="labs">Aorila Labs</a></span></div>
+    </div>
   </footer>
   <script src="/site.js"></script>
 </body>
