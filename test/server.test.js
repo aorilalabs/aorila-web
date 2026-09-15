@@ -391,6 +391,29 @@ describe('host-based pages', () => {
     assert.match(css.body, /\.love-band/);
     assert.match(css.body, /\.site-footer/);
   });
+  it('never traps the search overlay open (hidden attribute must win)', async () => {
+    // Regression: .search-overlay sets display:flex, which used to beat the
+    // `hidden` attribute, so once opened the overlay could never be closed.
+    const css = await request(port, { path: '/design.css' });
+    assert.equal(css.status, 200);
+    assert.match(
+      css.body,
+      /\.search-overlay\[hidden\]\s*\{\s*display:\s*none/,
+      'design.css must hide .search-overlay[hidden]'
+    );
+  });
+  it('every hidden-toggled nav surface has a CSS rule that respects hidden', async () => {
+    // Guards the sidebar/backdrop/overlay trio against future display overrides.
+    const css = await request(port, { path: '/design.css' });
+    assert.equal(css.status, 200);
+    for (const cls of ['search-overlay', 'nav-backdrop', 'nav-sidebar']) {
+      const rule = new RegExp(`\\.${cls}\\s*\\{[^}]*display\\s*:`);
+      const guard = new RegExp(`\\.${cls}\\[hidden\\][^{]*\\{[^}]*display\\s*:\\s*none`);
+      if (rule.test(css.body)) {
+        assert.match(css.body, guard, `.${cls} sets display so it needs a [hidden] guard`);
+      }
+    }
+  });
   it('serves a favicon', async () => {
     const res = await request(port, { path: '/favicon.svg' });
     assert.equal(res.status, 200);
