@@ -186,6 +186,9 @@ function createApp(options = {}) {
   // Legacy product URL: AI Models is now AI API.
   app.get(['/models', '/models/'], (req, res) => res.redirect(301, '/ai-api'));
 
+  // Enterprise and Commercial are one path now.
+  app.get(['/enterprise', '/enterprise/'], (req, res) => res.redirect(301, '/commercial'));
+
   for (const slug of MARKETING_SLUGS) {
     app.get([`/${slug}`, `/${slug}/`], (req, res) => {
       if (res.locals.site !== 'consumer') {
