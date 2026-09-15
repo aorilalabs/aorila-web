@@ -77,7 +77,10 @@
   }
 
   function classLabel(c) {
-    return String(c || '').toLowerCase() === 'datacenter' ? 'Datacenter' : 'Consumer';
+    const s = String(c || '').toLowerCase();
+    if (s === 'datacenter') return 'Datacenter';
+    if (s === 'workstation') return 'Workstation';
+    return 'Consumer';
   }
 
   function gpuCard(g) {
@@ -106,6 +109,7 @@
       `<span class="gpu-filters-label">Filter</span>` +
       `<button type="button" data-gf="all" class="on">All</button>` +
       `<button type="button" data-gf="datacenter">Datacenter</button>` +
+      `<button type="button" data-gf="workstation">Workstation</button>` +
       `<button type="button" data-gf="consumer">Consumer</button></div>`;
     return filters + `<div class="gpu-grid">${groups.map(gpuCard).join('')}</div>` +
       `<p class="price-note">Aorila price includes the platform fee. Deploy signs you in first if needed, then starts the machine.</p>`;
