@@ -1,4 +1,4 @@
-/* Live GPU catalog — RunPod-style GPU cards in the Aorila brutalist system.
+/* Live GPU catalog — marketplace-style GPU cards in the Aorila brutalist system.
  * Marketing surfaces ([data-live-prices]) get one card per GPU model with a
  * "from" price; the console ([data-live-prices="offers"]) gets per-offer
  * cards with direct start links. Pure helpers are exported for node tests. */
