@@ -60,6 +60,9 @@ body.home .nav-sidebar { border-left: 2px solid #10100f; }
 .home .btn.acid { background: #10100f; color: #fff; }
 .home .btn.ink { background: #10100f; color: #fff; box-shadow: 5px 5px 0 #ffffff; }
 .home .btn.ink:hover { box-shadow: 7px 7px 0 #ffffff; }
+/* On dark heroes the acid button's ink shadow disappears — use the white treatment like .btn.ink. */
+.home .hero .btn.acid { box-shadow: 5px 5px 0 #ffffff; }
+.home .hero .btn.acid:hover { box-shadow: 7px 7px 0 #ffffff; }
 .home .btn-row { display: flex; flex-wrap: wrap; gap: 14px; }
 
 /* sections */
