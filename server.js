@@ -183,6 +183,9 @@ function createApp(options = {}) {
     res.set('X-Aorila-Site', 'consumer').type('html').send(html);
   });
 
+  // Legacy product URLs consolidated into the two-product lineup (AI API + Compute).
+  app.get(['/models', '/models/'], (req, res) => res.redirect(301, '/ai-api'));
+
   for (const slug of MARKETING_SLUGS) {
     app.get([`/${slug}`, `/${slug}/`], (req, res) => {
       if (res.locals.site !== 'consumer') {
