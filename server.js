@@ -183,7 +183,7 @@ function createApp(options = {}) {
     res.set('X-Aorila-Site', 'consumer').type('html').send(html);
   });
 
-  // Legacy product URLs consolidated into the two-product lineup (AI API + Compute).
+  // Legacy product URL: AI Models is now AI API.
   app.get(['/models', '/models/'], (req, res) => res.redirect(301, '/ai-api'));
 
   for (const slug of MARKETING_SLUGS) {
