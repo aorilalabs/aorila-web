@@ -46,8 +46,9 @@ describe('gpu catalog cards', () => {
   });
 
   it('handles an empty catalog honestly', () => {
-    assert.match(price.catalogHtml([]), /warming up/);
-    assert.match(price.offersHtml([]), /warming up/);
+    assert.match(price.catalogHtml([]), /No hosts online yet/);
+    assert.match(price.catalogHtml([]), /catalog opens as hosts list their GPUs/);
+    assert.match(price.offersHtml([]), /No hosts online yet/);
     assert.deepEqual(price.groupOffers([]), []);
   });
 });
