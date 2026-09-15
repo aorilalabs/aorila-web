@@ -21,7 +21,7 @@ describe('gpu catalog cards', () => {
     assert.ok(Math.abs(g.perMin - 0.4835 / 60) < 1e-9);
   });
 
-  it('renders RunPod-style cards, not bare text rows', () => {
+  it('renders marketplace-style GPU cards, not bare text rows', () => {
     const html = price.catalogHtml(price.groupOffers(offers));
     assert.match(html, /gpu-card/);
     assert.match(html, /gpu-art/);
