@@ -154,3 +154,66 @@ body.home footer { border-top: 2px solid #10100f; background: #ffffff; }
   .home .verdict { grid-template-columns: 1fr; }
   .home .verdict-main, .home .verdict-side { padding: 26px; }
 }
+
+/* ---------- nav system (mirrors design.css, scoped to .home) ---------- */
+body.home .nav { display: flex; align-items: center; gap: 18px; padding: 14px 28px; }
+.home .wordmark { font: 800 20px "Archivo", sans-serif; letter-spacing: -.03em; color: #10100f; text-decoration: none; }
+.home .nav-links { display: flex; align-items: center; gap: 4px; }
+.home .nav-link {
+  color: #10100f; text-decoration: none; font: 600 13px "IBM Plex Mono", monospace;
+  padding: 8px 12px; border: 2px solid transparent; background: none; cursor: pointer; white-space: nowrap;
+}
+.home .nav-link:hover, .home .nav-link[aria-current="page"] { border-color: #10100f; background: #fff; }
+.home .nav-commercial {
+  font: 700 13px "Archivo", sans-serif; text-decoration: none; color: #fff; background: #10100f;
+  border: 2px solid #10100f; padding: 8px 14px; box-shadow: 3px 3px 0 #6f6f6f; white-space: nowrap;
+}
+.home .nav-commercial:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 #6f6f6f; }
+.home .nav-utility { margin-left: auto; }
+.home .nav-dropdown { position: relative; }
+.home .nav-dropdown-panel {
+  display: none; position: absolute; top: calc(100% + 8px); left: 0; min-width: 300px;
+  background: #fff; border: 2px solid #10100f; box-shadow: 6px 6px 0 #10100f; padding: 8px; z-index: 50;
+}
+.home .nav-dropdown.is-open .nav-dropdown-panel { display: block; }
+.home .menu-item { display: block; padding: 10px 12px; text-decoration: none; color: #10100f; border: 2px solid transparent; }
+.home .menu-item:hover { border-color: #10100f; background: #fff; }
+.home .menu-item-title { display: block; font-weight: 700; font-size: 14px; }
+.home .menu-item-desc { display: block; font-size: 12.5px; color: #5f5f5f; margin-top: 2px; }
+.home .nav-toggle { display: none; margin-left: auto; background: #fff; border: 2px solid #10100f; box-shadow: 3px 3px 0 #10100f; width: 44px; height: 40px; cursor: pointer; }
+.home .nav-toggle-bars, .home .nav-toggle-bars::before, .home .nav-toggle-bars::after {
+  display: block; width: 20px; height: 2px; background: #10100f; margin: 0 auto; position: relative;
+}
+.home .nav-toggle-bars::before, .home .nav-toggle-bars::after { content: ""; position: absolute; left: 0; }
+.home .nav-toggle-bars::before { top: -6px; } .home .nav-toggle-bars::after { top: 6px; }
+.home .nav-backdrop { position: fixed; inset: 0; background: rgba(16,16,15,.5); z-index: 44; }
+.home .nav-backdrop[hidden] { display: none; }
+.home .nav-sidebar {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(360px, 88vw); z-index: 45;
+  background: #fff; border-left: 2px solid #10100f; padding: 20px;
+  transform: translateX(100%); transition: transform .22s ease; overflow-y: auto;
+}
+.home .nav-sidebar.is-open { transform: none; }
+.home .nav-sidebar-head { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+.home .nav-sidebar-close { font: 700 13px "Archivo", sans-serif; border: 2px solid #10100f; background: #fff; padding: 8px 14px; box-shadow: 3px 3px 0 #10100f; cursor: pointer; }
+.home .nav-primary, .home .nav-actions { display: grid; gap: 4px; margin-bottom: 18px; }
+.home .nav-primary .nav-dropdown-panel { position: static; display: block; border: none; box-shadow: none; background: none; padding: 0 0 0 12px; }
+.home .search-overlay { position: fixed; inset: 0; z-index: 60; background: rgba(16,16,15,.6); display: flex; align-items: flex-start; justify-content: center; padding: 12vh 20px 0; }
+.home .search-overlay[hidden] { display: none; }
+.home .search-dialog { background: #fff; border: 2px solid #10100f; box-shadow: 8px 8px 0 #10100f; padding: 26px; width: min(560px, 100%); }
+.home .search-form { display: flex; gap: 10px; flex-wrap: wrap; }
+.home .search-form input[type="search"] { flex: 1; min-width: 200px; padding: 12px 14px; font: 500 15px "Archivo", sans-serif; border: 2px solid #10100f; }
+/* legacy .cta aliases used by the search dialog */
+.home .cta {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 13px 24px; font: 700 15px "Archivo", sans-serif; letter-spacing: -.01em;
+  border: 2px solid #10100f; box-shadow: 5px 5px 0 #10100f;
+  text-decoration: none; color: #10100f; background: #fff; cursor: pointer;
+}
+.home .cta.primary { background: #10100f; color: #fff; }
+.home .cta.small { padding: 9px 16px; font-size: 13px; box-shadow: 3px 3px 0 #10100f; }
+
+@media (max-width: 900px) {
+  .home .nav-links { display: none; }
+  .home .nav-toggle { display: block; }
+}
