@@ -1,7 +1,8 @@
-/* Live GPU catalog — marketplace-style GPU cards in the Aorila brutalist system.
+/* GPU catalog — marketplace-style GPU cards for the Aorila design system.
  * Marketing surfaces ([data-live-prices]) get one card per GPU model with a
  * "from" price; the console ([data-live-prices="offers"]) gets per-offer
- * cards with direct start links. Pure helpers are exported for node tests. */
+ * cards with direct start links. Until hosts list GPUs, both render an
+ * honest empty state. Pure helpers are exported for node tests. */
 (function () {
   'use strict';
 
@@ -102,8 +103,13 @@
       `</article>`;
   }
 
+  function emptyCatalogHtml() {
+    return '<p class="price-note">No hosts online yet — the catalog opens as hosts list their GPUs. ' +
+      '<a href="/providers">Become a host</a>.</p>';
+  }
+
   function catalogHtml(groups) {
-    if (!groups.length) return '<p class="price-note">Live catalog is warming up.</p>';
+    if (!groups.length) return emptyCatalogHtml();
     const filters =
       `<div class="gpu-filters" role="group" aria-label="Filter GPUs">` +
       `<span class="gpu-filters-label">Filter</span>` +
@@ -130,7 +136,7 @@
   }
 
   function offersHtml(offers) {
-    if (!offers.length) return '<p class="price-note">Live catalog is warming up.</p>';
+    if (!offers.length) return emptyCatalogHtml();
     const sorted = offers.slice().sort((a, b) => Number(a.usdPerHour || 99) - Number(b.usdPerHour || 99));
     return `<div class="offer-grid">${sorted.slice(0, 24).map(offerCard).join('')}</div>` +
       `<p class="price-note">Aorila price includes the platform fee.</p>`;
@@ -164,7 +170,7 @@
   }
 
   function fail(el) {
-    el.innerHTML = '<p class="price-note">Could not load live prices.</p>';
+    el.innerHTML = '<p class="price-note">Could not load the catalog.</p>';
   }
 
   if (typeof document !== 'undefined') {
