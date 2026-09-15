@@ -432,6 +432,11 @@ describe('host-based pages', () => {
     assert.match(res.body, /<svg/);
   });
 
+  it('hero acid button uses the white offset shadow on dark heroes', async () => {
+    const homeCss = await request(port, { path: '/home.css' });
+    assert.match(homeCss.body, /\.home \.hero \.btn\.acid\s*\{[^}]*box-shadow:[^}]*#ffffff/, 'hero acid button must carry the white treatment');
+  });
+
   it('monochrome contrast: no invisible text on dark surfaces', async () => {
     // Guards the black-on-black / blue-link regressions Nicholas flagged:
     // dark-card tags, homepage footer links, bare links in dark heroes,
