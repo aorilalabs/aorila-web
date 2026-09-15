@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aorila — Home robots. The goal is to love.</title>
-  <meta name="description" content="Aorila Labs is building a home robot you'll meet through its own eyes. Join the waitlist for early access. Trust and security is number one." />
-  <meta property="og:title" content="Aorila — Home robots. The goal is to love." />
-  <meta property="og:description" content="We're building a home robot — and you'll meet it through its own eyes. Join the waitlist for early access." />
+  <title>Aorila — GPUs and AI. Trust and security is number one.</title>
+  <meta name="description" content="On-demand GPUs from verified provider pools and AI models on atraly.com. Per-minute billing, one Aorila bill. Trust and security is number one." />
+  <meta property="og:title" content="Aorila — GPUs and AI. Trust and security is number one." />
+  <meta property="og:description" content="On-demand GPUs from verified provider pools, plus AI models on atraly.com. Per-minute billing, one Aorila bill." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorila.com" />
   <link rel="canonical" href="https://aorila.com" />
@@ -14,7 +14,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css" />
   <link rel="stylesheet" href="/home.css" />
 </head>
 <body class="home" data-site="consumer">
@@ -27,44 +26,67 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div>
-          <div class="kicker">AORILA LABS · HOME ROBOTS</div>
-          <h1>The goal is to love.</h1>
-          <p class="hero-copy">We're building a home robot — and you'll meet it through its own eyes. Films, the waitlist, and first access start here.</p>
+          <div class="kicker">AORILA LABS · COMPUTE &amp; AI</div>
+          <h1>GPUs and AI. One bill.</h1>
+          <p class="hero-copy">On-demand GPUs from verified provider pools, plus AI models on atraly.com. Per-minute billing, one Aorila bill — and trust and security is number one.</p>
           <div class="btn-row">
-            <a class="btn acid" href="#waitlist">Join the waitlist</a>
-            <a class="btn ink" href="#film">See the concept</a>
+            <a class="btn acid" href="/pricing">See live pricing</a>
+            <a class="btn ink" href="/console">Open console</a>
           </div>
         </div>
         <aside class="hero-aside">
-          <strong>You never see the robot.</strong>
-          <p>You see what it sees. Our launch films are shot from the robot's point of view — the world as Ally sees it, with the Aorila OS around the edges.</p>
+          <strong>Live now.</strong>
+          <p>Pods, serverless endpoints, clusters, hub templates, and deployments are running today on real provider capacity — priced live, right on this site.</p>
         </aside>
       </div>
     </section>
 
-    <section class="section" id="film">
+    <section class="section" id="products">
       <div class="wrap">
         <div class="section-head">
-          <span class="snum">01 / THE CAMPAIGN</span>
+          <span class="snum">01 / PRODUCTS</span>
           <div>
-            <h2>Proof, repetition, and a point of view only we own.</h2>
-            <p class="lede">The first spot is <strong>WAKE</strong>: twenty seconds. A dock, a voice, a name remembered — then black.</p>
+            <h2>Two products. Everything runs.</h2>
+            <p class="lede">AI models behind one API — and every kind of GPU workload, from a single pod to a full cluster.</p>
           </div>
         </div>
-        <div class="cards two">
-          <div class="card accent-acid">
-            <span class="tag">TEASER SPOT · 20 SECONDS</span>
-            <h3>WAKE</h3>
-            <p>Docks, hears its name, takes its first step — then the picture cuts. The cliffhanger is the strategy. In production now.</p>
+        <div class="cards">
+          <div class="card accent-ink">
+            <span class="tag">AI API</span>
+            <h3>Models on atraly.com</h3>
+            <p>Chat, voice, and agents — Atraly and Aorila models behind one API.</p>
+            <div class="btn-row"><a class="btn" href="/ai-api">AI API</a></div>
           </div>
           <div class="card">
-            <span class="tag">EPISODE 1 · 75 SECONDS</span>
-            <h3>Morning</h3>
-            <p>Coffee, a medication reminder, and the whole company in one frame. Next after WAKE.</p>
+            <span class="tag">COMPUTE</span>
+            <h3>Pods</h3>
+            <p>On-demand GPUs from live pools. Per-minute billing, one Aorila bill.</p>
+            <div class="btn-row"><a class="btn" href="/pods">Pods</a></div>
           </div>
-        </div>
-        <div class="btn-row" style="margin-top:28px">
-          <a class="btn acid" href="#waitlist">See it first — join the waitlist</a>
+          <div class="card">
+            <span class="tag">COMPUTE</span>
+            <h3>Serverless</h3>
+            <p>GPU endpoints that scale to zero. Pay only for the time your code runs.</p>
+            <div class="btn-row"><a class="btn" href="/serverless">Serverless</a></div>
+          </div>
+          <div class="card">
+            <span class="tag">COMPUTE</span>
+            <h3>Clusters</h3>
+            <p>Multi-node GPU clusters for distributed training and inference.</p>
+            <div class="btn-row"><a class="btn" href="/clusters">Clusters</a></div>
+          </div>
+          <div class="card">
+            <span class="tag">COMPUTE</span>
+            <h3>Hub</h3>
+            <p>One-click templates for open-source models.</p>
+            <div class="btn-row"><a class="btn" href="/hub">Hub</a></div>
+          </div>
+          <div class="card">
+            <span class="tag">COMPUTE</span>
+            <h3>Deployments</h3>
+            <p>Every workload, from pods to clusters, in one control plane.</p>
+            <div class="btn-row"><a class="btn" href="/deployments">Deployments</a></div>
+          </div>
         </div>
       </div>
     </section>
@@ -75,25 +97,58 @@
           <span class="snum">02 / WHY AORILA</span>
           <div>
             <h2>Trust and security is number one.</h2>
-            <p class="lede">A robot lives in your home. That's the most trust a company can ask for — so it's our first engineering requirement, not a feature.</p>
+            <p class="lede">You hand us your workloads and your spend. That trust is our first engineering requirement — not a feature.</p>
           </div>
         </div>
         <div class="cards">
           <div class="card accent-ink">
-            <span class="tag" style="color:#d8ff36">PRINCIPLE 01</span>
-            <h3>Your home is your domain</h3>
-            <p>What's seen in your home stays in your home. Your data stays yours.</p>
+            <span class="tag">PRINCIPLE 01</span>
+            <h3>Verified pools, one bill</h3>
+            <p>Capacity comes from verified provider pools. You never touch a provider account — you get one Aorila bill.</p>
           </div>
           <div class="card">
             <span class="tag">PRINCIPLE 02</span>
-            <h3>Honest about what's real</h3>
-            <p>Concept films are labeled as concept films. When we show a demo, it's real.</p>
+            <h3>Honest pricing</h3>
+            <p>The GPU catalog on our pricing page is pulled from live pools. One $/hour number — no hidden breakdowns, no surprises.</p>
           </div>
-          <div class="card accent-blue">
-            <span class="tag" style="color:#fff">PRINCIPLE 03</span>
-            <h3>Security-first engineering</h3>
-            <p>Every system hardened and reviewed, built like infrastructure — because it is.</p>
+          <div class="card">
+            <span class="tag">PRINCIPLE 03</span>
+            <h3>Workloads stop at zero</h3>
+            <p>Credits meter by the minute, and workloads stop automatically when your balance runs out. You can't wake up to a surprise bill.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="billing" style="padding-top:0">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="snum">03 / BILLING</span>
+          <div>
+            <h2>Credits. Simple on purpose.</h2>
+            <p class="lede">1 credit = $1. Top up with a credit pack, and usage meters by the minute against your balance.</p>
+          </div>
+        </div>
+        <div class="cards">
+          <div class="card">
+            <span class="tag">HOW IT WORKS</span>
+            <h3>Buy credits</h3>
+            <p>Credit packs from $10 to $100. 1 credit = $1 of compute, always.</p>
+          </div>
+          <div class="card">
+            <span class="tag">HOW IT WORKS</span>
+            <h3>Run by the minute</h3>
+            <p>Pods, serverless, and clusters meter per minute. The price you see in the live catalog is the price you pay.</p>
+          </div>
+          <div class="card">
+            <span class="tag">HOW IT WORKS</span>
+            <h3>Never overspend</h3>
+            <p>When credits hit zero, workloads stop. Add credits anytime to keep running.</p>
+          </div>
+        </div>
+        <div class="btn-row" style="margin-top:28px">
+          <a class="btn acid" href="/pricing">See live pricing</a>
+          <a class="btn" href="/signup?next=/console">Create account</a>
         </div>
       </div>
     </section>
@@ -102,61 +157,48 @@
       <div class="wrap">
         <div class="kicker">ONE COMPANY, ONE GOAL</div>
         <h2>To help people.</h2>
-        <p>Everything Aorila makes — robots, personal AI, and the infrastructure beneath — exists for one reason.</p>
+        <p>Everything Aorila makes — compute, AI services, and the infrastructure beneath — exists for one reason.</p>
       </div>
     </section>
 
-    <section class="section" id="company">
+    <section class="section" id="ai-services">
       <div class="wrap">
         <div class="section-head">
-          <span class="snum">03 / WHAT WE MAKE</span>
+          <span class="snum">04 / AI SERVICES</span>
           <div>
-            <h2>Robots, personal AI, and the infrastructure beneath.</h2>
+            <h2>Personal AI, on Atraly.</h2>
+            <p class="lede">Atraly is our personal AI — private, simple, yours. The same models are available behind the AI API.</p>
           </div>
         </div>
-        <div class="cards">
-          <div class="card accent-acid">
-            <span class="tag">AORILA LABS</span>
-            <h3>Home robots</h3>
-            <p>Robots for everyday home use — to help people with the tasks of daily life. This page is where it starts.</p>
-            <div class="btn-row"><a class="btn" href="#waitlist">Join the waitlist</a></div>
-          </div>
+        <div class="cards two">
           <div class="card">
             <span class="tag">PERSONAL AI</span>
             <h3>Atraly</h3>
-            <p>Personal chat AI — private, simple, yours. The same Ally, helping people everywhere.</p>
+            <p>Chat with Atraly on atraly.com — personal AI that's private and simple.</p>
             <div class="btn-row"><a class="btn" href="https://atraly.com">Open Atraly</a></div>
           </div>
-          <div class="card">
-            <span class="tag">PLATFORM</span>
-            <h3>Infrastructure</h3>
-            <p>Compute, hosting, and security for AI workloads — the trusted foundation that helps it all run.</p>
-            <div class="btn-row"><a class="btn" href="https://api.aorila.com">Developer</a></div>
+          <div class="card accent-ink">
+            <span class="tag">FOR DEVELOPERS</span>
+            <h3>AI API</h3>
+            <p>Chat, voice, and agents behind one API. Build on Atraly and Aorila models.</p>
+            <div class="btn-row"><a class="btn" href="/ai-api">AI API</a></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="waitlist" style="padding-top:0">
+    <section class="section" id="commercial" style="padding-top:0">
       <div class="wrap">
-        <div class="verdict">
-          <div class="verdict-main">
-            <div class="kicker on-light">04 / EARLY ACCESS</div>
-            <h2>Reserve your place in line.</h2>
-            <p>Free. No payment today. We'll write when early access opens — and you'll see every film first.</p>
+        <div class="section-head">
+          <span class="snum">05 / COMMERCIAL</span>
+          <div>
+            <h2>For organizations.</h2>
+            <p class="lede">Reserved capacity, commercial terms, and planned dedicated VMs — talk to us about volume.</p>
           </div>
-          <div class="verdict-side">
-            <div class="kicker">JOIN THE WAITLIST</div>
-            <form class="waitlist" action="/leads" method="post" data-kind="waitlist">
-              <input type="hidden" name="site" value="consumer" />
-              <input type="hidden" name="kind" value="waitlist" />
-              <label class="hp" aria-hidden="true">Fax<input type="text" name="fax" tabindex="-1" autocomplete="off" /></label>
-              <label>NAME<input type="text" name="name" autocomplete="name" placeholder="Jane Appleseed" /></label>
-              <label>EMAIL<input type="email" name="email" required autocomplete="email" placeholder="you@domain.com" /></label>
-              <button class="btn acid" type="submit">Join the waitlist</button>
-              <p class="form-status" role="status"></p>
-            </form>
-          </div>
+        </div>
+        <div class="btn-row">
+          <a class="btn acid" href="/commercial">Commercial</a>
+          <a class="btn" href="/contact">Contact Sales</a>
         </div>
       </div>
     </section>
@@ -164,27 +206,31 @@
     <section class="section" id="faq" style="padding-top:0">
       <div class="wrap">
         <div class="section-head">
-          <span class="snum">05 / FAQ</span>
+          <span class="snum">06 / FAQ</span>
           <div>
             <h2>Honest answers.</h2>
           </div>
         </div>
         <div class="faq-list">
           <details>
-            <summary>Is the robot real yet?</summary>
-            <p>Not yet. The launch films are concept films — visions of what we're building, labeled as such. We'll show real demo units the moment they exist.</p>
+            <summary>What can I use today?</summary>
+            <p>Pods, serverless endpoints, clusters, hub templates, deployments, and the AI API — all live. Create an account, add credits, and deploy from the console.</p>
           </details>
           <details>
-            <summary>When will it ship?</summary>
-            <p>We're building now. The waitlist hears first, with timelines as they're set.</p>
+            <summary>How does billing work?</summary>
+            <p>1 credit = $1. Usage meters by the minute against your credit balance, and workloads stop automatically at zero — so you can never overspend.</p>
           </details>
           <details>
-            <summary>How much will it cost?</summary>
-            <p>Pricing comes later. The waitlist is free, and early members get first access.</p>
+            <summary>Where do the GPUs come from?</summary>
+            <p>Verified provider pools. We handle the providers — you get one live catalog, one $/hour price, and one Aorila bill.</p>
+          </details>
+          <details>
+            <summary>What about the home robot?</summary>
+            <p>The home robot is a separate project. This site is for our live compute and AI services.</p>
           </details>
           <details>
             <summary>What about my privacy?</summary>
-            <p>Trust and security is our first requirement. Your home is your domain — your data stays yours.</p>
+            <p>Trust and security is our first requirement. Your workloads and your data stay yours.</p>
           </details>
         </div>
       </div>
@@ -193,7 +239,7 @@
 
   <footer>
     <nav class="footer-links" aria-label="Legal">
-      <a href="/tp">T & P</a>
+      <a href="/tp">T &amp; P</a>
       <a href="/support">Support</a>
       <a href="https://api.aorila.com">Developer</a>
     </nav>
