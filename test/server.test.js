@@ -432,6 +432,20 @@ describe('host-based pages', () => {
     assert.match(res.body, /<svg/);
   });
 
+  it('monochrome contrast: no invisible text on dark surfaces', async () => {
+    // Guards the black-on-black / blue-link regressions Nicholas flagged:
+    // dark-card tags, homepage footer links, bare links in dark heroes,
+    // and the active commercial chip (inline style beat the stylesheet).
+    const homeCss = await request(port, { path: '/home.css' });
+    assert.match(homeCss.body, /\.home \.card\.accent-ink \.tag\s*\{[^}]*color:\s*#fff/i, 'dark-card tags must be white');
+    assert.match(homeCss.body, /body\.home \.footer-links a\s*\{[^}]*color:\s*#10100f/, 'homepage footer links must be ink, not browser blue');
+    const dsCss = await request(port, { path: '/design.css' });
+    assert.match(dsCss.body, /\.ds \.hero a(?::not\([^)]*\))+\s*\{\s*color:\s*#(?:fff|ffffff)/i, 'bare links in dark heroes must be white');
+    const commercial = await request(port, { path: '/commercial', headers: { host: 'aorila.com' } });
+    assert.equal(commercial.status, 200);
+    assert.match(commercial.body, /class="chip acid"[^>]*color:#ffffff/, 'active commercial chip must be white on ink');
+  });
+
   it('serves T & P and Support on both hosts with matching footers', async () => {
     const consumerTp = await request(port, { path: '/tp', headers: { host: 'aorila.com' } });
     assert.equal(consumerTp.status, 200);
