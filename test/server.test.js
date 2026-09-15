@@ -418,6 +418,14 @@ describe('host-based pages', () => {
       }
     }
   });
+  it('both stylesheets use border-box sizing', async () => {
+    // The layout (sidebar widths, dialog padding) is authored for border-box.
+    for (const path of ['/design.css', '/home.css']) {
+      const css = await request(port, { path });
+      assert.equal(css.status, 200, path);
+      assert.match(css.body, /\*\s*,\s*\*::before\s*,\s*\*::after\s*\{\s*box-sizing:\s*border-box/, `${path} must set border-box`);
+    }
+  });
   it('serves a favicon', async () => {
     const res = await request(port, { path: '/favicon.svg' });
     assert.equal(res.status, 200);
