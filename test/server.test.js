@@ -106,7 +106,7 @@ describe('host-based pages', () => {
       assert.match(res.body, /class="nav-toggle"/);
       assert.match(res.body, /class="nav-sidebar"[^>]*id="site-nav" hidden/);
       assert.match(res.body, />Product</);
-      assert.match(res.body, /menu-item-title">Pods/);
+      assert.match(res.body, /menu-item-title">Compute/);
       // Homepage ships the Playbook design via home.css; every other page via design.css.
       assert.match(res.body, /href="\/(design|home)\.css"/);
       assert.match(res.body, /class="(ds|home)"/);
@@ -126,8 +126,8 @@ describe('host-based pages', () => {
     assert.doesNotMatch(res.body, /nav-sidebar-title/);
     assert.doesNotMatch(res.body, />Menu</);
     assert.match(res.body, />Product</);
-    assert.match(res.body, /menu-item-title">Pods/);
-    assert.match(res.body, /menu-item-title">AI Models/);
+    assert.match(res.body, /menu-item-title">Compute/);
+    assert.match(res.body, /menu-item-title">AI API/);
     assert.match(res.body, />Use Cases</);
     assert.match(res.body, />Resources</);
     assert.match(res.body, />Company</);
@@ -143,20 +143,22 @@ describe('host-based pages', () => {
     assert.match(res.body, /class="(ds|home)"/);
   });
   it('serves consumer marketing pages from the header menu', async () => {
-    // Product slugs redirect to the signed-in console (via login when signed out).
+    // Legacy product slugs redirect to the consolidated product pages.
     for (const [from, to] of [
-      ['/pods', '/console/pods'],
-      ['/serverless', '/console/serverless'],
-      ['/clusters', '/console/clusters'],
-      ['/hub', '/console/hub'],
-      ['/deployments', '/console/deployments'],
+      ['/models', '/ai-api'],
+      ['/pods', '/compute'],
+      ['/serverless', '/compute'],
+      ['/clusters', '/compute'],
+      ['/hub', '/compute'],
+      ['/deployments', '/compute'],
     ]) {
       const res = await request(port, { path: from, headers: { host: 'aorila.com' } });
-      assert.equal(res.status, 302, from);
-      assert.equal(res.headers.location, `/login?next=${encodeURIComponent(to)}`);
+      assert.equal(res.status, 301, from);
+      assert.equal(res.headers.location, to);
     }
     const checks = [
-      ['/models', /AI Models/],
+      ['/ai-api', /AI API/],
+      ['/compute', /One product for every GPU workload/],
       ['/inference', /Real-time inference/],
       ['/agents', /Agents that stay online/],
       ['/fine-tuning', /Fine-tune faster/],
