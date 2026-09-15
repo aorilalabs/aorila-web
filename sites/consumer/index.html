@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aorila</title>
-  <meta name="description" content="The Future of AI Innovation. Request an API key." />
-  <meta property="og:title" content="Aorila" />
-  <meta property="og:description" content="The Future of AI Innovation. Request an API key." />
+  <title>Aorila — Home robots. The goal is to love.</title>
+  <meta name="description" content="Aorila Labs is building a home robot you'll meet through its own eyes. Join the waitlist for early access. Trust and security is number one." />
+  <meta property="og:title" content="Aorila — Home robots. The goal is to love." />
+  <meta property="og:description" content="We're building a home robot — and you'll meet it through its own eyes. Join the waitlist for early access." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorila.com" />
   <link rel="canonical" href="https://aorila.com" />
@@ -16,21 +16,108 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
-<body class="landing" data-site="consumer">
+<body data-site="consumer">
   <header class="nav">
     <a class="wordmark" href="/">Aorila</a>
-    <nav class="nav-links">
-      <a class="nav-link" href="https://api.aorila.com">Developer</a>
-      <a class="nav-link" href="https://ally.atraly.com">Ally</a>
-    </nav>
   </header>
 
   <main>
     <section class="hero">
-      <h1>The Future of AI Innovation</h1>
+      <p class="hero-badge">Aorila Labs · Home robots</p>
+      <h1>The goal is to love.</h1>
+      <p class="lede">We're building a home robot — and you'll meet it through its own eyes. Films, the waitlist, and first access start here.</p>
       <div class="cta-row">
-        <a class="cta primary" href="https://api.aorila.com">Request an API key</a>
+        <a class="cta primary" href="#waitlist">Join the waitlist</a>
+        <a class="cta ghost" href="#film">See the concept</a>
       </div>
+    </section>
+
+    <section class="section" id="film">
+      <p class="eyebrow">The campaign</p>
+      <h2>You never see the robot. You see what it sees.</h2>
+      <p>Our launch films are shot from the robot's point of view — the world as Ally sees it, with the Aorila OS around the edges. The first spot is <strong>WAKE</strong>: twenty seconds. A dock, a voice, a name remembered — then black.</p>
+      <div class="offer-grid">
+        <div class="offer-card">
+          <div class="offer-gpu">WAKE</div>
+          <div class="offer-meta">Teaser spot · 20 seconds · in production</div>
+          <div class="offer-meta">Waitlist members see it first.</div>
+        </div>
+        <div class="offer-card">
+          <div class="offer-gpu">Morning</div>
+          <div class="offer-meta">Episode 1 · 75 seconds · next</div>
+          <div class="offer-meta">Coffee, a reminder, and the whole company in one frame.</div>
+        </div>
+      </div>
+      <div class="cta-row">
+        <a class="cta primary" href="#waitlist">See it first — join the waitlist</a>
+      </div>
+    </section>
+
+    <section class="section" id="trust">
+      <p class="eyebrow">Why Aorila</p>
+      <h2>Trust and security is number one.</h2>
+      <p>A robot lives in your home. That's the most trust a company can ask for — so it's our first engineering requirement, not a feature.</p>
+      <div class="offer-grid">
+        <div class="offer-card">
+          <div class="offer-gpu">Your home is your domain</div>
+          <div class="offer-meta">What's seen in your home stays in your home. Your data stays yours.</div>
+        </div>
+        <div class="offer-card">
+          <div class="offer-gpu">Honest about what's real</div>
+          <div class="offer-meta">Concept films are labeled as concept films. When we show a demo, it's real.</div>
+        </div>
+        <div class="offer-card">
+          <div class="offer-gpu">Security-first engineering</div>
+          <div class="offer-meta">Every system hardened and reviewed, built like infrastructure — because it is.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section undivided" id="company">
+      <p class="eyebrow">One company, one goal</p>
+      <h2>To help people.</h2>
+      <p>Everything Aorila makes — robots, personal AI, and the infrastructure beneath — exists for one reason: to help people.</p>
+      <div class="offer-grid">
+        <div class="offer-card">
+          <div class="offer-gpu">Home robots</div>
+          <div class="offer-meta">Aorila Labs is building robots for everyday home use — to help people with the tasks of daily life. This page is where it starts.</div>
+          <div class="cta-row"><a class="cta primary" href="#waitlist">Join the waitlist</a></div>
+        </div>
+        <div class="offer-card">
+          <div class="offer-gpu">Atraly</div>
+          <div class="offer-meta">Personal chat AI — private, simple, yours. The same Ally, helping people everywhere.</div>
+          <div class="cta-row"><a class="cta ghost" href="https://atraly.com">Open Atraly</a></div>
+        </div>
+        <div class="offer-card">
+          <div class="offer-gpu">Infrastructure</div>
+          <div class="offer-meta">Compute, hosting, and security for AI workloads — the trusted foundation that helps it all run.</div>
+          <div class="cta-row"><a class="cta ghost" href="https://api.aorila.com">Developer</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="waitlist">
+      <p class="eyebrow">Early access</p>
+      <h2>Reserve your place in line.</h2>
+      <p>Free. No payment today. We'll write when early access opens — and you'll see every film first.</p>
+      <form class="waitlist" action="/leads" method="post" data-kind="waitlist">
+        <input type="hidden" name="site" value="consumer" />
+        <input type="hidden" name="kind" value="waitlist" />
+        <label class="hp" aria-hidden="true">Fax<input type="text" name="fax" tabindex="-1" autocomplete="off" /></label>
+        <label>Name<input type="text" name="name" autocomplete="name" placeholder="Jane Appleseed" /></label>
+        <label>Email<input type="email" name="email" required autocomplete="email" placeholder="you@domain.com" /></label>
+        <button class="cta primary" type="submit">Join the waitlist</button>
+        <p class="form-status" role="status"></p>
+      </form>
+    </section>
+
+    <section class="section undivided" id="faq">
+      <p class="eyebrow">FAQ</p>
+      <h2>Honest answers.</h2>
+      <p><strong>Is the robot real yet?</strong><br />Not yet. The launch films are concept films — visions of what we're building, labeled as such. We'll show real demo units the moment they exist.</p>
+      <p><strong>When will it ship?</strong><br />We're building now. The waitlist hears first, with timelines as they're set.</p>
+      <p><strong>How much will it cost?</strong><br />Pricing comes later. The waitlist is free, and early members get first access.</p>
+      <p><strong>What about my privacy?</strong><br />Trust and security is our first requirement. Your home is your domain — your data stays yours.</p>
     </section>
   </main>
 
