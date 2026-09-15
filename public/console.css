@@ -198,6 +198,8 @@ body.console {
   border-color: #2a2a2a;
   color: #f2f2f2;
 }
+.console-main .offer-card-top { display: flex; gap: 14px; align-items: center; }
+.console-main .offer-card-top .gpu-art { width: 84px; height: 68px; color: #f2f2f2; }
 .console-main .offer-meta,
 .console-main .offer-price span { color: #9a9a9a; }
 .console-main .sku-table th,
