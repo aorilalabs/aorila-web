@@ -158,6 +158,9 @@
       el.innerHTML = catalogHtml(groupOffers(offers));
       bindFilters(el);
     }
+    if (typeof window !== 'undefined' && window.AorilaSite && window.AorilaSite.rewriteDynamicAttrs) {
+      window.AorilaSite.rewriteDynamicAttrs(el, window.location, document);
+    }
   }
 
   function fail(el) {
@@ -167,7 +170,11 @@
   if (typeof document !== 'undefined') {
     const roots = document.querySelectorAll('[data-live-prices]');
     if (roots.length) {
-      fetch('/compute/v1/gpus')
+      const apiUrl =
+        typeof window !== 'undefined' && window.AorilaSite && window.AorilaSite.apiUrl
+          ? window.AorilaSite.apiUrl('/compute/v1/gpus', window.location, document)
+          : '/compute/v1/gpus';
+      fetch(apiUrl)
         .then((r) => r.json())
         .then((data) => roots.forEach((el) => render(el, data)))
         .catch(() => roots.forEach(fail));
