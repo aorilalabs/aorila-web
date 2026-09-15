@@ -84,7 +84,7 @@ describe('pricing integrity: no fake prices reach the console', () => {
     const res = await req(port, { path: '/pricing', headers: { host: 'aorila.com' } });
     assert.equal(res.status, 200);
     assert.match(res.body, /Live Aorila price/);
-    assert.match(res.body, /Compute cost plus the Aorila fee/i);
+    assert.match(res.body, /One \$\/hour number per GPU/i);
     assert.doesNotMatch(res.body, /\$0\.29/);
     assert.doesNotMatch(res.body, /\$0\.45/);
     assert.doesNotMatch(res.body, /\$2\.49/);
