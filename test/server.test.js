@@ -44,13 +44,16 @@ describe('host-based pages', () => {
     const res = await request(port, { headers: { host: 'aorila.com' } });
     assert.equal(res.status, 200);
     assert.equal(res.headers['x-aorila-site'], 'consumer');
-    assert.match(res.body, /<title>Aorila — Home robots/);
+    assert.match(res.body, /<title>Aorila — GPUs and AI/);
     assert.doesNotMatch(res.body, /class="landing"/);
-    assert.match(res.body, /<h1>The goal is to love.<\/h1>/);
+    assert.match(res.body, /<h1>GPUs and AI\. One bill\.<\/h1>/);
     assert.doesNotMatch(res.body, /Aorila builds AI/);
-    assert.match(res.body, /Join the waitlist/);
+    assert.match(res.body, /See live pricing/);
+    assert.doesNotMatch(res.body, /Join the waitlist/);
+    assert.doesNotMatch(res.body, /data-kind="waitlist"/);
     assert.match(res.body, /Trust and security is number one/);
-    assert.match(res.body, /action="\/leads"/);
+    assert.doesNotMatch(res.body, /action="\/leads"/);
+    assert.doesNotMatch(res.body, /d8ff36|ff5b22|1647ff/);
     assert.match(res.body, /<footer/);
     assert.match(res.body, /href="\/about"/);
     assert.match(res.body, /href="\/tp"/);
@@ -84,15 +87,13 @@ describe('host-based pages', () => {
     assert.doesNotMatch(res.body, /Higher-quality AI for businesses/);
   });
 
-  it('routes consumer waitlist CTAs to the on-page waitlist form', async () => {
+  it('has no robot waitlist on the homepage; product CTAs route to real pages', async () => {
     const home = await request(port, { headers: { host: 'aorila.com' } });
-    const waitlist = hrefs(home.body, 'Join the waitlist');
-    assert.ok(waitlist.length >= 1);
-    for (const href of waitlist) {
-      assert.equal(href, '#waitlist');
+    assert.doesNotMatch(home.body, /Join the waitlist/);
+    assert.doesNotMatch(home.body, /data-kind="waitlist"/);
+    for (const href of ['/pricing', '/console', '/ai-api', '/pods', '/serverless', '/clusters', '/hub', '/deployments', '/commercial', '/contact']) {
+      assert.match(home.body, new RegExp('href="' + href.replace('/', '\\/') + '"'), href);
     }
-    assert.match(home.body, /<form class="waitlist"[^>]*action="\/leads"/);
-    assert.match(home.body, /data-kind="waitlist"/);
     assert.doesNotMatch(home.body, /mailto:hello@aorila\.com/);
   });
 
@@ -165,14 +166,14 @@ describe('host-based pages', () => {
       ['/agents', /Agents that stay online/],
       ['/fine-tuning', /Fine-tune faster/],
       ['/compute-heavy', /Heavy jobs/],
-      ['/case-studies', /How teams ship/],
+      ['/case-studies', /Case studies\./],
       ['/articles', /Guides\./],
       ['/press', /Press\./],
       ['/blog', /Notes\./],
-      ['/about', /The Future of AI Innovation/],
+      ['/about', /We run AI infrastructure\./],
       ['/providers', /Put your GPUs to work/],
       ['/partner', /Partner with Aorila/],
-      ['/careers', /Build with us/],
+      ['/careers', /Careers\./],
       ['/pricing', /Live Aorila price\./],
       ['/enterprise', /Enterprise compute/],
       ['/contact', /Talk to sales/],
@@ -382,7 +383,10 @@ describe('host-based pages', () => {
     const css = await request(port, { path: '/design.css' });
     assert.equal(css.status, 200);
     assert.match(css.body, /body\.ds/);
-    assert.match(css.body, /#f7f7f4/);
+    assert.match(css.body, /#ffffff/);
+    assert.doesNotMatch(css.body, /#d8ff36/);
+    assert.doesNotMatch(css.body, /#ff5b22/);
+    assert.doesNotMatch(css.body, /#1647ff/);
     assert.match(css.body, /Archivo/);
     assert.match(css.body, /IBM Plex Mono/);
     assert.match(css.body, /\.topline/);
@@ -478,7 +482,7 @@ describe('host-based pages', () => {
 
     const aboutPage = await request(port, { path: '/about', headers: { host: 'aorila.com' } });
     assert.equal(aboutPage.status, 200);
-    assert.match(aboutPage.body, /The Future of AI Innovation/);
+    assert.match(aboutPage.body, /We run AI infrastructure\./);
     const labsAboutGone = await request(port, { path: '/about', headers: { host: 'aorilalabs.com' } });
     assert.equal(labsAboutGone.status, 404);
 
