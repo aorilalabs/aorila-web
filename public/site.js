@@ -300,4 +300,36 @@
       if (event.target === overlay) closeSearch();
     });
   }
+  /* shared mega menu: hovering/clicking any tab opens the one white panel */
+  document.querySelectorAll('.nav-mega').forEach((mega) => {
+    const panel = mega.querySelector(':scope > .nav-mega-panel');
+    if (!panel) return;
+    const toggles = Array.from(mega.querySelectorAll('.nav-mega-toggle'));
+    const closeMega = () => {
+      mega.classList.remove('is-open');
+      toggles.forEach((t) => t.setAttribute('aria-expanded', 'false'));
+    };
+    toggles.forEach((btn) => {
+      btn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const willOpen = !mega.classList.contains('is-open');
+        document.querySelectorAll('.nav-mega.is-open').forEach((m) => m.classList.remove('is-open'));
+        document.querySelectorAll('.nav-dropdown.is-open').forEach((el) => {
+          el.classList.remove('is-open');
+          const b2 = el.querySelector('.nav-dropdown-toggle');
+          if (b2) b2.setAttribute('aria-expanded', 'false');
+        });
+        if (willOpen) {
+          mega.classList.add('is-open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+    document.addEventListener('click', (event) => {
+      if (!mega.contains(event.target)) closeMega();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMega();
+    });
+  });
 })();
