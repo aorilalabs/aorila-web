@@ -352,28 +352,69 @@
     });
   });
 
-  /* hero typewriter: rotate the headline phrase, "here" stays highlighted */
+  /* hero typewriter: the whole headline (including the highlighted "here")
+     types and erases as one flowing unit, so words never orphan mid-line.
+     The caret rides at the typing frontier; the h1 keeps its tallest height
+     so the page below never jumps. */
   (function heroTypewriter() {
     var el = document.getElementById('heroType');
     if (!el) return;
+    var h1 = el.closest('h1');
+    var hereEl = document.getElementById('heroHere');
+    var dotEl = document.getElementById('heroDot');
+    var caret = h1 ? h1.querySelector('.type-caret') : null;
+    if (!h1 || !hereEl || !dotEl || !caret) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var phrases = ['Your compute earns more', 'Your gaming runs better', 'Your AI runs better'];
-    var TYPE_MS = 80, ERASE_MS = 50, HOLD_MS = 2600;
-    var pi = 0, ci = phrases[0].length, mode = 'hold';
+    var phrases = [
+      { t: 'Your compute earns more', h: 'here' },
+      { t: 'Your gaming runs better', h: 'here' },
+      { t: 'Your AI runs better', h: 'here' },
+    ];
+    var TYPE_MS = 80, ERASE_MS = 50, HOLD_MS = 2800;
+    var pi = 0, mode = 'hold';
+    var segs = [el, hereEl, dotEl];
+    function full() { return [phrases[pi].t, phrases[pi].h, '.']; }
+    function placeCaret() {
+      var host = dotEl.textContent ? dotEl : hereEl.textContent ? hereEl : el;
+      host.appendChild(caret);
+    }
+    function setFull() {
+      var f = full();
+      el.textContent = f[0];
+      hereEl.textContent = f[1];
+      dotEl.textContent = f[2];
+      placeCaret();
+    }
+    function stabilize() {
+      var cur = pi, maxH = 0;
+      for (var k = 0; k < phrases.length; k++) { pi = k; setFull(); maxH = Math.max(maxH, h1.offsetHeight); }
+      pi = cur; setFull();
+      h1.style.minHeight = maxH + 'px';
+    }
     function tick() {
-      var phrase = phrases[pi];
+      var f = full();
       if (mode === 'type') {
-        ci += 1;
-        el.textContent = phrase.slice(0, ci);
-        if (ci >= phrase.length) { mode = 'hold'; setTimeout(tick, HOLD_MS); return; }
+        var i = el.textContent.length < f[0].length ? 0 : hereEl.textContent.length < f[1].length ? 1 : 2;
+        segs[i].textContent += f[i].charAt(segs[i].textContent.length);
+        placeCaret();
+        if (el.textContent.length === f[0].length && hereEl.textContent.length === f[1].length && dotEl.textContent.length === 1) {
+          mode = 'hold'; setTimeout(tick, HOLD_MS); return;
+        }
         setTimeout(tick, TYPE_MS);
       } else if (mode === 'erase') {
-        ci -= 1;
-        el.textContent = phrase.slice(0, ci);
-        if (ci <= 0) { pi = (pi + 1) % phrases.length; mode = 'type'; setTimeout(tick, 350); return; }
+        var j = dotEl.textContent.length ? 2 : hereEl.textContent.length ? 1 : 0;
+        segs[j].textContent = segs[j].textContent.slice(0, -1);
+        placeCaret();
+        if (!el.textContent.length && !hereEl.textContent.length && !dotEl.textContent.length) {
+          pi = (pi + 1) % phrases.length; mode = 'type'; setTimeout(tick, 350); return;
+        }
         setTimeout(tick, ERASE_MS);
       } else { mode = 'erase'; setTimeout(tick, 400); }
     }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(stabilize);
+    stabilize();
+    var rT;
+    window.addEventListener('resize', function () { clearTimeout(rT); rT = setTimeout(stabilize, 200); });
     setTimeout(tick, HOLD_MS);
   })();
 })();
