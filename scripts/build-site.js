@@ -14,6 +14,7 @@ const DIST_DIR = path.join(ROOT, 'dist');
 const SITE = String(process.argv[2] || '').trim().toLowerCase();
 const VALID_SITES = new Set(['consumer', 'labs', 'robotics']);
 const STATIC_API_ORIGIN = String(process.env.STATIC_API_ORIGIN || '').trim();
+const STATIC_DASHBOARD_ORIGIN = String(process.env.STATIC_DASHBOARD_ORIGIN || '').trim();
 
 if (!VALID_SITES.has(SITE)) {
   console.error('Usage: node scripts/build-site.js <consumer|labs|robotics>');
@@ -104,15 +105,25 @@ function buildConsumer(targetDir) {
 
 function buildLabs(targetDir) {
   const labsDir = path.join(SITES_DIR, 'labs');
-  for (const file of fs.readdirSync(labsDir)) {
-    if (!file.endsWith('.html')) continue;
-    const html = fs.readFileSync(path.join(labsDir, file), 'utf8');
-    const route = file === 'index.html' ? '' : file.replace(/\.html$/, '');
-    writeRoute(targetDir, route, html);
-  }
-  const apiOrigin = STATIC_API_ORIGIN || 'https://api.aorila.com';
   const dashboardOrigin = STATIC_DASHBOARD_ORIGIN || 'https://dashboard.aorilalabs.com';
-  writeRoute(targetDir, 'console', redirectPage('Redirecting to dashboard', `${dashboardOrigin}/`));
+  // Every Labs content page lives inside the dashboard now — these routes redirect there.
+  const dashboardRoutes = {
+    '': '/',
+    'console': '/',
+    'compute': '/#compute',
+    'api': '/#api',
+    'training': '/#training',
+    'models': '/#models',
+    'docs': '/#docs',
+    'support': '/#support',
+    'trust': '/#trust',
+    'contact': '/#contact',
+  };
+  for (const [route, target] of Object.entries(dashboardRoutes)) {
+    writeRoute(targetDir, route, redirectPage('Redirecting to dashboard', `${dashboardOrigin}${target}`));
+  }
+  // Legal stays a standalone page — the dashboard has no legal section.
+  writeRoute(targetDir, 'tp', fs.readFileSync(path.join(labsDir, 'tp.html'), 'utf8'));
 }
 
 function buildRobotics(targetDir) {
