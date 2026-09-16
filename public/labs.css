@@ -231,3 +231,26 @@ body.ds main { display: block; }
   .ds .hero { padding: 52px 0 48px; }
   .ds .calc-body { padding: 20px; }
 }
+
+/* ---------- brand lockup ---------- */
+.ds .wordmark.lockup { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 4px; text-decoration: none; line-height: 1; }
+.ds .wordmark.lockup:hover { background: none; }
+.ds .wordmark.lockup .wm-logo { height: 20px; width: auto; display: block; }
+.ds .wordmark.lockup .wm-labs { font: 800 13px "Archivo", sans-serif; letter-spacing: .02em; color: #10100f; border-bottom: 4px solid #d8ff36; padding-bottom: 3px; }
+.ds footer.site-footer .wordmark.lockup .wm-logo { height: 24px; }
+.ds footer.site-footer .wordmark.lockup .wm-labs { font-size: 14px; }
+
+/* ---------- split hero: headline left, calculator right ---------- */
+.ds .hero .hero-grid { grid-template-columns: 1fr 1fr; align-items: center; }
+.ds .hero .calc { margin: 0; }
+@media (max-width: 1000px) { .ds .hero .hero-grid { grid-template-columns: 1fr; } }
+
+/* ---------- nav CTAs ---------- */
+.ds .nav-cta { display: inline-block; font: 700 13px "Archivo", sans-serif; color: #10100f; background: #d8ff36; border: 2px solid #10100f; border-radius: 8px; padding: 8px 14px; text-decoration: none; box-shadow: 2px 2px 0 #10100f; white-space: nowrap; }
+.ds .nav-cta.ghost { background: #fff; box-shadow: none; }
+.ds .nav-cta:hover { background: #d8ff36; transform: translate(-1px,-1px); box-shadow: 3px 3px 0 #10100f; }
+.ds .nav-cta.ghost:hover { background: #fff; }
+.ds .nav-primary .nav-cta { display: block; text-align: center; margin-top: 10px; }
+
+/* ---------- buttons as <button> elements ---------- */
+.ds button.btn { font: inherit; cursor: pointer; }
