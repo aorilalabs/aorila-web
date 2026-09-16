@@ -222,3 +222,11 @@ body.home .nav { display: flex; align-items: center; gap: 18px; padding: 14px 28
   .home .nav-links { display: none; }
   .home .nav-toggle { display: block; }
 }
+
+/* ---------- centered brand logo in header ---------- */
+.home .nav-centered { flex-wrap: wrap; row-gap: 8px; }
+.home .wordmark-logo { order: -1; flex: 1 1 100%; display: flex; justify-content: center; padding-top: 8px; }
+.home .wordmark-logo img { height: 48px; width: auto; display: block; }
+@media (max-width: 900px) {
+  .home .wordmark-logo img { height: 40px; }
+}
