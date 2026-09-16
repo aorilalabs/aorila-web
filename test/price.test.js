@@ -32,9 +32,9 @@ describe('gpu catalog cards', () => {
     assert.match(html, /data-gf="datacenter"/);
   });
 
-  it('renders per-offer console cards with direct start links', () => {
+  it('renders per-offer cards that deploy from the Labs dashboard', () => {
     const html = price.offersHtml(offers);
-    assert.match(html, /\/console\/start\?sku=rtx-4090-24&offerId=a/);
+    assert.match(html, /https:\/\/dashboard\.aorilalabs\.com\/#market/);
     assert.match(html, /gpu-art/);
   });
 
