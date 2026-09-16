@@ -135,6 +135,9 @@ body.ds main { display: block; }
 .ds .calc-head { background: #d8ff36; border-bottom: 2px solid #10100f; padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .ds .calc-head h3 { margin: 0; font-size: 20px; letter-spacing: -.02em; font-weight: 800; }
 .ds .calc-head .calc-note { font: 700 11px "IBM Plex Mono", monospace; letter-spacing: .06em; }
+.ds .calc-tabs { display: flex; gap: 8px; padding: 16px 28px 0; background: #fff; }
+.ds .calc-tab { font: 700 12px "IBM Plex Mono", monospace; letter-spacing: .06em; padding: 8px 18px; border: 2px solid #10100f; border-radius: 999px; background: #fff; color: #10100f; cursor: pointer; }
+.ds .calc-tab.active { background: #10100f; color: #d8ff36; }
 .ds .calc-body { padding: 28px; display: grid; gap: 24px; }
 .ds .calc-row { display: grid; grid-template-columns: 190px 1fr 150px; gap: 18px; align-items: center; }
 .ds .calc-row > label { font: 700 12px "IBM Plex Mono", monospace; letter-spacing: .06em; color: #10100f; }
