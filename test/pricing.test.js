@@ -54,31 +54,35 @@ describe('pricing integrity: no fake prices reach the console', () => {
     server.close((err) => (err ? reject(err) : resolve()));
   }));
 
-  it('refuses to start a pod for an offer that is not in the live catalog', async () => {
-    const res = await req(port, {
+  it('has no pod-start route: the parent console cannot provision compute', async () => {
+    // Pods are launched from the Aorila Labs dashboard, never the parent console.
+    const post = await req(port, {
       method: 'POST', path: '/console/start', headers: { ...formHeaders, cookie },
       body: form({ sku: 'rtx4090', offerId: 'not-a-real-offer' }),
     });
-    assert.equal(res.status, 303);
-    assert.match(decodeURIComponent(res.headers.location), /not in the live catalog/);
+    assert.equal(post.status, 404, 'POST /console/start');
+    const get = await req(port, { path: '/account/start', headers: { cookie } });
+    assert.equal(get.status, 404, 'GET /account/start');
   });
 
-  it('ignores an attacker-supplied price in the request body', async () => {
+  it('ignores attacker-supplied prices: there is no route left to attack', async () => {
     const res = await req(port, {
       method: 'POST', path: '/console/start', headers: { ...formHeaders, cookie },
       body: form({ sku: 'rtx4090', usdPerHour: '0.01', price: '0.01' }),
     });
-    assert.equal(res.status, 303);
-    assert.match(decodeURIComponent(res.headers.location), /not in the live catalog/);
+    assert.equal(res.status, 404);
   });
 
-  it('shows no fabricated prices on the console pods page', async () => {
+  it('shows no fabricated prices: the console pods page is gone', async () => {
     const res = await req(port, { path: '/console/pods', headers: { cookie } });
-    assert.equal(res.status, 200);
+    assert.equal(res.status, 302);
+    assert.equal(res.headers.location, '/console');
+    const home = await req(port, { path: '/console', headers: { cookie } });
+    assert.equal(home.status, 200);
     // Fakes we removed: never let them reappear.
-    assert.doesNotMatch(res.body, /\$0\.29/);
-    assert.doesNotMatch(res.body, /\$0\.45/);
-    assert.doesNotMatch(res.body, /\$2\.49/);
+    assert.doesNotMatch(home.body, /\$0\.29/);
+    assert.doesNotMatch(home.body, /\$0\.45/);
+    assert.doesNotMatch(home.body, /\$2\.49/);
   });
 
   it('shows no fabricated prices on the public pricing page', async () => {
