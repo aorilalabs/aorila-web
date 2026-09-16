@@ -448,7 +448,7 @@
       if (!s || !s.ok) throw new Error('bad stats');
       document.getElementById('statUsers').textContent = fmtInt(s.users);
       document.getElementById('statCredits').textContent = fmtInt(s.creditsUsed);
-      document.getElementById('statGpus').textContent = fmtInt(s.gpusOnline) + ' GPUs';
+      document.getElementById('statGpus').textContent = fmtInt(s.gpusOnline);
       band.hidden = false;
     })
     .catch(function () { /* stay hidden: never show fake numbers */ });
