@@ -229,7 +229,7 @@ body.home .nav { display: flex; align-items: center; gap: 18px; padding: 14px 28
 .home .wordmark-logo img { height: 48px; width: auto; display: block; }
 
 /* ---------- header mega-menu: one shared white menu for all tabs ---------- */
-.home .nav-mega { position: relative; }
+body.home header.nav { position: relative; }
 .home .nav-mega-toggle {
   color: #10100f; background: none; border: 2px solid transparent; cursor: pointer;
   font: 600 13px "IBM Plex Mono", monospace; padding: 8px 12px; white-space: nowrap;
