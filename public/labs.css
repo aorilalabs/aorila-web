@@ -262,3 +262,7 @@ body.ds main { display: block; }
 
 /* ---------- buttons as <button> elements ---------- */
 .ds button.btn { font: inherit; cursor: pointer; }
+
+/* ---------- company attribution badge ---------- */
+.ds .co-badge { display: inline-flex; align-items: center; gap: 6px; font: 600 13px "Archivo", sans-serif; letter-spacing: .04em; color: #55534e; text-transform: uppercase; }
+.ds .co-badge .co-logo { height: 18px; width: auto; display: block; }
