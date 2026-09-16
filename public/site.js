@@ -185,6 +185,30 @@
     });
   });
 
+  // ?section=<slug> deep links — no # fragments anywhere. On page load, scroll
+  // to the matching section; same-page [data-scroll] links smooth-scroll in
+  // place and keep the URL in sync via history.replaceState.
+  function sectionTarget(slug) {
+    if (!slug) return null;
+    return document.querySelector('section[data-scroll="' + slug + '"]') || document.getElementById(slug);
+  }
+  document.querySelectorAll('a[data-scroll]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const slug = a.getAttribute('data-scroll');
+      const target = sectionTarget(slug);
+      if (!target) return;
+      let samePage = false;
+      try { samePage = new URL(a.href).pathname === location.pathname; } catch { samePage = false; }
+      if (samePage) {
+        e.preventDefault();
+        history.replaceState(null, '', location.pathname + '?section=' + encodeURIComponent(slug));
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+  const initialSection = sectionTarget(new URLSearchParams(location.search).get('section'));
+  if (initialSection) initialSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
   const header = document.querySelector('header.nav');
   const toggle = document.querySelector('.nav-toggle');
   const sidebar = document.querySelector('.nav-sidebar');
@@ -448,7 +472,7 @@
       if (!s || !s.ok) throw new Error('bad stats');
       document.getElementById('statUsers').textContent = fmtInt(s.users);
       document.getElementById('statCredits').textContent = fmtInt(s.creditsUsed);
-      document.getElementById('statGpus').textContent = fmtInt(s.gpusOnline);
+      document.getElementById('statGpus').textContent = fmtInt(s.gpusOnline) + ' GPUs';
       band.hidden = false;
     })
     .catch(function () { /* stay hidden: never show fake numbers */ });
