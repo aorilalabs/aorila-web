@@ -106,9 +106,10 @@ function buildConsumer(targetDir) {
 function buildLabs(targetDir) {
   const labsDir = path.join(SITES_DIR, 'labs');
   const dashboardOrigin = STATIC_DASHBOARD_ORIGIN || 'https://dashboard.aorilalabs.com';
+  // The Labs home page stays its own page; everything else lives inside the dashboard.
+  writeRoute(targetDir, '', fs.readFileSync(path.join(labsDir, 'index.html'), 'utf8'));
   // Every Labs content page lives inside the dashboard now — these routes redirect there.
   const dashboardRoutes = {
-    '': '/',
     'console': '/',
     'compute': '/#compute',
     'api': '/#api',
