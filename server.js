@@ -27,7 +27,7 @@ function cookieSite(req) {
 
 const SITES_DIR = path.join(__dirname, 'sites');
 const PUBLIC_DIR = path.join(__dirname, 'public');
-const PAGES = new Set(['index.html', 'api.html', 'docs.html', 'support.html', 'tp.html', 'status.html', 'trust.html']);
+const PAGES = new Set(['index.html', 'api.html', 'docs.html', 'support.html', 'tp.html', 'status.html', 'trust.html', 'compute.html', 'training.html', 'models.html', 'contact.html']);
 
 function siteFromRequest(req) {
   return resolveSite({
@@ -234,6 +234,30 @@ function createApp(options = {}) {
     }
     sendPage(res, 'labs', 'trust.html', { user: res.locals.user });
   });
+  app.get(['/compute', '/compute.html'], (req, res) => {
+    if (res.locals.site !== 'labs') {
+      return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
+    }
+    sendPage(res, 'labs', 'compute.html', { user: res.locals.user });
+  });
+  app.get(['/training', '/training.html'], (req, res) => {
+    if (res.locals.site !== 'labs') {
+      return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
+    }
+    sendPage(res, 'labs', 'training.html', { user: res.locals.user });
+  });
+  app.get(['/models', '/models.html'], (req, res) => {
+    if (res.locals.site !== 'labs') {
+      return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
+    }
+    sendPage(res, 'labs', 'models.html', { user: res.locals.user });
+  });
+  app.get(['/contact', '/contact.html'], (req, res) => {
+    if (res.locals.site !== 'labs') {
+      return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
+    }
+    sendPage(res, 'labs', 'contact.html', { user: res.locals.user });
+  });
   app.get(['/status', '/status.html'], (req, res) => {
     if (res.locals.site !== 'consumer') {
       return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
@@ -265,7 +289,7 @@ function createApp(options = {}) {
       if (wantsJson(req)) return res.status(201).json({ ok: true, id: result.id || null, ignored: Boolean(result.ignored) });
       const kind = String((req.body && req.body.kind) || '').trim();
       let dest = CONSUMER_API_URL;
-      if (res.locals.site === 'labs') dest = '/?sent=1#contact';
+      if (res.locals.site === 'labs') dest = kind === 'contact' ? '/contact?sent=1' : '/?sent=1';
       else if (kind === 'provider') dest = '/providers?sent=1#apply';
       else dest = '/contact?sent=1';
       return res.redirect(303, dest);
