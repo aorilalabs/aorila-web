@@ -371,6 +371,7 @@
       { t: 'Compute Earns More', h: 'Here' },
       { t: 'Gaming Runs Better', h: 'Here' },
       { t: 'AI Runs Better', h: 'Here' },
+      { t: 'You Fit In', h: 'Here' },
     ];
     var TYPE_MS = 65, ERASE_MS = 50, HOLD_MS = 2000;
     var pi = 0, mode = 'hold';
