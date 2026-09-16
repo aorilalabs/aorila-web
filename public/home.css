@@ -263,6 +263,10 @@ body.home header.nav { position: relative; }
   .home .nav-mega:hover .nav-mega-panel,
   .home .nav-mega:focus-within .nav-mega-panel,
   .home .nav-mega.is-open .nav-mega-panel { display: block; }
+  /* invisible hover bridge: covers the gap so the menu can't flicker shut while moving down */
+  .home .nav-links .nav-mega-panel::before {
+    content: ""; position: absolute; top: -16px; left: 0; right: 0; height: 16px;
+  }
 }
 @media (min-width: 901px) and (max-width: 1240px) {
   .home .nav-mega-panel .menu-cols { grid-template-columns: repeat(3, minmax(160px, 1fr)); }
