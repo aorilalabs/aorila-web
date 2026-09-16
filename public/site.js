@@ -466,18 +466,21 @@
   var band = document.getElementById('stats');
   if (!band) return;
   function fmtInt(n) { return Math.round(Number(n) || 0).toLocaleString('en-US'); }
-  function fmtTflops(n) {
-    var t = Number(n) || 0;
-    if (t >= 1000) return (t / 1000).toFixed(1) + ' PFLOPS';
-    return t.toFixed(1) + ' TFLOPS';
+  function fmtPaid(n) {
+    var v = Math.round((Number(n) || 0) * 100) / 100;
+    var s = v.toFixed(2);
+    if (s.slice(-3) === '.00') s = s.slice(0, -3);
+    var parts = s.split('.');
+    parts[0] = Number(parts[0]).toLocaleString('en-US');
+    return '$' + parts.join('.');
   }
   fetch('https://dashboard.aorilalabs.com/compute/v1/stats', { cache: 'no-store' })
     .then(function (r) { if (!r.ok) throw new Error('stats ' + r.status); return r.json(); })
     .then(function (s) {
-      if (!s || !s.ok || s.totalTflops == null) throw new Error('bad stats');
+      if (!s || !s.ok || s.paidOut == null) throw new Error('bad stats');
       document.getElementById('statUsers').textContent = fmtInt(s.users);
       document.getElementById('statCredits').textContent = fmtInt(s.creditsUsed);
-      document.getElementById('statGpus').textContent = fmtTflops(s.totalTflops);
+      document.getElementById('statPaid').textContent = fmtPaid(s.paidOut);
       band.hidden = false;
     })
     .catch(function () { /* stay hidden: never show fake numbers */ });
