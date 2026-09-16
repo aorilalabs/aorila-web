@@ -15,7 +15,11 @@ describe('static site builds', () => {
   it('builds consumer pages, redirects, and shared assets', () => {
     execFileSync('node', ['scripts/build-site.js', 'consumer'], {
       cwd: ROOT,
-      env: { ...process.env, STATIC_API_ORIGIN: 'https://preview-api.example' },
+      env: {
+        ...process.env,
+        STATIC_API_ORIGIN: 'https://preview-api.example',
+        STATIC_CONSOLE_ORIGIN: 'https://preview-console.example',
+      },
       stdio: 'pipe',
     });
     assert.ok(fs.existsSync(path.join(DIST, 'consumer', 'index.html')));
@@ -25,7 +29,8 @@ describe('static site builds', () => {
     assert.ok(fs.existsSync(path.join(DIST, 'consumer', 'console', 'index.html')));
     assert.match(read('dist/consumer/index.html'), /<title>Aorila — Compute, AI, and Robotics/);
     assert.match(read('dist/consumer/contact/index.html'), /meta name="aorila-api-origin" content="https:\/\/preview-api\.example"/);
-    assert.match(read('dist/consumer/console/index.html'), /https:\/\/preview-api\.example\/console/);
+    // Console redirects go to the parent console origin (never an API host).
+    assert.match(read('dist/consumer/console/index.html'), /https:\/\/preview-console\.example\/console/);
     assert.match(read('dist/consumer/models/index.html'), /url=\/ai-api/);
   });
 
