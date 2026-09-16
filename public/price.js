@@ -123,11 +123,9 @@
 
   function offerCard(o) {
     const price = Number(o.usdPerHour || 0).toFixed(3);
-    const sku = encodeURIComponent(String(o.sku || o.name || ''));
-    const offerId = encodeURIComponent(String(o.offerId || ''));
     const region = String(o.region || 'Global');
     const tier = tierLabel(o.tier);
-    const href = '/console/start?sku=' + sku + (offerId ? '&offerId=' + offerId : '');
+    const href = 'https://dashboard.aorilalabs.com/#market';
     return `<article class="offer-card"><div class="offer-card-top">${chipSvg(o)}` +
       `<div><p class="offer-gpu">${esc(shortName(o))}</p>` +
       `<p class="offer-meta">${esc(tier)} · ${esc(region)}${o.vramGb ? ' · ' + o.vramGb + 'GB' : ''}</p></div></div>` +
