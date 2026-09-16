@@ -149,61 +149,123 @@
 
   /* ---------- host earnings calculator ---------- */
 
-  // Default $/hr per GPU model: observed community-marketplace medians/ranges.
-  // 4090 median ~$0.36 (range $0.15–$0.59); others from the same market data.
-  var GPU_DEFAULTS = {
-    'rtx-3090': { label: 'RTX 3090', rate: 0.16 },
-    'rtx-4090': { label: 'RTX 4090', rate: 0.36 },
-    'rtx-5090': { label: 'RTX 5090', rate: 0.46 },
-    'l40s':     { label: 'L40S', rate: 0.31 },
-    'a100-80':  { label: 'A100 80GB', rate: 0.67 },
-    'h100-80':  { label: 'H100 80GB', rate: 1.55 },
-  };
-
+  // Default list prices: observed community-marketplace medians/ranges.
+  // GPU: 4090 median ~$0.36/hr (range $0.15–$0.59); CPU/storage from the same market data.
   var HOURS_PER_MONTH = 730;
 
-  function monthlyEstimate(ratePerHour, utilizationPct, gpuCount) {
-    return Number(ratePerHour) * (Number(utilizationPct) / 100) * HOURS_PER_MONTH * Number(gpuCount);
-  }
+  var RESOURCES = {
+    gpu: {
+      modelLabel: 'GPU MODEL',
+      models: {
+        'rtx-3090': { label: 'RTX 3090', sub: '24GB', rate: 0.16 },
+        'rtx-4090': { label: 'RTX 4090', sub: '24GB', rate: 0.36 },
+        'rtx-5090': { label: 'RTX 5090', sub: '32GB', rate: 0.46 },
+        'l40s':     { label: 'L40S', sub: '48GB', rate: 0.31 },
+        'a100-80':  { label: 'A100', sub: '80GB', rate: 0.67 },
+        'h100-80':  { label: 'H100', sub: '80GB', rate: 1.55 },
+      },
+      defaultModel: 'rtx-4090',
+      rate: { label: 'YOUR PRICE · $/HR', min: 0.05, max: 3, step: 0.01, fmt: (r) => '$' + r.toFixed(2) + '/hr' },
+      count: { label: 'GPU COUNT', min: 1, max: 16, step: 1, unit: ['GPU', 'GPUs'] },
+      monthly: (r, u, c) => r * (u / 100) * HOURS_PER_MONTH * c,
+      breakdown: (r, u, c, unit) => '$' + r.toFixed(2) + '/hr × ' + u + '% utilization × ' + HOURS_PER_MONTH + ' hrs × ' + c + ' ' + unit,
+    },
+    cpu: {
+      modelLabel: 'INSTANCE SIZE',
+      models: {
+        'cpu-8':  { label: '8 vCPU', sub: '32GB RAM', rate: 0.05 },
+        'cpu-16': { label: '16 vCPU', sub: '64GB RAM', rate: 0.10 },
+        'cpu-32': { label: '32 vCPU', sub: '128GB RAM', rate: 0.20 },
+        'cpu-64': { label: '64 vCPU', sub: '256GB RAM', rate: 0.40 },
+      },
+      defaultModel: 'cpu-16',
+      rate: { label: 'YOUR PRICE · $/HR', min: 0.01, max: 1, step: 0.01, fmt: (r) => '$' + r.toFixed(2) + '/hr' },
+      count: { label: 'INSTANCE COUNT', min: 1, max: 32, step: 1, unit: ['instance', 'instances'] },
+      monthly: (r, u, c) => r * (u / 100) * HOURS_PER_MONTH * c,
+      breakdown: (r, u, c, unit) => '$' + r.toFixed(2) + '/hr × ' + u + '% utilization × ' + HOURS_PER_MONTH + ' hrs × ' + c + ' ' + unit,
+    },
+    storage: {
+      modelLabel: 'VOLUME TYPE',
+      models: {
+        'vol-net':  { label: 'Network volume', sub: 'replicated', rate: 0.05 },
+        'vol-nvme': { label: 'NVMe volume', sub: 'local SSD', rate: 0.10 },
+      },
+      defaultModel: 'vol-net',
+      rate: { label: 'YOUR PRICE · $/GB/MO', min: 0.01, max: 0.25, step: 0.005, fmt: (r) => '$' + String(Number(r.toFixed(3))) + '/GB/mo' },
+      count: { label: 'CAPACITY', min: 100, max: 10000, step: 100, unit: ['GB', 'GB'] },
+      monthly: (r, u, c) => r * (u / 100) * c,
+      breakdown: (r, u, c) => '$' + String(Number(r.toFixed(3))) + '/GB/mo × ' + Number(c).toLocaleString('en-US') + ' GB × ' + u + '% utilized',
+    },
+  };
 
   function money(n) {
     return '$' + Math.round(n).toLocaleString('en-US');
   }
 
   function bindCalculator(root) {
-    const gpu = root.querySelector('#calc-gpu');
+    const tabs = Array.from(root.querySelectorAll('.calc-tab'));
+    const modelLabel = root.querySelector('#calc-model-label');
+    const model = root.querySelector('#calc-model');
     const rate = root.querySelector('#calc-rate');
+    const rateLabel = root.querySelector('#calc-rate-label');
     const util = root.querySelector('#calc-util');
     const count = root.querySelector('#calc-count');
-    if (!gpu || !rate || !util || !count) return;
-    const gpuVal = root.querySelector('#calc-gpu-val');
+    const countLabel = root.querySelector('#calc-count-label');
+    if (!model || !rate || !util || !count || !tabs.length) return;
+    const modelVal = root.querySelector('#calc-model-val');
     const rateVal = root.querySelector('#calc-rate-val');
     const utilVal = root.querySelector('#calc-util-val');
     const countVal = root.querySelector('#calc-count-val');
     const monthly = root.querySelector('#calc-monthly');
     const breakdown = root.querySelector('#calc-breakdown');
+    let resource = 'gpu';
+
+    function setResource(key) {
+      resource = key;
+      const cfg = RESOURCES[key];
+      tabs.forEach((t) => {
+        const on = t.dataset.resource === key;
+        t.classList.toggle('active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      if (modelLabel) modelLabel.textContent = cfg.modelLabel;
+      model.innerHTML = '';
+      Object.keys(cfg.models).forEach((k) => {
+        const m = cfg.models[k];
+        const opt = document.createElement('option');
+        opt.value = k;
+        opt.textContent = m.label + ' · ' + m.sub;
+        model.appendChild(opt);
+      });
+      model.value = cfg.defaultModel;
+      if (rateLabel) rateLabel.textContent = cfg.rate.label;
+      rate.min = cfg.rate.min; rate.max = cfg.rate.max; rate.step = cfg.rate.step;
+      if (countLabel) countLabel.textContent = cfg.count.label;
+      count.min = cfg.count.min; count.max = cfg.count.max; count.step = cfg.count.step;
+      count.value = cfg.count.min;
+      update(true);
+    }
 
     function update(resetRate) {
-      const key = gpu.value;
-      const def = GPU_DEFAULTS[key] || { label: key, rate: 0.36 };
+      const cfg = RESOURCES[resource];
+      const def = cfg.models[model.value] || { label: model.value, rate: cfg.rate.min };
       if (resetRate) rate.value = def.rate;
       const r = Number(rate.value);
       const u = Number(util.value);
       const c = Number(count.value);
-      if (gpuVal) gpuVal.textContent = def.label;
-      if (rateVal) rateVal.textContent = '$' + r.toFixed(2) + '/hr';
+      const unit = c === 1 ? cfg.count.unit[0] : cfg.count.unit[1];
+      if (modelVal) modelVal.textContent = def.label;
+      if (rateVal) rateVal.textContent = cfg.rate.fmt(r);
       if (utilVal) utilVal.textContent = u + '%';
-      if (countVal) countVal.textContent = c + (c === 1 ? ' GPU' : ' GPUs');
-      if (monthly) monthly.textContent = money(monthlyEstimate(r, u, c));
-      if (breakdown) {
-        breakdown.textContent = '$' + r.toFixed(2) + '/hr × ' + u + '% utilization × ' +
-          HOURS_PER_MONTH + ' hrs × ' + c + (c === 1 ? ' GPU' : ' GPUs');
-      }
+      if (countVal) countVal.textContent = Number(c).toLocaleString('en-US') + ' ' + unit;
+      if (monthly) monthly.textContent = money(cfg.monthly(r, u, c));
+      if (breakdown) breakdown.textContent = cfg.breakdown(r, u, c, unit);
     }
 
-    gpu.addEventListener('change', () => update(true));
+    tabs.forEach((t) => t.addEventListener('click', () => setResource(t.dataset.resource)));
+    model.addEventListener('change', () => update(true));
     [rate, util, count].forEach((el) => el.addEventListener('input', () => update(false)));
-    update(true);
+    setResource('gpu');
   }
 
   if (typeof document !== 'undefined') {
@@ -225,8 +287,8 @@
 
   const api = {
     esc, shortName, artLabel, chipSvg, groupOffers, gpuCard, catalogHtml,
-    emptyCatalogHtml, tierLabel, classLabel, monthlyEstimate, money,
-    GPU_DEFAULTS, HOURS_PER_MONTH,
+    emptyCatalogHtml, tierLabel, classLabel, money,
+    RESOURCES, HOURS_PER_MONTH,
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })();
