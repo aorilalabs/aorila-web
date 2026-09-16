@@ -49,7 +49,7 @@ describe('backend CORS allowlist', () => {
       path: '/leads',
       method: 'OPTIONS',
       headers: {
-        host: 'api.aorila.com',
+        host: 'aorila.com',
         origin: 'https://aorila.com',
         'access-control-request-method': 'POST',
       },
@@ -66,7 +66,7 @@ describe('backend CORS allowlist', () => {
       path: '/compute/v1/gpus',
       method: 'OPTIONS',
       headers: {
-        host: 'api.aorila.com',
+        host: 'aorila.com',
         origin: 'https://evil.example',
         'access-control-request-method': 'GET',
       },
