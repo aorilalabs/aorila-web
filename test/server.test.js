@@ -44,12 +44,13 @@ describe('host-based pages', () => {
     const res = await request(port, { headers: { host: 'aorila.com' } });
     assert.equal(res.status, 200);
     assert.equal(res.headers['x-aorila-site'], 'consumer');
-    assert.match(res.body, /<title>Aorila — GPUs and AI/);
+    assert.match(res.body, /<title>Aorila — Compute, AI, and Robotics/);
     assert.doesNotMatch(res.body, /class="landing"/);
-    assert.match(res.body, /<h1>GPUs and AI\. One bill\.<\/h1>/);
+    assert.match(res.body, /<h1>Useful technology, from infrastructure to your home\.<\/h1>/);
     assert.doesNotMatch(res.body, /Aorila builds AI/);
-    assert.match(res.body, /See live pricing/);
-    assert.doesNotMatch(res.body, /Join the waitlist/);
+    assert.match(res.body, /Meet the home robot/);
+    // The robot waitlist lives on robotics.aorila.com; the homepage only links out.
+    assert.match(res.body, /href="https:\/\/robotics\.aorila\.com\/#waitlist"[\s\S]{0,300}?>Join the waitlist/);
     assert.doesNotMatch(res.body, /data-kind="waitlist"/);
     assert.match(res.body, /Trust and security is number one/);
     assert.doesNotMatch(res.body, /action="\/leads"/);
@@ -60,15 +61,16 @@ describe('host-based pages', () => {
     assert.match(res.body, /href="\/support"/);
     assert.doesNotMatch(res.body, /href="\/privacy"/);
     assert.doesNotMatch(res.body, /href="\/terms"/);
-    assert.match(res.body, />Product</);
-    assert.match(res.body, />Use Cases</);
-    assert.match(res.body, />Resources</);
-    assert.match(res.body, />Company</);
+    assert.match(res.body, /menu-section-head">Products</);
+    assert.match(res.body, /menu-section-head">Use cases</);
+    assert.match(res.body, /menu-section-head">Resources</);
+    assert.match(res.body, /menu-section-head">Company</);
     assert.match(res.body, /href="\/docs"/);
     assert.match(res.body, /href="\/pricing"/);
-    assert.match(res.body, /href="\/commercial"[\s\S]*>Enterprise/);
+    assert.match(res.body, /href="\/commercial"[\s\S]*>Planned capacity/);
     assert.match(res.body, /href="\/contact"/);
-    assert.match(res.body, /data-search-open/);
+    // Search lives in the injected sidebar on non-homepage consumer pages.
+    assert.doesNotMatch(res.body, /data-search-open/);
     assert.doesNotMatch(res.body, /Aorila — API access/);
     assert.doesNotMatch(res.body, /What you are requesting/);
     assert.doesNotMatch(res.body, /Workspace, presence/);
@@ -89,8 +91,11 @@ describe('host-based pages', () => {
 
   it('has no robot waitlist on the homepage; product CTAs route to real pages', async () => {
     const home = await request(port, { headers: { host: 'aorila.com' } });
-    assert.doesNotMatch(home.body, /Join the waitlist/);
+    // The robot waitlist lives on robotics.aorila.com (presale funnel); the
+    // homepage only links out to it — it never hosts a waitlist form itself.
+    assert.match(home.body, /href="https:\/\/robotics\.aorila\.com\/#waitlist"[\s\S]{0,300}?>Join the waitlist/);
     assert.doesNotMatch(home.body, /data-kind="waitlist"/);
+    assert.doesNotMatch(home.body, /<form[^>]*waitlist/i);
     for (const href of ['/pricing', '/console', '/ai-api', '/pods', '/serverless', '/clusters', '/hub', '/deployments', '/commercial', '/contact']) {
       assert.match(home.body, new RegExp('href="' + href.replace('/', '\\/') + '"'), href);
     }
@@ -98,8 +103,18 @@ describe('host-based pages', () => {
   });
 
   it('keeps Ally out of the consumer nav; Product lives in the sidebar menu', async () => {
-    const paths = ['/', '/api', '/docs', '/tp', '/support', '/about', '/pricing'];
-    for (const path of paths) {
+    // Homepage ships its own mega menu; every other consumer page gets the injected nav.
+    const home = await request(port, { path: '/', headers: { host: 'aorila.com' } });
+    assert.doesNotMatch(home.body, />Ally</);
+    assert.doesNotMatch(home.body, /ally\.atraly\.com/);
+    assert.match(home.body, /class="nav-toggle"/);
+    assert.match(home.body, /class="nav-sidebar"/);
+    assert.match(home.body, /nav-mega/);
+    assert.match(home.body, /menu-item-title">AI API/);
+    assert.match(home.body, /menu-item-title">Deployments/);
+    assert.match(home.body, /href="\/home\.css"/);
+    assert.match(home.body, /class="home"/);
+    for (const path of ['/api', '/docs', '/tp', '/support', '/about', '/pricing']) {
       const res = await request(port, { path, headers: { host: 'aorila.com' } });
       assert.equal(res.headers['x-aorila-site'], 'consumer');
       assert.doesNotMatch(res.body, />Ally</);
@@ -109,9 +124,9 @@ describe('host-based pages', () => {
       assert.match(res.body, />Product</);
       assert.match(res.body, /menu-item-title">AI API/);
       assert.match(res.body, /menu-item-title">Deployments/);
-      // Homepage ships the Playbook design via home.css; every other page via design.css.
-      assert.match(res.body, /href="\/(design|home)\.css"/);
-      assert.match(res.body, /class="(ds|home)"/);
+      // Every non-homepage consumer page ships the Playbook design via design.css.
+      assert.match(res.body, /href="\/design\.css"/);
+      assert.match(res.body, /class="ds"/);
     }
     const apiFace = await request(port, { path: '/', headers: { host: 'api.aorila.com' } });
     assert.doesNotMatch(apiFace.body, />Ally</);
@@ -120,8 +135,26 @@ describe('host-based pages', () => {
   });
 
 
-  it('keeps marketing links in a far-right sidebar menu', async () => {
-    const res = await request(port, { headers: { host: 'aorila.com' } });
+  it('keeps marketing links in the nav (homepage mega menu, sidebar elsewhere)', async () => {
+    // The homepage ships its own mega menu; every other consumer page gets the
+    // injected far-right sidebar. Both must carry the marketing links.
+    const home = await request(port, { headers: { host: 'aorila.com' } });
+    assert.match(home.body, /nav-mega/);
+    for (const tab of ['Compute', 'AI', 'Robotics', 'Atraly', 'Aorila Labs', 'Pricing']) {
+      assert.match(home.body, new RegExp('nav-mega-toggle[^>]*>' + tab), tab);
+    }
+    for (const item of ['AI API', 'Pods', 'Serverless', 'Clusters', 'Hub', 'Deployments', 'Planned capacity', 'Docs', 'GPU pricing', 'AI API pricing', 'About', 'Become a provider', 'Partner', 'Careers', 'Contact']) {
+      assert.match(home.body, new RegExp('menu-item-title">' + item.replace(' ', '\\s')), item);
+    }
+    assert.match(home.body, /class="nav-toggle"/);
+    assert.match(home.body, /class="nav-sidebar"/);
+    assert.match(home.body, /class="nav-backdrop"/);
+    assert.doesNotMatch(home.body, />Ally</);
+    assert.doesNotMatch(home.body, /ally\.atraly\.com/);
+    assert.match(home.body, /href="\/home\.css"/);
+    assert.match(home.body, /class="home"/);
+
+    const res = await request(port, { path: '/about', headers: { host: 'aorila.com' } });
     assert.match(res.body, /class="nav-toggle"/);
     assert.match(res.body, /class="nav-sidebar"[^>]*id="site-nav" hidden/);
     assert.match(res.body, /class="nav-backdrop"/);
@@ -140,14 +173,14 @@ describe('host-based pages', () => {
     assert.match(res.body, /href="\/providers"[\s\S]*>Become a provider/);
     assert.match(res.body, />Docs</);
     assert.match(res.body, />Pricing</);
-    assert.match(res.body, />Enterprise</);
+    assert.match(res.body, />Capacity</);
     assert.match(res.body, />Search</);
     assert.match(res.body, />Contact Sales</);
     assert.doesNotMatch(res.body, /nav-utility[\s\S]*>Ally</);
     assert.doesNotMatch(res.body, /ally\.atraly\.com/);
     assert.match(res.body, /data-search-open/);
-    assert.match(res.body, /href="\/(design|home)\.css"/);
-    assert.match(res.body, /class="(ds|home)"/);
+    assert.match(res.body, /href="\/design\.css"/);
+    assert.match(res.body, /class="ds"/);
   });
   it('serves consumer marketing pages from the header menu', async () => {
     // Legacy product URL: /models is now /ai-api.
@@ -175,7 +208,7 @@ describe('host-based pages', () => {
       ['/providers', /Put your GPUs to work/],
       ['/partner', /Partner with Aorila/],
       ['/careers', /Careers\./],
-      ['/pricing', /Live Aorila price\./],
+      ['/pricing', /Early-access GPU pricing/],
       ['/contact', /Talk to sales/],
       ['/search?q=pods', /Browse Aorila/],
     ];
@@ -195,7 +228,8 @@ describe('host-based pages', () => {
       assert.match(res.body, /href="\/design\.css"/);
       assert.match(res.body, /Trust and security is number one/);
     }
-    // Upstream vendors are never named in user copy: "verified partner pools" only.
+    // Upstream vendors are never named in user copy: "verified partner pools"
+    // (or "peer-powered marketplace" on the homepage) only.
     for (const p of ['/', '/about', '/pods']) {
       const r = await request(port, { path: p, headers: { host: 'aorila.com' } });
       assert.equal(r.status, 200, p);
@@ -203,7 +237,7 @@ describe('host-based pages', () => {
       assert.doesNotMatch(r.body, /Vast\.ai/, p);
       assert.doesNotMatch(r.body, /TensorDock/, p);
       assert.doesNotMatch(r.body, /Voltage Park/, p);
-      assert.match(r.body, /verified partner pools/, p);
+      assert.match(r.body, /verified partner pools|peer-powered marketplace/, p);
     }
     const providers = await request(port, { path: '/providers', headers: { host: 'aorila.com' } });
     assert.equal(providers.status, 200);
@@ -228,19 +262,17 @@ describe('host-based pages', () => {
     assert.match(res.body, /href="\/labs\.css"/);
     assert.match(res.body, /hero-badge/);
     assert.doesNotMatch(res.body, /labs-split/);
-    assert.match(res.body, /class="nav-link" href="https:\/\/aorila\.com"[^>]*>Aorila<\/a>/);
-    assert.doesNotMatch(res.body, /class="nav-link" href="\/"/);
-    assert.match(res.body, /Apply to host/);
-    assert.match(res.body, /api@aorila\.com/);
-    assert.match(res.body, /form class="waitlist"/);
-    assert.match(res.body, /action="\/leads"/);
-    assert.match(res.body, /name="hardware"/);
-    assert.match(res.body, /name="name"/);
-    assert.match(res.body, /name="email"/);
-    assert.match(res.body, /name="availability"/);
-    assert.match(res.body, /id="hosts"/);
-    assert.match(res.body, /per-minute/);
-    assert.match(res.body, /name="fax"/);
+    assert.match(res.body, /HOST SUPPLY/);
+    assert.match(res.body, /Your compute earns/);
+    assert.match(res.body, />Dashboard</);
+    assert.match(res.body, /href="\/console"/);
+    assert.match(res.body, /Trust and security is number one/);
+    assert.match(res.body, /og:image" content="https:\/\/aorilalabs\.com\/logo-aorila\.png"/);
+    assert.match(res.body, /href="\/trust"/);
+    assert.match(res.body, /href="\/tp"/);
+    assert.match(res.body, /href="\/support"/);
+    assert.doesNotMatch(res.body, /href="\/privacy"/);
+    assert.doesNotMatch(res.body, /href="\/terms"/);
     assert.doesNotMatch(res.body, /Powered by/i);
     assert.doesNotMatch(res.body, /Atraly/);
     assert.doesNotMatch(res.body, /RunPod/i);
@@ -249,20 +281,13 @@ describe('host-based pages', () => {
     assert.doesNotMatch(res.body, /\$29/);
     assert.doesNotMatch(res.body, /stripe/i);
     assert.doesNotMatch(res.body, /href="\/about"/);
-    assert.match(res.body, /href="\/tp"/);
-    assert.match(res.body, /href="\/support"/);
-    assert.doesNotMatch(res.body, /href="\/privacy"/);
-    assert.doesNotMatch(res.body, /href="\/terms"/);
-    assert.match(res.body, />T &amp; P</);
-    assert.match(res.body, />Support</);
-    assert.match(res.body, /href="https:\/\/aorilalabs\.com"[^>]*>Aorila Labs</);
   });
   it('preview via X-Aorila-Site header', async () => {
     const res = await request(port, {
       headers: { host: 'aorila.onrender.com', 'x-aorila-site': 'labs' },
     });
     assert.equal(res.headers['x-aorila-site'], 'labs');
-    assert.match(res.body, /Become a host/);
+    assert.match(res.body, /HOST SUPPLY/);
   });
 
   it('keeps Labs preview on later paths via cookie', async () => {
@@ -305,7 +330,7 @@ describe('host-based pages', () => {
     assert.doesNotMatch(consumer.body, /stripe/i);
     assert.match(consumer.body, /href="\/tp"/);
     assert.match(consumer.body, /href="\/support"/);
-    assert.match(consumer.body, /href="https:\/\/aorilalabs\.com"[^>]*>Aorila Labs</);
+    assert.match(consumer.body, /href="https:\/\/aorilalabs\.com"[^>]*>Aorila Labs<\/a>/);
   });
   it('serves consumer /api on aorila.com and only redirects /api on the API host', async () => {
     for (const path of ['/api', '/api/', '/api.html']) {
@@ -359,7 +384,7 @@ describe('host-based pages', () => {
     assert.match(labs.body, /href="\/console"/);
     assert.match(labs.body, /hero-badge/);
     assert.match(labs.body, /One catalog, one job API, one bill/);
-    assert.match(labs.body, /Open console/);
+    assert.match(labs.body, />Dashboard</);
     assert.match(labs.body, /href="\/console"/);
     assert.doesNotMatch(labs.body, /chat\/completions/);
     assert.doesNotMatch(labs.body, /\$99/);
@@ -502,7 +527,7 @@ describe('host-based pages', () => {
       assert.match(res.body, /href="\/support"/);
       assert.doesNotMatch(res.body, /href="\/privacy"/);
       assert.doesNotMatch(res.body, /href="\/terms"/);
-      assert.match(res.body, /href="https:\/\/aorilalabs\.com"[^>]*>Aorila Labs</);
+      assert.match(res.body, /href="https:\/\/aorilalabs\.com"[^>]*aria-label="Aorila Labs home"/);
       assert.doesNotMatch(res.body, /lorem ipsum/i);
       assert.doesNotMatch(res.body, /\bTBD\b/);
       assert.doesNotMatch(res.body, /coming soon/i);
