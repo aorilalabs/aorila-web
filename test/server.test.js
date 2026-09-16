@@ -369,10 +369,16 @@ describe('host-based pages', () => {
       assert.equal(res.status, 301, path);
       assert.equal(res.headers.location, location, path);
     }
-    // Homepage and T&P stay standalone pages on labs.
-    for (const path of ['/', '/tp']) {
+    // Homepage, T&P, and Learn stay standalone pages on labs.
+    for (const path of ['/', '/tp', '/learn']) {
       const res = await request(port, { path, headers: { host: 'aorilalabs.com' } });
       assert.equal(res.status, 200, path);
+      assert.match(res.body, /class="ds"/, path);
+    }
+    // Learn is labs-only: 404 on the consumer host.
+    {
+      const res = await request(port, { path: '/learn', headers: { host: 'aorila.com' } });
+      assert.equal(res.status, 404, '/learn on consumer host');
     }
   });
   it('serves an honest consumer docs outline', async () => {
