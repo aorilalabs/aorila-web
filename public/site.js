@@ -368,9 +368,9 @@
     if (!h1 || !hereEl || !dotEl || !caret) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var phrases = [
-      { t: 'Your compute earns more', h: 'here' },
-      { t: 'Your gaming runs better', h: 'here' },
-      { t: 'Your AI runs better', h: 'here' },
+      { t: 'Compute Earns More', h: 'Here' },
+      { t: 'Gaming Runs Better', h: 'Here' },
+      { t: 'AI Runs Better', h: 'Here' },
     ];
     var TYPE_MS = 65, ERASE_MS = 50, HOLD_MS = 2000;
     var pi = 0, mode = 'hold';
