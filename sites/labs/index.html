@@ -63,8 +63,8 @@
             </div>
             <div class="calc-row">
               <label for="calc-rate" id="calc-rate-label">YOUR PRICE · $/HR</label>
-              <input type="range" id="calc-rate" min="0.05" max="3" step="0.01" value="0.36" />
-              <span class="calc-val" id="calc-rate-val">$0.36/hr</span>
+              <input type="range" id="calc-rate" min="0.01" max="50" step="0.01" value="25.01" />
+              <span class="calc-val" id="calc-rate-val">$25.01/hr</span>
             </div>
             <div class="calc-row">
               <label for="calc-util">UTILIZATION</label>
@@ -73,15 +73,15 @@
             </div>
             <div class="calc-row">
               <label for="calc-count" id="calc-count-label">GPU COUNT</label>
-              <input type="range" id="calc-count" min="1" max="16" step="1" value="1" />
-              <span class="calc-val" id="calc-count-val">1 GPU</span>
+              <input type="range" id="calc-count" min="1" max="16" step="1" value="9" />
+              <span class="calc-val" id="calc-count-val">9 GPUs</span>
             </div>
             <div class="calc-result" aria-live="polite">
               <div>
                 <span class="calc-result-label">ESTIMATED MONTHLY EARNINGS</span>
-                <span class="calc-monthly"><span id="calc-monthly">$131</span><small>/mo</small></span>
+                <span class="calc-monthly"><span id="calc-monthly">$82,158</span><small>/mo</small></span>
               </div>
-              <p class="calc-breakdown" id="calc-breakdown">$0.36/hr &times; 50% utilization &times; 730 hrs &times; 1 GPU</p>
+              <p class="calc-breakdown" id="calc-breakdown">$25.01/hr &times; 50% utilization &times; 730 hrs &times; 9 GPUs &middot; customer pays $26.26/hr</p>
             </div>
             <p class="fine">Estimate only — based on community marketplace listing ranges.<br>Not a guarantee of income.</p>
           </div>
