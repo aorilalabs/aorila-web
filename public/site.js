@@ -1,7 +1,10 @@
 (function () {
   'use strict';
 
-  const CUSTOM_API_ORIGIN = 'https://api.aorila.com';
+  // Entity rule: sites share ONLY login. The API origin is the Labs API
+  // (api.aorilalabs.com) for commercial uses; api.aorila.com does not exist.
+  // Every page must still declare its own origin via <meta name="aorila-api-origin">.
+  const CUSTOM_API_ORIGIN = 'https://api.aorilalabs.com';
   const META_NAME = 'aorila-api-origin';
   const DYNAMIC_PATHS = [
     '/leads',
