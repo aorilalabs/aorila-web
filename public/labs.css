@@ -113,6 +113,7 @@ body.ds main { display: block; }
 }
 .ds .card:hover { transform: translateY(-3px); box-shadow: 6px 6px 0 #d8ff36; }
 .ds .card .tag { font: 700 11px "IBM Plex Mono", monospace; letter-spacing: .08em; color: #10100f; }
+.ds .card.prod .btn-row { margin-top: auto; padding-top: 8px; }
 .ds .card .tag::before { content: ""; display: inline-block; width: 10px; height: 10px; background: #d8ff36; border: 1px solid #10100f; border-radius: 3px; margin-right: 8px; vertical-align: baseline; }
 .ds .card h3 { font-size: 21px; letter-spacing: -.02em; margin: 0; font-weight: 800; }
 .ds .card p { font-size: 15px; line-height: 1.6; color: rgba(16,16,15,.72); margin: 0; flex: 1; }
