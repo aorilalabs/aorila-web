@@ -248,6 +248,9 @@ body.ds main { display: block; }
 .ds .footer-links a { font: 600 13px "IBM Plex Mono", monospace; color: #10100f; text-decoration: none; }
 .ds .footer-links a:hover { text-decoration: underline; }
 .ds .footer-meta { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font: 500 12.5px "IBM Plex Mono", monospace; color: #5d5e59; margin-top: 18px; }
+.ds footer.site-footer .wrap.footer-single { display: flex; align-items: center; gap: 28px; }
+.ds .footer-logo { display: inline-flex; flex: none; }
+.ds .footer-logo img { height: 24px; width: auto; display: block; }
 
 /* faq */
 .ds details.faq { background: #fff; border-bottom: 2px solid #10100f; }
@@ -283,3 +286,4 @@ body.ds main { display: block; }
 .ds .auth-card form.waitlist { max-width: none; text-align: left; }
 .ds .auth-card form.waitlist .btn { width: 100%; justify-content: center; }
 .ds .auth-card .price-note { text-align: center; }
+.ds .auth-card .hero-badge { color: #10100f; }
