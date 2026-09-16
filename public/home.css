@@ -227,6 +227,40 @@ body.home .nav { display: flex; align-items: center; gap: 18px; padding: 14px 28
 .home .nav-centered { flex-wrap: wrap; row-gap: 8px; }
 .home .wordmark-logo { order: -1; flex: 1 1 100%; display: flex; justify-content: center; padding-top: 8px; }
 .home .wordmark-logo img { height: 48px; width: auto; display: block; }
+
+/* ---------- header dropdown mega-menus (shared white menu) ---------- */
+.home .nav-dropdown-toggle {
+  color: #10100f; background: none; border: 2px solid transparent; cursor: pointer;
+  font: 600 13px "IBM Plex Mono", monospace; padding: 8px 12px; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 7px;
+}
+.home .nav-dropdown-toggle:hover, .home .nav-dropdown.is-open .nav-dropdown-toggle { border-color: #10100f; background: #fff; }
+.home .nav-dropdown-toggle .caret {
+  width: 7px; height: 7px; border-right: 2px solid #10100f; border-bottom: 2px solid #10100f;
+  transform: rotate(45deg); margin-top: -4px; flex: none;
+}
+.home .nav-dropdown.is-open .nav-dropdown-toggle .caret { transform: rotate(-135deg); margin-top: 4px; }
+.home .nav-dropdown-panel { min-width: 0; padding: 10px; }
+.home .menu-cols { display: flex; gap: 6px; }
+.home .menu-section { min-width: 170px; }
+.home .menu-section-head {
+  margin: 0; padding: 8px 12px 6px; font: 700 10.5px "IBM Plex Mono", monospace;
+  text-transform: uppercase; letter-spacing: .1em; color: #6b6c66;
+}
+.home .nav-dropdown-panel .menu-item { padding: 8px 12px; }
+.home .nav-dropdown-panel .menu-item-title { font-size: 13.5px; }
+@media (min-width: 901px) {
+  .home .nav-links .nav-dropdown:hover .nav-dropdown-panel,
+  .home .nav-links .nav-dropdown:focus-within .nav-dropdown-panel { display: block; }
+  .home .nav-links .nav-dropdown:nth-last-child(-n+2) .nav-dropdown-panel { left: auto; right: 0; }
+}
+/* sidebar: same component as accordion */
+.home .nav-primary .nav-dropdown { width: 100%; }
+.home .nav-primary .nav-dropdown-toggle { width: 100%; justify-content: space-between; font-size: 14px; padding: 12px; }
+.home .nav-primary .nav-dropdown-panel { display: none; padding: 0 0 10px 10px; }
+.home .nav-primary .nav-dropdown.is-open .nav-dropdown-panel { display: block; }
+.home .nav-primary .menu-cols { display: block; }
+.home .nav-primary .menu-section { min-width: 0; }
 @media (max-width: 900px) {
   .home .wordmark-logo img { height: 40px; }
 }
