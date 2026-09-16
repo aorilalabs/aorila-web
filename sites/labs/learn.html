@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="aorila-api-origin" content="https://dashboard.aorilalabs.com" />
+  <title>Learn — Aorila Labs</title>
+  <meta name="description" content="What each Aorila Labs product does, when to use it, and how billing works." />
+  <meta property="og:title" content="Learn — Aorila Labs" />
+  <meta property="og:description" content="What each Aorila Labs product does, when to use it, and how billing works." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aorilalabs.com/learn" />
+  <meta property="og:image" content="https://aorilalabs.com/logo-aorila.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://aorilalabs.com/logo-aorila.png" />
+  <link rel="canonical" href="https://aorilalabs.com/learn" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/labs.css" />
+</head>
+<body class="ds" data-site="labs">
+  <div class="topline"></div>
+  <header class="nav">
+    <a class="wordmark lockup" href="/" aria-label="Aorila Labs home"><img class="wm-logo" src="/logo-aorila.svg" alt="Aorila" /><span class="wm-labs">Labs</span></a>
+    <nav class="nav-links">
+            <a class="nav-cta nav-far" href="https://dashboard.aorilalabs.com/">Dashboard</a>
+    </nav>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span class="nav-toggle-bars"></span></button>
+  </header>
+  <div class="nav-backdrop" data-nav-backdrop hidden></div>
+  <aside class="nav-sidebar" hidden>
+    <div class="nav-sidebar-head">
+      <button class="nav-sidebar-close" type="button" data-nav-close>Close</button>
+    </div>
+    <nav class="nav-primary" aria-label="Menu">
+            <a class="nav-cta nav-far" href="https://dashboard.aorilalabs.com/" data-nav-close>Dashboard</a>
+    </nav>
+  </aside>
+  <main>
+    <section class="hero compact">
+      <div class="wrap">
+        <span class="hero-badge">LEARN</span>
+        <h1>Learn.</h1>
+        <p class="lede">What each Aorila Labs product does, when to use it, and how billing works. Everything below maps to something you can launch from the dashboard today.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head"><span class="snum">START HERE</span><div>
+          <h2>Which product do I need?</h2>
+        </div></div>
+        <div class="cards prod-grid">
+          <div class="card prod"><h3>I need a GPU right now</h3><p>Rent a single GPU by the minute for dev, fine-tuning, inference, or rendering.</p><div class="btn-row"><a class="btn" href="#gpu-pods">GPU Pods</a></div></div>
+          <div class="card prod"><h3>My app needs to stay online</h3><p>CPU virtual machines for APIs, websites, databases, and background workers.</p><div class="btn-row"><a class="btn" href="#cpu-instances">CPU Instances</a></div></div>
+          <div class="card prod"><h3>I have a model to serve</h3><p>Autoscaling inference endpoints that scale to zero when nobody is calling them.</p><div class="btn-row"><a class="btn" href="#serverless">Serverless</a></div></div>
+          <div class="card prod"><h3>I'm training a model</h3><p>Managed training jobs, or raw multi-GPU clusters if you want the controls.</p><div class="btn-row"><a class="btn" href="#training">Training</a></div></div>
+          <div class="card prod"><h3>I need my data to survive restarts</h3><p>Persistent volumes that attach to any pod. Your files outlive the machine.</p><div class="btn-row"><a class="btn" href="#storage">Storage</a></div></div>
+          <div class="card prod"><h3>I want it running in one click</h3><p>Templates and hosted open-weight models. No setup, no servers.</p><div class="btn-row"><a class="btn" href="#hub">Hub</a></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gpu-pods">
+      <div class="wrap"><div class="section-head"><span class="snum">COMPUTE</span><div>
+        <h2>GPU Pods</h2>
+        <p class="lede">On-demand GPU containers from community hosts and verified providers, billed per minute — never by the hour.</p>
+        <p>Pick a GPU from the marketplace in the dashboard, choose a template or bring your own container, and get SSH and Jupyter endpoints. When you stop the pod, billing stops. Your pod runs on a peer-powered marketplace: individuals and businesses list their own hardware and set their own prices, and you pay one simple bill.</p>
+        <div class="btn-row"><a class="btn acid" href="https://dashboard.aorilalabs.com/#compute">Launch a pod</a></div>
+      </div></div></div>
+    </section>
+
+    <section class="section" id="cpu-instances">
+      <div class="wrap"><div class="section-head"><span class="snum">COMPUTE</span><div>
+        <h2>CPU Instances</h2>
+        <p class="lede">CPU-only virtual machines for the things that don't need a GPU: APIs, websites, databases, background workers.</p>
+        <p>Available in 4, 8, 16, 32, and 64 vCPU tiers. Anyone can list a machine — even a basic office PC — so prices start low and you pick the host that fits. If your workload outgrows CPU, the same dashboard rents you a GPU pod.</p>
+        <div class="btn-row"><a class="btn acid" href="https://dashboard.aorilalabs.com/#compute">Launch an instance</a></div>
+      </div></div></div>
+    </section>
+
+    <section class="section" id="serverless">
+      <div class="wrap"><div class="section-head"><span class="snum">COMPUTE</span><div>
+        <h2>Serverless Endpoints</h2>
+        <p class="lede">Autoscaling GPU inference that scales to zero. You pay only for the milliseconds you actually run.</p>
+        <p>Deploy a model as an HTTPS endpoint. Traffic spikes? It scales up. Nobody calling it at 3am? It scales to zero and you pay nothing. Built for production AI features where a pod sitting idle would be money on fire.</p>
+        <div class="btn-row"><a class="btn acid" href="https://dashboard.aorilalabs.com/#compute">Deploy an endpoint</a></div>
+      </div></div></div>
+    </section>
+
+    <section class="section" id="clusters">
+      <div class="wrap"><div class="section-head"><span class="snum">COMPUTE</span><div>
+        <h2>Clusters</h2>
+        <p class="lede">Multi-GPU bare metal for training runs. Reserve capacity by the hour or the day.</p>
+        <p>When one GPU isn't enough, reserve a whole cluster. You get the raw machines, on fast interconnect, for as long as your run needs — hours or days. Bring your own distributed training setup or use managed Training below.</p>
+        <div class="btn-row"><a class="btn acid" href="https://dashboard.aorilalabs.com/#compute">Reserve a cluster</a></div>
+      </div></div></div>
+    </section>
+
+    <section class="section" id="storage">
+      <div class="wrap"><div class="section-head"><span class="snum">COMPUTE</span><div>
+        <h2>Storage Volumes</h2>
+        <p class="lede">Persistent network and NVMe storage that attaches to any pod. Your data survives restarts.</p>
+        <p>Pods are ephemeral by design — stop one and its local disk goes with it. Attach a volume and your datasets, checkpoints, and project files persist across pods. Detach and reattach to a bigger GPU whenever you want.</p>
+        <div class="btn-row"><a class="btn acid" href="https://dashboard.aorilalabs.com/#compute">Create a volume</a></div>
+      </div></div></div>
+    </section>
+
+    <section class="section" id="hub">
+      <div class="wrap"><div class="section-head"><span class="snum">BUILD</span><div>
+        <h2>Hub</h2>
+        <p class="lede">One-click templates and hosted open-weight models: notebooks, LLMs, image models, inference servers. Deploy in seconds — no setup, no servers.</p>
+        <p>Hub is the fast lane. Instead of configuring a pod by hand, pick what you want running — a Jupyter notebook, an open-weight LLM with an API, an image model — and it's live in seconds. Everything in Hub is also reproducible: the same template runs on any pod, so what you prototype is what you ship.</p>
+        <div class="btn-row"><a class="btn acid" href="https://dashboard.aorilalabs.com/#compute">Browse the Hub</a></div>
+      </div></div></div>
+    </section>
+
+    <section class="section" id="training">
+      <div class="wrap"><div class="section-head"><span class="snum">BUILD</span><div>
+        <h2>Training</h2>
+        <p class="lede">Managed training jobs on multi-GPU clusters. Bring your code; we handle the machines.</p>
+        <p>Point Training at your code and dataset, pick your GPUs, and it provisions the cluster, runs the job, checkpoints your progress, and tears everything down when it's done. You watch logs and metrics; you never SSH into a machine unless you want to.</p>
+        <div class="btn-row"><a class="btn acid" href="https://dashboard.aorilalabs.com/#compute">Start a training job</a></div>
+      </div></div></div>
+    </section>
+
+    <section class="section" id="gaming">
+      <div class="wrap"><div class="section-head"><span class="snum">COMPUTE · COMING SOON</span><div>
+        <h2>Gaming</h2>
+        <p class="lede">Cloud gaming rigs streamed to any device — the GeForce NOW model. Bring your own licenses; community hosts supply the GPUs.</p>
+        <p>Gaming isn't live yet. When it launches, you'll rent a gaming rig by the minute, stream it to any screen, and pay only while you play — no hardware to buy, no downloads.</p>
+        <div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/#gaming">Notify me</a></div>
+      </div></div></div>
+    </section>
+
+    <section class="section">
+      <div class="wrap"><div class="section-head"><span class="snum">BILLING</span><div>
+        <h2>How billing works</h2>
+        <p class="lede">One credit is one dollar. Everything is billed per minute. When your balance hits zero, workloads stop — you can never go negative.</p>
+        <p>Top up credits in the dashboard. Every product above draws from the same balance, and every charge is itemized per minute so you always know what ran and what it cost.</p>
+        <div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/">Open the dashboard</a></div>
+      </div></div></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <nav class="footer-links" aria-label="Footer">
+        <a href="/learn">Learn</a>
+        <a href="https://dashboard.aorilalabs.com/#compute">Compute</a>
+        <a href="https://dashboard.aorilalabs.com/#compute">Hub</a>
+        <a href="https://dashboard.aorilalabs.com/#docs">API</a>
+        <a href="https://dashboard.aorilalabs.com/#compute">Training</a>
+        <a href="https://dashboard.aorilalabs.com/#gaming">Gaming</a>
+        <a href="https://dashboard.aorilalabs.com/#docs">Docs</a>
+        <a href="https://dashboard.aorilalabs.com/#support">Support</a>
+        <a href="/tp">T &amp; P</a>
+        <a href="https://dashboard.aorilalabs.com/#support">Contact</a>
+      </nav>
+      <div class="footer-meta">
+        <span><a class="wordmark lockup" href="https://aorilalabs.com" data-local-site="labs" aria-label="Aorila Labs home"><img class="wm-logo" src="/logo-aorila.svg" alt="Aorila" /><span class="wm-labs">Labs</span></a></span>
+        <span>Proud to be located in Columbia, SC</span>
+      </div>
+    </div>
+  </footer>
+  <script src="/site.js"></script>
+</body>
+</html>
