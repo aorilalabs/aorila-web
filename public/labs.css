@@ -212,6 +212,7 @@ body.ds main { display: block; }
 /* ---------- bands / footer ---------- */
 .ds .love-band { background: #d8ff36; border-top: 2px solid #10100f; border-bottom: 2px solid #10100f; padding: 56px 0; }
 .ds .love-band h2 { color: #10100f; font-size: clamp(28px, 3.4vw, 44px); letter-spacing: -.03em; margin: 0; font-weight: 800; }
+.ds .love-band .wrap { display: flex; justify-content: center; }
 .ds footer.site-footer { border-top: 2px solid #10100f; background: #fff; padding: 20px 0; }
 .ds footer.site-footer .wrap { display: flex; align-items: center; gap: 26px; }
 .ds .footer-links { display: flex; gap: 22px; flex-wrap: wrap; order: 2; flex: 1; }
