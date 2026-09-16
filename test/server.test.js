@@ -270,7 +270,7 @@ describe('host-based pages', () => {
     assert.match(res.body, /og:image" content="https:\/\/aorilalabs\.com\/logo-aorila\.png"/);
     assert.match(res.body, /href="\/trust"/);
     assert.match(res.body, /href="\/tp"/);
-    assert.match(res.body, /href="\/support"/);
+    assert.match(res.body, /href="https:\/\/dashboard\.aorilalabs\.com\/#support"/);
     assert.doesNotMatch(res.body, /href="\/privacy"/);
     assert.doesNotMatch(res.body, /href="\/terms"/);
     assert.doesNotMatch(res.body, /Powered by/i);
@@ -282,12 +282,13 @@ describe('host-based pages', () => {
     assert.doesNotMatch(res.body, /stripe/i);
     assert.doesNotMatch(res.body, /href="\/about"/);
   });
-  it('preview via X-Aorila-Site header', async () => {
+  it('render subdomains redirect to our domain', async () => {
     const res = await request(port, {
+      path: '/api',
       headers: { host: 'aorila.onrender.com', 'x-aorila-site': 'labs' },
     });
-    assert.equal(res.headers['x-aorila-site'], 'labs');
-    assert.match(res.body, /HOST SUPPLY/);
+    assert.equal(res.status, 301);
+    assert.match(res.headers.location || '', /^https:\/\/aorila\.com\/api/);
   });
 
   it('keeps Labs preview on later paths via cookie', async () => {
@@ -524,7 +525,7 @@ describe('host-based pages', () => {
       assert.match(res.body, /api@aorila\.com/);
       assert.doesNotMatch(res.body, /href="\/about"/);
       assert.match(res.body, /href="\/tp"/);
-      assert.match(res.body, /href="\/support"/);
+      assert.match(res.body, /href="https:\/\/dashboard\.aorilalabs\.com\/#support"/);
       assert.doesNotMatch(res.body, /href="\/privacy"/);
       assert.doesNotMatch(res.body, /href="\/terms"/);
       assert.match(res.body, /href="https:\/\/aorilalabs\.com"[^>]*aria-label="Aorila Labs home"/);
