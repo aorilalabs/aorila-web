@@ -240,8 +240,7 @@ body.ds main { display: block; }
 .ds .love-band { background: #d8ff36; border-top: 2px solid #10100f; border-bottom: 2px solid #10100f; padding: 56px 0; }
 .ds .love-band h2 { color: #10100f; font-size: clamp(28px, 3.4vw, 44px); letter-spacing: -.03em; margin: 0; font-weight: 800; }
 .ds .love-band .wrap { display: flex; justify-content: center; }
-/* Company band sits between bordered sections: req-band's bottom border is the divider above. */
-.ds .love-band.company-band { border-top: none; }
+
 .ds footer.site-footer { border-top: 2px solid #10100f; background: #fff; padding: 20px 0; }
 .ds footer.site-footer .wrap { display: flex; align-items: center; gap: 26px; }
 .ds .footer-links { display: flex; gap: 22px; flex-wrap: wrap; order: 2; flex: 1; }
@@ -348,3 +347,11 @@ body.ds main { display: block; }
 .ds .sell-steps li strong { display: block; color: #10100f; }
 .ds .sell-steps .fine { font-size: 13px; color: rgba(16,16,15,.6); margin: 0; line-height: 1.6; }
 @media (max-width: 900px) { .ds .sell-wrap { grid-template-columns: 1fr; } .ds .sell-steps { position: static; } .ds .sell-grid { grid-template-columns: 1fr; } }
+
+/* Stats band: real platform numbers, acid yellow with black type. Hidden until live stats load — never fake. */
+.ds .pstats-band { background: #d8ff36; border-bottom: 2px solid #10100f; padding: 44px 0; }
+.ds .pstats-band[hidden] { display: none; }
+.ds .pstats-wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: center; }
+.ds .pstat-num { display: block; font-size: clamp(32px, 4vw, 54px); font-weight: 800; color: #10100f; letter-spacing: -.02em; line-height: 1; }
+.ds .pstat-label { display: block; font: 700 12px "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: rgba(16,16,15,.65); margin-top: 8px; }
+@media (max-width: 640px) { .ds .pstats-wrap { grid-template-columns: 1fr; gap: 20px; } }
