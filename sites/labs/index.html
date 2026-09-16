@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aorila Compute — Peer-powered GPU marketplace | Aorila Labs</title>
-  <meta name="description" content="Aorila Compute is a peer-powered GPU marketplace. Hosts list their own hardware and get paid per minute; renters get GPUs on one simple bill. Per-minute billing, 1 credit = $1, workloads stop at $0. Trust and security is number one." />
-  <meta property="og:title" content="Aorila Compute — Peer-powered GPU marketplace | Aorila Labs" />
+  <title>Aorila Compute — Peer-powered compute marketplace | Aorila Labs</title>
+  <meta name="description" content="Aorila Compute is a peer-powered compute marketplace. Hosts list their own GPUs, CPUs, and storage and get paid per minute; renters get compute on one simple bill. Per-minute billing, 1 credit = $1, workloads stop at $0. Trust and security is number one." />
+  <meta property="og:title" content="Aorila Compute — Peer-powered compute marketplace | Aorila Labs" />
   <meta property="og:description" content="Your GPU earns more here than mining crypto. List your hardware, set your price, get paid per minute. Per-minute billing, one simple bill — and trust and security is number one." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorilalabs.com" />
@@ -91,33 +91,87 @@
 
     
 
-    <section class="section alt" id="how">
+    <section class="section" id="products">
       <div class="wrap">
         <div class="section-head">
-          <span class="snum">01 / HOW IT WORKS</span>
+          <span class="snum">01 / PRODUCTS</span>
           <div>
-            <h2>Two sides. One marketplace.</h2>
-            <p class="lede">Hosts list hardware; renters get GPUs. Aorila runs the marketplace in between — one catalog, one job API, one bill.</p>
+            <h2>Everything compute, in one place.</h2>
+            <p class="lede">Rent GPUs, CPUs, and storage by the minute — or list your own hardware and earn. One catalog, one API, one bill.</p>
           </div>
         </div>
-        <div class="cards">
-          <div class="card accent-ink">
-            <span class="tag">FOR HOSTS</span>
-            <h3>List your GPUs. Get paid per minute.</h3>
-            <p>Own a GPU? List the hardware you already have — you set your per-minute price and payouts accrue per minute of rented time. Aorila takes a small marketplace fee; we carry zero upfront capacity cost, and so do you.</p>
-            <div class="btn-row"><a class="btn" href="/console">Dashboard</a></div>
+        <div class="cards prod-grid">
+          <div class="card prod">
+            <span class="tag">COMPUTE</span>
+            <h3>GPU Pods</h3>
+            <p>On-demand GPU containers from community hosts and verified providers. Billed per minute, never by the hour.</p>
+            <div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/#compute">Dashboard</a></div>
           </div>
-          <div class="card">
-            <span class="tag">FOR RENTERS</span>
-            <h3>Rent GPUs. One simple bill.</h3>
-            <p>Pick a live GPU offer, deploy a pod, and pay per minute from your Aorila credit balance. 1 credit = $1. Your workload stops automatically when your balance hits $0 — you can&rsquo;t wake up to a surprise bill.</p>
-            <div class="btn-row"><a class="btn" href="/console">Open dashboard</a></div>
+          <div class="card prod">
+            <span class="tag">COMPUTE</span>
+            <h3>CPU Instances</h3>
+            <p>CPU-only virtual machines for APIs, websites, databases, and background workers.</p>
+            <div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/#compute">Dashboard</a></div>
           </div>
-          <div class="card">
-            <span class="tag">GPU PODS</span>
-            <h3>Deploy a pod in one click.</h3>
-            <p>Pick any live offer and launch a GPU pod — containers, checkpoints, one-click stop. Billed per minute from your credit balance, never by the hour.</p>
-            <div class="btn-row"><a class="btn" href="/console">Dashboard</a></div>
+          <div class="card prod">
+            <span class="tag">COMPUTE</span>
+            <h3>Serverless Endpoints</h3>
+            <p>Autoscaling GPU inference that scales to zero. Pay only for the milliseconds you run.</p>
+            <div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/#compute">Dashboard</a></div>
+          </div>
+          <div class="card prod">
+            <span class="tag">COMPUTE</span>
+            <h3>Clusters</h3>
+            <p>Multi-GPU bare metal for training runs. Reserve capacity by the hour or day.</p>
+            <div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/#compute">Dashboard</a></div>
+          </div>
+          <div class="card prod">
+            <span class="tag">COMPUTE</span>
+            <h3>Storage Volumes</h3>
+            <p>Persistent network and NVMe storage that attaches to any pod. Your data survives restarts.</p>
+            <div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/#compute">Dashboard</a></div>
+          </div>
+          <div class="card prod">
+            <span class="tag">BUILD</span>
+            <h3>Hub</h3>
+            <p>One-click templates: notebooks, image models, LLMs, inference servers. Deploy in seconds.</p>
+            <div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/#hub">Dashboard</a></div>
+          </div>
+          <div class="card prod">
+            <span class="tag">BUILD</span>
+            <h3>Models</h3>
+            <p>Open-weight models, hosted and ready to call. No setup, no servers.</p>
+            <div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/#models">Dashboard</a></div>
+          </div>
+          <div class="card prod">
+            <span class="tag">BUILD</span>
+            <h3>Training</h3>
+            <p>Managed training jobs on multi-GPU clusters. Bring your code; we handle the machines.</p>
+            <div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/#training">Dashboard</a></div>
+          </div>
+          <div class="card prod">
+            <span class="tag">BUILD</span>
+            <h3>API</h3>
+            <p>One commercial API for builders. Keys, usage, and billing in a single dashboard.</p>
+            <div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/#api">Dashboard</a></div>
+          </div>
+          <div class="card prod">
+            <span class="tag">EARN</span>
+            <h3>Host</h3>
+            <p>List your GPU, CPU, or storage. You set the price; payouts accrue per minute of rented time.</p>
+            <div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/#earn">Dashboard</a></div>
+          </div>
+          <div class="card prod">
+            <span class="tag">EARN</span>
+            <h3>Resellers</h3>
+            <p>Bring your fleet. List capacity at scale with one contract and one payout.</p>
+            <div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/#resellers">Dashboard</a></div>
+          </div>
+          <div class="card prod">
+            <span class="tag">BILLING</span>
+            <h3>Credits</h3>
+            <p>1 credit = $1. Workloads stop automatically at $0 — never wake up to a surprise bill.</p>
+            <div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/#credits">Dashboard</a></div>
           </div>
         </div>
       </div>
