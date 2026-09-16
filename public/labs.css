@@ -240,7 +240,7 @@ body.ds main { display: block; }
 }
 
 /* ---------- brand lockup ---------- */
-.ds .wordmark.lockup { display: inline-flex; flex-direction: row; align-items: center; gap: 8px; text-decoration: none; line-height: 1; }
+.ds .wordmark.lockup { display: inline-flex; flex-direction: row; align-items: center; gap: 6px; text-decoration: none; line-height: 1; }
 .ds .wordmark.lockup:hover { background: none; }
 .ds .wordmark.lockup .wm-logo { height: 20px; width: auto; display: block; }
 .ds .wordmark.lockup .wm-labs { font: 800 13px "Archivo", sans-serif; letter-spacing: .02em; color: #10100f; background: #d8ff36; padding: 2px 8px; border-radius: 6px; }
