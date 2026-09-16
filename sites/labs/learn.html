@@ -54,7 +54,7 @@
           <div class="card prod"><h3>I need a GPU right now</h3><p>Rent a single GPU by the minute for dev, fine-tuning, inference, or rendering.</p><div class="btn-row"><a class="btn" href="?section=gpu-pods" data-scroll="gpu-pods">GPU Pods</a></div></div>
           <div class="card prod"><h3>My app needs to stay online</h3><p>CPU virtual machines for APIs, websites, databases, and background workers.</p><div class="btn-row"><a class="btn" href="?section=cpu-instances" data-scroll="cpu-instances">CPU Instances</a></div></div>
           <div class="card prod"><h3>I have a model to serve</h3><p>Autoscaling inference endpoints that scale to zero when nobody is calling them.</p><div class="btn-row"><a class="btn" href="?section=serverless" data-scroll="serverless">Serverless</a></div></div>
-          <div class="card prod"><h3>I'm training a model</h3><p>Managed training jobs, or raw multi-GPU clusters if you want the controls.</p><div class="btn-row"><a class="btn" href="?section=training" data-scroll="training">Training</a></div></div>
+          <div class="card prod"><h3>I'm training a model</h3><p>Raw multi-GPU clusters for training runs, with fast interconnect.</p><div class="btn-row"><a class="btn" href="?section=clusters" data-scroll="clusters">Clusters</a></div></div>
           <div class="card prod"><h3>I need my data to survive restarts</h3><p>Persistent volumes that attach to any pod. Your files outlive the machine.</p><div class="btn-row"><a class="btn" href="?section=storage" data-scroll="storage">Storage</a></div></div>
           <div class="card prod"><h3>I want it running in one click</h3><p>Templates and hosted open-weight models. No setup, no servers.</p><div class="btn-row"><a class="btn" href="?section=hub" data-scroll="hub">Hub</a></div></div>
         </div>
@@ -92,7 +92,7 @@
       <div class="wrap"><div class="section-head"><span class="snum">COMPUTE</span><div>
         <h2>Clusters</h2>
         <p class="lede">Multi-GPU bare metal for training runs. Reserve capacity by the hour or the day.</p>
-        <p>When one GPU isn't enough, reserve a whole cluster. You get the raw machines, on fast interconnect, for as long as your run needs — hours or days. Bring your own distributed training setup or use managed Training below.</p>
+        <p>When one GPU isn't enough, reserve a whole cluster. You get the raw machines, on fast interconnect, for as long as your run needs — hours or days. Bring your own distributed training setup.</p>
         <div class="btn-row"><a class="btn acid" href="https://dashboard.aorilalabs.com/compute">Reserve a cluster</a></div>
       </div></div></div>
     </section>
@@ -115,23 +115,9 @@
       </div></div></div>
     </section>
 
-    <section class="section" id="training">
-      <div class="wrap"><div class="section-head"><span class="snum">BUILD</span><div>
-        <h2>Training</h2>
-        <p class="lede">Managed training jobs on multi-GPU clusters. Bring your code; we handle the machines.</p>
-        <p>Point Training at your code and dataset, pick your GPUs, and it provisions the cluster, runs the job, checkpoints your progress, and tears everything down when it's done. You watch logs and metrics; you never SSH into a machine unless you want to.</p>
-        <div class="btn-row"><a class="btn acid" href="https://dashboard.aorilalabs.com/compute">Start a training job</a></div>
-      </div></div></div>
-    </section>
+    
 
-    <section class="section" id="gaming">
-      <div class="wrap"><div class="section-head"><span class="snum">COMPUTE · COMING SOON</span><div>
-        <h2>Gaming</h2>
-        <p class="lede">Cloud gaming rigs streamed to any device — the GeForce NOW model. Bring your own licenses; community hosts supply the GPUs.</p>
-        <p>Gaming isn't live yet. When it launches, you'll rent a gaming rig by the minute, stream it to any screen, and pay only while you play — no hardware to buy, no downloads.</p>
-        <div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/gaming">Notify me</a></div>
-      </div></div></div>
-    </section>
+    
 
     <section class="section">
       <div class="wrap"><div class="section-head"><span class="snum">BILLING</span><div>
@@ -149,8 +135,6 @@
         <a href="https://dashboard.aorilalabs.com/compute">Compute</a>
         <a href="https://dashboard.aorilalabs.com/compute">Hub</a>
         <a href="https://dashboard.aorilalabs.com/docs">API</a>
-        <a href="https://dashboard.aorilalabs.com/compute">Training</a>
-        <a href="https://dashboard.aorilalabs.com/gaming">Gaming</a>
         <a href="https://dashboard.aorilalabs.com/docs">Docs</a>
         <a href="https://dashboard.aorilalabs.com/support">Support</a>
         <a href="/tp">T &amp; P</a>
