@@ -257,7 +257,7 @@ describe('host-based pages', () => {
     assert.equal(res.headers['x-aorila-site'], 'labs');
     assert.match(res.body, /<title>Aorila Compute/);
     assert.match(res.body, /Aorila Labs/);
-    assert.match(res.body, /peer-powered GPU marketplace/);
+    assert.match(res.body, /peer-powered compute marketplace/);
     assert.match(res.body, /class="ds"/);
     assert.match(res.body, /href="\/labs\.css"/);
     assert.match(res.body, /hero-badge/);
@@ -304,7 +304,7 @@ describe('host-based pages', () => {
   it('preview via ?site=labs on localhost', async () => {
     const res = await request(port, { path: '/?site=labs', headers: { host: 'localhost' } });
     assert.equal(res.headers['x-aorila-site'], 'labs');
-    assert.match(res.body, /peer-powered GPU marketplace/);
+    assert.match(res.body, /peer-powered compute marketplace/);
     assert.doesNotMatch(res.body, /Atraly/);
     assert.match(String(res.headers['set-cookie'] || ''), /aorila_site=labs/);
   });
