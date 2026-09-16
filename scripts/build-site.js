@@ -110,6 +110,8 @@ function buildLabs(targetDir) {
     const route = file === 'index.html' ? '' : file.replace(/\.html$/, '');
     writeRoute(targetDir, route, html);
   }
+  const apiOrigin = STATIC_API_ORIGIN || 'https://api.aorila.com';
+  writeRoute(targetDir, 'console', redirectPage('Redirecting to dashboard', `${apiOrigin}/`));
 }
 
 function buildRobotics(targetDir) {
