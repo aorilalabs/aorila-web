@@ -90,6 +90,7 @@ body.ds main { display: block; }
 }
 .ds .btn:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 #10100f; background: #fff; }
 .ds .btn:active { transform: translate(0,0); box-shadow: none; }
+.ds .btn.btn-arrow { padding: 12px 16px; line-height: 1; }
 .ds .btn.acid { background: #d8ff36; border-color: #10100f; color: #10100f; box-shadow: 4px 4px 0 #10100f; }
 .ds .btn.acid:hover { transform: translate(-1px,-1px); box-shadow: 6px 6px 0 #10100f; background: #d8ff36; }
 .ds .btn.acid:active { transform: translate(2px,2px); box-shadow: 0 0 0 #10100f; }
