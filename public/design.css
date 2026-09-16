@@ -274,3 +274,12 @@ body.ds main { display: block; }
   .ds .console-menu-btn { display: block; }
   .ds .console-main { padding: 24px 18px 48px; }
 }
+
+/* ---------- centered auth ---------- */
+.ds .auth-main { min-height: calc(100vh - 220px); display: flex; align-items: center; justify-content: center; padding: 56px 20px; }
+.ds .auth-card { width: 100%; max-width: 440px; text-align: center; }
+.ds .auth-card h1 { margin: 14px 0 0; }
+.ds .auth-card .lede { margin: 12px 0 26px; }
+.ds .auth-card form.waitlist { max-width: none; text-align: left; }
+.ds .auth-card form.waitlist .btn { width: 100%; justify-content: center; }
+.ds .auth-card .price-note { text-align: center; }
