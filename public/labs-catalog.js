@@ -216,6 +216,13 @@
     return '$' + Math.round(n).toLocaleString('en-US');
   }
 
+  // Middle of a slider range, snapped to its step. Used to preset the
+  // simulator so thumbs start centered instead of pegged at the minimum.
+  function midVal(min, max, step) {
+    const mid = (Number(min) + Number(max)) / 2;
+    return Math.round(mid / step) * step;
+  }
+
   function bindCalculator(root) {
     const tabs = Array.from(root.querySelectorAll('.calc-tab'));
     const modelLabel = root.querySelector('#calc-model-label');
@@ -256,8 +263,10 @@
       rate.min = cfg.rate.min; rate.max = cfg.rate.max; rate.step = cfg.rate.step;
       if (countLabel) countLabel.textContent = cfg.count.label;
       count.min = cfg.count.min; count.max = cfg.count.max; count.step = cfg.count.step;
-      count.value = cfg.count.min;
+      count.value = midVal(cfg.count.min, cfg.count.max, cfg.count.step);
       update(true);
+      rate.value = midVal(cfg.rate.min, cfg.rate.max, cfg.rate.step);
+      update(false);
     }
 
     function update(resetRate) {
