@@ -115,14 +115,14 @@ function buildLabs(targetDir) {
   const dashboardRoutes = {
     'console': '/',
     'compute': '/#compute',
-    'api': '/#api',
-    'training': '/#training',
-    'models': '/#models',
+    'api': '/#docs',
+    'training': '/#compute',
+    'models': '/#compute',
     'gaming': '/#gaming',
     'docs': '/#docs',
     'support': '/#support',
-    'trust': '/#trust',
-    'contact': '/#contact',
+    'trust': '/#support',
+    'contact': '/#support',
   };
   for (const [route, target] of Object.entries(dashboardRoutes)) {
     writeRoute(targetDir, route, redirectPage('Redirecting to dashboard', `${dashboardOrigin}${target}`));
