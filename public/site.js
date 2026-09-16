@@ -358,7 +358,7 @@
     if (!el) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var phrases = ['Your compute earns more', 'Your gaming runs better', 'Your AI runs better'];
-    var TYPE_MS = 95, ERASE_MS = 65, HOLD_MS = 2600;
+    var TYPE_MS = 80, ERASE_MS = 50, HOLD_MS = 2600;
     var pi = 0, ci = phrases[0].length, mode = 'hold';
     function tick() {
       var phrase = phrases[pi];
