@@ -60,9 +60,6 @@ body.ds main { display: block; }
 .ds .hero.compact { padding: 56px 0 48px; border-bottom: 2px solid #10100f; }
 .ds .hero-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: start; position: relative; }
 .ds .hero h1 { font-size: clamp(40px, 5.6vw, 72px); line-height: 1.0; letter-spacing: -.04em; font-weight: 800; margin: 0 0 18px; color: #10100f; }
-.ds .hero h1 .hero-dash-btn { margin-left: 16px; vertical-align: middle; letter-spacing: 0; line-height: 1.4; transform: translate(-1px,-1px); box-shadow: 4px 4px 0 #10100f; }
-.ds .hero h1 .hero-dash-btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #10100f; background: #fff; }
-.ds .hero h1 .hero-dash-btn:active { transform: translate(1px,1px); box-shadow: 1px 1px 0 #10100f; }
 .ds .hero-badge {
   display: inline-block; font: 700 11.5px "IBM Plex Mono", monospace; letter-spacing: .08em;
   color: #10100f; border: 2px solid #10100f; border-radius: 999px;
@@ -131,7 +128,7 @@ body.ds main { display: block; }
 .ds .faq summary::-webkit-details-marker { display: none; }
 .ds .faq summary::after { content: "+"; font-size: 22px; font-weight: 800; flex: none; }
 .ds .faq details[open] summary::after { content: "\2013"; }
-.ds .faq summary:hover { color: #5b2ee5; }
+.ds .faq summary:hover { color: #ff5b22; }
 .ds .faq details p { margin: 0 0 20px 4px; max-width: 640px; color: rgba(16,16,15,.78); line-height: 1.6; }
 .ds .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .ds .cards.two { grid-template-columns: repeat(2, 1fr); }
@@ -318,3 +315,5 @@ body.ds main { display: block; }
 .ds .req-list strong { display: block; font: 700 11px "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: rgba(16,16,15,.55); margin-bottom: 4px; }
 .ds .req-list span { font-size: 15px; font-weight: 700; color: #10100f; }
 @media (max-width: 900px) { .ds .req-wrap { grid-template-columns: 1fr; } }
+.ds .type-caret { display: inline-block; width: .09em; height: .92em; background: #10100f; margin-left: .1em; vertical-align: -0.1em; animation: typeBlink 1.05s steps(1) infinite; }
+@keyframes typeBlink { 50% { opacity: 0; } }
