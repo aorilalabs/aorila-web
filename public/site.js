@@ -354,8 +354,10 @@
 
   /* hero typewriter: the whole headline (including the highlighted "here")
      types and erases as one flowing unit, so words never orphan mid-line.
-     The caret rides at the typing frontier; the h1 keeps its tallest height
-     so the page below never jumps. */
+     Smart backspace only retypes what changed between phrases ("Your " and
+     "here." are shared, so just the middle words swap). Keystrokes are
+     humanized with +/-30% jitter. The h1 keeps its tallest height so the
+     page below never jumps, and the caret rides the typing frontier. */
   (function heroTypewriter() {
     var el = document.getElementById('heroType');
     if (!el) return;
@@ -372,43 +374,57 @@
     ];
     var TYPE_MS = 65, ERASE_MS = 50, HOLD_MS = 2000;
     var pi = 0, mode = 'hold';
-    var segs = [el, hereEl, dotEl];
-    function full() { return [phrases[pi].t, phrases[pi].h, '.']; }
-    function placeCaret() {
-      var host = dotEl.textContent ? dotEl : hereEl.textContent ? hereEl : el;
-      host.appendChild(caret);
-    }
-    function setFull() {
-      var f = full();
-      el.textContent = f[0];
-      hereEl.textContent = f[1];
-      dotEl.textContent = f[2];
-      placeCaret();
+    function caretTo(seg) { seg.appendChild(caret); }
+    function setFull(idx) {
+      var p = phrases[idx];
+      el.textContent = p.t;
+      hereEl.textContent = p.h;
+      dotEl.textContent = '.';
+      caretTo(dotEl);
     }
     function stabilize() {
       var cur = pi, maxH = 0;
-      for (var k = 0; k < phrases.length; k++) { pi = k; setFull(); maxH = Math.max(maxH, h1.offsetHeight); }
-      pi = cur; setFull();
+      for (var k = 0; k < phrases.length; k++) { setFull(k); maxH = Math.max(maxH, h1.offsetHeight); }
+      setFull(cur);
       h1.style.minHeight = maxH + 'px';
     }
+    function human(base) { return base * (0.7 + Math.random() * 0.6); }
+    function commonPrefix(a, b) {
+      var n = Math.min(a.length, b.length), i = 0;
+      while (i < n && a.charAt(i) === b.charAt(i)) i++;
+      return i;
+    }
     function tick() {
-      var f = full();
       if (mode === 'type') {
-        var i = el.textContent.length < f[0].length ? 0 : hereEl.textContent.length < f[1].length ? 1 : 2;
-        segs[i].textContent += f[i].charAt(segs[i].textContent.length);
-        placeCaret();
-        if (el.textContent.length === f[0].length && hereEl.textContent.length === f[1].length && dotEl.textContent.length === 1) {
-          mode = 'hold'; setTimeout(tick, HOLD_MS); return;
+        var p = phrases[pi];
+        if (el.textContent.length < p.t.length) {
+          el.textContent += p.t.charAt(el.textContent.length);
+          caretTo(el);
+          setTimeout(tick, human(TYPE_MS));
+        } else {
+          mode = 'hold'; setTimeout(tick, HOLD_MS);
         }
-        setTimeout(tick, TYPE_MS);
       } else if (mode === 'erase') {
-        var j = dotEl.textContent.length ? 2 : hereEl.textContent.length ? 1 : 0;
-        segs[j].textContent = segs[j].textContent.slice(0, -1);
-        placeCaret();
-        if (!el.textContent.length && !hereEl.textContent.length && !dotEl.textContent.length) {
-          pi = (pi + 1) % phrases.length; mode = 'type'; setTimeout(tick, 350); return;
+        var next = phrases[(pi + 1) % phrases.length];
+        if (hereEl.textContent !== next.h || dotEl.textContent !== '.') {
+          var seg;
+          if (dotEl.textContent) { dotEl.textContent = ''; seg = dotEl; }
+          else if (hereEl.textContent) { hereEl.textContent = hereEl.textContent.slice(0, -1); seg = hereEl; }
+          else { el.textContent = el.textContent.slice(0, -1); seg = el; }
+          caretTo(seg);
+          setTimeout(tick, human(ERASE_MS));
+          return;
         }
-        setTimeout(tick, ERASE_MS);
+        var keep = commonPrefix(el.textContent, next.t);
+        if (el.textContent.length > keep) {
+          el.textContent = el.textContent.slice(0, -1);
+          caretTo(el);
+          setTimeout(tick, human(ERASE_MS));
+        } else {
+          pi = (pi + 1) % phrases.length;
+          mode = 'type';
+          setTimeout(tick, 250);
+        }
       } else { mode = 'erase'; setTimeout(tick, 400); }
     }
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(stabilize);
