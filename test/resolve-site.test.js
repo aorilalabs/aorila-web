@@ -1,6 +1,6 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
-const { resolveSite, isApiHost } = require('../lib/resolve-site');
+const { resolveSite, CONSUMER_API_ORIGIN, PARENT_CONSOLE_ORIGIN } = require('../lib/resolve-site');
 
 describe('resolveSite', () => {
   it('maps aorila.com and www to consumer', () => {
@@ -9,14 +9,14 @@ describe('resolveSite', () => {
     assert.equal(resolveSite({ host: 'AORILA.COM:443' }), 'consumer');
   });
 
-  it('maps api.aorila.com to consumer', () => {
+  it('treats the retired api.aorila.com host as the plain consumer face (no API host exists)', () => {
     assert.equal(resolveSite({ host: 'api.aorila.com' }), 'consumer');
     assert.equal(resolveSite({ host: 'API.AORILA.COM:443' }), 'consumer');
-    assert.equal(isApiHost('api.aorila.com'), true);
-    assert.equal(isApiHost('API.AORILA.COM:443'), true);
-    assert.equal(isApiHost('www.api.aorila.com'), false);
-    assert.equal(isApiHost('aorila.com'), false);
-    assert.equal(isApiHost('aorilalabs.com'), false);
+  });
+
+  it('declares the entity API + console origins', () => {
+    assert.equal(CONSUMER_API_ORIGIN, 'https://api.aorilalabs.com');
+    assert.equal(PARENT_CONSOLE_ORIGIN, 'https://console.aorila.com');
   });
 
   it('maps aorilalabs.com and www to labs', () => {
