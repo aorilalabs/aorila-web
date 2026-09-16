@@ -23,7 +23,7 @@ describe('static site builds', () => {
     assert.ok(fs.existsSync(path.join(DIST, 'consumer', 'contact', 'index.html')));
     assert.ok(fs.existsSync(path.join(DIST, 'consumer', 'commercial', 'reserved', 'index.html')));
     assert.ok(fs.existsSync(path.join(DIST, 'consumer', 'console', 'index.html')));
-    assert.match(read('dist/consumer/index.html'), /<title>Aorila — GPUs and AI/);
+    assert.match(read('dist/consumer/index.html'), /<title>Aorila — Compute, AI, and Robotics/);
     assert.match(read('dist/consumer/contact/index.html'), /meta name="aorila-api-origin" content="https:\/\/preview-api\.example"/);
     assert.match(read('dist/consumer/console/index.html'), /https:\/\/preview-api\.example\/console/);
     assert.match(read('dist/consumer/models/index.html'), /url=\/ai-api/);
@@ -36,7 +36,8 @@ describe('static site builds', () => {
     assert.ok(fs.existsSync(path.join(DIST, 'labs', 'site.js')));
     const html = read('dist/labs/index.html');
     assert.match(html, /Aorila Compute — Peer-powered GPU marketplace/);
-    assert.match(html, /form class="waitlist"/);
+    const contact = read('dist/labs/contact/index.html');
+    assert.match(contact, /form class="waitlist"/);
   });
 
   it('builds a minimal honest robotics placeholder', () => {
