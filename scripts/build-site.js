@@ -125,7 +125,7 @@ function buildLabs(targetDir) {
   const labsDir = path.join(SITES_DIR, 'labs');
   const dashboardOrigin = STATIC_DASHBOARD_ORIGIN || 'https://dashboard.aorilalabs.com';
   // Render subdomains are disabled: bounce any *.onrender.com visitor to our domain.
-  const renderBounce = '<script>if(/(^|\\.)onrender\\.com$/i.test(location.hostname))location.replace("https://aorilalabs.com"+location.pathname+location.search+location.hash);</script>';
+  const renderBounce = '<script>if(/(^|\\.)onrender\\.com$/i.test(location.hostname))location.replace("https://aorilalabs.com"+location.pathname+location.search);</script>';
   const withBounce = (html) => String(html).replace(/<\/head>/i, `  ${renderBounce}\n</head>`);
   // The Labs home page stays its own page; everything else lives inside the dashboard.
   writeRoute(targetDir, '', withBounce(fs.readFileSync(path.join(labsDir, 'index.html'), 'utf8')));
@@ -133,10 +133,10 @@ function buildLabs(targetDir) {
   const dashboardRoutes = {
     'console': '/',
     'compute': '/compute',
-    'api': '/docs',
+    'api': '/api',
     'training': '/compute',
     'models': '/compute',
-    'gaming': '/gaming',
+    'gaming': '/compute',
     'docs': '/docs',
     'support': '/support',
     'trust': '/support',
