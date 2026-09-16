@@ -99,7 +99,7 @@
       `<div class="gpu-price-row"><p class="gpu-price"><span class="from">from</span> ${price} <span>/hr</span></p>` +
       (perMin ? `<p class="gpu-permin">${perMin} · billed per minute</p>` : '') +
       `</div><div class="gpu-meta">${meta}</div>` +
-      `<a class="btn acid gpu-deploy" href="https://dashboard.aorilalabs.com/#market">Deploy</a>` +
+      `<a class="btn acid gpu-deploy" href="https://dashboard.aorilalabs.com/compute">Deploy</a>` +
       `</article>`;
   }
 
@@ -125,7 +125,7 @@
     const price = Number(o.usdPerHour || 0).toFixed(3);
     const region = String(o.region || 'Global');
     const tier = tierLabel(o.tier);
-    const href = 'https://dashboard.aorilalabs.com/#market';
+    const href = 'https://dashboard.aorilalabs.com/compute';
     return `<article class="offer-card"><div class="offer-card-top">${chipSvg(o)}` +
       `<div><p class="offer-gpu">${esc(shortName(o))}</p>` +
       `<p class="offer-meta">${esc(tier)} · ${esc(region)}${o.vramGb ? ' · ' + o.vramGb + 'GB' : ''}</p></div></div>` +
