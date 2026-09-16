@@ -1,6 +1,6 @@
 # Aorila — from demo to real company
 
-This repo today is the **marketing + lead-capture surface** (`aorila.com` / `api.aorila.com` / `aorilalabs.com`). Product control plane, host agent, billing, and auth live outside it (or do not exist yet). Going from demo to a functioning company means becoming the **default place customers find GPU capacity** — and that only works if **providers never run dry**.
+This repo today is the **marketing + lead-capture surface** (`aorila.com` / `aorilalabs.com`) plus the **parent console** (account, billing, auth). Entity map: Aorila (parent) = aorila.com + parent console · Aorila Labs = aorilalabs.com + dashboard + `api.aorilalabs.com` · Atraly = atraly.com + `api.atraly.com`. Entities share only login; `api.aorila.com` does not exist. Going from demo to a functioning company means becoming the **default place customers find GPU capacity** — and that only works if **providers never run dry**.
 
 ## What we are
 
@@ -14,7 +14,7 @@ That is the same structural bet as Vast.ai / RunPod Community Cloud — with a c
 | --- | --- |
 | Brand + IA (Pods, Serverless, Clusters, Hub, Hybrid Cloud) | Marketing shells |
 | Labs commercial API request + lead store | Real (file-backed; ephemeral on Render without a disk) |
-| Auth / API access CTAs | Links to `api.aorila.com` only — no sessions |
+| Auth / API access CTAs | Links to `aorila.com/api` — sessions via shared login |
 | Checkout / payouts | None in this repo (by design today) |
 | Host agent, scheduler, capacity inventory | Not in this repo |
 | Atraly / Ally | Separate products |
