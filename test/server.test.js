@@ -296,9 +296,8 @@ describe('host-based pages', () => {
       path: '/api',
       headers: { host: 'localhost', cookie: 'aorila_site=labs' },
     });
-    assert.equal(res.headers['x-aorila-site'], 'labs');
-    assert.match(res.body, /Compute API/);
-    assert.doesNotMatch(res.body, /Atraly/);
+    assert.equal(res.status, 301);
+    assert.equal(res.headers.location, 'https://dashboard.aorilalabs.com/#api');
   });
 
   it('preview via ?site=labs on localhost', async () => {
@@ -353,9 +352,8 @@ describe('host-based pages', () => {
     assert.equal(apiHost.headers.location, '/');
 
     const labs = await request(port, { path: '/api', headers: { host: 'aorilalabs.com' } });
-    assert.equal(labs.status, 200);
-    assert.match(labs.body, /Compute API/);
-    assert.doesNotMatch(String(labs.headers.location || ''), /api\.aorila\.com/);
+    assert.equal(labs.status, 301);
+    assert.equal(labs.headers.location, 'https://dashboard.aorilalabs.com/#api');
 
     const preview = await request(port, { path: '/api', headers: { host: 'localhost' } });
     assert.equal(preview.status, 200);
@@ -370,41 +368,29 @@ describe('host-based pages', () => {
     assert.equal(body.site, 'consumer');
   });
 
-  it('serves the Labs Compute API page', async () => {
-    const labs = await request(port, { path: '/api', headers: { host: 'aorilalabs.com' } });
-    assert.match(labs.body, /<title>Compute API/);
-    assert.match(labs.body, /One API for the whole marketplace/);
-    assert.match(labs.body, /class="ds"/);
-    assert.match(labs.body, /href="\/labs\.css"/);
-    assert.doesNotMatch(labs.body, /labs-split/);
-    assert.match(labs.body, /api@aorila\.com/);
-    assert.match(labs.body, /og:url" content="https:\/\/aorilalabs.com\/api"/);
-    assert.doesNotMatch(labs.body, /Powered by/i);
-    assert.doesNotMatch(labs.body, /Atraly/);
-    assert.doesNotMatch(labs.body, /RunPod/i);
-    assert.match(labs.body, /href="\/console"/);
-    assert.match(labs.body, /hero-badge/);
-    assert.match(labs.body, /One catalog, one job API, one bill/);
-    assert.match(labs.body, />Dashboard</);
-    assert.match(labs.body, /href="\/console"/);
-    assert.doesNotMatch(labs.body, /chat\/completions/);
-    assert.doesNotMatch(labs.body, /\$99/);
-    assert.doesNotMatch(labs.body, /\$199/);
-    assert.doesNotMatch(labs.body, /stripe/i);
-  });
-  it('serves an honest Labs docs outline that is not the form', async () => {
-    const labs = await request(port, { path: '/docs', headers: { host: 'aorilalabs.com' } });
-    assert.equal(labs.status, 200);
-    assert.match(labs.body, /<title>Docs — Aorila Labs<\/title>/);
-    assert.match(labs.body, /og:url" content="https:\/\/aorilalabs.com\/docs"/);
-    assert.match(labs.body, /canonical" href="https:\/\/aorilalabs.com\/docs"/);
-    assert.match(labs.body, /Documentation ships with access/);
-    assert.match(labs.body, /class="ds"/);
-    assert.match(labs.body, /api@aorila\.com/);
-    assert.doesNotMatch(labs.body, /form class="waitlist"/);
-    assert.doesNotMatch(labs.body, /Atraly/);
-    assert.doesNotMatch(labs.body, /chat\/completions/);
-    assert.doesNotMatch(labs.body, /api\.aorila\.com/);
+  it('redirects Labs content pages into the dashboard', async () => {
+    const routes = {
+      '/api': 'https://dashboard.aorilalabs.com/#api',
+      '/compute': 'https://dashboard.aorilalabs.com/#compute',
+      '/training': 'https://dashboard.aorilalabs.com/#training',
+      '/models': 'https://dashboard.aorilalabs.com/#models',
+      '/gaming': 'https://dashboard.aorilalabs.com/#gaming',
+      '/docs': 'https://dashboard.aorilalabs.com/#docs',
+      '/support': 'https://dashboard.aorilalabs.com/#support',
+      '/trust': 'https://dashboard.aorilalabs.com/#trust',
+      '/contact': 'https://dashboard.aorilalabs.com/#contact',
+      '/console': 'https://dashboard.aorilalabs.com/',
+    };
+    for (const [path, location] of Object.entries(routes)) {
+      const res = await request(port, { path, headers: { host: 'aorilalabs.com' } });
+      assert.equal(res.status, 301, path);
+      assert.equal(res.headers.location, location, path);
+    }
+    // Homepage and T&P stay standalone pages on labs.
+    for (const path of ['/', '/tp']) {
+      const res = await request(port, { path, headers: { host: 'aorilalabs.com' } });
+      assert.equal(res.status, 200, path);
+    }
   });
   it('serves an honest consumer docs outline', async () => {
     const consumer = await request(port, { path: '/docs', headers: { host: 'aorila.com' } });
@@ -517,8 +503,9 @@ describe('host-based pages', () => {
     assert.equal(termsRedirect.status, 301);
     assert.match(String(termsRedirect.headers.location || ''), /\/support/);
 
-    for (const path of ['/tp', '/support']) {
+    for (const path of ['/tp']) {
       const res = await request(port, { path, headers: { host: 'aorilalabs.com' } });
+      assert.equal(res.status, 200, `aorilalabs.com${path}`);
       assert.equal(res.status, 200, `aorilalabs.com${path}`);
       assert.match(res.body, /<h1>/);
       assert.match(res.body, /class="ds"/);
@@ -551,8 +538,8 @@ describe('host-based pages', () => {
     assert.doesNotMatch(labsTp.body, /Atraly/);
 
     const labsSupport = await request(port, { path: '/support', headers: { host: 'aorilalabs.com' } });
-    assert.match(labsSupport.body, /Questions about a bill/);
-    assert.doesNotMatch(labsSupport.body, /Atraly/);
+    assert.equal(labsSupport.status, 301);
+    assert.equal(labsSupport.headers.location, 'https://dashboard.aorilalabs.com/#support');
 
     const labsPrivacyRedirect = await request(port, { path: '/privacy', headers: { host: 'aorilalabs.com' } });
     assert.equal(labsPrivacyRedirect.status, 301);
