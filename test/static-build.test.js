@@ -35,7 +35,7 @@ describe('static site builds', () => {
     assert.ok(fs.existsSync(path.join(DIST, 'labs', 'api', 'index.html')));
     assert.ok(fs.existsSync(path.join(DIST, 'labs', 'site.js')));
     const html = read('dist/labs/index.html');
-    assert.match(html, /Aorila Compute — Peer-powered GPU marketplace/);
+    assert.match(html, /Aorila Compute — Peer-powered compute marketplace/);
     const contact = read('dist/labs/contact/index.html');
     assert.match(contact, /url=https:\/\/dashboard\.aorilalabs\.com\/#contact/);
   });
