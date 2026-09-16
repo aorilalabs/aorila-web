@@ -3,14 +3,14 @@ const assert = require('node:assert/strict');
 const site = require('../public/site.js');
 
 describe('frontend API origin helpers', () => {
-  it('uses api.aorila.com on production custom domains', () => {
+  it('uses api.aorilalabs.com on production custom domains', () => {
     assert.equal(
       site.resolveApiOrigin({ hostname: 'aorila.com', origin: 'https://aorila.com', protocol: 'https:' }),
-      'https://api.aorila.com'
+      'https://api.aorilalabs.com'
     );
     assert.equal(
       site.apiUrl('/leads', { hostname: 'aorilalabs.com', origin: 'https://aorilalabs.com', protocol: 'https:' }),
-      'https://api.aorila.com/leads'
+      'https://api.aorilalabs.com/leads'
     );
   });
 
@@ -45,9 +45,9 @@ describe('frontend API origin helpers', () => {
 
   it('rewrites only dynamic root-relative paths', () => {
     const loc = { hostname: 'aorila.com', origin: 'https://aorila.com', protocol: 'https:' };
-    assert.equal(site.toApiHref('/signup?next=/console', loc), 'https://api.aorila.com/signup?next=/console');
-    assert.equal(site.toApiHref('/compute/v1/gpus', loc), 'https://api.aorila.com/compute/v1/gpus');
+    assert.equal(site.toApiHref('/signup?next=/console', loc), 'https://api.aorilalabs.com/signup?next=/console');
+    assert.equal(site.toApiHref('/compute/v1/gpus', loc), 'https://api.aorilalabs.com/compute/v1/gpus');
     assert.equal(site.toApiHref('/tp', loc), '/tp');
-    assert.equal(site.toApiHref('https://api.aorila.com', loc), 'https://api.aorila.com');
+    assert.equal(site.toApiHref('https://api.aorilalabs.com', loc), 'https://api.aorilalabs.com');
   });
 });
