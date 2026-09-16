@@ -317,3 +317,29 @@ body.ds main { display: block; }
 @media (max-width: 900px) { .ds .req-wrap { grid-template-columns: 1fr; } }
 .ds .type-caret { display: inline-block; width: .09em; height: .92em; background: #10100f; margin-left: .1em; vertical-align: -0.1em; animation: typeBlink 1.05s steps(1) infinite; }
 @keyframes typeBlink { 50% { opacity: 0; } }
+
+/* ---------- seller onboarding (/sell) ---------- */
+.ds .fee-banner { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; border: 2px solid #10100f; border-radius: 14px; background: #fff; box-shadow: 4px 4px 0 #d8ff36; padding: 16px 20px; margin: 0 0 16px; max-width: 46rem; }
+.ds .fee-item { font: 500 15px "Archivo", sans-serif; color: #10100f; }
+.ds .fee-item strong { font-weight: 800; }
+.ds .fee-dot { width: 8px; height: 8px; border-radius: 50%; background: #5b2ee5; flex: none; }
+.ds .fee-example { font-size: 14px; color: rgba(16,16,15,.66); max-width: 46rem; margin: 0 0 8px; }
+.ds .sell-wrap { display: grid; grid-template-columns: 1.6fr 1fr; gap: 48px; align-items: start; }
+.ds form.sell-form { display: grid; gap: 28px; max-width: none; }
+.ds .sell-group { border: 2px solid #10100f; border-radius: 14px; padding: 24px; margin: 0; background: #fff; }
+.ds .sell-group legend { font: 800 13px "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; padding: 0 10px; color: #10100f; }
+.ds .sell-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ds form.sell-form label { display: grid; gap: 8px; font: 700 12px "IBM Plex Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: rgba(16,16,15,.72); }
+.ds form.sell-form .opt { font-weight: 500; text-transform: none; letter-spacing: 0; color: rgba(16,16,15,.5); }
+.ds .sell-price-preview { grid-column: 1 / -1; font-size: 14px; color: #10100f; background: rgba(216,255,54,.25); border-radius: 8px; padding: 10px 14px; margin: 0; }
+.ds form.sell-form .hp { position: absolute; left: -9999px; }
+.ds .sell-terms { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: rgba(16,16,15,.8); }
+.ds .sell-terms input { width: 20px; height: 20px; flex: none; accent-color: #5b2ee5; margin-top: 2px; }
+.ds .sell-terms a { color: #5b2ee5; }
+.ds .sell-steps { border: 2px solid #10100f; border-radius: 14px; padding: 28px; background: #f7f7f4; position: sticky; top: 24px; }
+.ds .sell-steps h2 { font-size: 22px; letter-spacing: -.02em; margin: 0 0 18px; font-weight: 800; }
+.ds .sell-steps ol { margin: 0 0 18px; padding: 0; list-style: none; display: grid; gap: 16px; }
+.ds .sell-steps li { font-size: 15px; line-height: 1.55; color: rgba(16,16,15,.8); }
+.ds .sell-steps li strong { display: block; color: #10100f; }
+.ds .sell-steps .fine { font-size: 13px; color: rgba(16,16,15,.6); margin: 0; line-height: 1.6; }
+@media (max-width: 900px) { .ds .sell-wrap { grid-template-columns: 1fr; } .ds .sell-steps { position: static; } .ds .sell-grid { grid-template-columns: 1fr; } }
