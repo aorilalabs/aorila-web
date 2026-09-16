@@ -268,7 +268,7 @@ describe('host-based pages', () => {
     assert.match(res.body, /href="\/console"/);
     assert.match(res.body, /Trust and security is number one/);
     assert.match(res.body, /og:image" content="https:\/\/aorilalabs\.com\/logo-aorila\.png"/);
-    assert.match(res.body, /href="https:\/\/dashboard\.aorilalabs\.com\/#trust"/);
+    assert.match(res.body, />Trust<\/a>/);
     assert.match(res.body, /href="\/tp"/);
     assert.match(res.body, /href="https:\/\/dashboard\.aorilalabs\.com\/#support"/);
     assert.doesNotMatch(res.body, /href="\/privacy"/);
@@ -297,7 +297,7 @@ describe('host-based pages', () => {
       headers: { host: 'localhost', cookie: 'aorila_site=labs' },
     });
     assert.equal(res.status, 301);
-    assert.equal(res.headers.location, 'https://dashboard.aorilalabs.com/#api');
+    assert.equal(res.headers.location, 'https://dashboard.aorilalabs.com/#docs');
   });
 
   it('preview via ?site=labs on localhost', async () => {
@@ -353,7 +353,7 @@ describe('host-based pages', () => {
 
     const labs = await request(port, { path: '/api', headers: { host: 'aorilalabs.com' } });
     assert.equal(labs.status, 301);
-    assert.equal(labs.headers.location, 'https://dashboard.aorilalabs.com/#api');
+    assert.equal(labs.headers.location, 'https://dashboard.aorilalabs.com/#docs');
 
     const preview = await request(port, { path: '/api', headers: { host: 'localhost' } });
     assert.equal(preview.status, 200);
@@ -370,15 +370,15 @@ describe('host-based pages', () => {
 
   it('redirects Labs content pages into the dashboard', async () => {
     const routes = {
-      '/api': 'https://dashboard.aorilalabs.com/#api',
+      '/api': 'https://dashboard.aorilalabs.com/#docs',
       '/compute': 'https://dashboard.aorilalabs.com/#compute',
-      '/training': 'https://dashboard.aorilalabs.com/#training',
-      '/models': 'https://dashboard.aorilalabs.com/#models',
+      '/training': 'https://dashboard.aorilalabs.com/#compute',
+      '/models': 'https://dashboard.aorilalabs.com/#compute',
       '/gaming': 'https://dashboard.aorilalabs.com/#gaming',
       '/docs': 'https://dashboard.aorilalabs.com/#docs',
       '/support': 'https://dashboard.aorilalabs.com/#support',
-      '/trust': 'https://dashboard.aorilalabs.com/#trust',
-      '/contact': 'https://dashboard.aorilalabs.com/#contact',
+      '/trust': 'https://dashboard.aorilalabs.com/#support',
+      '/contact': 'https://dashboard.aorilalabs.com/#support',
       '/console': 'https://dashboard.aorilalabs.com/',
     };
     for (const [path, location] of Object.entries(routes)) {
