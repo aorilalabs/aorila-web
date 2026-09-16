@@ -37,7 +37,7 @@ describe('static site builds', () => {
     const html = read('dist/labs/index.html');
     assert.match(html, /Aorila Compute — Peer-powered GPU marketplace/);
     const contact = read('dist/labs/contact/index.html');
-    assert.match(contact, /form class="waitlist"/);
+    assert.match(contact, /url=https:\/\/dashboard\.aorilalabs\.com\/#contact/);
   });
 
   it('builds a minimal honest robotics placeholder', () => {
