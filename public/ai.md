@@ -1,8 +1,8 @@
 # Aorila AI API
 
-For coding agents. Humans: https://api.aorila.com
+For coding agents. Humans: https://aorila.com/api
 
-Base URL: `https://api.aorila.com`
+Base URL: `https://api.aorilalabs.com`
 
 This host is **inference only**. GPU rental is not served here.
 
@@ -10,7 +10,7 @@ This host is **inference only**. GPU rental is not served here.
 
 `Authorization: Bearer <key>`
 
-Ask for a key at https://api.aorila.com or api@aorila.com.
+Ask for a key at https://aorila.com/api or api@aorila.com.
 
 ## Models
 
@@ -25,13 +25,13 @@ Public IDs: `atraly-v1`, `atraly-v1.5`, `atraly-v2.0`.
 Body matches OpenAI chat completions (`model`, `messages`, optional `temperature`, `max_tokens`, `stream`).
 
 ```bash
-curl https://api.aorila.com/v1/chat/completions \
+curl https://api.aorilalabs.com/v1/chat/completions \
   -H "Authorization: Bearer $AORILA_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"model":"atraly-v2.0","messages":[{"role":"user","content":"Hello"}]}'
 ```
 
-Point any OpenAI-compatible client at `https://api.aorila.com/v1`.
+Point any OpenAI-compatible client at `https://api.aorilalabs.com/v1`.
 
 ## Agent index
 
