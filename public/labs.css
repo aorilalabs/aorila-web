@@ -108,6 +108,21 @@ body.ds main { display: block; }
 .ds .section-head h2 { font-size: clamp(30px, 3.6vw, 46px); letter-spacing: -.035em; line-height: 1.05; margin: 0 0 12px; font-weight: 800; }
 .ds .section-head .lede { color: rgba(16,16,15,.72); margin: 0; }
 .ds #faq { border-top: 2px solid #10100f; }
+.ds .news-band { border-top: 2px solid #10100f; text-align: center; }
+.ds .news-wrap { max-width: 640px; }
+.ds .news-band .snum { margin-bottom: 18px; }
+.ds .news-band h2 { font-size: clamp(30px, 3.6vw, 46px); letter-spacing: -.035em; line-height: 1.05; margin: 0 0 12px; font-weight: 800; }
+.ds .news-band .lede { color: rgba(16,16,15,.72); margin: 0 0 28px; font-size: 18px; }
+.ds .news-form { max-width: 520px; margin: 0 auto; }
+.ds .news-row { display: flex; gap: 12px; }
+.ds .news-row input { flex: 1; font: 600 16px "Archivo", sans-serif; padding: 14px 18px; border: 2px solid #10100f; border-radius: 10px; background: #fff; color: #10100f; min-width: 0; }
+.ds .news-row input:focus { outline: 3px solid #d8ff36; outline-offset: 1px; }
+.ds .news-row .btn { flex: none; }
+.ds .news-form .form-status { font: 700 13px "IBM Plex Mono", monospace; min-height: 1.4em; margin: 14px 0 0; }
+.ds .news-form .form-status:empty { display: none; }
+.ds .news-form .form-status.ok { color: #10100f; background: #d8ff36; display: inline-block; border-radius: 6px; padding: 2px 8px; }
+.ds .news-form .form-status.err { color: #b00020; }
+@media (max-width: 560px) { .ds .news-row { flex-direction: column; } }
 .ds #faq .section-head { display: block; text-align: center; margin-bottom: 36px; }
 .ds #faq .section-head .snum { margin-bottom: 18px; }
 .ds .faq { max-width: 820px; margin: 0 auto; border-top: 2px solid #10100f; }
