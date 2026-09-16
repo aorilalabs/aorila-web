@@ -89,6 +89,16 @@ describe('labs host earnings calculator', () => {
     assert.ok(labs.RESOURCES.gpu.models['rtx-4090'].rate <= 0.59);
   });
 
+  it('covers the full listable GPU range down to the GTX 1660 Super', () => {
+    assert.equal(labs.RESOURCES.gpu.models['gtx-1660s'].rate, 0.03);
+    assert.equal(labs.RESOURCES.gpu.models['rtx-3060'].rate, 0.08);
+    assert.ok(labs.RESOURCES.gpu.rate.min <= 0.03, 'price slider must reach the cheapest listable GPU');
+  });
+
+  it('offers the 4 vCPU tier at the marketplace floor for bare-minimum hosts', () => {
+    assert.equal(labs.RESOURCES.cpu.models['cpu-4'].rate, 0.024);
+  });
+
   it('formats money without decimals', () => {
     assert.equal(labs.money(131.4), '$131');
     assert.equal(labs.money(2263), '$2,263');
