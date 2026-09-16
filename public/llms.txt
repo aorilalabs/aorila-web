@@ -6,5 +6,5 @@
 
 - [Agent setup](https://aorila.com/agent): install Aorila in a coding agent
 - [Agent (md)](https://aorila.com/agent.md): same file
-- [Request access](https://api.aorila.com/)
+- [Request access](https://aorila.com/api)
 - [Labs](https://aorilalabs.com/)
