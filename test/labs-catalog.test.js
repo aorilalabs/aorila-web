@@ -1,0 +1,78 @@
+const { describe, it } = require('node:test');
+const assert = require('node:assert/strict');
+
+// labs-catalog.js is browser JS with pure helpers exported for node.
+const labs = require('../public/labs-catalog.js');
+
+const offers = [
+  { sku: 'rtx-4090-24', name: 'Aorila RTX 4090', vramGb: 24, class: 'consumer', tier: 'open', region: 'Sweden, SE', usdPerHour: 0.4835, offerId: 'a' },
+  { sku: 'rtx-4090-24', name: 'Aorila RTX 4090', vramGb: 24, class: 'consumer', tier: 'open', region: 'California, US', usdPerHour: 0.9476, offerId: 'b' },
+  { sku: 'h100-80', name: 'Aorila H100 80GB', vramGb: 80, class: 'datacenter', tier: 'secure', region: 'us', usdPerHour: 2.6394, offerId: 'c' },
+];
+
+describe('labs gpu catalog cards', () => {
+  it('groups offers by GPU model with a from-price', () => {
+    const groups = labs.groupOffers(offers);
+    assert.equal(groups.length, 2);
+    const g = groups.find((x) => x.sku === 'rtx-4090-24');
+    assert.equal(g.from, 0.4835);
+    assert.equal(g.regions, 2);
+    assert.equal(g.name, 'RTX 4090');
+    assert.ok(Math.abs(g.perMin - 0.4835 / 60) < 1e-9);
+  });
+
+  it('renders marketplace-style GPU cards, not bare text rows', () => {
+    const html = labs.catalogHtml(labs.groupOffers(offers));
+    assert.match(html, /gpu-card/);
+    assert.match(html, /gpu-art/);
+    assert.match(html, /from<\/span> \$0\.483/);
+    assert.match(html, /billed per minute/);
+    assert.match(html, /24GB VRAM/);
+    assert.match(html, /\/console\/pods\/new\?sku=rtx-4090-24/);
+    assert.match(html, /data-gf="datacenter"/);
+  });
+
+  it('escapes offer text in card HTML', () => {
+    const evil = [{ sku: 'x', name: 'Aorila <img src=x>', vramGb: 8, class: 'consumer', tier: 'open', region: 'us', usdPerHour: 0.1, offerId: 'e' }];
+    const html = labs.catalogHtml(labs.groupOffers(evil));
+    assert.doesNotMatch(html, /<img src=x>/);
+    assert.match(html, /&lt;img/);
+  });
+
+  it('handles an empty catalog honestly — no staged offers', () => {
+    const html = labs.catalogHtml([]);
+    assert.match(html, /No hosts online yet/);
+    assert.match(html, /catalog opens as hosts list their GPUs/);
+    assert.match(html, /only after agreements are signed/);
+    assert.doesNotMatch(html, /gpu-card/);
+    assert.deepEqual(labs.groupOffers([]), []);
+  });
+
+  it('never presents unconfirmed partner capacity as live', () => {
+    const html = labs.emptyCatalogHtml();
+    assert.doesNotMatch(html, /Hyperstack/i);
+    assert.doesNotMatch(html, /live partner/i);
+  });
+});
+
+describe('labs host earnings calculator', () => {
+  it('computes monthly earnings from rate, utilization, and count', () => {
+    // $0.36/hr × 50% × 730 hrs × 1 GPU = $131.40
+    assert.ok(Math.abs(labs.monthlyEstimate(0.36, 50, 1) - 131.4) < 1e-9);
+    assert.ok(Math.abs(labs.monthlyEstimate(1.55, 100, 2) - 1.55 * 730 * 2) < 1e-9);
+    assert.equal(labs.monthlyEstimate(0.36, 0, 1), 0);
+  });
+
+  it('uses honest market-median defaults per GPU model', () => {
+    assert.equal(labs.GPU_DEFAULTS['rtx-4090'].rate, 0.36);
+    assert.equal(labs.GPU_DEFAULTS['rtx-3090'].rate, 0.16);
+    assert.equal(labs.GPU_DEFAULTS['h100-80'].rate, 1.55);
+    assert.ok(labs.GPU_DEFAULTS['rtx-4090'].rate >= 0.15);
+    assert.ok(labs.GPU_DEFAULTS['rtx-4090'].rate <= 0.59);
+  });
+
+  it('formats money without decimals', () => {
+    assert.equal(labs.money(131.4), '$131');
+    assert.equal(labs.money(2263), '$2,263');
+  });
+});
