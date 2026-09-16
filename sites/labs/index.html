@@ -6,7 +6,7 @@
   <title>Aorila Compute — Peer-powered GPU marketplace | Aorila Labs</title>
   <meta name="description" content="Aorila Compute is a peer-powered GPU marketplace. Hosts list their own hardware and get paid per minute; renters get GPUs on one simple bill. Per-minute billing, 1 credit = $1, workloads stop at $0. Trust and security is number one." />
   <meta property="og:title" content="Aorila Compute — Peer-powered GPU marketplace | Aorila Labs" />
-  <meta property="og:description" content="Rent GPUs straight from the people and businesses that own them. Per-minute billing, one simple bill — and trust and security is number one." />
+  <meta property="og:description" content="Your GPU earns more here than mining crypto. List your hardware, set your price, get paid per minute. Per-minute billing, one simple bill — and trust and security is number one." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorilalabs.com" />
   <link rel="canonical" href="https://aorilalabs.com" />
@@ -20,6 +20,7 @@
     <a class="wordmark" href="/">Aorila <span class="soft">Labs</span></a>
     <nav class="nav-links">
       <a class="nav-link" href="#how">How it works</a>
+      <a class="nav-link" href="#catalog">Catalog</a>
       <a class="nav-link" href="#hosts">For hosts</a>
       <a class="nav-link" href="/api">API</a>
       <a class="nav-link" href="#trust">Trust</a>
@@ -37,6 +38,7 @@
     </div>
     <nav class="nav-primary" aria-label="Menu">
       <a class="nav-link" href="#how" data-nav-close>How it works</a>
+      <a class="nav-link" href="#catalog" data-nav-close>Catalog</a>
       <a class="nav-link" href="#hosts" data-nav-close>For hosts</a>
       <a class="nav-link" href="/api" data-nav-close>API</a>
       <a class="nav-link" href="#trust" data-nav-close>Trust</a>
@@ -50,25 +52,103 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div>
-          <span class="hero-badge">AORILA LABS · COMPUTE · COMMERCIAL API · AI BUILDING</span>
-          <h1>GPUs, from the people who <em>own</em> them.</h1>
-          <p class="hero-copy">Aorila Compute is a peer-powered GPU marketplace. Individuals and businesses list their own hardware and get paid per minute — you get GPUs on one simple bill. Per-minute billing. 1 credit = $1. Workloads stop at $0.</p>
+          <span class="hero-badge">HOST SUPPLY · NOW ONBOARDING</span>
+          <h1>Your GPU earns <mark>more here</mark> than mining crypto.</h1>
+          <p class="hero-copy">List your hardware on Aorila Compute. Hosts on community marketplaces list RTX 4090s at $0.15–$0.59/hr — and AI compute now yields roughly 3&times; mining revenue per MW (CoinShares, Q2 2026). You set the price, payouts accrue per minute, and listing costs $0.</p>
           <div class="btn-row">
-            <a class="btn acid" href="#hosts">Become a host</a>
-            <a class="btn" href="/console">Open console</a>
+            <a class="btn acid" href="#calculator">Calculate your earnings</a>
+            <a class="btn" href="#hosts">Apply to host</a>
           </div>
         </div>
-        <aside class="hero-aside">
-          <strong>Early access — hosts onboarding now.</strong>
-          <p>The marketplace catalog opens as hosts come online. Supply appears here as their GPUs go live. Own GPUs? <a href="#hosts">List them and earn.</a></p>
+        <aside class="hero-aside" aria-label="Market facts">
+          <strong>Why hosts list here</strong>
+          <div class="stat-strip">
+            <div class="stat"><b>$0.15–$0.59</b><span>Observed hourly listing range for RTX 4090s on community marketplaces.</span></div>
+            <div class="stat"><b>&sim;3&times;</b><span>AI compute revenue per MW vs. crypto mining (CoinShares, Q2 2026).</span></div>
+            <div class="stat"><b>$0</b><span>Listing fees. Aorila takes a small marketplace fee only when your GPUs earn.</span></div>
+          </div>
         </aside>
       </div>
     </section>
 
-    <section class="section" id="how">
+    <section class="section alt" id="calculator">
       <div class="wrap">
         <div class="section-head">
-          <span class="snum">01 / HOW IT WORKS</span>
+          <span class="snum">01 / EARNINGS CALCULATOR</span>
+          <div>
+            <h2>What could your GPUs earn?</h2>
+            <p class="lede">Estimates from public marketplace data — not guarantees. Move the sliders; the math is $/hr &times; utilization &times; 730 hours/month.</p>
+          </div>
+        </div>
+        <div class="calc" id="earn-calc">
+          <div class="calc-head">
+            <h3>Host earnings estimator</h3>
+            <span class="calc-note">ESTIMATES ONLY</span>
+          </div>
+          <div class="calc-body">
+            <div class="calc-row">
+              <label for="calc-gpu">GPU MODEL</label>
+              <select id="calc-gpu">
+                <option value="rtx-3090">RTX 3090 · 24GB</option>
+                <option value="rtx-4090" selected>RTX 4090 · 24GB</option>
+                <option value="rtx-5090">RTX 5090 · 32GB</option>
+                <option value="l40s">L40S · 48GB</option>
+                <option value="a100-80">A100 80GB</option>
+                <option value="h100-80">H100 80GB</option>
+              </select>
+              <span class="calc-val" id="calc-gpu-val">RTX 4090</span>
+            </div>
+            <div class="calc-row">
+              <label for="calc-rate">YOUR PRICE · $/HR</label>
+              <input type="range" id="calc-rate" min="0.05" max="3" step="0.01" value="0.36" />
+              <span class="calc-val" id="calc-rate-val">$0.36/hr</span>
+            </div>
+            <div class="calc-row">
+              <label for="calc-util">UTILIZATION</label>
+              <input type="range" id="calc-util" min="5" max="100" step="5" value="50" />
+              <span class="calc-val" id="calc-util-val">50%</span>
+            </div>
+            <div class="calc-row">
+              <label for="calc-count">GPU COUNT</label>
+              <input type="range" id="calc-count" min="1" max="16" step="1" value="1" />
+              <span class="calc-val" id="calc-count-val">1 GPU</span>
+            </div>
+            <div class="calc-result" aria-live="polite">
+              <div>
+                <span class="calc-result-label">ESTIMATED MONTHLY EARNINGS</span>
+                <span class="calc-monthly"><span id="calc-monthly">$131</span><small>/mo</small></span>
+              </div>
+              <p class="calc-breakdown" id="calc-breakdown">$0.36/hr &times; 50% utilization &times; 730 hrs &times; 1 GPU</p>
+            </div>
+            <p class="fine">Estimates only — based on observed community-marketplace listing ranges (e.g., RTX 4090 $0.15–$0.59/hr). Actual earnings depend on demand, your price, and uptime. Not a guarantee of income.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="catalog">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="snum">02 / LIVE CATALOG</span>
+          <div>
+            <h2>The marketplace catalog.</h2>
+            <p class="lede">Real offers from real hosts, the moment they list. Nothing here is staged — when the catalog is empty, it says so.</p>
+          </div>
+        </div>
+        <div data-live-catalog>
+          <div class="soon-box">
+            <h3>Loading the live catalog&hellip;</h3>
+            <p>If this stays here, the catalog endpoint is unreachable — not a sign of hidden supply.</p>
+          </div>
+        </div>
+        <p class="price-note" style="margin-top:14px">Partner capacity appears here only after agreements are signed — never before.</p>
+      </div>
+    </section>
+
+    <section class="section alt" id="how">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="snum">03 / HOW IT WORKS</span>
           <div>
             <h2>Two sides. One marketplace.</h2>
             <p class="lede">Hosts list hardware; renters get GPUs. Aorila runs the marketplace in between — one catalog, one job API, one bill.</p>
@@ -84,19 +164,25 @@
           <div class="card">
             <span class="tag">FOR RENTERS</span>
             <h3>Rent GPUs. One simple bill.</h3>
-            <p>Browse the catalog, deploy a pod, and pay per minute from your Aorila credit balance. 1 credit = $1. Your workload stops automatically when your balance hits $0 — you can’t wake up to a surprise bill.</p>
+            <p>Browse the catalog, deploy a pod, and pay per minute from your Aorila credit balance. 1 credit = $1. Your workload stops automatically when your balance hits $0 — you can&rsquo;t wake up to a surprise bill.</p>
             <div class="btn-row"><a class="btn" href="/console">Open console</a></div>
+          </div>
+          <div class="card">
+            <span class="tag">GPU PODS</span>
+            <h3>Deploy a pod in one click.</h3>
+            <p>Pick any live offer in the catalog and launch a GPU pod — containers, checkpoints, one-click stop. Billed per minute from your credit balance, never by the hour.</p>
+            <div class="btn-row"><a class="btn" href="#catalog">Browse the catalog</a></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section alt" id="billing">
+    <section class="section" id="billing">
       <div class="wrap">
         <div class="section-head">
-          <span class="snum">02 / BILLING</span>
+          <span class="snum">04 / BILLING</span>
           <div>
-            <h2>Billing that can’t surprise you.</h2>
+            <h2>Billing that can&rsquo;t surprise you.</h2>
             <p class="lede">One honest unit of money. Metered by the minute. With a hard stop at zero.</p>
           </div>
         </div>
@@ -114,16 +200,16 @@
           <div class="card">
             <span class="tag">HARD STOP</span>
             <h3>Workloads stop at $0</h3>
-            <p>When your balance runs out, workloads stop automatically. You can’t spend what you don’t have.</p>
+            <p>When your balance runs out, workloads stop automatically. You can&rsquo;t spend what you don&rsquo;t have.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="trust">
+    <section class="section alt" id="trust">
       <div class="wrap">
         <div class="section-head">
-          <span class="snum">03 / TRUST &amp; SECURITY</span>
+          <span class="snum">05 / TRUST &amp; SECURITY</span>
           <div>
             <h2>Trust and security is number one.</h2>
             <p class="lede">You hand us your workloads and your spend. That trust is our first engineering requirement — not a feature.</p>
@@ -138,29 +224,29 @@
           <div class="card">
             <span class="tag">POLICY</span>
             <h3>Clean marketplace</h3>
-            <p>Cryptominers, malware, and spam are excluded by policy. If a workload isn’t legitimate compute, it doesn’t run here.</p>
+            <p>Cryptominers, malware, and spam are excluded by policy. If a workload isn&rsquo;t legitimate compute, it doesn&rsquo;t run here.</p>
           </div>
           <div class="card">
             <span class="tag">PLATFORM</span>
             <h3>Fail-closed by default</h3>
-            <p>Production won’t start without operator credentials — there is no open mode. Raw provider errors never reach customers.</p>
+            <p>Production won&rsquo;t start without operator credentials — there is no open mode. Raw provider errors never reach customers.</p>
           </div>
           <div class="card">
             <span class="tag">BILLING</span>
             <h3>One bill, no leaks</h3>
-            <p>You never touch a host’s account and never see a host’s name. One Aorila bill covers everything you run.</p>
+            <p>You never touch a host&rsquo;s account and never see a host&rsquo;s name. One Aorila bill covers everything you run.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section alt" id="hosts">
+    <section class="section" id="hosts">
       <div class="wrap" id="contact">
         <div class="section-head">
-          <span class="snum">04 / BECOME A HOST</span>
+          <span class="snum">06 / BECOME A HOST</span>
           <div>
             <h2>Turn your idle GPUs into revenue.</h2>
-            <p class="lede">Host onboarding is open. Tell us about your hardware and we’ll follow up by email.</p>
+            <p class="lede">Host onboarding is open. Tell us about your hardware and we&rsquo;ll follow up by email.</p>
           </div>
         </div>
         <form class="waitlist" action="/leads" method="post" data-kind="host">
@@ -169,7 +255,7 @@
           <label class="hp" aria-hidden="true">Fax<input type="text" name="fax" tabindex="-1" autocomplete="off" /></label>
           <label>NAME<input type="text" name="name" autocomplete="name" required placeholder="Jordan Lee" /></label>
           <label>EMAIL<input type="email" name="email" autocomplete="email" required placeholder="you@example.com" /></label>
-          <label>GPU MODELS &amp; COUNT<textarea name="hardware" rows="3" required placeholder="e.g. 2× RTX 4090, 1× H100 80GB"></textarea></label>
+          <label>GPU MODELS &amp; COUNT<textarea name="hardware" rows="3" required placeholder="e.g. 2&times; RTX 4090, 1&times; H100 80GB"></textarea></label>
           <label>AVAILABILITY <span class="price-note">optional</span><input type="text" name="availability" autocomplete="off" placeholder="e.g. 24/7, or weekends only" /></label>
           <button class="btn acid" type="submit">Apply to host</button>
           <p class="form-status" role="status" aria-live="polite"></p>
@@ -195,5 +281,6 @@
     </div>
   </footer>
   <script src="/site.js"></script>
+  <script src="/labs-catalog.js"></script>
 </body>
 </html>
