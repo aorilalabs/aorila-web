@@ -35,7 +35,7 @@ const sidFrom = (res) => {
 };
 const email = () => `qa-${Date.now()}-${Math.floor(Math.random() * 1e6)}@example.com`;
 
-describe('console clusters and deployments (self-serve)', () => {
+describe('parent console: account + billing only, compute lives on Labs', () => {
   let server;
   let port;
   let sid;
@@ -62,64 +62,45 @@ describe('console clusters and deployments (self-serve)', () => {
 
   const authed = (opts = {}) => req(port, { ...opts, headers: { ...(opts.headers || {}), cookie: sid } });
 
-  it('serves real clusters and deployments sections (no enterprise dead-end)', async () => {
-    for (const [path, title] of [['/console/clusters', 'Clusters'], ['/console/deployments', 'Deployments']]) {
+  it('serves home, account, and billing', async () => {
+    for (const [path, title] of [['/console', 'Welcome back'], ['/console/account', 'Account'], ['/console/billing', 'Billing']]) {
       const res = await authed({ path });
       assert.equal(res.status, 200, path);
-      assert.match(res.body, new RegExp(`<h1>${title}</h1>`), path);
-      assert.doesNotMatch(res.body, /Enterprise/i, path);
+      assert.match(res.body, new RegExp(title), path);
     }
   });
 
-  it('shows the live-catalog cluster form, honestly empty with no offers', async () => {
-    const res = await authed({ path: '/console/clusters/new' });
+  it('redirects removed compute sections back to the console home', async () => {
+    for (const path of ['/console/hub', '/console/serverless', '/console/pods', '/console/clusters', '/console/storage', '/console/deployments']) {
+      const res = await authed({ path });
+      assert.equal(res.status, 302, path);
+      assert.equal(res.headers.location, '/console', path);
+    }
+  });
+
+  it('no longer has compute creation routes', async () => {
+    // Single-segment unknowns hit /console/:section and bounce home.
+    for (const path of ['/console/new', '/console/pods', '/console/clusters']) {
+      const res = await authed({ path });
+      assert.equal(res.status, 302, path);
+      assert.equal(res.headers.location, '/console', path);
+    }
+    // Multi-segment compute paths are gone entirely.
+    for (const path of ['/console/pods/new', '/console/pods/abc', '/console/serverless/new', '/console/storage/new', '/console/clusters/new', '/console/deployments/new']) {
+      const res = await authed({ path });
+      assert.equal(res.status, 404, path);
+    }
+  });
+
+  it('console nav has no compute tabs and points compute at the Labs dashboard', async () => {
+    const res = await authed({ path: '/console' });
     assert.equal(res.status, 200);
-    assert.match(res.body, /Launch a cluster/);
-    // No fabricated offers: with no live catalog the page says so.
-    assert.match(res.body, /No hosts online right now/);
-    assert.doesNotMatch(res.body, /\$[0-9]+\.[0-9]{2}\/hr/);
-  });
-
-  it('refuses a cluster launch that is not in the live catalog', async () => {
-    const res = await authed({
-      method: 'POST',
-      path: '/console/clusters',
-      headers: formHeaders,
-      body: form({ name: 'qa-cluster', nodes: '2', offer: 'h100-80gb-fake' }),
-    });
-    assert.equal(res.status, 303);
-    assert.match(res.headers.location, /\/console\/clusters\/new\?error=/);
-    assert.match(decodeURIComponent(res.headers.location), /live catalog/);
-    // Nothing was provisioned.
-    const page = await authed({ path: '/console/clusters' });
-    assert.doesNotMatch(page.body, /qa-cluster/);
-  });
-
-  it('saves deployment specs and refuses to launch them off-catalog', async () => {
-    const save = await authed({
-      method: 'POST',
-      path: '/console/deployments',
-      headers: formHeaders,
-      body: form({ name: 'qa-dep', nodes: '2', image: 'aorila/pytorch', diskGb: '20', offer: 'rtx-4090-fake' }),
-    });
-    assert.equal(save.status, 303);
-    assert.match(save.headers.location, /\/console\/deployments\?notice=/);
-
-    const list = await authed({ path: '/console/deployments' });
-    assert.equal(list.status, 200);
-    assert.match(list.body, /qa-dep/);
-    const idMatch = list.body.match(/\/console\/deployments\/([a-z0-9_-]+)\/launch/);
-    assert.ok(idMatch, 'launch button present');
-
-    // Launching resolves the live catalog at launch time: fake offer refuses.
-    const launch = await authed({ method: 'POST', path: `/console/deployments/${idMatch[1]}/launch` });
-    assert.equal(launch.status, 303);
-    assert.match(decodeURIComponent(launch.headers.location), /live catalog/);
-
-    const del = await authed({ method: 'POST', path: `/console/deployments/${idMatch[1]}/delete` });
-    assert.equal(del.status, 303);
-    const after = await authed({ path: '/console/deployments' });
-    assert.doesNotMatch(after.body, /qa-dep/);
+    assert.doesNotMatch(res.body, /\/console\/pods/);
+    assert.doesNotMatch(res.body, /\/console\/clusters/);
+    assert.doesNotMatch(res.body, /\/console\/serverless/);
+    assert.doesNotMatch(res.body, /\/console\/storage/);
+    assert.doesNotMatch(res.body, /\/console\/hub/);
+    assert.match(res.body, /https:\/\/dashboard\.aorilalabs\.com\//);
   });
 
   it('brands the commercial surface as Capacity, not Enterprise', async () => {
