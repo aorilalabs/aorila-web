@@ -99,7 +99,7 @@
       `<div class="gpu-price-row"><p class="gpu-price"><span class="from">from</span> ${price} <span>/hr</span></p>` +
       (perMin ? `<p class="gpu-permin">${perMin} · billed per minute</p>` : '') +
       `</div><div class="gpu-meta">${meta}</div>` +
-      `<a class="btn acid gpu-deploy" href="/console/pods/new?sku=${encodeURIComponent(g.sku)}">Deploy</a>` +
+      `<a class="btn acid gpu-deploy" href="https://dashboard.aorilalabs.com/#market">Deploy</a>` +
       `</article>`;
   }
 
