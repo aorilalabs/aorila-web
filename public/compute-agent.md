@@ -2,7 +2,7 @@
 
 Fetch this first: https://aorila.com/compute-agent.md
 
-This is GPU rental. Not the AI API. Do not call api.aorila.com for pods.
+This is GPU rental. Not the AI API. Do not call the AI API for pods. Pods are Labs compute: https://dashboard.aorilalabs.com
 
 ## Product
 
