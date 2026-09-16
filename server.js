@@ -36,7 +36,7 @@ function labsDashboardRedirect(section) {
     return null;
   };
 }
-const PAGES = new Set(['index.html', 'api.html', 'docs.html', 'support.html', 'tp.html', 'status.html']);
+const PAGES = new Set(['index.html', 'api.html', 'docs.html', 'support.html', 'tp.html', 'status.html', 'learn.html']);
 
 function siteFromRequest(req) {
   return resolveSite({
@@ -253,6 +253,12 @@ function createApp(options = {}) {
   app.get(['/support', '/support.html'], (req, res) => {
     if (res.locals.site === 'labs') return res.redirect(301, DASHBOARD_ORIGIN + '/#support');
     sendPage(res, res.locals.site, 'support.html', { user: res.locals.user });
+  });
+  app.get(['/learn', '/learn.html'], (req, res) => {
+    if (res.locals.site !== 'labs') {
+      return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
+    }
+    return sendPage(res, res.locals.site, 'learn.html', { user: res.locals.user });
   });
   app.get(['/trust', '/trust.html'], (req, res) => {
     if (res.locals.site !== 'labs') {
