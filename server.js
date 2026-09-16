@@ -32,7 +32,7 @@ const PUBLIC_DIR = path.join(__dirname, 'public');
 const DASHBOARD_ORIGIN = 'https://dashboard.aorilalabs.com';
 function labsDashboardRedirect(section) {
   return (req, res) => {
-    if (res.locals.site === 'labs') return res.redirect(301, DASHBOARD_ORIGIN + '/#' + section);
+    if (res.locals.site === 'labs') return res.redirect(301, DASHBOARD_ORIGIN + '/' + section);
     return null;
   };
 }
@@ -202,11 +202,11 @@ function createApp(options = {}) {
 
   app.get(['/api', '/api/', '/api.html'], (req, res) => {
     if (res.locals.site === 'consumer') return sendPage(res, 'consumer', 'api.html', { apiCurrent: true, user: res.locals.user });
-    return res.redirect(301, DASHBOARD_ORIGIN + '/#docs');
+    return res.redirect(301, DASHBOARD_ORIGIN + '/docs');
   });
 
   app.get(['/docs', '/docs.html'], (req, res) => {
-    if (res.locals.site === 'labs') return res.redirect(301, DASHBOARD_ORIGIN + '/#docs');
+    if (res.locals.site === 'labs') return res.redirect(301, DASHBOARD_ORIGIN + '/docs');
     sendPage(res, res.locals.site, 'docs.html', { user: res.locals.user });
   });
 
@@ -229,7 +229,7 @@ function createApp(options = {}) {
 
   // Legacy product URL: AI Models is now AI API (consumer). Labs models live in the dashboard.
   app.get(['/models', '/models/'], (req, res) => {
-    if (res.locals.site === 'labs') return res.redirect(301, DASHBOARD_ORIGIN + '/#compute');
+    if (res.locals.site === 'labs') return res.redirect(301, DASHBOARD_ORIGIN + '/compute');
     res.redirect(301, '/ai-api');
   });
 
@@ -239,7 +239,7 @@ function createApp(options = {}) {
   for (const slug of MARKETING_SLUGS) {
     app.get([`/${slug}`, `/${slug}/`], (req, res) => {
       if (slug === 'contact' && res.locals.site === 'labs') {
-        return res.redirect(301, DASHBOARD_ORIGIN + '/#support');
+        return res.redirect(301, DASHBOARD_ORIGIN + '/support');
       }
       if (res.locals.site !== 'consumer') {
         return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
@@ -251,7 +251,7 @@ function createApp(options = {}) {
   app.get(['/tp', '/tp.html'], (req, res) => sendPage(res, res.locals.site, 'tp.html', { user: res.locals.user }));
   app.get(['/privacy', '/privacy.html'], (req, res) => res.redirect(301, '/tp'));
   app.get(['/support', '/support.html'], (req, res) => {
-    if (res.locals.site === 'labs') return res.redirect(301, DASHBOARD_ORIGIN + '/#support');
+    if (res.locals.site === 'labs') return res.redirect(301, DASHBOARD_ORIGIN + '/support');
     sendPage(res, res.locals.site, 'support.html', { user: res.locals.user });
   });
   app.get(['/learn', '/learn.html'], (req, res) => {
@@ -264,37 +264,37 @@ function createApp(options = {}) {
     if (res.locals.site !== 'labs') {
       return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
     }
-    return res.redirect(301, DASHBOARD_ORIGIN + '/#support');
+    return res.redirect(301, DASHBOARD_ORIGIN + '/support');
   });
   app.get(['/compute', '/compute.html'], (req, res) => {
     if (res.locals.site !== 'labs') {
       return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
     }
-    return res.redirect(301, DASHBOARD_ORIGIN + '/#compute');
+    return res.redirect(301, DASHBOARD_ORIGIN + '/compute');
   });
   app.get(['/training', '/training.html'], (req, res) => {
     if (res.locals.site !== 'labs') {
       return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
     }
-    return res.redirect(301, DASHBOARD_ORIGIN + '/#compute');
+    return res.redirect(301, DASHBOARD_ORIGIN + '/compute');
   });
   app.get(['/models.html'], (req, res) => {
     if (res.locals.site !== 'labs') {
       return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
     }
-    return res.redirect(301, DASHBOARD_ORIGIN + '/#compute');
+    return res.redirect(301, DASHBOARD_ORIGIN + '/compute');
   });
   app.get(['/gaming', '/gaming.html'], (req, res) => {
     if (res.locals.site !== 'labs') {
       return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
     }
-    return res.redirect(301, DASHBOARD_ORIGIN + '/#gaming');
+    return res.redirect(301, DASHBOARD_ORIGIN + '/gaming');
   });
   app.get(['/contact', '/contact.html'], (req, res) => {
     if (res.locals.site !== 'labs') {
       return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
     }
-    return res.redirect(301, DASHBOARD_ORIGIN + '/#support');
+    return res.redirect(301, DASHBOARD_ORIGIN + '/support');
   });
   app.get(['/status', '/status.html'], (req, res) => {
     if (res.locals.site !== 'consumer') {
