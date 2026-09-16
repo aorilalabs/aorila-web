@@ -142,6 +142,14 @@ function createApp(options = {}) {
 
   app.disable('x-powered-by');
   app.set('trust proxy', 1);
+  // Render subdomains are disabled: only our own domains serve the sites.
+  app.use((req, res, next) => {
+    const host = String(req.hostname || '').toLowerCase();
+    if ((req.method === 'GET' || req.method === 'HEAD') && host.endsWith('.onrender.com')) {
+      return res.redirect(301, 'https://aorila.com' + req.originalUrl);
+    }
+    next();
+  });
   app.use(express.json({ limit: '32kb' }));
   app.use(express.urlencoded({ extended: false, limit: '32kb' }));
   app.use((req, res, next) => {
