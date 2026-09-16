@@ -106,8 +106,11 @@ function buildConsumer(targetDir) {
 function buildLabs(targetDir) {
   const labsDir = path.join(SITES_DIR, 'labs');
   const dashboardOrigin = STATIC_DASHBOARD_ORIGIN || 'https://dashboard.aorilalabs.com';
+  // Render subdomains are disabled: bounce any *.onrender.com visitor to our domain.
+  const renderBounce = '<script>if(/(^|\\.)onrender\\.com$/i.test(location.hostname))location.replace("https://aorilalabs.com"+location.pathname+location.search+location.hash);</script>';
+  const withBounce = (html) => String(html).replace(/<\/head>/i, `  ${renderBounce}\n</head>`);
   // The Labs home page stays its own page; everything else lives inside the dashboard.
-  writeRoute(targetDir, '', fs.readFileSync(path.join(labsDir, 'index.html'), 'utf8'));
+  writeRoute(targetDir, '', withBounce(fs.readFileSync(path.join(labsDir, 'index.html'), 'utf8')));
   // Every Labs content page lives inside the dashboard now — these routes redirect there.
   const dashboardRoutes = {
     'console': '/',
@@ -124,7 +127,7 @@ function buildLabs(targetDir) {
     writeRoute(targetDir, route, redirectPage('Redirecting to dashboard', `${dashboardOrigin}${target}`));
   }
   // Legal stays a standalone page — the dashboard has no legal section.
-  writeRoute(targetDir, 'tp', fs.readFileSync(path.join(labsDir, 'tp.html'), 'utf8'));
+  writeRoute(targetDir, 'tp', withBounce(fs.readFileSync(path.join(labsDir, 'tp.html'), 'utf8')));
 }
 
 function buildRobotics(targetDir) {
