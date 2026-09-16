@@ -99,14 +99,14 @@
       `<div class="gpu-price-row"><p class="gpu-price"><span class="from">from</span> ${price} <span>/hr</span></p>` +
       (perMin ? `<p class="gpu-permin">${perMin} · billed per minute</p>` : '') +
       `</div><div class="gpu-meta">${meta}</div>` +
-      `<a class="btn acid gpu-deploy" href="https://dashboard.aorilalabs.com/#market">Deploy</a>` +
+      `<a class="btn acid gpu-deploy" href="https://dashboard.aorilalabs.com/compute">Deploy</a>` +
       `</article>`;
   }
 
   function emptyCatalogHtml() {
     return '<div class="soon-box"><h3>No hosts online yet</h3>' +
       '<p>The catalog opens as hosts list their GPUs. Partner capacity appears here only after agreements are signed — never before.</p>' +
-      '<div class="btn-row"><a class="btn acid" href="#hosts">Apply to host</a></div></div>';
+      '<div class="btn-row"><a class="btn acid" href="https://dashboard.aorilalabs.com/earn">Apply to host</a></div></div>';
   }
 
   function catalogHtml(groups) {
