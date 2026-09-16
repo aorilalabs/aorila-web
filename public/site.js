@@ -434,3 +434,22 @@
     setTimeout(tick, HOLD_MS);
   })();
 })();
+
+/* Stats band: real platform numbers from the Labs backend. The band stays
+   hidden until live stats load — it never shows fake or placeholder numbers. */
+(function () {
+  if (typeof document === 'undefined') return;
+  var band = document.getElementById('stats');
+  if (!band) return;
+  function fmtInt(n) { return Math.round(Number(n) || 0).toLocaleString('en-US'); }
+  fetch('https://dashboard.aorilalabs.com/compute/v1/stats', { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw new Error('stats ' + r.status); return r.json(); })
+    .then(function (s) {
+      if (!s || !s.ok) throw new Error('bad stats');
+      document.getElementById('statUsers').textContent = fmtInt(s.users);
+      document.getElementById('statCredits').textContent = fmtInt(s.creditsUsed);
+      document.getElementById('statGpus').textContent = fmtInt(s.gpusOnline) + ' GPUs';
+      band.hidden = false;
+    })
+    .catch(function () { /* stay hidden: never show fake numbers */ });
+})();
