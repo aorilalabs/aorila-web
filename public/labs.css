@@ -1,9 +1,7 @@
-/* Aorila Labs design system — "precision instrument".
-   Own look, distinct from aorila.com (playbook) and atraly.com (ember & onyx).
-   Cool paper, hairline borders, soft shadows, rounded corners, violet signature.
-   NOTE: legacy class hooks (.acid, .accent-ink) are kept for HTML compat and
-   restyled into the Labs language — .acid renders violet, not playbook acid.
-   Applied via <body class="ds">. JS hooks from site.js are preserved. */
+/* Aorila Labs design system — yellow + white.
+   White surfaces, acid-yellow (#d8ff36) accents/CTAs/badges, near-black
+   (#10100f) body text. Applied via <body class="ds">. JS hooks from
+   site.js are preserved. Class hooks are shared across all labs pages. */
 body.ds {
   background: #ffffff;
   color: #10100f;
@@ -14,27 +12,29 @@ body.ds {
 body.ds main { display: block; }
 .ds .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
 .ds .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-.ds a { color: #5b2ee5; }
-.ds a:hover { color: #4520b8; }
-.ds .topline { height: 4px; background: linear-gradient(90deg, #5b2ee5, #8b5cf6 55%, #c4b5fd); }
+.ds a { color: #10100f; text-decoration: underline; text-decoration-color: #d8ff36; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.ds a:hover { background: #d8ff36; text-decoration-color: #d8ff36; }
+.ds mark { background: #d8ff36; color: #10100f; padding: 0 .12em; border-radius: 3px; }
+.ds .topline { height: 6px; background: #d8ff36; border-bottom: 2px solid #10100f; }
 
 /* ---------- nav ---------- */
 .ds header.nav {
-  background: rgba(255,255,255,.92); backdrop-filter: blur(10px);
-  border-bottom: 1px solid #e6e8ee;
+  background: rgba(255,255,255,.96); backdrop-filter: blur(10px);
+  border-bottom: 2px solid #10100f;
   position: sticky; top: 0; z-index: 40;
-  display: flex; align-items: center; gap: 20px; padding: 0 28px; height: 64px;
+  display: flex; align-items: center; gap: 20px; padding: 0 28px; height: 66px;
 }
 .ds .wordmark { font-weight: 800; letter-spacing: -.02em; font-size: 19px; text-decoration: none; color: #10100f; }
-.ds .wordmark .soft { color: #5b2ee5; font-weight: 600; }
+.ds .wordmark:hover { background: none; }
+.ds .wordmark .soft { background: #d8ff36; padding: 2px 8px; border-radius: 6px; font-weight: 800; }
 .ds .nav-links { display: flex; gap: 2px; align-items: center; margin-left: 8px; }
 .ds .nav-link {
-  color: #3d4149; text-decoration: none; font: 600 13.5px "Archivo", sans-serif;
+  color: #10100f; text-decoration: none; font: 700 13.5px "Archivo", sans-serif;
   padding: 8px 12px; border-radius: 8px; white-space: nowrap;
 }
-.ds .nav-link:hover { color: #10100f; background: #f2f3f7; }
-.ds .nav-link[aria-current="page"] { color: #5b2ee5; background: #efe9fd; }
-.ds .nav-toggle { display: none; margin-left: auto; background: #fff; border: 1px solid #e6e8ee; border-radius: 8px; width: 44px; height: 40px; cursor: pointer; }
+.ds .nav-link:hover { background: #d8ff36; }
+.ds .nav-link[aria-current="page"] { background: #d8ff36; }
+.ds .nav-toggle { display: none; margin-left: auto; background: #fff; border: 2px solid #10100f; border-radius: 8px; width: 44px; height: 40px; cursor: pointer; }
 .ds .nav-toggle-bars, .ds .nav-toggle-bars::before, .ds .nav-toggle-bars::after {
   display: block; width: 20px; height: 2px; background: #10100f; margin: 0 auto; position: relative; border-radius: 2px;
 }
@@ -44,132 +44,190 @@ body.ds main { display: block; }
 .ds .nav-backdrop[hidden] { display: none; }
 .ds .nav-sidebar {
   position: fixed; top: 0; right: 0; bottom: 0; width: min(360px, 88vw); z-index: 45;
-  background: #ffffff; border-left: 1px solid #e6e8ee; padding: 20px;
+  background: #ffffff; border-left: 2px solid #10100f; padding: 20px;
   transform: translateX(100%); transition: transform .22s ease; overflow-y: auto;
-  box-shadow: -12px 0 40px rgba(30,19,69,.10);
+  box-shadow: -12px 0 40px rgba(16,16,15,.12);
 }
 .ds .nav-sidebar.is-open { transform: none; }
 .ds .nav-sidebar[hidden] { display: none; }
 .ds .nav-sidebar-head { display: flex; justify-content: flex-end; margin-bottom: 12px; }
-.ds .nav-sidebar-close { font: 600 13px "Archivo", sans-serif; border: 1px solid #e6e8ee; background: #fff; padding: 8px 14px; border-radius: 8px; cursor: pointer; color: #10100f; }
+.ds .nav-sidebar-close { font: 700 13px "Archivo", sans-serif; border: 2px solid #10100f; background: #d8ff36; padding: 8px 14px; border-radius: 8px; cursor: pointer; color: #10100f; }
 .ds .nav-primary { display: grid; gap: 2px; margin-bottom: 18px; }
-.ds .nav-primary .nav-link { font-size: 15px; padding: 10px 12px; }
+.ds .nav-primary .nav-link { font-size: 15px; padding: 10px 12px; text-decoration: none; }
 
 /* ---------- hero ---------- */
-.ds .hero {
-  background:
-    radial-gradient(1100px 420px at 85% -60px, rgba(139,92,246,.35), transparent 60%),
-    radial-gradient(900px 380px at 8% 0%, rgba(91,46,229,.28), transparent 55%),
-    linear-gradient(160deg, #221647 0%, #2c1a5e 55%, #3b1f8f 100%);
-  color: #fff; padding: 72px 0 64px; overflow: hidden; position: relative;
-}
-.ds .hero::before {
-  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
-  background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(900px 480px at 50% 0%, #000 30%, transparent 75%);
-}
-.ds .hero.compact { padding: 56px 0 48px; }
-.ds .hero-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: end; position: relative; }
-.ds .hero h1 { font-size: clamp(40px, 5.6vw, 72px); line-height: 1.0; letter-spacing: -.04em; font-weight: 800; margin: 0 0 18px; color: #fff; }
-.ds .hero h1 em { font-style: normal; color: #c4b5fd; }
+.ds .hero { background: #ffffff; color: #10100f; padding: 72px 0 64px; overflow: hidden; position: relative; }
+.ds .hero.compact { padding: 56px 0 48px; border-bottom: 2px solid #10100f; }
+.ds .hero-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: start; position: relative; }
+.ds .hero h1 { font-size: clamp(40px, 5.6vw, 72px); line-height: 1.0; letter-spacing: -.04em; font-weight: 800; margin: 0 0 18px; color: #10100f; }
 .ds .hero-badge {
-  display: inline-block; font: 600 11.5px "IBM Plex Mono", monospace; letter-spacing: .08em;
-  color: #e9e2ff; border: 1px solid rgba(196,181,253,.45); border-radius: 999px;
-  padding: 7px 14px; margin-bottom: 22px; background: rgba(91,46,229,.25);
+  display: inline-block; font: 700 11.5px "IBM Plex Mono", monospace; letter-spacing: .08em;
+  color: #10100f; border: 2px solid #10100f; border-radius: 999px;
+  padding: 7px 14px; margin-bottom: 22px; background: #d8ff36;
+  box-shadow: 3px 3px 0 #10100f;
 }
-.ds .hero-copy, .ds .lede { font-size: 17px; line-height: 1.6; color: #cfc6f2; max-width: 40rem; margin: 0 0 26px; }
-.ds .hero-aside { border-left: 2px solid rgba(196,181,253,.5); padding-left: 22px; }
-.ds .hero-aside strong { display: block; font-size: 21px; letter-spacing: -.02em; margin-bottom: 10px; color: #fff; }
-.ds .hero-aside p { font-size: 15px; line-height: 1.6; color: #cfc6f2; margin: 0; }
-.ds .hero-aside a { color: #fff; }
+.ds .hero-copy, .ds .lede { font-size: 17px; line-height: 1.6; color: rgba(16,16,15,.72); max-width: 40rem; margin: 0 0 26px; }
+.ds .hero-aside { border: 2px solid #10100f; border-radius: 16px; padding: 24px; background: #fff; box-shadow: 6px 6px 0 #d8ff36; }
+.ds .hero-aside strong { display: block; font-size: 19px; letter-spacing: -.02em; margin-bottom: 14px; color: #10100f; }
+.ds .hero-aside p { font-size: 14px; line-height: 1.6; color: rgba(16,16,15,.72); margin: 0; }
+
+/* ---------- stat strip ---------- */
+.ds .stat-strip { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.ds .stat { border: 2px solid #10100f; border-radius: 12px; padding: 14px 16px; background: #fff; }
+.ds .stat b { display: inline-block; background: #d8ff36; border-radius: 8px; padding: 4px 10px; font-size: 19px; letter-spacing: -.02em; margin-bottom: 8px; border: 1px solid #10100f; }
+.ds .stat span { display: block; font-size: 13px; line-height: 1.5; color: rgba(16,16,15,.66); }
 
 /* ---------- buttons ---------- */
 .ds .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
 .ds .btn {
-  display: inline-block; font: 700 14.5px "Archivo", sans-serif; text-decoration: none;
-  color: #10100f; background: #fff; border: 1px solid #dfe2ea; border-radius: 10px;
-  padding: 13px 22px; cursor: pointer;
-  box-shadow: 0 1px 2px rgba(16,16,15,.06);
-  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  display: inline-block; font: 800 14.5px "Archivo", sans-serif; text-decoration: none;
+  color: #10100f; background: #fff; border: 2px solid #10100f; border-radius: 10px;
+  padding: 12px 22px; cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
 }
-.ds .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(30,19,69,.14); }
-.ds .btn:active { transform: translateY(0); box-shadow: 0 1px 2px rgba(16,16,15,.08); }
-.ds .btn.acid { background: #5b2ee5; border-color: #5b2ee5; color: #ffffff; }
-.ds .btn.acid:hover { background: #4c24c9; border-color: #4c24c9; }
-.ds .hero .btn { border-color: transparent; }
-.ds .hero .btn:not(.acid) { background: rgba(255,255,255,.10); color: #fff; border: 1px solid rgba(255,255,255,.35); }
-.ds .hero .btn:not(.acid):hover { background: rgba(255,255,255,.18); }
-.ds .btn[disabled] { opacity: .5; cursor: not-allowed; transform: none; }
+.ds .btn:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 #10100f; background: #fff; }
+.ds .btn:active { transform: translate(0,0); box-shadow: none; }
+.ds .btn.acid { background: #d8ff36; border-color: #10100f; color: #10100f; box-shadow: 4px 4px 0 #10100f; }
+.ds .btn.acid:hover { transform: translate(-1px,-1px); box-shadow: 6px 6px 0 #10100f; background: #d8ff36; }
+.ds .btn.acid:active { transform: translate(2px,2px); box-shadow: 0 0 0 #10100f; }
+.ds .btn[disabled] { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
 
 /* ---------- sections & cards ---------- */
 .ds .section { padding: 72px 0; }
-.ds .section.alt { background: #f5f6f9; border-top: 1px solid #eceef3; border-bottom: 1px solid #eceef3; }
+.ds .section.alt { background: rgba(216,255,54,.10); border-top: 2px solid #10100f; border-bottom: 2px solid #10100f; }
 .ds .section-head { display: grid; grid-template-columns: 200px 1fr; gap: 32px; margin-bottom: 40px; align-items: start; }
 .ds .snum {
-  display: inline-block; font: 600 11.5px "IBM Plex Mono", monospace; letter-spacing: .08em;
-  color: #5b2ee5; background: #efe9fd; border: 1px solid #ddd0fa; border-radius: 999px;
-  padding: 7px 14px; white-space: nowrap;
+  display: inline-block; font: 700 11.5px "IBM Plex Mono", monospace; letter-spacing: .08em;
+  color: #10100f; background: #d8ff36; border: 2px solid #10100f; border-radius: 999px;
+  padding: 6px 14px; white-space: nowrap; box-shadow: 3px 3px 0 #10100f;
 }
 .ds .section-head h2 { font-size: clamp(30px, 3.6vw, 46px); letter-spacing: -.035em; line-height: 1.05; margin: 0 0 12px; font-weight: 800; }
-.ds .section-head .lede { color: #5b606b; margin: 0; }
+.ds .section-head .lede { color: rgba(16,16,15,.72); margin: 0; }
 .ds .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .ds .cards.two { grid-template-columns: repeat(2, 1fr); }
 .ds .card {
-  background: #fff; border: 1px solid #e6e8ee; border-radius: 14px; padding: 28px;
-  box-shadow: 0 1px 2px rgba(16,16,15,.05);
+  background: #fff; border: 2px solid #10100f; border-radius: 16px; padding: 28px;
   transition: transform .14s ease, box-shadow .14s ease;
   display: flex; flex-direction: column; gap: 12px;
 }
-.ds .card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(46,26,94,.12); }
-.ds .card .tag { font: 600 11px "IBM Plex Mono", monospace; letter-spacing: .08em; color: #5b2ee5; }
-.ds .card h3 { font-size: 21px; letter-spacing: -.02em; margin: 0; font-weight: 750; }
-.ds .card p { font-size: 15px; line-height: 1.6; color: #5b606b; margin: 0; flex: 1; }
+.ds .card:hover { transform: translateY(-3px); box-shadow: 6px 6px 0 #d8ff36; }
+.ds .card .tag { font: 700 11px "IBM Plex Mono", monospace; letter-spacing: .08em; color: #10100f; }
+.ds .card .tag::before { content: ""; display: inline-block; width: 10px; height: 10px; background: #d8ff36; border: 1px solid #10100f; border-radius: 3px; margin-right: 8px; vertical-align: baseline; }
+.ds .card h3 { font-size: 21px; letter-spacing: -.02em; margin: 0; font-weight: 800; }
+.ds .card p { font-size: 15px; line-height: 1.6; color: rgba(16,16,15,.72); margin: 0; flex: 1; }
 .ds .card .btn-row { margin-top: 8px; }
 .ds a.card { text-decoration: none; color: inherit; }
-.ds .card.accent-ink { background: linear-gradient(155deg, #241a52, #3b1f8f); border-color: #2c1a5e; }
-.ds .card.accent-ink h3 { color: #fff; }
-.ds .card.accent-ink p { color: #cfc6f2; }
-.ds .card.accent-ink .tag { color: #c4b5fd; }
-.ds .card.accent-ink .btn.acid { background: #fff; border-color: #fff; color: #2c1a5e; }
+.ds a.card:hover { background: #fff; }
+.ds .card.accent-ink { background: #d8ff36; border-color: #10100f; box-shadow: 6px 6px 0 #10100f; }
+.ds .card.accent-ink:hover { box-shadow: 8px 8px 0 #10100f; }
+.ds .card.accent-ink h3 { color: #10100f; }
+.ds .card.accent-ink p { color: rgba(16,16,15,.78); }
+.ds .card.accent-ink .tag { color: #10100f; }
+.ds .card.accent-ink .tag::before { background: #10100f; }
+.ds .card.accent-ink .btn.acid { background: #10100f; border-color: #10100f; color: #d8ff36; box-shadow: 4px 4px 0 rgba(16,16,15,.25); }
+
+/* ---------- earnings calculator ---------- */
+.ds .calc { border: 2px solid #10100f; border-radius: 20px; overflow: hidden; background: #fff; box-shadow: 8px 8px 0 #10100f; }
+.ds .calc-head { background: #d8ff36; border-bottom: 2px solid #10100f; padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.ds .calc-head h3 { margin: 0; font-size: 20px; letter-spacing: -.02em; font-weight: 800; }
+.ds .calc-head .calc-note { font: 700 11px "IBM Plex Mono", monospace; letter-spacing: .06em; }
+.ds .calc-body { padding: 28px; display: grid; gap: 24px; }
+.ds .calc-row { display: grid; grid-template-columns: 190px 1fr 150px; gap: 18px; align-items: center; }
+.ds .calc-row > label { font: 700 12px "IBM Plex Mono", monospace; letter-spacing: .06em; color: #10100f; }
+.ds .calc-val { font: 700 15px "IBM Plex Mono", monospace; text-align: right; background: #d8ff36; border: 2px solid #10100f; border-radius: 8px; padding: 6px 10px; white-space: nowrap; }
+.ds .calc select {
+  font: 700 15px "Archivo", sans-serif; color: #10100f; background: #fff;
+  border: 2px solid #10100f; border-radius: 10px; padding: 10px 12px; width: 100%; cursor: pointer;
+}
+.ds .calc input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 28px; background: transparent; cursor: pointer; }
+.ds .calc input[type="range"]::-webkit-slider-runnable-track { height: 10px; background: #10100f; border-radius: 999px; }
+.ds .calc input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 26px; height: 26px; border-radius: 50%; background: #d8ff36; border: 3px solid #10100f; margin-top: -8px; }
+.ds .calc input[type="range"]::-moz-range-track { height: 10px; background: #10100f; border-radius: 999px; }
+.ds .calc input[type="range"]::-moz-range-progress { height: 10px; background: #d8ff36; border-radius: 999px; }
+.ds .calc input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: #d8ff36; border: 3px solid #10100f; }
+.ds .calc-result { background: #10100f; color: #fff; border-radius: 14px; padding: 26px 30px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+.ds .calc-result .calc-result-label { font: 700 12px "IBM Plex Mono", monospace; letter-spacing: .08em; color: #fff; margin-bottom: 8px; display: block; }
+.ds .calc-result .calc-monthly { font-size: clamp(38px, 4.6vw, 56px); font-weight: 800; letter-spacing: -.04em; color: #d8ff36; line-height: 1; }
+.ds .calc-result .calc-monthly small { font-size: 16px; font-weight: 700; letter-spacing: 0; color: #fff; }
+.ds .calc-result .calc-breakdown { font: 500 13px "IBM Plex Mono", monospace; color: rgba(255,255,255,.75); max-width: 300px; line-height: 1.6; }
+.ds .fine { font-size: 12.5px; line-height: 1.6; color: rgba(16,16,15,.6); margin: 0; }
+
+/* ---------- GPU catalog ---------- */
+.ds .gpu-filters { display: flex; gap: 8px; align-items: center; margin-bottom: 22px; flex-wrap: wrap; }
+.ds .gpu-filters-label { font: 700 11px "IBM Plex Mono", monospace; letter-spacing: .08em; margin-right: 6px; }
+.ds .gpu-filters button {
+  border: 2px solid #10100f; background: #fff; color: #10100f; border-radius: 999px;
+  padding: 8px 16px; font: 700 13px "Archivo", sans-serif; cursor: pointer;
+}
+.ds .gpu-filters button:hover { background: #d8ff36; }
+.ds .gpu-filters button.on { background: #10100f; color: #d8ff36; }
+.ds .gpu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.ds .gpu-card {
+  background: #fff; border: 2px solid #10100f; border-radius: 16px; padding: 24px;
+  display: flex; flex-direction: column; gap: 14px;
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+.ds .gpu-card:hover { transform: translateY(-3px); box-shadow: 6px 6px 0 #d8ff36; }
+.ds .gpu-card-top { display: flex; gap: 16px; align-items: center; }
+.ds .gpu-art { color: #10100f; width: 104px; height: 84px; flex: none; }
+.ds .gpu-kicker { font: 700 10.5px "IBM Plex Mono", monospace; letter-spacing: .1em; color: rgba(16,16,15,.55); margin: 0 0 4px; }
+.ds .gpu-name { font-size: 21px; font-weight: 800; letter-spacing: -.02em; margin: 0; }
+.ds .gpu-specs { font-size: 13.5px; color: rgba(16,16,15,.66); margin: 4px 0 0; }
+.ds .gpu-price-row { border-top: 2px solid #10100f; padding-top: 14px; }
+.ds .gpu-price { font-size: 30px; font-weight: 800; letter-spacing: -.03em; margin: 0; }
+.ds .gpu-price .from { font: 700 11px "IBM Plex Mono", monospace; letter-spacing: .08em; background: #d8ff36; border: 1px solid #10100f; border-radius: 6px; padding: 2px 8px; vertical-align: middle; margin-right: 6px; }
+.ds .gpu-price span:last-child { font-size: 15px; font-weight: 700; color: rgba(16,16,15,.6); }
+.ds .gpu-permin { font: 500 12.5px "IBM Plex Mono", monospace; color: rgba(16,16,15,.6); margin: 6px 0 0; }
+.ds .gpu-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.ds .gpu-chip { background: #d8ff36; color: #10100f; border: 1px solid #10100f; border-radius: 999px; padding: 4px 10px; font: 700 11px "IBM Plex Mono", monospace; letter-spacing: .04em; }
+.ds .gpu-deploy { margin-top: auto; text-align: center; }
+.ds .soon-box { border: 2px dashed #10100f; border-radius: 18px; padding: 52px 32px; text-align: center; background: rgba(216,255,54,.14); }
+.ds .soon-box h3 { font-size: 24px; letter-spacing: -.02em; margin: 0 0 10px; font-weight: 800; }
+.ds .soon-box p { font-size: 15px; line-height: 1.6; color: rgba(16,16,15,.72); margin: 0 auto 20px; max-width: 34rem; }
+.ds .soon-box .btn-row { justify-content: center; }
 
 /* ---------- forms ---------- */
 .ds form.waitlist { display: grid; gap: 14px; max-width: 560px; }
-.ds form.waitlist label { display: grid; gap: 6px; font: 600 12px "IBM Plex Mono", monospace; letter-spacing: .06em; color: #3d4149; }
+.ds form.waitlist label { display: grid; gap: 6px; font: 700 12px "IBM Plex Mono", monospace; letter-spacing: .06em; color: #10100f; }
 .ds form.waitlist .hp { position: absolute; left: -9999px; }
 .ds form.waitlist input, .ds form.waitlist textarea, .ds form.waitlist select {
   font: 500 15px "Archivo", sans-serif; color: #10100f;
-  border: 1px solid #dfe2ea; border-radius: 10px; padding: 12px 14px; background: #fff; width: 100%;
+  border: 2px solid #10100f; border-radius: 10px; padding: 12px 14px; background: #fff; width: 100%;
 }
 .ds form.waitlist input:focus, .ds form.waitlist textarea:focus, .ds form.waitlist select:focus {
-  outline: none; border-color: #5b2ee5; box-shadow: 0 0 0 3px rgba(91,46,229,.18);
+  outline: none; border-color: #10100f; box-shadow: 0 0 0 4px #d8ff36;
 }
-.ds .form-status { font: 600 13px "IBM Plex Mono", monospace; min-height: 1.4em; color: #5b2ee5; }
-.ds .price-note { font-size: 13px; color: #7a7f8a; }
-.ds .price-note a { color: #5b2ee5; }
+.ds .form-status { font: 700 13px "IBM Plex Mono", monospace; min-height: 1.4em; color: #10100f; background: #d8ff36; display: inline-block; border-radius: 6px; padding: 2px 8px; }
+.ds .form-status:empty { display: none; }
+.ds .price-note { font-size: 13px; color: rgba(16,16,15,.62); }
+.ds .price-note a { color: #10100f; }
 
 /* ---------- bands / footer ---------- */
-.ds .love-band { background: linear-gradient(120deg, #2c1a5e, #5b2ee5 70%, #7c5cf0); padding: 56px 0; }
-.ds .love-band h2 { color: #fff; font-size: clamp(28px, 3.4vw, 44px); letter-spacing: -.03em; margin: 0; font-weight: 800; }
-.ds footer.site-footer { border-top: 1px solid #e6e8ee; background: #fbfbfc; padding: 32px 0 44px; }
+.ds .love-band { background: #d8ff36; border-top: 2px solid #10100f; border-bottom: 2px solid #10100f; padding: 56px 0; }
+.ds .love-band h2 { color: #10100f; font-size: clamp(28px, 3.4vw, 44px); letter-spacing: -.03em; margin: 0; font-weight: 800; }
+.ds footer.site-footer { border-top: 2px solid #10100f; background: #fff; padding: 32px 0 44px; }
 .ds .footer-links { display: flex; gap: 22px; flex-wrap: wrap; }
-.ds .footer-links a { font: 600 13px "Archivo", sans-serif; color: #3d4149; text-decoration: none; }
-.ds .footer-links a:hover { color: #5b2ee5; }
-.ds .footer-meta { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font: 500 12.5px "IBM Plex Mono", monospace; color: #7a7f8a; margin-top: 18px; }
-.ds .footer-meta a { color: #3d4149; }
+.ds .footer-links a { font: 700 13px "Archivo", sans-serif; color: #10100f; text-decoration: none; }
+.ds .footer-links a:hover { background: #d8ff36; }
+.ds .footer-meta { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font: 500 12.5px "IBM Plex Mono", monospace; color: rgba(16,16,15,.6); margin-top: 18px; }
+.ds .footer-meta a { color: #10100f; text-decoration: none; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 1000px) {
   .ds .hero-grid { grid-template-columns: 1fr; }
-  .ds .hero-aside { border-left: none; border-top: 2px solid rgba(196,181,253,.5); padding-left: 0; padding-top: 22px; }
   .ds .section-head { grid-template-columns: 1fr; gap: 16px; }
   .ds .cards, .ds .cards.two { grid-template-columns: 1fr 1fr; }
+  .ds .gpu-grid { grid-template-columns: 1fr 1fr; }
+  .ds .calc-row { grid-template-columns: 150px 1fr 120px; }
 }
 @media (max-width: 760px) {
   .ds .nav-links { display: none; }
   .ds .nav-toggle { display: block; }
   .ds .cards, .ds .cards.two { grid-template-columns: 1fr; }
+  .ds .gpu-grid { grid-template-columns: 1fr; }
+  .ds .calc-row { grid-template-columns: 1fr; gap: 8px; }
+  .ds .calc-val { text-align: left; }
   .ds .section { padding: 52px 0; }
   .ds .hero { padding: 52px 0 48px; }
+  .ds .calc-body { padding: 20px; }
 }
