@@ -123,15 +123,15 @@ function buildLabs(targetDir) {
   // Every Labs content page lives inside the dashboard now — these routes redirect there.
   const dashboardRoutes = {
     'console': '/',
-    'compute': '/#compute',
-    'api': '/#docs',
-    'training': '/#compute',
-    'models': '/#compute',
-    'gaming': '/#gaming',
-    'docs': '/#docs',
-    'support': '/#support',
-    'trust': '/#support',
-    'contact': '/#support',
+    'compute': '/compute',
+    'api': '/docs',
+    'training': '/compute',
+    'models': '/compute',
+    'gaming': '/gaming',
+    'docs': '/docs',
+    'support': '/support',
+    'trust': '/support',
+    'contact': '/support',
   };
   for (const [route, target] of Object.entries(dashboardRoutes)) {
     writeRoute(targetDir, route, redirectPage('Redirecting to dashboard', `${dashboardOrigin}${target}`));
