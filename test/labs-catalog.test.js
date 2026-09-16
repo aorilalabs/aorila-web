@@ -28,7 +28,7 @@ describe('labs gpu catalog cards', () => {
     assert.match(html, /from<\/span> \$0\.483/);
     assert.match(html, /billed per minute/);
     assert.match(html, /24GB VRAM/);
-    assert.match(html, /https:\/\/dashboard\.aorilalabs\.com\/#market/);
+    assert.match(html, /https:\/\/dashboard\.aorilalabs\.com\/compute/);
     assert.match(html, /data-gf="datacenter"/);
   });
 
