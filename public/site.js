@@ -351,4 +351,29 @@
       mega.classList.remove('is-closing');
     });
   });
+
+  /* hero typewriter: rotate the headline phrase, "here" stays highlighted */
+  (function heroTypewriter() {
+    var el = document.getElementById('heroType');
+    if (!el) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var phrases = ['Your compute earns more', 'Your gaming runs better', 'Your AI runs better'];
+    var TYPE_MS = 45, ERASE_MS = 22, HOLD_MS = 2600;
+    var pi = 0, ci = phrases[0].length, mode = 'hold';
+    function tick() {
+      var phrase = phrases[pi];
+      if (mode === 'type') {
+        ci += 1;
+        el.textContent = phrase.slice(0, ci);
+        if (ci >= phrase.length) { mode = 'hold'; setTimeout(tick, HOLD_MS); return; }
+        setTimeout(tick, TYPE_MS);
+      } else if (mode === 'erase') {
+        ci -= 1;
+        el.textContent = phrase.slice(0, ci);
+        if (ci <= 0) { pi = (pi + 1) % phrases.length; mode = 'type'; setTimeout(tick, 350); return; }
+        setTimeout(tick, ERASE_MS);
+      } else { mode = 'erase'; setTimeout(tick, 400); }
+    }
+    setTimeout(tick, HOLD_MS);
+  })();
 })();
