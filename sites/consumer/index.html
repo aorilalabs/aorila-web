@@ -21,11 +21,136 @@
   <header class="nav nav-centered">
     <a class="wordmark-logo" href="/" aria-label="Aorila home"><img src="/logo-aorila.svg?v=2" alt="Aorila" /></a>
     <nav class="nav-links" aria-label="Primary">
-      <a class="nav-link" href="/pods">Compute</a>
-      <a class="nav-link" href="/pricing">Pricing</a>
-      <a class="nav-link" href="/ai-api">AI API</a>
-      <a class="nav-link" href="https://atraly.com">Atraly</a>
-      <a class="nav-link" href="https://robotics.aorila.com">Robotics</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Compute <span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-dropdown-panel" role="menu">
+          <div class="menu-cols">
+            <div class="menu-section">
+              <p class="menu-section-head">Products</p>
+              <a class="menu-item" href="/pods"><span class="menu-item-title">Pods</span></a>
+              <a class="menu-item" href="/serverless"><span class="menu-item-title">Serverless</span></a>
+              <a class="menu-item" href="/clusters"><span class="menu-item-title">Clusters</span></a>
+              <a class="menu-item" href="/hub"><span class="menu-item-title">Hub</span></a>
+              <a class="menu-item" href="/deployments"><span class="menu-item-title">Deployments</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Use cases</p>
+              <a class="menu-item" href="/inference"><span class="menu-item-title">Inference</span></a>
+              <a class="menu-item" href="/agents"><span class="menu-item-title">Agents</span></a>
+              <a class="menu-item" href="/fine-tuning"><span class="menu-item-title">Fine-tuning</span></a>
+              <a class="menu-item" href="/compute-heavy"><span class="menu-item-title">Compute-heavy tasks</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Resources</p>
+              <a class="menu-item" href="/docs"><span class="menu-item-title">Docs</span></a>
+              <a class="menu-item" href="/api"><span class="menu-item-title">API reference</span></a>
+              <a class="menu-item" href="/support"><span class="menu-item-title">Support</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">AI <span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-dropdown-panel" role="menu">
+          <div class="menu-cols">
+            <div class="menu-section">
+              <p class="menu-section-head">Products</p>
+              <a class="menu-item" href="/ai-api"><span class="menu-item-title">AI API</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Models</p>
+              <a class="menu-item" href="https://atraly.com"><span class="menu-item-title">Atraly 2.0</span></a>
+              <a class="menu-item" href="https://atraly.com"><span class="menu-item-title">Aorila 5</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Use cases</p>
+              <a class="menu-item" href="/agents"><span class="menu-item-title">Agents</span></a>
+              <a class="menu-item" href="/inference"><span class="menu-item-title">Inference</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Robotics <span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-dropdown-panel" role="menu">
+          <div class="menu-cols">
+            <div class="menu-section">
+              <p class="menu-section-head">Robot</p>
+              <a class="menu-item" href="https://robotics.aorila.com"><span class="menu-item-title">Home robot</span></a>
+              <a class="menu-item" href="https://robotics.aorila.com/#everyday"><span class="menu-item-title">What it does</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Details</p>
+              <a class="menu-item" href="https://robotics.aorila.com/#specs"><span class="menu-item-title">Specs</span></a>
+              <a class="menu-item" href="https://robotics.aorila.com/#safety"><span class="menu-item-title">Safety</span></a>
+              <a class="menu-item" href="https://robotics.aorila.com/#faq"><span class="menu-item-title">FAQ</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Get started</p>
+              <a class="menu-item" href="https://robotics.aorila.com/#waitlist"><span class="menu-item-title">Join the waitlist</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Atraly <span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-dropdown-panel" role="menu">
+          <div class="menu-cols">
+            <div class="menu-section">
+              <p class="menu-section-head">Product</p>
+              <a class="menu-item" href="https://atraly.com"><span class="menu-item-title">Talk to Atraly</span></a>
+              <a class="menu-item" href="/ai-api"><span class="menu-item-title">AI API</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Company</p>
+              <a class="menu-item" href="/about"><span class="menu-item-title">About Aorila</span></a>
+              <a class="menu-item" href="/contact"><span class="menu-item-title">Contact</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Aorila Labs <span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-dropdown-panel" role="menu">
+          <div class="menu-cols">
+            <div class="menu-section">
+              <p class="menu-section-head">Cloud</p>
+              <a class="menu-item" href="https://aorilalabs.com"><span class="menu-item-title">Compute cloud</span></a>
+              <a class="menu-item" href="/console"><span class="menu-item-title">Open console</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Build</p>
+              <a class="menu-item" href="/docs"><span class="menu-item-title">Docs</span></a>
+              <a class="menu-item" href="/api"><span class="menu-item-title">API reference</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Company</p>
+              <a class="menu-item" href="/providers"><span class="menu-item-title">Become a provider</span></a>
+              <a class="menu-item" href="/partner"><span class="menu-item-title">Partner</span></a>
+              <a class="menu-item" href="/careers"><span class="menu-item-title">Careers</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Pricing <span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-dropdown-panel" role="menu">
+          <div class="menu-cols">
+            <div class="menu-section">
+              <p class="menu-section-head">Compute</p>
+              <a class="menu-item" href="/pricing"><span class="menu-item-title">GPU pricing</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">AI</p>
+              <a class="menu-item" href="/ai-api"><span class="menu-item-title">AI API pricing</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Robotics</p>
+              <a class="menu-item" href="https://robotics.aorila.com"><span class="menu-item-title">Robot presale</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
     <div class="nav-utility">
       <a class="nav-commercial" href="/console">Open console</a>
@@ -38,11 +163,136 @@
       <button class="nav-sidebar-close" type="button" data-nav-close>Close</button>
     </div>
     <nav class="nav-primary" aria-label="Menu">
-      <a class="nav-link" href="/pods" data-nav-close>Compute</a>
-      <a class="nav-link" href="/pricing" data-nav-close>Pricing</a>
-      <a class="nav-link" href="/ai-api" data-nav-close>AI API</a>
-      <a class="nav-link" href="https://atraly.com" data-nav-close>Atraly</a>
-      <a class="nav-link" href="https://robotics.aorila.com" data-nav-close>Robotics</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Compute <span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-dropdown-panel" role="menu">
+          <div class="menu-cols">
+            <div class="menu-section">
+              <p class="menu-section-head">Products</p>
+              <a class="menu-item" href="/pods"><span class="menu-item-title">Pods</span></a>
+              <a class="menu-item" href="/serverless"><span class="menu-item-title">Serverless</span></a>
+              <a class="menu-item" href="/clusters"><span class="menu-item-title">Clusters</span></a>
+              <a class="menu-item" href="/hub"><span class="menu-item-title">Hub</span></a>
+              <a class="menu-item" href="/deployments"><span class="menu-item-title">Deployments</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Use cases</p>
+              <a class="menu-item" href="/inference"><span class="menu-item-title">Inference</span></a>
+              <a class="menu-item" href="/agents"><span class="menu-item-title">Agents</span></a>
+              <a class="menu-item" href="/fine-tuning"><span class="menu-item-title">Fine-tuning</span></a>
+              <a class="menu-item" href="/compute-heavy"><span class="menu-item-title">Compute-heavy tasks</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Resources</p>
+              <a class="menu-item" href="/docs"><span class="menu-item-title">Docs</span></a>
+              <a class="menu-item" href="/api"><span class="menu-item-title">API reference</span></a>
+              <a class="menu-item" href="/support"><span class="menu-item-title">Support</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">AI <span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-dropdown-panel" role="menu">
+          <div class="menu-cols">
+            <div class="menu-section">
+              <p class="menu-section-head">Products</p>
+              <a class="menu-item" href="/ai-api"><span class="menu-item-title">AI API</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Models</p>
+              <a class="menu-item" href="https://atraly.com"><span class="menu-item-title">Atraly 2.0</span></a>
+              <a class="menu-item" href="https://atraly.com"><span class="menu-item-title">Aorila 5</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Use cases</p>
+              <a class="menu-item" href="/agents"><span class="menu-item-title">Agents</span></a>
+              <a class="menu-item" href="/inference"><span class="menu-item-title">Inference</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Robotics <span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-dropdown-panel" role="menu">
+          <div class="menu-cols">
+            <div class="menu-section">
+              <p class="menu-section-head">Robot</p>
+              <a class="menu-item" href="https://robotics.aorila.com"><span class="menu-item-title">Home robot</span></a>
+              <a class="menu-item" href="https://robotics.aorila.com/#everyday"><span class="menu-item-title">What it does</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Details</p>
+              <a class="menu-item" href="https://robotics.aorila.com/#specs"><span class="menu-item-title">Specs</span></a>
+              <a class="menu-item" href="https://robotics.aorila.com/#safety"><span class="menu-item-title">Safety</span></a>
+              <a class="menu-item" href="https://robotics.aorila.com/#faq"><span class="menu-item-title">FAQ</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Get started</p>
+              <a class="menu-item" href="https://robotics.aorila.com/#waitlist"><span class="menu-item-title">Join the waitlist</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Atraly <span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-dropdown-panel" role="menu">
+          <div class="menu-cols">
+            <div class="menu-section">
+              <p class="menu-section-head">Product</p>
+              <a class="menu-item" href="https://atraly.com"><span class="menu-item-title">Talk to Atraly</span></a>
+              <a class="menu-item" href="/ai-api"><span class="menu-item-title">AI API</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Company</p>
+              <a class="menu-item" href="/about"><span class="menu-item-title">About Aorila</span></a>
+              <a class="menu-item" href="/contact"><span class="menu-item-title">Contact</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Aorila Labs <span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-dropdown-panel" role="menu">
+          <div class="menu-cols">
+            <div class="menu-section">
+              <p class="menu-section-head">Cloud</p>
+              <a class="menu-item" href="https://aorilalabs.com"><span class="menu-item-title">Compute cloud</span></a>
+              <a class="menu-item" href="/console"><span class="menu-item-title">Open console</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Build</p>
+              <a class="menu-item" href="/docs"><span class="menu-item-title">Docs</span></a>
+              <a class="menu-item" href="/api"><span class="menu-item-title">API reference</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Company</p>
+              <a class="menu-item" href="/providers"><span class="menu-item-title">Become a provider</span></a>
+              <a class="menu-item" href="/partner"><span class="menu-item-title">Partner</span></a>
+              <a class="menu-item" href="/careers"><span class="menu-item-title">Careers</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Pricing <span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-dropdown-panel" role="menu">
+          <div class="menu-cols">
+            <div class="menu-section">
+              <p class="menu-section-head">Compute</p>
+              <a class="menu-item" href="/pricing"><span class="menu-item-title">GPU pricing</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">AI</p>
+              <a class="menu-item" href="/ai-api"><span class="menu-item-title">AI API pricing</span></a>
+            </div>
+            <div class="menu-section">
+              <p class="menu-section-head">Robotics</p>
+              <a class="menu-item" href="https://robotics.aorila.com"><span class="menu-item-title">Robot presale</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
     <div class="nav-actions">
       <a class="nav-commercial" href="/console" data-nav-close>Open console</a>
