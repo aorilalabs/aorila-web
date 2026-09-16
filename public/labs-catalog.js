@@ -216,12 +216,21 @@
     return '$' + Math.round(n).toLocaleString('en-US');
   }
 
-  // Middle of a slider range, snapped to its step. Used to preset the
-  // simulator so thumbs start centered instead of pegged at the minimum.
-  function midVal(min, max, step) {
-    const mid = (Number(min) + Number(max)) / 2;
-    return Math.round(mid / step) * step;
+  /* The price slider spans $0.01-$50, three orders of magnitude, so it runs
+     on a log scale: slider position 0-1000 maps to price exponentially.
+     The middle of the track is the geometric mean ($0.71), a real mid-range
+     price, instead of $25 on a linear scale. */
+  var RATE_POS_MAX = 1000;
+  function logPrice(cfg, pos) {
+    const lo = cfg.rate.min, hi = cfg.rate.max;
+    return lo * Math.pow(hi / lo, Number(pos) / RATE_POS_MAX);
   }
+  function pricePos(cfg, price) {
+    const lo = cfg.rate.min, hi = cfg.rate.max;
+    const p = Math.min(hi, Math.max(lo, Number(price)));
+    return Math.round(RATE_POS_MAX * Math.log(p / lo) / Math.log(hi / lo));
+  }
+
 
   function bindCalculator(root) {
     const tabs = Array.from(root.querySelectorAll('.calc-tab'));
@@ -260,20 +269,19 @@
       });
       model.value = cfg.defaultModel;
       if (rateLabel) rateLabel.textContent = cfg.rate.label;
-      rate.min = cfg.rate.min; rate.max = cfg.rate.max; rate.step = cfg.rate.step;
+      rate.min = 0; rate.max = RATE_POS_MAX; rate.step = 1;
       if (countLabel) countLabel.textContent = cfg.count.label;
       count.min = cfg.count.min; count.max = cfg.count.max; count.step = cfg.count.step;
-      count.value = midVal(cfg.count.min, cfg.count.max, cfg.count.step);
+      count.value = cfg.count.min;
       update(true);
-      rate.value = midVal(cfg.rate.min, cfg.rate.max, cfg.rate.step);
-      update(false);
     }
 
     function update(resetRate) {
       const cfg = RESOURCES[resource];
       const def = cfg.models[model.value] || { label: model.value, rate: cfg.rate.min };
-      if (resetRate) rate.value = def.rate;
-      const hostRate = Number(rate.value);
+      if (resetRate) rate.value = pricePos(cfg, def.rate);
+      const hostRate = logPrice(cfg, rate.value);
+      rate.setAttribute('aria-valuetext', cfg.rate.fmt(hostRate));
       const custRate = Math.min(hostRate * (1 + PLATFORM_MARKUP), PRICE_CAP);
       const u = Number(util.value);
       const c = Number(count.value);
@@ -290,6 +298,8 @@
     model.addEventListener('change', () => update(true));
     [rate, util, count].forEach((el) => el.addEventListener('input', () => update(false)));
     setResource('gpu');
+    rate.value = Math.round(RATE_POS_MAX / 2);
+    update(false);
   }
 
   if (typeof document !== 'undefined') {
