@@ -358,7 +358,7 @@
     if (!el) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var phrases = ['Your compute earns more', 'Your gaming runs better', 'Your AI runs better'];
-    var TYPE_MS = 45, ERASE_MS = 22, HOLD_MS = 2600;
+    var TYPE_MS = 95, ERASE_MS = 22, HOLD_MS = 2600;
     var pi = 0, ci = phrases[0].length, mode = 'hold';
     function tick() {
       var phrase = phrases[pi];
@@ -374,6 +374,28 @@
         setTimeout(tick, ERASE_MS);
       } else { mode = 'erase'; setTimeout(tick, 400); }
     }
+    /* keep the headline at 2 lines max (caret included): shrink to fit the longest phrase */
+    function fitHero() {
+      var h1 = el.closest('h1');
+      if (!h1) return;
+      var longest = phrases.reduce(function (a, b) { return a.length > b.length ? a : b; });
+      var prev = el.textContent;
+      el.textContent = longest;
+      h1.style.fontSize = '';
+      var size = parseFloat(getComputedStyle(h1).fontSize);
+      var lines = function () {
+        var lh = parseFloat(getComputedStyle(h1).lineHeight);
+        return h1.scrollHeight / lh;
+      };
+      while (lines() > 2.02 && size > 15) {
+        size -= 1;
+        h1.style.fontSize = size + 'px';
+      }
+      el.textContent = prev;
+    }
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fitHero); }
+    window.addEventListener('resize', fitHero);
+    fitHero();
     setTimeout(tick, HOLD_MS);
   })();
 })();
