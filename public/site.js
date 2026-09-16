@@ -331,5 +331,17 @@
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') closeMega();
     });
+    /* grace period: keep the panel alive while the pointer crosses the dead
+       zone between the tabs and the panel, so it can't flicker shut */
+    let closeTimer = null;
+    mega.addEventListener('mouseleave', () => {
+      clearTimeout(closeTimer);
+      mega.classList.add('is-closing');
+      closeTimer = setTimeout(() => mega.classList.remove('is-closing'), 350);
+    });
+    mega.addEventListener('mouseenter', () => {
+      clearTimeout(closeTimer);
+      mega.classList.remove('is-closing');
+    });
   });
 })();
