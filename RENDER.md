@@ -21,9 +21,9 @@ Keep the Node service for dynamic behavior only:
 - auth and account routes (`/login`, `/signup`, `/logout`, `/console`, `/account`, `/dashboard`)
 - compute proxy (`/compute/v1/gpus`)
 - `GET /healthz`
-- existing backend HTML/API behavior on `api.aorila.com`
+- existing backend behavior (parent console, auth, leads)
 
-After cutover, the backend should keep only `api.aorila.com` as its custom domain.
+After cutover, the backend should keep only `console.aorila.com` as its custom domain (the parent console). `api.aorila.com` does not exist.
 
 ### Static sites
 
@@ -62,18 +62,18 @@ Each build copies shared `public/` assets and emits the correct root `index.html
    - **Labs first:** attach `aorilalabs.com` and `www.aorilalabs.com` to `aorila-labs-site`, verify TLS, reload the form flow, and confirm API/browser requests still reach the backend.
    - **Robotics second:** attach `robotics.aorila.com` to `aorila-robotics-site`, verify TLS, and confirm the placeholder page is the only public Robotics content.
    - **Aorila last:** attach `aorila.com` and `www.aorila.com` to `aorila-site`, verify TLS, pricing, contact/provider flows, and backend-linked routes.
-5. **Leave only `api.aorila.com` on Node.**
+5. **Leave only `console.aorila.com` on Node.**
    - After consumer, Labs, and Robotics are stable on static services, remove their custom domains from the Node service.
-   - Keep `api.aorila.com` attached to the backend service.
+   - Keep `console.aorila.com` attached to the backend service (parent console + auth + leads).
 6. **Verify backend health after every move.**
-   - `GET https://api.aorila.com/healthz`
+   - `GET https://console.aorila.com/healthz`
    - auth/account paths load
    - `/compute/v1/gpus` still answers
    - lead forms still submit from all allowed frontend origins
 
 ## Notes
 
-- The frontend API origin is centralized in browser code. Production defaults to `https://api.aorila.com`.
+- The frontend API origin is centralized in browser code. Production defaults to `https://api.aorilalabs.com` (Labs API, commercial uses).
 - `STATIC_API_ORIGIN` can be set at build time if a temporary preview API origin is needed while testing static artifacts.
 - Backend CORS is intentionally restricted to:
   - `https://aorila.com`
