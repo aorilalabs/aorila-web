@@ -4,9 +4,14 @@ One Express app. The **Host** header chooses the face:
 
 | Host | Site | Face |
 | --- | --- | --- |
-| `aorila.com` / `www.aorila.com` | Consumer | **The Future of AI Innovation** |
-| `api.aorila.com` | Consumer API face | Slim **Aorila API** at `/` (same copy as today’s `/api`) |
-| `aorilalabs.com` / `www.aorilalabs.com` | Aorila Labs | **Commercial API access** |
+| `aorila.com` / `www.aorila.com` | Consumer (Aorila parent) | **The Future of AI Innovation** |
+| `aorilalabs.com` / `www.aorilalabs.com` | Aorila Labs | **Peer-powered compute marketplace** |
+
+Entity map: **Aorila** (parent, DE C-corp) = aorila.com + parent console (donations, emails, updates) ·
+**Aorila Labs** (Labs LLC) = aorilalabs.com + dashboard.aorilalabs.com + `api.aorilalabs.com` (Labs API, commercial uses) ·
+**Atraly** (Atraly LLC) = atraly.com + `api.atraly.com` (consumer API, Labs-managed).
+Entities share ONLY login. `api.aorila.com` does not exist. API hosts are pure JSON — never pages.
+Separate Renders + Supabase projects per entity are deferred, not yet done.
 
 Atraly is a separate consumer app and is **not** built in this repo.
 
@@ -16,7 +21,7 @@ Early-access sell path (prices may change; no Stripe on this site):
 
 | Face | Public offer | Access |
 | --- | --- | --- |
-| Consumer | **compute cost + Aorila fee** | `https://api.aorila.com` and `https://aorila.com/api` — Atraly link + `api@aorila.com` |
+| Consumer | **compute cost + Aorila fee** | `https://aorila.com/api` — Atraly link + `api@aorila.com` |
 | Providers | List GPUs on the network | `/providers` application → `POST /leads` (`kind=provider`) |
 | Labs | Commercial API access | B2B contact form → `POST /leads` · `api@aorila.com` secondary |
 
@@ -26,7 +31,7 @@ Leads are stored in `data/leads.json` (or `LEADS_PATH`). On Render, `render.yaml
 
 **Home base: Render** — https://github.com/nbaldwin098/aorila-web
 
-See **RENDER.md**. Consumer, Labs, and `api.aorila.com` attach to the **same** web service. Push `main` (or merge this branch) to deploy. No env secrets required.
+See **RENDER.md**. Consumer and Labs attach to the **same** web service for now (per-entity renders are deferred). Push `main` (or merge this branch) to deploy. No env secrets required.
 
 ## Local
 
@@ -47,7 +52,7 @@ npm test
 ## Pages
 
 - `/` — consumer: one-line landing + key / Labs CTAs · API host: slim Atraly + `api@aorila.com` · Labs: request form
-- `/api` — consumer + preview hosts: slim API page (`sites/consumer/api.html`) · `api.aorila.com/api` 301 → `/` · Labs: request form
+- `/api` — consumer + preview hosts: slim API page (`sites/consumer/api.html`) · Labs: request form
 - `/docs` — both hosts: docs ship with a key (no public reference)
 - consumer `/tp` + `/support`; Labs `/tp` + `/support` (same footer as aorila.com)
 
