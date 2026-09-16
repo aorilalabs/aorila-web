@@ -370,7 +370,7 @@
       { t: 'Your gaming runs better', h: 'here' },
       { t: 'Your AI runs better', h: 'here' },
     ];
-    var TYPE_MS = 80, ERASE_MS = 50, HOLD_MS = 2800;
+    var TYPE_MS = 80, ERASE_MS = 50, HOLD_MS = 2000;
     var pi = 0, mode = 'hold';
     var segs = [el, hereEl, dotEl];
     function full() { return [phrases[pi].t, phrases[pi].h, '.']; }
