@@ -232,7 +232,7 @@ describe('host-based pages', () => {
       assert.match(res.body, /Trust and security is number one/);
     }
     // Upstream vendors are never named in user copy: "verified partner pools"
-    // (or "peer-powered marketplace" on the homepage) only.
+    // (or "compute marketplace" on the homepage) only.
     for (const p of ['/', '/about', '/pods']) {
       const r = await request(port, { path: p, headers: { host: 'aorila.com' } });
       assert.equal(r.status, 200, p);
@@ -240,7 +240,7 @@ describe('host-based pages', () => {
       assert.doesNotMatch(r.body, /Vast\.ai/, p);
       assert.doesNotMatch(r.body, /TensorDock/, p);
       assert.doesNotMatch(r.body, /Voltage Park/, p);
-      assert.match(r.body, /verified partner pools|peer-powered marketplace/, p);
+      assert.match(r.body, /verified partner pools|compute marketplace/, p);
     }
     const providers = await request(port, { path: '/providers', headers: { host: 'aorila.com' } });
     assert.equal(providers.status, 200);
@@ -260,7 +260,7 @@ describe('host-based pages', () => {
     assert.equal(res.headers['x-aorila-site'], 'labs');
     assert.match(res.body, /<title>Aorila Compute/);
     assert.match(res.body, /Aorila Labs/);
-    assert.match(res.body, /peer-powered compute marketplace/);
+    assert.match(res.body, /Aorila Compute — Compute marketplace/);
     assert.match(res.body, /class="ds"/);
     assert.match(res.body, /href="\/labs\.css"/);
     assert.match(res.body, /hero-badge/);
@@ -307,7 +307,7 @@ describe('host-based pages', () => {
   it('preview via ?site=labs on localhost', async () => {
     const res = await request(port, { path: '/?site=labs', headers: { host: 'localhost' } });
     assert.equal(res.headers['x-aorila-site'], 'labs');
-    assert.match(res.body, /peer-powered compute marketplace/);
+    assert.match(res.body, /Aorila Compute — Compute marketplace/);
     assert.doesNotMatch(res.body, /Atraly/);
     assert.match(String(res.headers['set-cookie'] || ''), /aorila_site=labs/);
   });
