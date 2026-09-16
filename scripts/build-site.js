@@ -138,6 +138,10 @@ function buildLabs(targetDir) {
   }
   // Legal stays a standalone page — the dashboard has no legal section.
   writeRoute(targetDir, 'tp', withBounce(fs.readFileSync(path.join(labsDir, 'tp.html'), 'utf8')));
+  // Seller onboarding and product docs stay standalone so prospective hosts can
+  // apply and read without a dashboard account.
+  writeRoute(targetDir, 'sell', withBounce(fs.readFileSync(path.join(labsDir, 'sell.html'), 'utf8')));
+  writeRoute(targetDir, 'learn', withBounce(fs.readFileSync(path.join(labsDir, 'learn.html'), 'utf8')));
 }
 
 function buildRobotics(targetDir) {
