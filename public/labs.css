@@ -107,6 +107,14 @@ body.ds main { display: block; }
 }
 .ds .section-head h2 { font-size: clamp(30px, 3.6vw, 46px); letter-spacing: -.035em; line-height: 1.05; margin: 0 0 12px; font-weight: 800; }
 .ds .section-head .lede { color: rgba(16,16,15,.72); margin: 0; }
+.ds .faq { max-width: 820px; border-top: 2px solid #10100f; }
+.ds .faq details { border-bottom: 1px solid rgba(16,16,15,.16); }
+.ds .faq summary { cursor: pointer; font-weight: 800; font-size: 18px; letter-spacing: -.015em; padding: 18px 4px; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.ds .faq summary::-webkit-details-marker { display: none; }
+.ds .faq summary::after { content: "+"; font-size: 22px; font-weight: 800; flex: none; }
+.ds .faq details[open] summary::after { content: "\2013"; }
+.ds .faq summary:hover { color: #5b2ee5; }
+.ds .faq details p { margin: 0 0 20px 4px; max-width: 640px; color: rgba(16,16,15,.78); line-height: 1.6; }
 .ds .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .ds .cards.two { grid-template-columns: repeat(2, 1fr); }
 .ds .card {
