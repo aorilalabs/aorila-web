@@ -178,6 +178,13 @@
     });
   }
 
+  document.querySelectorAll('[data-scroll-to]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const target = document.getElementById(el.getAttribute('data-scroll-to'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
   const header = document.querySelector('header.nav');
   const toggle = document.querySelector('.nav-toggle');
   const sidebar = document.querySelector('.nav-sidebar');
