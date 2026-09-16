@@ -6,7 +6,7 @@
     "ai": "https://aorila.com/docs/ai.md"
   },
   "api": {
-    "base": "https://api.aorila.com",
+    "base": "https://api.aorilalabs.com",
     "kind": "openai-compatible-chat"
   }
 }
