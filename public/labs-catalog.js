@@ -154,6 +154,11 @@
   // GTX 1660 Super (~$0.03) up through datacenter parts; CPU/storage from the same market data.
   var HOURS_PER_MONTH = 730;
 
+  // Customer-facing price guard: host cost + our markup can never exceed
+  // this per hour. Simple clamp, not a rule engine.
+  var PRICE_CAP = 50;
+  var PLATFORM_MARKUP = 0; // our cut as a fraction of host price (unset)
+
   var RESOURCES = {
     gpu: {
       modelLabel: 'GPU MODEL',
@@ -259,7 +264,8 @@
       const cfg = RESOURCES[resource];
       const def = cfg.models[model.value] || { label: model.value, rate: cfg.rate.min };
       if (resetRate) rate.value = def.rate;
-      const r = Number(rate.value);
+      const hostRate = Number(rate.value);
+      const r = Math.min(hostRate * (1 + PLATFORM_MARKUP), PRICE_CAP);
       const u = Number(util.value);
       const c = Number(count.value);
       const unit = c === 1 ? cfg.count.unit[0] : cfg.count.unit[1];
