@@ -264,6 +264,7 @@ body.ds main { display: block; }
 @media (max-width: 1000px) {
   .ds .hero-grid { grid-template-columns: 1fr; }
   .ds .section-head { grid-template-columns: 1fr; gap: 16px; }
+  .ds .section-head .snum { justify-self: start; margin-bottom: 8px; }
   .ds .cards, .ds .cards.two { grid-template-columns: 1fr 1fr; }
   .ds .gpu-grid { grid-template-columns: 1fr 1fr; }
   .ds .calc-row { grid-template-columns: 150px 1fr 120px; }
