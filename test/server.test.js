@@ -265,7 +265,8 @@ describe('host-based pages', () => {
     assert.match(res.body, /Now Onboarding/);
     assert.match(res.body, /Your compute earns/);
     assert.match(res.body, />Dashboard</);
-    assert.match(res.body, /href="\/console"/);
+    assert.match(res.body, /href="https:\/\/dashboard\.aorilalabs\.com\/"/);
+    assert.match(res.body, /meta name="aorila-api-origin" content="https:\/\/dashboard\.aorilalabs\.com"/);
     assert.match(res.body, /company-line/);
     assert.match(res.body, /og:image" content="https:\/\/aorilalabs\.com\/logo-aorila\.png"/);
     assert.doesNotMatch(res.body, />Trust<\/a>/);
