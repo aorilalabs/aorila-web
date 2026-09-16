@@ -157,7 +157,7 @@
   // Customer-facing price guard: host cost + our markup can never exceed
   // this per hour. Simple clamp, not a rule engine.
   var PRICE_CAP = 50;
-  var PLATFORM_MARKUP = 0; // our cut as a fraction of host price (unset)
+  var PLATFORM_MARKUP = 0.05; // our cut: 5% on top of the host price
 
   var RESOURCES = {
     gpu: {
@@ -178,7 +178,7 @@
         'h100-80':   { label: 'H100', sub: '80GB', rate: 1.55 },
       },
       defaultModel: 'rtx-4090',
-      rate: { label: 'YOUR PRICE · $/HR', min: 0.01, max: 3, step: 0.01, fmt: (r) => '$' + r.toFixed(2) + '/hr' },
+      rate: { label: 'YOUR PRICE · $/HR', min: 0.01, max: 50, step: 0.01, fmt: (r) => '$' + r.toFixed(2) + '/hr' },
       count: { label: 'GPU COUNT', min: 1, max: 16, step: 1, unit: ['GPU', 'GPUs'] },
       monthly: (r, u, c) => r * (u / 100) * HOURS_PER_MONTH * c,
       breakdown: (r, u, c, unit) => '$' + r.toFixed(2) + '/hr × ' + u + '% utilization × ' + HOURS_PER_MONTH + ' hrs × ' + c + ' ' + unit,
@@ -193,7 +193,7 @@
         'cpu-64': { label: '64 vCPU', sub: '256GB RAM', rate: 0.40 },
       },
       defaultModel: 'cpu-16',
-      rate: { label: 'YOUR PRICE · $/HR', min: 0.01, max: 1, step: 0.01, fmt: (r) => '$' + r.toFixed(2) + '/hr' },
+      rate: { label: 'YOUR PRICE · $/HR', min: 0.01, max: 50, step: 0.01, fmt: (r) => '$' + r.toFixed(2) + '/hr' },
       count: { label: 'INSTANCE COUNT', min: 1, max: 32, step: 1, unit: ['instance', 'instances'] },
       monthly: (r, u, c) => r * (u / 100) * HOURS_PER_MONTH * c,
       breakdown: (r, u, c, unit) => '$' + r.toFixed(2) + '/hr × ' + u + '% utilization × ' + HOURS_PER_MONTH + ' hrs × ' + c + ' ' + unit,
@@ -265,16 +265,16 @@
       const def = cfg.models[model.value] || { label: model.value, rate: cfg.rate.min };
       if (resetRate) rate.value = def.rate;
       const hostRate = Number(rate.value);
-      const r = Math.min(hostRate * (1 + PLATFORM_MARKUP), PRICE_CAP);
+      const custRate = Math.min(hostRate * (1 + PLATFORM_MARKUP), PRICE_CAP);
       const u = Number(util.value);
       const c = Number(count.value);
       const unit = c === 1 ? cfg.count.unit[0] : cfg.count.unit[1];
       if (modelVal) modelVal.textContent = def.label;
-      if (rateVal) rateVal.textContent = cfg.rate.fmt(r);
+      if (rateVal) rateVal.textContent = cfg.rate.fmt(hostRate);
       if (utilVal) utilVal.textContent = u + '%';
       if (countVal) countVal.textContent = Number(c).toLocaleString('en-US') + ' ' + unit;
-      if (monthly) monthly.textContent = money(cfg.monthly(r, u, c));
-      if (breakdown) breakdown.textContent = cfg.breakdown(r, u, c, unit);
+      if (monthly) monthly.textContent = money(cfg.monthly(hostRate, u, c));
+      if (breakdown) breakdown.textContent = cfg.breakdown(hostRate, u, c, unit) + ' · customer pays ' + cfg.rate.fmt(custRate);
     }
 
     tabs.forEach((t) => t.addEventListener('click', () => setResource(t.dataset.resource)));
