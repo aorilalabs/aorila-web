@@ -90,6 +90,7 @@ function escHtml(value) {
 const LEAD_ORIGIN_HOSTS = new Set([
   'aorila.com', 'www.aorila.com',
   'aorilalabs.com', 'www.aorilalabs.com', 'robotics.aorila.com', 'localhost', '127.0.0.1',
+  'dashboard.aorilalabs.com',
 ]);
 
 function leadOriginAllowed(req) {
@@ -327,7 +328,7 @@ function createApp(options = {}) {
       if (wantsJson(req)) return res.status(201).json({ ok: true, id: result.id || null, ignored: Boolean(result.ignored) });
       const kind = String((req.body && req.body.kind) || '').trim();
       let dest = CONSUMER_API_URL;
-      if (res.locals.site === 'labs') dest = kind === 'seller' ? '/sell?sent=1' : kind === 'contact' ? '/contact?sent=1' : '/?sent=1';
+      if (res.locals.site === 'labs') dest = kind === 'seller' ? 'https://dashboard.aorilalabs.com/earn' : kind === 'contact' ? '/contact?sent=1' : '/?sent=1';
       else if (kind === 'provider') dest = '/providers?sent=1#apply';
       else dest = '/contact?sent=1';
       return res.redirect(303, dest);
