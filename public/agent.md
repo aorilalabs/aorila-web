@@ -11,7 +11,7 @@ This page is documentation. It is not an inference endpoint.
 - https://aorila.com — product
 - https://aorila.com/agent — this setup (markdown)
 - https://aorila.com/llms.txt — short index
-- https://api.aorila.com — key request / API face (not chat from this file)
+- https://api.aorilalabs.com — key request / API face (not chat from this file)
 - https://aorilalabs.com — Labs
 
 ## What to do
