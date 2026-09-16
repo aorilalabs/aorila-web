@@ -111,7 +111,8 @@ function buildLabs(targetDir) {
     writeRoute(targetDir, route, html);
   }
   const apiOrigin = STATIC_API_ORIGIN || 'https://api.aorila.com';
-  writeRoute(targetDir, 'console', redirectPage('Redirecting to dashboard', `${apiOrigin}/`));
+  const dashboardOrigin = STATIC_DASHBOARD_ORIGIN || 'https://dashboard.aorilalabs.com';
+  writeRoute(targetDir, 'console', redirectPage('Redirecting to dashboard', `${dashboardOrigin}/`));
 }
 
 function buildRobotics(targetDir) {
