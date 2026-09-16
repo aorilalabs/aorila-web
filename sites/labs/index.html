@@ -19,10 +19,6 @@
   <header class="nav">
     <a class="wordmark lockup" href="/" aria-label="Aorila Labs home"><img class="wm-logo" src="/logo-aorila.svg" alt="Aorila" /><span class="wm-labs">Labs</span></a>
     <nav class="nav-links">
-      <a class="nav-link" href="/compute">Compute</a>
-      <a class="nav-link" href="/api">API</a>
-      <a class="nav-link" href="/training">Training</a>
-      <a class="nav-link" href="/models">Models</a>
       <a class="nav-cta ghost nav-far" href="/contact">Contact</a>
       <a class="nav-cta" href="/console">Dashboard</a>
     </nav>
@@ -34,10 +30,6 @@
       <button class="nav-sidebar-close" type="button" data-nav-close>Close</button>
     </div>
     <nav class="nav-primary" aria-label="Menu">
-      <a class="nav-link" href="/compute" data-nav-close>Compute</a>
-      <a class="nav-link" href="/api" data-nav-close>API</a>
-      <a class="nav-link" href="/training" data-nav-close>Training</a>
-      <a class="nav-link" href="/models" data-nav-close>Models</a>
       <a class="nav-cta ghost nav-far" href="/contact" data-nav-close>Contact</a>
       <a class="nav-cta" href="/console" data-nav-close>Dashboard</a>
     </nav>
@@ -50,8 +42,8 @@
           <h1>Your compute earns <mark>more here.</mark></h1>
           <p class="hero-copy">List your GPUs on Aorila and out-earn crypto mining and other marketplaces — with verified payouts.</p>
           <div class="btn-row">
-            <button class="btn acid" type="button" data-scroll-to="apply">Become a host</button>
             <a class="btn" href="/console">Dashboard</a>
+            <span class="co-badge">A <img class="co-logo" src="/logo-aorila.svg" alt="Aorila" /> company</span>
           </div>
         </div>
         <div class="calc" id="earn-calc">
@@ -118,7 +110,7 @@
             <span class="tag">FOR HOSTS</span>
             <h3>List your GPUs. Get paid per minute.</h3>
             <p>Own a GPU? List the hardware you already have — you set your per-minute price and payouts accrue per minute of rented time. Aorila takes a small marketplace fee; we carry zero upfront capacity cost, and so do you.</p>
-            <div class="btn-row"><button class="btn acid" type="button" data-scroll-to="apply">Become a host</button></div>
+            <div class="btn-row"><a class="btn" href="/console">Dashboard</a></div>
           </div>
           <div class="card">
             <span class="tag">FOR RENTERS</span>
@@ -150,29 +142,6 @@
       </div>
     </section>
 
-    <section class="section" id="hosts">
-      <div class="wrap" id="apply">
-        <div class="section-head">
-          <span class="snum">02 / BECOME A HOST</span>
-          <div>
-            <h2>Turn your idle GPUs into revenue.</h2>
-            <p class="lede">Host onboarding is open. Tell us about your hardware and we&rsquo;ll follow up by email.</p>
-          </div>
-        </div>
-        <form class="waitlist" action="/leads" method="post" data-kind="host">
-          <input type="hidden" name="site" value="labs" />
-          <input type="hidden" name="kind" value="host" />
-          <label class="hp" aria-hidden="true">Fax<input type="text" name="fax" tabindex="-1" autocomplete="off" /></label>
-          <label>NAME<input type="text" name="name" autocomplete="name" required placeholder="Jordan Lee" /></label>
-          <label>EMAIL<input type="email" name="email" autocomplete="email" required placeholder="you@example.com" /></label>
-          <label>GPU MODELS &amp; COUNT<textarea name="hardware" rows="3" required placeholder="e.g. 2&times; RTX 4090, 1&times; H100 80GB"></textarea></label>
-          <label>AVAILABILITY <span class="price-note">optional</span><input type="text" name="availability" autocomplete="off" placeholder="e.g. 24/7, or weekends only" /></label>
-          <button class="btn acid" type="submit">Apply to host</button>
-          <p class="form-status" role="status" aria-live="polite"></p>
-        </form>
-        <p class="price-note" style="margin-top:14px">No listing cost — Aorila takes a small marketplace fee when your GPUs earn. Or email <a href="mailto:api@aorila.com">api@aorila.com</a>.</p>
-      </div>
-    </section>
 
     <div class="love-band"><div class="wrap"><h2>Trust and security is number one.</h2></div></div>
   </main>
