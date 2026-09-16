@@ -27,7 +27,7 @@ body.ds main { display: block; }
 .ds .wordmark { font-weight: 800; letter-spacing: -.02em; font-size: 19px; text-decoration: none; color: #10100f; }
 .ds .wordmark:hover { background: none; }
 .ds .wordmark .soft { background: #d8ff36; padding: 2px 8px; border-radius: 6px; font-weight: 800; }
-.ds .nav-links { display: flex; gap: 2px; align-items: center; margin-left: 8px; }
+.ds .nav-links { display: flex; gap: 2px; align-items: center; margin-left: 8px; flex: 1; }
 .ds .nav-link {
   color: #10100f; text-decoration: none; font: 700 13.5px "Archivo", sans-serif;
   padding: 8px 12px; border-radius: 8px; white-space: nowrap;
