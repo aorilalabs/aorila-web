@@ -56,19 +56,37 @@ describe('labs gpu catalog cards', () => {
 });
 
 describe('labs host earnings calculator', () => {
-  it('computes monthly earnings from rate, utilization, and count', () => {
+  it('computes GPU monthly earnings from rate, utilization, and count', () => {
+    const m = labs.RESOURCES.gpu.monthly;
     // $0.36/hr × 50% × 730 hrs × 1 GPU = $131.40
-    assert.ok(Math.abs(labs.monthlyEstimate(0.36, 50, 1) - 131.4) < 1e-9);
-    assert.ok(Math.abs(labs.monthlyEstimate(1.55, 100, 2) - 1.55 * 730 * 2) < 1e-9);
-    assert.equal(labs.monthlyEstimate(0.36, 0, 1), 0);
+    assert.ok(Math.abs(m(0.36, 50, 1) - 131.4) < 1e-9);
+    assert.ok(Math.abs(m(1.55, 100, 2) - 1.55 * 730 * 2) < 1e-9);
+    assert.equal(m(0.36, 0, 1), 0);
+  });
+
+  it('computes CPU monthly earnings per instance', () => {
+    const m = labs.RESOURCES.cpu.monthly;
+    assert.ok(Math.abs(m(0.10, 50, 1) - 36.5) < 1e-9);
+    assert.equal(m(0.10, 0, 4), 0);
+  });
+
+  it('computes storage monthly earnings per GB without hourly factor', () => {
+    const m = labs.RESOURCES.storage.monthly;
+    // $0.05/GB/mo × 100 GB × 50% = $2.50
+    assert.ok(Math.abs(m(0.05, 50, 100) - 2.5) < 1e-9);
+    assert.ok(Math.abs(m(0.05, 100, 10000) - 500) < 1e-9);
+  });
+
+  it('covers GPU, CPU, and storage resources', () => {
+    assert.deepEqual(Object.keys(labs.RESOURCES).sort(), ['cpu', 'gpu', 'storage']);
   });
 
   it('uses honest market-median defaults per GPU model', () => {
-    assert.equal(labs.GPU_DEFAULTS['rtx-4090'].rate, 0.36);
-    assert.equal(labs.GPU_DEFAULTS['rtx-3090'].rate, 0.16);
-    assert.equal(labs.GPU_DEFAULTS['h100-80'].rate, 1.55);
-    assert.ok(labs.GPU_DEFAULTS['rtx-4090'].rate >= 0.15);
-    assert.ok(labs.GPU_DEFAULTS['rtx-4090'].rate <= 0.59);
+    assert.equal(labs.RESOURCES.gpu.models['rtx-4090'].rate, 0.36);
+    assert.equal(labs.RESOURCES.gpu.models['rtx-3090'].rate, 0.16);
+    assert.equal(labs.RESOURCES.gpu.models['h100-80'].rate, 1.55);
+    assert.ok(labs.RESOURCES.gpu.models['rtx-4090'].rate >= 0.15);
+    assert.ok(labs.RESOURCES.gpu.models['rtx-4090'].rate <= 0.59);
   });
 
   it('formats money without decimals', () => {
