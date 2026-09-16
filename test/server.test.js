@@ -268,7 +268,7 @@ describe('host-based pages', () => {
     assert.match(res.body, /href="\/console"/);
     assert.match(res.body, /company-line/);
     assert.match(res.body, /og:image" content="https:\/\/aorilalabs\.com\/logo-aorila\.png"/);
-    assert.match(res.body, />Trust<\/a>/);
+    assert.doesNotMatch(res.body, />Trust<\/a>/);
     assert.match(res.body, /href="\/tp"/);
     assert.match(res.body, /href="https:\/\/dashboard\.aorilalabs\.com\/#support"/);
     assert.doesNotMatch(res.body, /href="\/privacy"/);
