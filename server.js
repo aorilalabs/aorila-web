@@ -208,7 +208,7 @@ function createApp(options = {}) {
     const host = req.hostname || req.get('host');
     if (isApiHost(host)) return res.redirect(301, '/');
     if (res.locals.site === 'consumer') return sendPage(res, 'consumer', 'api.html', { apiCurrent: true, user: res.locals.user });
-    return res.redirect(301, DASHBOARD_ORIGIN + '/#api');
+    return res.redirect(301, DASHBOARD_ORIGIN + '/#docs');
   });
 
   app.get(['/docs', '/docs.html'], (req, res) => {
@@ -235,7 +235,7 @@ function createApp(options = {}) {
 
   // Legacy product URL: AI Models is now AI API (consumer). Labs models live in the dashboard.
   app.get(['/models', '/models/'], (req, res) => {
-    if (res.locals.site === 'labs') return res.redirect(301, DASHBOARD_ORIGIN + '/#models');
+    if (res.locals.site === 'labs') return res.redirect(301, DASHBOARD_ORIGIN + '/#compute');
     res.redirect(301, '/ai-api');
   });
 
@@ -245,7 +245,7 @@ function createApp(options = {}) {
   for (const slug of MARKETING_SLUGS) {
     app.get([`/${slug}`, `/${slug}/`], (req, res) => {
       if (slug === 'contact' && res.locals.site === 'labs') {
-        return res.redirect(301, DASHBOARD_ORIGIN + '/#contact');
+        return res.redirect(301, DASHBOARD_ORIGIN + '/#support');
       }
       if (res.locals.site !== 'consumer') {
         return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
@@ -264,7 +264,7 @@ function createApp(options = {}) {
     if (res.locals.site !== 'labs') {
       return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
     }
-    return res.redirect(301, DASHBOARD_ORIGIN + '/#trust');
+    return res.redirect(301, DASHBOARD_ORIGIN + '/#support');
   });
   app.get(['/compute', '/compute.html'], (req, res) => {
     if (res.locals.site !== 'labs') {
@@ -276,13 +276,13 @@ function createApp(options = {}) {
     if (res.locals.site !== 'labs') {
       return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
     }
-    return res.redirect(301, DASHBOARD_ORIGIN + '/#training');
+    return res.redirect(301, DASHBOARD_ORIGIN + '/#compute');
   });
   app.get(['/models.html'], (req, res) => {
     if (res.locals.site !== 'labs') {
       return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
     }
-    return res.redirect(301, DASHBOARD_ORIGIN + '/#models');
+    return res.redirect(301, DASHBOARD_ORIGIN + '/#compute');
   });
   app.get(['/gaming', '/gaming.html'], (req, res) => {
     if (res.locals.site !== 'labs') {
@@ -294,7 +294,7 @@ function createApp(options = {}) {
     if (res.locals.site !== 'labs') {
       return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
     }
-    return res.redirect(301, DASHBOARD_ORIGIN + '/#contact');
+    return res.redirect(301, DASHBOARD_ORIGIN + '/#support');
   });
   app.get(['/status', '/status.html'], (req, res) => {
     if (res.locals.site !== 'consumer') {
