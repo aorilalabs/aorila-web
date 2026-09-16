@@ -136,7 +136,6 @@ function buildLabs(targetDir) {
     'api': '/api',
     'training': '/compute',
     'models': '/compute',
-    'gaming': '/compute',
     'docs': '/docs',
     'support': '/support',
     'trust': '/support',
