@@ -150,22 +150,30 @@
   /* ---------- host earnings calculator ---------- */
 
   // Default list prices: observed community-marketplace medians/ranges.
-  // GPU: 4090 median ~$0.36/hr (range $0.15–$0.59); CPU/storage from the same market data.
+  // GPU: 4090 median ~$0.36/hr (range $0.15–$0.59); full listable range from the
+  // GTX 1660 Super (~$0.03) up through datacenter parts; CPU/storage from the same market data.
   var HOURS_PER_MONTH = 730;
 
   var RESOURCES = {
     gpu: {
       modelLabel: 'GPU MODEL',
       models: {
-        'rtx-3090': { label: 'RTX 3090', sub: '24GB', rate: 0.16 },
-        'rtx-4090': { label: 'RTX 4090', sub: '24GB', rate: 0.36 },
-        'rtx-5090': { label: 'RTX 5090', sub: '32GB', rate: 0.46 },
-        'l40s':     { label: 'L40S', sub: '48GB', rate: 0.31 },
-        'a100-80':  { label: 'A100', sub: '80GB', rate: 0.67 },
-        'h100-80':  { label: 'H100', sub: '80GB', rate: 1.55 },
+        'gtx-1660s': { label: 'GTX 1660 Super', sub: '6GB', rate: 0.03 },
+        'rtx-2060':  { label: 'RTX 2060', sub: '6GB', rate: 0.05 },
+        'rtx-3060':  { label: 'RTX 3060', sub: '12GB', rate: 0.08 },
+        'rtx-4060':  { label: 'RTX 4060', sub: '8GB', rate: 0.08 },
+        'rtx-3070':  { label: 'RTX 3070', sub: '8GB', rate: 0.11 },
+        'rtx-4070':  { label: 'RTX 4070', sub: '12GB', rate: 0.13 },
+        'rtx-3080':  { label: 'RTX 3080', sub: '10GB', rate: 0.16 },
+        'rtx-3090':  { label: 'RTX 3090', sub: '24GB', rate: 0.16 },
+        'rtx-4090':  { label: 'RTX 4090', sub: '24GB', rate: 0.36 },
+        'rtx-5090':  { label: 'RTX 5090', sub: '32GB', rate: 0.46 },
+        'l40s':      { label: 'L40S', sub: '48GB', rate: 0.31 },
+        'a100-80':   { label: 'A100', sub: '80GB', rate: 0.67 },
+        'h100-80':   { label: 'H100', sub: '80GB', rate: 1.55 },
       },
       defaultModel: 'rtx-4090',
-      rate: { label: 'YOUR PRICE · $/HR', min: 0.05, max: 3, step: 0.01, fmt: (r) => '$' + r.toFixed(2) + '/hr' },
+      rate: { label: 'YOUR PRICE · $/HR', min: 0.01, max: 3, step: 0.01, fmt: (r) => '$' + r.toFixed(2) + '/hr' },
       count: { label: 'GPU COUNT', min: 1, max: 16, step: 1, unit: ['GPU', 'GPUs'] },
       monthly: (r, u, c) => r * (u / 100) * HOURS_PER_MONTH * c,
       breakdown: (r, u, c, unit) => '$' + r.toFixed(2) + '/hr × ' + u + '% utilization × ' + HOURS_PER_MONTH + ' hrs × ' + c + ' ' + unit,
@@ -173,6 +181,7 @@
     cpu: {
       modelLabel: 'INSTANCE SIZE',
       models: {
+        'cpu-4':  { label: '4 vCPU', sub: '16GB RAM', rate: 0.024 },
         'cpu-8':  { label: '8 vCPU', sub: '32GB RAM', rate: 0.05 },
         'cpu-16': { label: '16 vCPU', sub: '64GB RAM', rate: 0.10 },
         'cpu-32': { label: '32 vCPU', sub: '128GB RAM', rate: 0.20 },
