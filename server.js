@@ -2,7 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 const express = require('express');
-const { resolveSite, isPreviewHost, isApiHost, CONSUMER_API_URL } = require('./lib/resolve-site');
+const { resolveSite, isPreviewHost, CONSUMER_API_URL, PARENT_CONSOLE_ORIGIN } = require('./lib/resolve-site');
 const { createLeadStore } = require('./lib/leads');
 const { injectConsumerNav } = require('./lib/consumer-nav');
 const { MARKETING_SLUGS, renderMarketingPage } = require('./lib/marketing-pages');
@@ -88,7 +88,7 @@ function escHtml(value) {
 }
 
 const LEAD_ORIGIN_HOSTS = new Set([
-  'aorila.com', 'www.aorila.com', 'api.aorila.com',
+  'aorila.com', 'www.aorila.com',
   'aorilalabs.com', 'www.aorilalabs.com', 'robotics.aorila.com', 'localhost', '127.0.0.1',
 ]);
 
@@ -134,7 +134,7 @@ function notFoundHtml(site) {
 <nav class="footer-links" aria-label="Legal">
 <a href="/tp">T & P</a>
 <a href="/support">Support</a>
-<a href="https://api.aorila.com">Developer</a>
+<a href="https://aorila.com/api">Developer</a>
 </nav>
 </div></footer>
 <script src="/site.js"></script>
@@ -197,16 +197,10 @@ function createApp(options = {}) {
   app.get('/compute/v1/gpus', proxyGpus);
 
   app.get(['/', '/index.html'], (req, res) => {
-    const host = req.hostname || req.get('host');
-    if (isApiHost(host)) {
-      return sendPage(res, 'consumer', 'api.html', { wordmarkHref: 'https://aorila.com', apiCurrent: true, user: res.locals.user });
-    }
     sendPage(res, res.locals.site, 'index.html', { user: res.locals.user });
   });
 
   app.get(['/api', '/api/', '/api.html'], (req, res) => {
-    const host = req.hostname || req.get('host');
-    if (isApiHost(host)) return res.redirect(301, '/');
     if (res.locals.site === 'consumer') return sendPage(res, 'consumer', 'api.html', { apiCurrent: true, user: res.locals.user });
     return res.redirect(301, DASHBOARD_ORIGIN + '/#docs');
   });
