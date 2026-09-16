@@ -27,7 +27,7 @@ function cookieSite(req) {
 
 const SITES_DIR = path.join(__dirname, 'sites');
 const PUBLIC_DIR = path.join(__dirname, 'public');
-const PAGES = new Set(['index.html', 'api.html', 'docs.html', 'support.html', 'tp.html', 'status.html']);
+const PAGES = new Set(['index.html', 'api.html', 'docs.html', 'support.html', 'tp.html', 'status.html', 'trust.html']);
 
 function siteFromRequest(req) {
   return resolveSite({
@@ -228,6 +228,12 @@ function createApp(options = {}) {
   app.get(['/tp', '/tp.html'], (req, res) => sendPage(res, res.locals.site, 'tp.html', { user: res.locals.user }));
   app.get(['/privacy', '/privacy.html'], (req, res) => res.redirect(301, '/tp'));
   app.get(['/support', '/support.html'], (req, res) => sendPage(res, res.locals.site, 'support.html', { user: res.locals.user }));
+  app.get(['/trust', '/trust.html'], (req, res) => {
+    if (res.locals.site !== 'labs') {
+      return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
+    }
+    sendPage(res, 'labs', 'trust.html', { user: res.locals.user });
+  });
   app.get(['/status', '/status.html'], (req, res) => {
     if (res.locals.site !== 'consumer') {
       return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
