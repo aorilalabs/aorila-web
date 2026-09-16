@@ -238,6 +238,7 @@ body.ds main { display: block; }
 
 /* ---------- bands / footer ---------- */
 .ds .love-band { background: #d8ff36; border-top: 2px solid #10100f; border-bottom: 2px solid #10100f; padding: 56px 0; }
+.ds .love-band.company-band { border-bottom: 0; }
 .ds .love-band h2 { color: #10100f; font-size: clamp(28px, 3.4vw, 44px); letter-spacing: -.03em; margin: 0; font-weight: 800; }
 .ds .love-band .wrap { display: flex; justify-content: center; }
 
@@ -306,17 +307,6 @@ body.ds main { display: block; }
 .ds .company-line .company-logo { height: 1.2em; width: auto; display: block; }
 .ds .company-section .lede { max-width: 580px; margin: 0 auto; }
 
-/* ---------- host requirements band ---------- */
-.ds .req-band { border-top: 2px solid #10100f; border-bottom: 2px solid #10100f; background: #fff; padding: 48px 0; }
-.ds .req-wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; }
-.ds .req-band .kicker { font: 700 11px "IBM Plex Mono", monospace; letter-spacing: .1em; color: rgba(16,16,15,.55); display: block; margin-bottom: 10px; }
-.ds .req-band h2 { font-size: clamp(26px, 3vw, 38px); letter-spacing: -.03em; margin: 0 0 10px; font-weight: 800; color: #10100f; }
-.ds .req-sub { font-size: 15px; line-height: 1.6; color: rgba(16,16,15,.72); margin: 0; max-width: 26rem; }
-.ds .req-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
-.ds .req-list li { border: 2px solid #10100f; border-radius: 12px; padding: 12px 14px; background: #f7f7f4; box-shadow: 3px 3px 0 #d8ff36; }
-.ds .req-list strong { display: block; font: 700 11px "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: rgba(16,16,15,.55); margin-bottom: 4px; }
-.ds .req-list span { font-size: 15px; font-weight: 700; color: #10100f; }
-@media (max-width: 900px) { .ds .req-wrap { grid-template-columns: 1fr; } }
 .ds .type-caret { display: inline-block; width: .09em; height: .92em; background: #10100f; margin-left: .1em; vertical-align: -0.1em; animation: typeBlink 1.05s steps(1) infinite; }
 .ds #heroHere { display: inline-block; line-height: 1; vertical-align: baseline; }
 .ds #heroHere:empty { display: none; }
