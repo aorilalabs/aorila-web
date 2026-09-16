@@ -262,7 +262,9 @@ body.home header.nav { position: relative; }
 @media (min-width: 901px) {
   .home .nav-mega:hover .nav-mega-panel,
   .home .nav-mega:focus-within .nav-mega-panel,
-  .home .nav-mega.is-open .nav-mega-panel { display: block; }
+  .home .nav-mega.is-open .nav-mega-panel,
+  .home .nav-mega.is-closing .nav-mega-panel { display: block; }
+  .home .nav-mega.is-closing .nav-mega-toggle { border-color: #10100f; background: #fff; }
   /* invisible hover bridge: covers the gap so the menu can't flicker shut while moving down */
   .home .nav-links .nav-mega-panel::before {
     content: ""; position: absolute; top: -16px; left: 0; right: 0; height: 16px;
