@@ -2,7 +2,6 @@
   'use strict';
 
   const CUSTOM_API_ORIGIN = 'https://api.aorila.com';
-  const PREVIEW_API_ORIGIN = 'https://aorila.onrender.com';
   const META_NAME = 'aorila-api-origin';
   const DYNAMIC_PATHS = [
     '/leads',
@@ -34,7 +33,6 @@
       const protocol = locationLike.protocol || 'http:';
       return `${protocol}//${host}:3000`;
     }
-    if (host.endsWith('.onrender.com')) return PREVIEW_API_ORIGIN;
     return CUSTOM_API_ORIGIN;
   }
 
@@ -93,8 +91,7 @@
   document.querySelectorAll('.section, .hero').forEach((el) => io.observe(el));
 
   const host = location.hostname;
-  const previewHost =
-    host === 'localhost' || host === '127.0.0.1' || host.endsWith('.onrender.com');
+  const previewHost = host === 'localhost' || host === '127.0.0.1';
   const preview = new URLSearchParams(location.search).get('site');
   const sent = new URLSearchParams(location.search).get('sent');
 
