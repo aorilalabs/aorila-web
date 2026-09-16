@@ -15,6 +15,15 @@ const SITE = String(process.argv[2] || '').trim().toLowerCase();
 const VALID_SITES = new Set(['consumer', 'labs', 'robotics']);
 const STATIC_API_ORIGIN = String(process.env.STATIC_API_ORIGIN || '').trim();
 const STATIC_DASHBOARD_ORIGIN = String(process.env.STATIC_DASHBOARD_ORIGIN || '').trim();
+// Parent (Aorila) console home. Entities share only login; the console is never
+// on an API host. api.aorila.com does not exist.
+const STATIC_CONSOLE_ORIGIN = String(process.env.STATIC_CONSOLE_ORIGIN || '').trim().replace(/\/+$/, '') || 'https://console.aorila.com';
+// Per-site API origins. Never api.aorila.com (does not exist); API hosts are JSON-only.
+const SITE_API_ORIGIN = {
+  consumer: STATIC_API_ORIGIN || 'https://api.aorilalabs.com',
+  labs: STATIC_API_ORIGIN || 'https://dashboard.aorilalabs.com',
+  robotics: STATIC_API_ORIGIN || 'https://api.aorilalabs.com',
+};
 
 if (!VALID_SITES.has(SITE)) {
   console.error('Usage: node scripts/build-site.js <consumer|labs|robotics>');
@@ -36,8 +45,9 @@ function copyDir(src, dest) {
 }
 
 function withApiMeta(html) {
-  if (!STATIC_API_ORIGIN) return html;
-  const meta = `<meta name="${siteRuntime.META_NAME}" content="${STATIC_API_ORIGIN}" />`;
+  const apiOrigin = SITE_API_ORIGIN[SITE] || STATIC_API_ORIGIN;
+  if (!apiOrigin) return html;
+  const meta = `<meta name="${siteRuntime.META_NAME}" content="${apiOrigin}" />`;
   if (html.includes(`name="${siteRuntime.META_NAME}"`)) return html;
   return html.replace(/<head>/i, `<head>\n  ${meta}`);
 }
@@ -92,11 +102,10 @@ function buildConsumer(targetDir) {
     if (!slug) continue;
     writeRoute(targetDir, `commercial/${slug}`, renderCommercialPage(slug, {}));
   }
-  const apiOrigin = STATIC_API_ORIGIN || 'https://api.aorila.com';
+  const apiOrigin = STATIC_CONSOLE_ORIGIN;
   for (const route of ['console', 'account', 'dashboard', 'login', 'signin', 'signup', 'register']) {
     writeRoute(targetDir, route, redirectPage(`Redirecting to ${route}`, `${apiOrigin}/${route}`));
   }
-  writeRoute(targetDir, 'commercial/console', redirectPage('Redirecting to commercial console', `${apiOrigin}/commercial/console`));
   writeRoute(targetDir, 'models', redirectPage('Redirecting to AI API', '/ai-api'));
   writeRoute(targetDir, 'enterprise', redirectPage('Redirecting to enterprise', '/commercial'));
   writeRoute(targetDir, 'privacy', redirectPage('Redirecting to T & P', '/tp'));
