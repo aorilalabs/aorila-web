@@ -205,11 +205,14 @@ body.ds main { display: block; }
 /* ---------- bands / footer ---------- */
 .ds .love-band { background: #d8ff36; border-top: 2px solid #10100f; border-bottom: 2px solid #10100f; padding: 56px 0; }
 .ds .love-band h2 { color: #10100f; font-size: clamp(28px, 3.4vw, 44px); letter-spacing: -.03em; margin: 0; font-weight: 800; }
-.ds footer.site-footer { border-top: 2px solid #10100f; background: #fff; padding: 32px 0 44px; }
-.ds .footer-links { display: flex; gap: 22px; flex-wrap: wrap; }
+.ds footer.site-footer { border-top: 2px solid #10100f; background: #fff; padding: 20px 0; }
+.ds footer.site-footer .wrap { display: flex; align-items: center; gap: 26px; }
+.ds .footer-links { display: flex; gap: 22px; flex-wrap: wrap; order: 2; flex: 1; }
 .ds .footer-links a { font: 700 13px "Archivo", sans-serif; color: #10100f; text-decoration: none; }
 .ds .footer-links a:hover { background: #d8ff36; }
-.ds .footer-meta { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font: 500 12.5px "IBM Plex Mono", monospace; color: rgba(16,16,15,.6); margin-top: 18px; }
+.ds .footer-meta { display: contents; font: 500 12.5px "IBM Plex Mono", monospace; color: rgba(16,16,15,.6); }
+.ds footer.site-footer .footer-meta > span:first-child { order: 1; }
+.ds footer.site-footer .footer-meta > span:last-child { order: 3; white-space: nowrap; }
 .ds .footer-meta a { color: #10100f; text-decoration: none; }
 
 /* ---------- responsive ---------- */
@@ -219,6 +222,10 @@ body.ds main { display: block; }
   .ds .cards, .ds .cards.two { grid-template-columns: 1fr 1fr; }
   .ds .gpu-grid { grid-template-columns: 1fr 1fr; }
   .ds .calc-row { grid-template-columns: 150px 1fr 120px; }
+  .ds footer.site-footer { padding: 32px 0 44px; }
+  .ds footer.site-footer .wrap { display: block; }
+  .ds footer.site-footer .footer-meta { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+  .ds footer.site-footer .footer-links { order: 0; }
 }
 @media (max-width: 760px) {
   .ds .nav-links { display: none; }
