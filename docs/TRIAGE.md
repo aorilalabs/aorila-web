@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | Consumer | aorila.com | Marketing + on-demand catalog |
 | Commercial | aorila.com/commercial | Planned VMs, reserved, MSA |
-| AI API | api.aorila.com | Models — not pods |
+| AI API | api.aorilalabs.com | Models — not pods (JSON only, never a page) |
 | Compute API | aorila-compute.onrender.com | Live catalog / start / stop |
 | Labs | aorilalabs.com | Enterprise request |
 
