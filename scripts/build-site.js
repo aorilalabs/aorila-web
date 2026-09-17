@@ -122,6 +122,12 @@ function buildConsumer(targetDir) {
   writeRoute(targetDir, 'enterprise', redirectPage('Redirecting to divisions', '/divisions/'));
   writeRoute(targetDir, 'privacy', redirectPage('Redirecting to privacy policy', '/policies/privacy'));
   writeRoute(targetDir, 'terms', redirectPage('Redirecting to terms of service', '/policies/terms'));
+  // Stale pages removed from the repo still linger on the static host (deploys
+  // overlay instead of wiping). Overwrite them with redirects to divisions.
+  for (const route of ['ai', 'ai/api', 'ai/atraly-chat', 'ai/atraly-plus', 'ai/atraly-pro',
+                       'compute', 'compute/cpu-pods', 'compute/gpu-pods', 'compute/credit-pack']) {
+    writeRoute(targetDir, route, redirectPage('Redirecting to divisions', '/divisions/'));
+  }
 }
 
 /* Live GPU catalog for the /pricing page. Fetched at build time so the static
