@@ -138,10 +138,10 @@
         : 'Market snapshot from ' + asOf + ' — the dashboard always shows the current market.';
     }
     function fail() {
-      grid.innerHTML = '<div class="soon-box"><h3>Live prices are temporarily unavailable</h3>' +
-        '<p>The marketplace API is unreachable right now. Open the dashboard to see current prices before you launch — we never show invented numbers.</p>' +
+      grid.innerHTML = '<div class="soon-box"><h3>Looks empty right now</h3>' +
+        '<p>Every GPU is in use at the moment. Check back soon — or open the dashboard to see the live market.</p>' +
         '<div class="btn-row"><a class="btn acid" href="https://dashboard.aorilalabs.com/compute">Open the dashboard</a></div></div>';
-      stamp.textContent = 'Could not load prices.';
+      stamp.textContent = 'Looks empty right now.';
     }
     function empty() {
       grid.innerHTML = '<div class="soon-box"><h3>No GPU supply right now</h3>' +
