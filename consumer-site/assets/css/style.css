@@ -147,25 +147,6 @@ img{display:block;max-width:100%}
 .search__foot{padding:16px 24px;border-top:1px solid var(--hair)}
 .search__empty{padding:32px 24px;font-size:13px;color:rgba(0,0,0,.6)}
 
-/* ---------- bag drawer ---------- */
-.bag__items{flex:1;overflow-y:auto}
-.bag__empty{padding:64px 24px;text-align:center;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
-.bagitem{display:flex;gap:16px;padding:18px 24px;border-bottom:1px solid var(--hair)}
-.bagitem__thumb{width:80px;height:80px;flex:none;border:1px solid var(--hair);
-  display:flex;align-items:center;justify-content:center;text-align:center;padding:6px}
-.bagitem__thumb span{font-size:8px;letter-spacing:.2em;text-indent:.2em;text-transform:uppercase;line-height:1.9}
-.bagitem__info{flex:1;min-width:0}
-.bagitem__title{font-size:12px;letter-spacing:.06em;text-transform:uppercase}
-.bagitem__var{font-size:12px;color:rgba(0,0,0,.65);margin:2px 0 8px}
-.bagitem__row{display:flex;justify-content:space-between;align-items:center}
-.qty{display:inline-flex;align-items:center;border:1px solid #000}
-.qty button{width:28px;height:28px;font-size:14px}
-.qty span{width:28px;text-align:center;font-size:12px}
-.bagitem__price{font-size:12px}
-.bagitem__rm{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.6);margin-top:6px}
-.bag__foot{padding:18px 24px 24px;border-top:1px solid var(--hair)}
-.bag__total{display:flex;justify-content:space-between;font-size:13px;margin-bottom:16px}
-.bag__total strong{font-weight:400}
 
 /* ---------- product page ---------- */
 .product{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100svh - 48px)}
@@ -204,6 +185,17 @@ img{display:block;max-width:100%}
 .page p{font-size:13px;line-height:1.7;margin-bottom:16px;color:rgba(0,0,0,.88)}
 .page a{text-decoration:underline;text-underline-offset:3px}
 .page--narrow{max-width:480px}
+/* ---------- status page ---------- */
+.status-summary{font-size:18px;font-weight:600;letter-spacing:.01em;margin:0 0 28px}
+.status-list{border:1px solid var(--hair);border-radius:12px;overflow:hidden;margin:0 0 24px}
+.status-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border-bottom:1px solid var(--hair)}
+.status-row:last-child{border-bottom:0}
+.status-name{font-size:15px;font-weight:600}
+.status-host{font-size:12px;color:#8a8a8a;margin-top:4px;letter-spacing:.04em}
+.status-pill{flex:none;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border-radius:999px;background:#eee;color:#666}
+.status-pill--up{background:#e6f4ea;color:#137333}
+.status-pill--down{background:#fce8e6;color:#a50e0e}
+.status-note{font-size:12px;color:#8a8a8a;letter-spacing:.03em}
 .journal__row{display:block;padding:26px 0;border-bottom:1px solid var(--hair)}
 .journal__row h2{font-size:20px;margin:0 0 8px;letter-spacing:.01em}
 .journal__row p{font-size:13px;color:rgba(0,0,0,.7);margin:0}
