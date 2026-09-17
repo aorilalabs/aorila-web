@@ -149,9 +149,9 @@
 
   /* ---------- host earnings calculator ---------- */
 
-  // Default list prices: observed community-marketplace medians/ranges.
-  // GPU: 4090 median ~$0.36/hr (range $0.15–$0.59); full listable range from the
-  // GTX 1660 Super (~$0.03) up through datacenter parts; CPU/storage from the same market data.
+  // Default list prices for the earnings simulator: hypothetical starting rates,
+  // NOT observed market data and NOT a guarantee of income. Hosts set their own
+  // price; the simulator copy says "Estimate only" next to these numbers.
   var HOURS_PER_MONTH = 730;
 
   // Customer-facing price guard: host cost + our markup can never exceed
