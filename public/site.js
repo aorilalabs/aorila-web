@@ -474,14 +474,19 @@
     parts[0] = Number(parts[0]).toLocaleString('en-US');
     return '$' + parts.join('.');
   }
-  fetch('https://dashboard.aorilalabs.com/compute/v1/stats', { cache: 'no-store' })
-    .then(function (r) { if (!r.ok) throw new Error('stats ' + r.status); return r.json(); })
-    .then(function (s) {
-      if (!s || !s.ok || s.paidOut == null) throw new Error('bad stats');
-      document.getElementById('statUsers').textContent = fmtInt(s.users);
-      document.getElementById('statCredits').textContent = fmtInt(s.creditsUsed);
-      document.getElementById('statPaid').textContent = fmtPaid(s.paidOut);
-      band.hidden = false;
-    })
-    .catch(function () { /* stay hidden: never show fake numbers */ });
+  function load() {
+    fetch('https://dashboard.aorilalabs.com/compute/v1/stats', { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('stats ' + r.status); return r.json(); })
+      .then(function (s) {
+        if (!s || !s.ok || s.paidOut == null) throw new Error('bad stats');
+        document.getElementById('statUsers').textContent = fmtInt(s.users);
+        document.getElementById('statCredits').textContent = fmtInt(s.creditsUsed);
+        document.getElementById('statPaid').textContent = fmtPaid(s.paidOut);
+        band.hidden = false;
+      })
+      .catch(function () { /* stay hidden: never show fake numbers */ });
+  }
+  load();
+  /* Re-fetch every 60s (matches the API's own 60s cache) so the band stays live. */
+  setInterval(load, 60000);
 })();
