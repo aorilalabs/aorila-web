@@ -118,7 +118,7 @@ function buildConsumer(targetDir) {
     writeRoute(targetDir, route, redirectPage(`Redirecting to ${route}`, `${apiOrigin}/${route}`));
   }
   // Preserve old inbound URLs by pointing them at their replica pages.
-  writeRoute(targetDir, 'models', redirectPage('Redirecting to AI API', '/ai/api/'));
+  writeRoute(targetDir, 'models', redirectPage('Redirecting to divisions', '/divisions/'));
   writeRoute(targetDir, 'enterprise', redirectPage('Redirecting to divisions', '/divisions/'));
   writeRoute(targetDir, 'privacy', redirectPage('Redirecting to privacy policy', '/policies/privacy'));
   writeRoute(targetDir, 'terms', redirectPage('Redirecting to terms of service', '/policies/terms'));
