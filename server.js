@@ -36,7 +36,7 @@ function labsDashboardRedirect(section) {
     return null;
   };
 }
-const PAGES = new Set(['index.html', 'api.html', 'docs.html', 'support.html', 'tp.html', 'status.html', 'learn.html']);
+const PAGES = new Set(['index.html', 'api.html', 'docs.html', 'support.html', 'tp.html', 'status.html', 'learn.html', 'pricing.html', 'about.html']);
 
 function siteFromRequest(req) {
   return resolveSite({
@@ -120,7 +120,15 @@ function leadRateOk(ip) {
 }
 
 function notFoundHtml(site) {
-  const wordmark = site === 'labs' ? 'Aorila <span class="soft">Labs</span>' : 'Aorila';
+  const isLabs = site === 'labs';
+  const wordmark = isLabs ? 'Aorila <span class="soft">Labs</span>' : 'Aorila';
+  const lede = isLabs ? 'Try home, T & P, or the dashboard.' : 'Try home, console, T & P, or Support.';
+  const actions = isLabs
+    ? '<div class="btn-row"><a class="btn acid" href="/">Home</a><a class="btn" href="https://dashboard.aorilalabs.com/">Dashboard</a></div>'
+    : '<div class="btn-row"><a class="btn acid" href="/">Home</a><a class="btn" href="/console">Console</a></div>';
+  const footerLinks = isLabs
+    ? '<a href="/tp">T & P</a>\n<a href="https://dashboard.aorilalabs.com/docs">Docs</a>\n<a href="https://dashboard.aorilalabs.com/support">Support</a>'
+    : '<a href="/tp">T & P</a>\n<a href="/support">Support</a>\n<a href="https://aorila.com/api">Developer</a>';
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Not found — Aorila</title><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" /><link rel="stylesheet" href="/design.css" /></head>
@@ -128,14 +136,12 @@ function notFoundHtml(site) {
 <div class="topline"></div>
 <header class="nav"><a class="wordmark" href="/">${wordmark}</a></header>
 <main><section class="hero compact"><div class="wrap"><span class="hero-badge">404</span><h1>This page is not on this site.</h1>
-<p class="lede">Try home, console, T & P, or Support.</p>
-<div class="btn-row"><a class="btn acid" href="/">Home</a><a class="btn" href="/console">Console</a></div>
+<p class="lede">${lede}</p>
+${actions}
 </div></section></main>
 <footer class="site-footer"><div class="wrap">
 <nav class="footer-links" aria-label="Legal">
-<a href="/tp">T & P</a>
-<a href="/support">Support</a>
-<a href="https://aorila.com/api">Developer</a>
+${footerLinks}
 </nav>
 </div></footer>
 <script src="/site.js"></script>
@@ -237,6 +243,17 @@ function createApp(options = {}) {
   // Legacy /enterprise URL redirects to /commercial (Capacity).
   app.get(['/enterprise', '/enterprise/'], (req, res) => res.redirect(301, '/commercial'));
 
+  // Labs standalone pages (registered before the consumer marketing-slug loop,
+  // which would otherwise 404 these paths on the labs host).
+  app.get(['/pricing', '/pricing.html'], (req, res, next) => {
+    if (res.locals.site !== 'labs') return next();
+    return sendPage(res, res.locals.site, 'pricing.html', { user: res.locals.user });
+  });
+  app.get(['/about', '/about.html'], (req, res, next) => {
+    if (res.locals.site !== 'labs') return next();
+    return sendPage(res, res.locals.site, 'about.html', { user: res.locals.user });
+  });
+
   for (const slug of MARKETING_SLUGS) {
     app.get([`/${slug}`, `/${slug}/`], (req, res) => {
       if (slug === 'contact' && res.locals.site === 'labs') {
@@ -303,7 +320,31 @@ function createApp(options = {}) {
     }
     sendPage(res, 'consumer', 'status.html', { user: res.locals.user });
   });
-  app.get(['/terms', '/terms.html'], (req, res) => res.redirect(301, '/support'));
+  app.get(['/terms', '/terms.html'], (req, res) => {
+    if (res.locals.site === 'labs') {
+      // /terms serves the actual terms (same content as /tp, canonicalized to /terms).
+      res.set('X-Aorila-Site', 'labs');
+      const html = fs.readFileSync(path.join(SITES_DIR, 'labs', 'tp.html'), 'utf8')
+        .replace(/https:\/\/aorilalabs\.com\/tp/g, 'https://aorilalabs.com/terms');
+      return res.type('html').send(html);
+    }
+    return res.redirect(301, '/support');
+  });
+
+  app.get('/robots.txt', (req, res) => {
+    const origin = res.locals.site === 'labs' ? 'https://aorilalabs.com'
+      : res.locals.site === 'robotics' ? 'https://robotics.aorila.com' : 'https://aorila.com';
+    res.type('text/plain').send('User-agent: *\nAllow: /\nSitemap: ' + origin + '/sitemap.xml\n');
+  });
+  app.get('/sitemap.xml', (req, res) => {
+    const site = res.locals.site;
+    const origin = site === 'labs' ? 'https://aorilalabs.com'
+      : site === 'robotics' ? 'https://robotics.aorila.com' : 'https://aorila.com';
+    const paths = site === 'labs' ? ['', '/learn', '/pricing', '/about', '/sell', '/tp', '/terms'] : [''];
+    const lastmod = new Date().toISOString().slice(0, 10);
+    const urls = paths.map((p) => `  <url><loc>${origin}${p || '/'}</loc><lastmod>${lastmod}</lastmod></url>`).join('\n');
+    res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
+  });
 
   app.post('/leads', (req, res) => {
     const fail = (status, message) => {
