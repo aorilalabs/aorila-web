@@ -1,5 +1,6 @@
 
 /* AORILA storefront interactions */
+/* build 2026-09-17: search removed, press added */
 (function(){
 "use strict";
 var $=function(s,c){return (c||document).querySelector(s)};
