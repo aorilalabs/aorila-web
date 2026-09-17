@@ -58,7 +58,7 @@ function createConsoleApp(options = {}) {
 
   app.use(express.static(PUBLIC_DIR, { extensions: ['html'], index: false }));
 
-  mountAccountRoutes(app, accountStore);
+  mountAccountRoutes(app, accountStore, { consoleSite: true });
 
   // Console home: / IS the console here — never a marketing page.
   app.get(['/', '/index.html'], (req, res) => res.redirect(302, '/console'));
