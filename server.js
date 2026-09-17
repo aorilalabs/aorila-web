@@ -314,6 +314,14 @@ function createApp(options = {}) {
     }
     return res.redirect(301, DASHBOARD_ORIGIN + '/support');
   });
+  // Seller onboarding lives in the dashboard's Earn tab — /sell forwards there
+  // (mirrors the static build's /sell redirect).
+  app.get(['/sell', '/sell.html'], (req, res) => {
+    if (res.locals.site !== 'labs') {
+      return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
+    }
+    return res.redirect(301, DASHBOARD_ORIGIN + '/earn');
+  });
   app.get(['/status', '/status.html'], (req, res) => {
     if (res.locals.site !== 'consumer') {
       return res.status(404).set('X-Aorila-Site', res.locals.site).type('html').send(notFoundHtml(res.locals.site));
