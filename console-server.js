@@ -13,6 +13,7 @@ const path = require('path');
 const express = require('express');
 const { createAccountStore, parseSid } = require('./lib/accounts');
 const { mountAccountRoutes } = require('./lib/account-routes');
+const { mountPresaleStripe } = require('./lib/presale-stripe');
 
 const PUBLIC_DIR = path.join(__dirname, 'public');
 const CONSOLE_ORIGIN = 'https://console.aorila.com';
@@ -47,6 +48,10 @@ function createConsoleApp(options = {}) {
     }
     next();
   });
+
+  // Robot presale payments (Stripe). Mounted before express.json() so the
+  // webhook route can read the raw body for signature verification.
+  mountPresaleStripe(app, { dataDir: process.env.DATA_DIR || path.join(__dirname, 'data', 'console') });
 
   app.use(express.json({ limit: '32kb' }));
   app.use(express.urlencoded({ extended: false, limit: '32kb' }));
