@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI API — Aorila</title>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+
+<header class="header" id="site-header">
+  <button class="header__menu-btn" id="menu-btn">Menu</button>
+  <nav class="header__nav" id="nav-left"><a class="header__link" href="../../divisions/">Divisions</a><a class="header__link" href="../../compute/" data-drop="drop-compute">Compute</a><a class="header__link" href="../../ai/" data-drop="drop-ai">AI</a><a class="header__link" href="../../robots/" data-drop="drop-robots">Robots</a></nav>
+  <a class="header__wordmark" href="../../">Aorila</a>
+  <div class="header__tools">
+    <button class="header__link" data-search-open>Search</button>
+    <a class="header__link header__account" href="https://dashboard.aorilalabs.com/signin">Account</a>
+    <button class="header__link" id="bag-open">Bag<span id="bag-n"></span></button>
+  </div>
+</header>
+<div class="navdrop" id="drop-compute"><a href="../../compute/gpu-pods/">GPU Pods</a><a href="../../compute/cpu-pods/">CPU Pods</a><a href="https://dashboard.aorilalabs.com/credits">Credit Packs</a><a href="../../compute/">Live Pricing</a><a href="https://dashboard.aorilalabs.com/docs">Documentation</a><a href="https://aorilalabs.com/status">System Status</a></div><div class="navdrop" id="drop-ai"><a href="../../ai/atraly-chat/">Atraly Chat</a><a href="../../ai/api/">AI API</a><a href="../../ai/atraly-plus/">Atraly Plus</a><a href="../../ai/atraly-pro/">Atraly Pro</a><a href="https://atraly.com">Open Atraly</a></div><div class="navdrop" id="drop-robots"><a href="../../robots/home-robot/">Home Robot</a><a href="https://robotics.aorila.com">Presale</a><a href="../../journal/">Journal</a><a href="../../contact/">Company</a></div>
+<div class="mnav" id="mnav">
+  <div class="mnav__top"><span class="u">Menu</span><button class="txtbtn" id="mnav-close">Close</button></div>
+  <a class="mlink" href="../../divisions/">Divisions</a><button class="mlink mnav__acc" style="width:100%;text-align:left;display:flex;justify-content:space-between">Compute <span class="pm">+</span></button><div class="sub" style="max-height:0;overflow:hidden;transition:max-height .25s"><a href="../../compute/gpu-pods/">GPU Pods</a><a href="../../compute/cpu-pods/">CPU Pods</a><a href="https://dashboard.aorilalabs.com/credits">Credit Packs</a><a href="../../compute/">Live Pricing</a><a href="https://dashboard.aorilalabs.com/docs">Documentation</a><a href="https://aorilalabs.com/status">System Status</a></div><button class="mlink mnav__acc" style="width:100%;text-align:left;display:flex;justify-content:space-between">AI <span class="pm">+</span></button><div class="sub" style="max-height:0;overflow:hidden;transition:max-height .25s"><a href="../../ai/atraly-chat/">Atraly Chat</a><a href="../../ai/api/">AI API</a><a href="../../ai/atraly-plus/">Atraly Plus</a><a href="../../ai/atraly-pro/">Atraly Pro</a><a href="https://atraly.com">Open Atraly</a></div><button class="mlink mnav__acc" style="width:100%;text-align:left;display:flex;justify-content:space-between">Robots <span class="pm">+</span></button><div class="sub" style="max-height:0;overflow:hidden;transition:max-height .25s"><a href="../../robots/home-robot/">Home Robot</a><a href="https://robotics.aorila.com">Presale</a><a href="../../journal/">Journal</a><a href="../../contact/">Company</a></div>
+  <a class="mlink" href="https://dashboard.aorilalabs.com/signin">Account</a>
+</div>
+<main>
+<div style="height:48px"></div>
+<div class="product">
+  <div class="product__info">
+    
+    <h1>AI API</h1>
+    <div class="product__price" id="p-price">Pay per use</div>
+    
+    <a class="btn" href="https://dashboard.aorilalabs.com/docs"><span class="rl"><i>Read the docs</i><i aria-hidden="true">Read the docs</i></span></a>
+    <div class="product__note">Billed honestly. No hidden fees, no fake urgency.</div>
+    <div class="acc acc--open"><button class="acc__head">Description <span class="pm">−</span></button><div class="acc__body"><p>Models and an AI API for builders. Bring Atraly-class models into your own products with straightforward, per-use billing in credits.</p></div></div><div class="acc"><button class="acc__head">Specifications <span class="pm">+</span></button><div class="acc__body"><p>API access with key self-service from the Labs dashboard. Usage is metered and billed from your credit balance.</p></div></div><div class="acc"><button class="acc__head">Billing & Terms <span class="pm">+</span></button><div class="acc__body"><p>Pay per use, billed in credits at 1 credit = $1. Top up any time from the <a href='https://dashboard.aorilalabs.com/credits'>Labs dashboard</a>.</p></div></div><div class="acc"><button class="acc__head">Delivery <span class="pm">+</span></button><div class="acc__body"><p>Digital service — keys are issued from your dashboard.</p></div></div>
+  </div>
+  <div class="product__gallery">
+    <div class="gslide gslide--on"><div class="tile"><span style="font-size:15px">AI API</span></div></div>
+    <button class="gal__arrow gal__arrow--l" aria-label="Previous">←</button>
+    <button class="gal__arrow gal__arrow--r" aria-label="Next">→</button>
+    <div class="gal__dots"><button class="on" aria-label="Slide 1"></button></div>
+  </div>
+</div></main>
+<footer class="footer"><div class="fcol"><button class="fcol__head">Policies <span class="pm">+</span></button><div class="fcol__body"><a href="../../policies/terms.html">Terms of Service</a><a href="../../policies/privacy.html">Privacy Policy</a><a href="../../policies/accessibility.html">Website Accessibility</a></div></div><div class="fcol"><button class="fcol__head">Support <span class="pm">+</span></button><div class="fcol__body"><a href="../../contact/">Contact Us</a><a href="https://aorilalabs.com/status">System Status</a><a href="https://dashboard.aorilalabs.com/support">Support</a></div></div><div class="fcol"><button class="fcol__head">Divisions <span class="pm">+</span></button><div class="fcol__body"><a href="../../divisions/">Divisions</a><a href="../../compute/">Compute</a><a href="../../ai/">AI</a><a href="../../robots/">Robots</a></div></div></footer>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="search" id="search" role="dialog" aria-label="Search">
+  <div class="search__bar">
+    <input id="search-input" type="text" placeholder="Search" autocomplete="off">
+    <button class="txtbtn" id="search-close">Close</button>
+  </div>
+  <div class="search__list" id="search-list"></div>
+  <div class="search__foot"><a class="btn" href="../../divisions/"><span class="rl"><i>View all</i><i aria-hidden="true">View all</i></span></a></div>
+</div>
+
+<aside class="drawer" id="filter" aria-label="Filter">
+  <div class="drawer__head"><span id="filter-count">Filter</span><button class="txtbtn" id="filter-close">Close</button></div>
+  <div class="drawer__body">
+    <div class="facet facet--open"><button class="facet__head">Sort <span class="pm">−</span></button>
+      <div class="facet__body"><div class="opt-row">
+        <label class="radio"><input type="radio" name="sort" value="featured" checked> Featured</label>
+        <label class="radio"><input type="radio" name="sort" value="lo"> Price: low to high</label>
+        <label class="radio"><input type="radio" name="sort" value="hi"> Price: high to low</label>
+      </div></div></div>
+    <div class="facet"><button class="facet__head">Category <span class="pm">+</span></button>
+      <div class="facet__body"><div class="opt-row">
+        <label class="check"><input type="checkbox" class="fcat" value="Hardware"> Hardware</label>
+        <label class="check"><input type="checkbox" class="fcat" value="Service"> Service</label>
+                <label class="check"><input type="checkbox" class="fcat" value="Plan"> Plan</label>
+        <label class="check"><input type="checkbox" class="fcat" value="Division"> Division</label>
+      </div></div></div>
+    <div class="facet"><button class="facet__head">Price <span class="pm">+</span></button>
+      <div class="facet__body"><div class="pricerow">
+        <input id="f-lo" type="number" min="0" placeholder="Low">
+        <input id="f-hi" type="number" min="0" placeholder="High">
+      </div></div></div>
+  </div>
+  <div class="drawer__foot"><button class="btn" id="see-n"><span class="rl"><i>See items</i><i aria-hidden="true">See items</i></span></button></div>
+</aside>
+
+<aside class="drawer" id="bag" aria-label="Bag">
+  <div class="drawer__head"><span>Bag<span id="bag-n"></span></span><button class="txtbtn" id="bag-close">Close</button></div>
+  <div class="bag__items" id="bag-items"></div>
+  <div class="bag__foot" id="bag-foot" style="display:none">
+    <div class="bag__total"><span>Estimated total</span><strong id="bag-total">$0.00 USD</strong></div>
+    <a class="btn" href="https://robotics.aorila.com" style="margin-bottom:10px"><span class="rl"><i>Continue to presale</i><i aria-hidden="true">Continue to presale</i></span></a>
+    <button class="btn btn--outline" id="bag-continue"><span class="rl"><i>Continue browsing</i><i aria-hidden="true">Continue browsing</i></span></button>
+  </div>
+</aside>
+<script type="application/json" id="search-index">[{"title": "Divisions", "price": "Compute \u00b7 AI \u00b7 Robots", "url": "divisions/", "tags": "divisions company labs atraly robots"}, {"title": "GPU Pods", "price": "Per-minute \u00b7 1 credit = $1", "url": "compute/gpu-pods/", "tags": "compute gpu pods h100 a100"}, {"title": "CPU Pods", "price": "Per-minute \u00b7 1 credit = $1", "url": "compute/cpu-pods/", "tags": "compute cpu pods"}, {"title": "Atraly Chat", "price": "Free", "url": "ai/atraly-chat/", "tags": "ai atraly chat personal assistant"}, {"title": "AI API", "price": "Pay per use", "url": "ai/api/", "tags": "ai api developers models"}, {"title": "Atraly Plus", "price": "$20/mo", "url": "ai/atraly-plus/", "tags": "ai atraly plus plan subscription"}, {"title": "Atraly Pro", "price": "$100/mo", "url": "ai/atraly-pro/", "tags": "ai atraly pro plan"}, {"title": "Home Robot", "price": "$50 refundable deposit", "url": "robots/home-robot/", "tags": "robots home robot presale humanoid reserve deposit"}, {"title": "Journal", "price": "Coming soon", "url": "journal/", "tags": "journal articles blog"}, {"title": "Contact", "price": "info@aorila.com", "url": "contact/", "tags": "contact email support company"}, {"title": "Terms of Service", "price": "", "url": "policies/terms.html", "tags": "terms legal policy"}, {"title": "Privacy Policy", "price": "", "url": "policies/privacy.html", "tags": "privacy legal policy"}, {"title": "Website Accessibility", "price": "", "url": "policies/accessibility.html", "tags": "accessibility legal policy"}]</script>
+
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

@@ -195,6 +195,16 @@ function createApp(options = {}) {
   });
 
   app.use(express.static(PUBLIC_DIR, { extensions: ['html'], index: false }));
+  // Consumer face (aorila.com): static replica site in consumer-site/, served only
+  // when the resolved site is consumer so aorilalabs.com behavior is untouched.
+  const CONSUMER_SITE_DIR = path.join(__dirname, 'consumer-site');
+  const consumerSiteStatic = express.static(CONSUMER_SITE_DIR, { extensions: ['html'], index: 'index.html' });
+  app.use((req, res, next) => {
+    if (res.locals.site !== 'consumer') return next();
+    if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+    res.set('X-Aorila-Site', 'consumer');
+    consumerSiteStatic(req, res, next);
+  });
   // Labs /console goes to the dashboard (before the account console route below).
   app.get(['/console', '/console/'], (req, res, next) => {
     if (res.locals.site === 'labs') return res.redirect(301, DASHBOARD_ORIGIN + '/');
@@ -348,7 +358,8 @@ function createApp(options = {}) {
     const site = res.locals.site;
     const origin = site === 'labs' ? 'https://aorilalabs.com'
       : site === 'robotics' ? 'https://robotics.aorila.com' : 'https://aorila.com';
-    const paths = site === 'labs' ? ['', '/learn', '/pricing', '/about', '/sell', '/tp', '/terms'] : [''];
+    const consumerPaths = ['', '/divisions', '/compute', '/compute/gpu-pods', '/compute/cpu-pods', '/compute/credit-pack', '/ai', '/ai/atraly-chat', '/ai/api', '/ai/atraly-plus', '/ai/atraly-pro', '/robots', '/robots/home-robot', '/journal', '/contact', '/policies/terms.html', '/policies/privacy.html', '/policies/accessibility.html'];
+    const paths = site === 'labs' ? ['', '/learn', '/pricing', '/about', '/sell', '/tp', '/terms'] : consumerPaths;
     const lastmod = new Date().toISOString().slice(0, 10);
     const urls = paths.map((p) => `  <url><loc>${origin}${p || '/'}</loc><lastmod>${lastmod}</lastmod></url>`).join('\n');
     res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
