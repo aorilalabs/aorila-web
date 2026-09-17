@@ -1,239 +1,120 @@
-body.console {
-  background: #111111;
-  color: #f2f2f2;
-  min-height: 100dvh;
+/* Aorila console — round boxes. Loaded after design.css on console pages only.
+   Same colorful playbook tokens (ink/paper/acid/orange/blue, 2px ink borders,
+   hard offset shadows); every box gets rounded corners. Scoped to
+   body.ds.console so the marketing site keeps its own styling. */
+body.ds.console {
+  --r-xl: 22px;
+  --r-lg: 18px;
+  --r-md: 14px;
+  --r-sm: 10px;
 }
-.console-app {
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
+
+/* ---------- auth card becomes a real card ---------- */
+body.ds.console .auth-card {
+  background: #fff;
+  border: 2px solid #10100f;
+  box-shadow: 8px 8px 0 #10100f;
+  border-radius: var(--r-xl);
+  padding: 36px 34px;
 }
-.console-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 56px;
-  padding: 10px 16px;
-  border-bottom: 1px solid #2a2a2a;
-  background: #111111;
-  position: sticky;
-  top: 0;
-  z-index: 20;
+body.ds.console .auth-card .hero-badge {
+  border-radius: var(--r-sm);
 }
-.console-brand {
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: -0.03em;
-  color: #fff;
-  text-decoration: none;
+
+/* ---------- buttons ---------- */
+body.ds.console .btn,
+body.ds.console .cta,
+body.ds.console .nav-commercial,
+body.ds.console .nav-sidebar-close {
+  border-radius: var(--r-md);
 }
-.console-balance {
-  margin-left: auto;
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid #2f2f2f;
-  border-radius: 8px;
+body.ds.console .console-tabs a,
+body.ds.console .console-nav a,
+body.ds.console .nav-link,
+body.ds.console .menu-item,
+body.ds.console .hero-badge,
+body.ds.console .snum,
+body.ds.console .gpu-chip {
+  border-radius: var(--r-sm);
+}
+body.ds.console .chip {
+  border-radius: 999px;
+}
+body.ds.console .console-close,
+body.ds.console .console-menu-btn,
+body.ds.console .console-balance a,
+body.ds.console .nav-toggle {
+  border-radius: var(--r-sm);
+}
+
+/* ---------- inputs ---------- */
+body.ds.console form.waitlist input,
+body.ds.console form.waitlist textarea,
+body.ds.console form.waitlist select,
+body.ds.console .field input,
+body.ds.console .field textarea,
+body.ds.console .field select,
+body.ds.console .console-search,
+body.ds.console .search-form input[type="search"] {
+  border-radius: var(--r-md);
+}
+
+/* ---------- cards & panels ---------- */
+body.ds.console .console-card,
+body.ds.console .card,
+body.ds.console .offer-card,
+body.ds.console .chooser,
+body.ds.console .gpu-card,
+body.ds.console .console-pod,
+body.ds.console .search-dialog,
+body.ds.console details.faq {
+  border-radius: var(--r-lg);
+}
+body.ds.console .console-code {
+  border-radius: var(--r-md);
+}
+body.ds.console .nav-dropdown-panel {
+  border-radius: var(--r-lg);
   overflow: hidden;
-  font-size: 13px;
-  font-weight: 600;
 }
-.console-balance span {
-  padding: 8px 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+
+/* ---------- tables: separate borders so corner radii render ---------- */
+body.ds.console .table-wrap {
+  border-radius: var(--r-lg);
 }
-.console-balance span::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #3d9a4a;
+body.ds.console table.sku-table,
+body.ds.console table.dtable {
+  border-collapse: separate;
+  border-spacing: 0;
 }
-.console-balance a {
-  padding: 8px 12px;
-  background: #1f3d2a;
-  color: #fff;
-  text-decoration: none;
+body.ds.console table.sku-table th:first-child,
+body.ds.console table.dtable th:first-child {
+  border-top-left-radius: calc(var(--r-lg) - 2px);
 }
-.console-menu-btn {
-  width: 40px;
-  height: 40px;
-  border: 0;
-  background: transparent;
-  color: #fff;
-  font-size: 18px;
-  cursor: pointer;
+body.ds.console table.sku-table th:last-child,
+body.ds.console table.dtable th:last-child {
+  border-top-right-radius: calc(var(--r-lg) - 2px);
 }
-.console-close {
-  width: 40px;
-  height: 40px;
-  border: 0;
-  background: transparent;
-  color: #fff;
-  font-size: 22px;
-  cursor: pointer;
+body.ds.console table.sku-table tr:last-child td:first-child,
+body.ds.console table.dtable tr:last-child td:first-child {
+  border-bottom-left-radius: calc(var(--r-lg) - 2px);
 }
-.console-frame {
-  display: flex;
-  flex: 1;
-  min-height: 0;
+body.ds.console table.sku-table tr:last-child td:last-child,
+body.ds.console table.dtable tr:last-child td:last-child {
+  border-bottom-right-radius: calc(var(--r-lg) - 2px);
 }
-.console-nav {
-  width: min(320px, 92vw);
-  background: #161616;
-  border-right: 1px solid #2a2a2a;
-  padding: 16px 12px 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+
+/* ---------- console chrome ---------- */
+body.ds.console .console-brand {
+  border-radius: var(--r-sm);
+  padding: 4px 10px;
 }
-.console-search {
-  margin: 0 4px 12px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid #2f2f2f;
-  background: #111;
-  color: #fff;
-  font: inherit;
-  font-size: 14px;
+body.ds.console .console-brand:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
-.console-nav a,
-.console-nav .nav-label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  color: #d8d8d8;
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 500;
-}
-.console-nav a[aria-current="page"],
-.console-nav a:hover {
-  background: #2a2a2a;
-  color: #fff;
-}
-.console-nav .nav-label {
-  color: #8a8a8a;
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin-top: 10px;
-  padding-bottom: 2px;
-}
-.console-main {
-  flex: 1;
-  padding: 28px 20px 48px;
-  max-width: 880px;
-}
-.console-main h1 {
-  font-size: clamp(1.8rem, 4vw, 2.4rem);
-  letter-spacing: -0.04em;
-  margin: 8px 0 18px;
-}
-.console-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 22px;
-}
-.console-actions .cta {
-  border-radius: 10px;
-}
-.console-tabs {
-  display: flex;
-  gap: 18px;
-  border-bottom: 1px solid #2a2a2a;
-  margin-bottom: 22px;
-}
-.console-tabs a {
-  padding: 10px 0;
-  color: #9a9a9a;
-  text-decoration: none;
-  font-weight: 600;
-}
-.console-tabs a[aria-current="page"] {
-  color: #fff;
-  box-shadow: inset 0 -2px 0 #fff;
-}
-.console-card {
-  border: 1px solid #2a2a2a;
-  border-radius: 16px;
-  padding: 18px;
-  margin-bottom: 14px;
-  background: #181818;
-}
-.console-card h2 {
-  font-size: 18px;
-  margin-bottom: 12px;
-}
-.console-pod {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 0;
-  border-top: 1px solid #2a2a2a;
-}
-.console-pod:first-of-type { border-top: 0; padding-top: 0; }
-.console-pod b { display: block; margin-bottom: 6px; }
-.console-pod a { color: inherit; text-decoration: none; }
-.console-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  color: #b5b5b5;
-  font-size: 13px;
-}
-.console-meta span {
-  border: 1px solid #333;
-  border-radius: 8px;
-  padding: 4px 8px;
-}
-.console-note { color: #9a9a9a; font-size: 14px; line-height: 1.5; }
-.console-main .form-status { margin-bottom: 16px; }
-.console-main .offer-card {
-  background: #181818;
-  border-color: #2a2a2a;
-  color: #f2f2f2;
-}
-.console-main .offer-card-top { display: flex; gap: 14px; align-items: center; }
-.console-main .offer-card-top .gpu-art { width: 84px; height: 68px; color: #f2f2f2; }
-.console-main .offer-meta,
-.console-main .offer-price span { color: #9a9a9a; }
-.console-main .sku-table th,
-.console-main .sku-table td { border-color: #2a2a2a; color: inherit; }
-.chooser-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-  margin-top: 18px;
-}
-.chooser {
-  display: block;
-  padding: 18px;
-  border: 1px solid #2a2a2a;
-  border-radius: 16px;
-  background: #181818;
-  color: inherit;
-  text-decoration: none;
-}
-.chooser b { display: block; margin-bottom: 8px; font-size: 16px; }
-.chooser span { color: #9a9a9a; font-size: 13px; line-height: 1.4; }
-.console-main .check {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-@media (max-width: 860px) {
-  .console-nav { display: none; }
-  body.console-nav-open .console-nav {
-    display: flex;
-    position: fixed;
-    inset: 56px 0 0 auto;
-    z-index: 30;
-    height: calc(100dvh - 56px);
-    overflow: auto;
-  }
+body.ds.console .console-balance {
+  background: rgba(216, 255, 54, 0.12);
+  border: 2px solid #d8ff36;
+  border-radius: 999px;
+  padding: 6px 6px 6px 14px;
 }
