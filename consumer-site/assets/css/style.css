@@ -215,6 +215,8 @@ img{display:block;max-width:100%}
 /* ---------- auth pages (standalone, no header/footer) ---------- */
 .authpage{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:56px 24px}
 .auth-card{width:100%;max-width:400px;border:1px solid var(--ink);background:#fff;padding:40px 36px 34px}
+.auth-card--hover{border:1px solid var(--hair);border-radius:16px;box-shadow:0 30px 70px rgba(0,0,0,.16),0 4px 14px rgba(0,0,0,.08);transform:translateY(-6px)}
+.btn--round{border-radius:999px}
 .auth-wordmark{display:block;text-align:center;font-size:15px;letter-spacing:.42em;text-indent:.42em;text-transform:uppercase;margin-bottom:30px}
 .auth-card h1{font-size:23px;letter-spacing:.05em;text-transform:uppercase;line-height:1.35;margin-bottom:10px}
 .auth-card .lede{font-size:13px;color:rgba(0,0,0,.68);margin-bottom:28px}
