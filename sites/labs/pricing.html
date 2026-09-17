@@ -133,7 +133,7 @@
       var rows = Object.keys(byName).map(function (k) { return byName[k]; })
         .filter(function (r) { return isFinite(r.min); })
         .sort(function (a, b) { return a.min - b.min; });
-      if (!rows.length) { fail(); return; }
+      if (!rows.length) { empty(); return; }
       grid.innerHTML = rows.map(function (r) {
         return '<div class="card prod"><span class="tag">' + esc((r.cls || 'GPU').toUpperCase()) + '</span>' +
           '<h3>' + esc(r.name) + '</h3>' +
@@ -151,6 +151,12 @@
         '<div class="btn-row"><a class="btn acid" href="https://dashboard.aorilalabs.com/compute">Open the dashboard</a></div></div>';
       stamp.textContent = 'Could not load prices.';
     }
+    function empty() {
+      grid.innerHTML = '<div class="soon-box"><h3>No GPU supply right now</h3>' +
+        '<p>The marketplace is live but no hosts have GPUs listed at the moment. List your own hardware to start earning — we never show invented numbers.</p>' +
+        '<div class="btn-row"><a class="btn acid" href="https://dashboard.aorilalabs.com/earn">List your hardware</a></div></div>';
+      stamp.textContent = 'Marketplace is live — no offers right now.';
+    }
     function bakedOk() {
       return baked && baked.offers && baked.offers.length;
     }
@@ -159,6 +165,7 @@
       .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
       .then(function (d) {
         if (d && d.offers && d.offers.length) render(d.offers, true);
+        else if (d && d.offers) empty();
         else if (bakedOk()) render(baked.offers, false, baked.asOf);
         else fail();
       })
