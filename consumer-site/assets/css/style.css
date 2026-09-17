@@ -26,6 +26,7 @@ img{display:block;max-width:100%}
 .header__link{font-size:11px;letter-spacing:.13em;text-transform:uppercase;padding:6px 0;position:relative}
 .header__wordmark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
   font-size:14px;letter-spacing:.42em;text-transform:uppercase;text-indent:.42em;white-space:nowrap}
+.header__wordmark img{display:block;height:20px;width:auto}
 .header__tools{display:flex;gap:24px;align-items:center}
 .header__menu-btn{display:none}
 
@@ -221,6 +222,7 @@ img{display:block;max-width:100%}
   .header__nav{display:none}
   .header__menu-btn{display:block;font-size:11px;letter-spacing:.13em;text-transform:uppercase}
   .header__wordmark{font-size:12px}
+  .header__wordmark img{height:16px}
   .header__tools{gap:16px}
   .header__account{display:none}
   .grid{grid-template-columns:repeat(2,1fr)}
