@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-68Z6SM8C4B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-68Z6SM8C4B');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="aorila-api-origin" content="https://dashboard.aorilalabs.com" />
+  <title>Pricing — Aorila Labs</title>
+  <meta name="description" content="Live GPU marketplace prices on Aorila Labs. Every offer is billed per minute — 1 credit = $1 — and workloads stop at $0." />
+  <meta property="og:title" content="Pricing — Aorila Labs" />
+  <meta property="og:description" content="Live GPU marketplace prices. Billed per minute, 1 credit = $1, workloads stop at $0." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aorilalabs.com/pricing" />
+  <meta property="og:image" content="https://aorilalabs.com/logo-aorila.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://aorilalabs.com/logo-aorila.png" />
+  <link rel="canonical" href="https://aorilalabs.com/pricing" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/labs.css?v=3" />
+</head>
+<body class="ds" data-site="labs">
+  <div class="topline"></div>
+  <header class="nav">
+    <a class="wordmark lockup" href="/" aria-label="Aorila Labs home"><img class="wm-logo" src="/logo-aorila.svg" alt="Aorila" /><span class="wm-labs">Labs</span></a>
+    <nav class="nav-links">
+      <a href="/learn">Learn</a>
+      <a href="/pricing" aria-current="page">Pricing</a>
+      <a href="/about">About</a>
+      <a class="nav-cta nav-far" href="https://dashboard.aorilalabs.com/signin">Dashboard</a>
+    </nav>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span class="nav-toggle-bars"></span></button>
+  </header>
+  <div class="nav-backdrop" data-nav-backdrop hidden></div>
+  <aside class="nav-sidebar" hidden>
+    <div class="nav-sidebar-head">
+      <button class="nav-sidebar-close" type="button" data-nav-close>Close</button>
+    </div>
+    <nav class="nav-primary" aria-label="Menu">
+      <a href="/learn" data-nav-close>Learn</a>
+      <a href="/pricing" data-nav-close>Pricing</a>
+      <a href="/about" data-nav-close>About</a>
+      <a class="nav-cta nav-far" href="https://dashboard.aorilalabs.com/signin" data-nav-close>Dashboard</a>
+    </nav>
+  </aside>
+  <main>
+    <section class="hero compact">
+      <div class="wrap">
+        <span class="hero-badge">PRICING</span>
+        <h1>Pricing.</h1>
+        <p class="lede">Real prices from the live marketplace. Hosts set their own rates &mdash; what you see is what the market is charging right now.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head"><span class="snum">GPU PODS</span><div>
+          <h2>Live GPU prices</h2>
+          <p class="lede" id="pricing-stamp">Loading live prices&hellip;</p>
+        </div></div>
+        <div class="cards prod-grid" id="pricing-grid" aria-live="polite"></div>
+        <p class="fine" style="margin-top:16px">Prices are per offer and move with supply and demand. The dashboard always shows the current market before you launch.</p>
+        <div class="btn-row" style="margin-top:16px"><a class="btn acid" href="https://dashboard.aorilalabs.com/compute">Launch a pod</a></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap"><div class="section-head"><span class="snum">BILLING</span><div>
+        <h2>How billing works</h2>
+        <p class="lede">One credit is one dollar. Everything is billed per minute. When your balance hits zero, workloads stop &mdash; you can never go negative.</p>
+        <p>Top up credits in the dashboard. Every charge is itemized per minute so you always know what ran and what it cost. Hosts keep 100% of the price they set &mdash; a 5% platform fee is added on top for renters, never taken out of host earnings.</p>
+        <div class="btn-row"><a class="btn" href="/learn">Learn more</a></div>
+      </div></div></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <nav class="footer-links" aria-label="Footer">
+        <a href="/learn">Learn</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/learn?section=hub">Hub</a>
+        <a href="https://dashboard.aorilalabs.com/docs">Docs</a>
+        <a href="https://dashboard.aorilalabs.com/support">Support</a>
+        <a href="/tp">T &amp; P</a>
+        <a href="/about">About</a>
+      </nav>
+      <div class="footer-meta">
+        <span><a class="wordmark lockup" href="https://aorilalabs.com" data-local-site="labs" aria-label="Aorila Labs home"><img class="wm-logo" src="/logo-aorila.svg" alt="Aorila" /><span class="wm-labs">Labs</span></a></span>
+        <span><a href="mailto:info@aorila.com">info@aorila.com</a> &middot; <a href="tel:+18033861704">(803) 386-1704</a></span>
+        <span>Columbia, SC</span>
+      </div>
+    </div>
+  </footer>
+  <script src="/site.js?v=6"></script>
+  <script>
+  (function () {
+    'use strict';
+    /* Baked-in snapshot from the last site build. Replaced by live data when the API allows it. */
+    var baked = /*__PRICING_DATA__*/null;
+    var grid = document.getElementById('pricing-grid');
+    var stamp = document.getElementById('pricing-stamp');
+    var API = 'https://api.aorilalabs.com/compute/v1/gpus';
+
+    function moneyHr(n) { return '$' + Number(n).toFixed(2); }
+    function moneyMin(n) { return '$' + (Number(n) / 60).toFixed(4); }
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    function shortName(name) {
+      return String(name || '').replace(/^Aorila\s+/, '');
+    }
+    function render(offers, live, asOf) {
+      var byName = {};
+      offers.forEach(function (o) {
+        if (!o || o.placeable === false) return;
+        var name = shortName(o.name || o.sku);
+        if (!name) return;
+        var b = byName[name] || (byName[name] = { name: name, min: Infinity, vram: 0, cls: '', n: 0 });
+        var p = Number(o.usdPerHour);
+        if (isFinite(p) && p < b.min) b.min = p;
+        if (Number(o.vramGb) > b.vram) b.vram = Number(o.vramGb);
+        if (!b.cls && o.class) b.cls = o.class;
+        b.n += 1;
+      });
+      var rows = Object.keys(byName).map(function (k) { return byName[k]; })
+        .filter(function (r) { return isFinite(r.min); })
+        .sort(function (a, b) { return a.min - b.min; });
+      if (!rows.length) { fail(); return; }
+      grid.innerHTML = rows.map(function (r) {
+        return '<div class="card prod"><span class="tag">' + esc((r.cls || 'GPU').toUpperCase()) + '</span>' +
+          '<h3>' + esc(r.name) + '</h3>' +
+          '<p>' + (r.vram ? esc(String(r.vram)) + ' GB VRAM &middot; ' : '') + esc(String(r.n)) + ' offer' + (r.n === 1 ? '' : 's') + ' live</p>' +
+          '<p class="price-line"><strong>' + moneyHr(r.min) + '/hr</strong> <span class="fine">' + moneyMin(r.min) + '/min</span></p>' +
+          '<div class="btn-row"><a class="btn" href="https://dashboard.aorilalabs.com/compute">Deploy</a></div></div>';
+      }).join('');
+      stamp.textContent = live
+        ? 'Live market prices — ' + rows.length + ' GPU types available right now.'
+        : 'Market snapshot from ' + asOf + ' — the dashboard always shows the current market.';
+    }
+    function fail() {
+      grid.innerHTML = '<div class="soon-box"><h3>Live prices are temporarily unavailable</h3>' +
+        '<p>The marketplace API is unreachable right now. Open the dashboard to see current prices before you launch — we never show invented numbers.</p>' +
+        '<div class="btn-row"><a class="btn acid" href="https://dashboard.aorilalabs.com/compute">Open the dashboard</a></div></div>';
+      stamp.textContent = 'Could not load prices.';
+    }
+    function bakedOk() {
+      return baked && baked.offers && baked.offers.length;
+    }
+    /* Try the live API first (works once CORS allows it); fall back to the build-time snapshot. */
+    fetch(API, { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function (d) {
+        if (d && d.offers && d.offers.length) render(d.offers, true);
+        else if (bakedOk()) render(baked.offers, false, baked.asOf);
+        else fail();
+      })
+      .catch(function () {
+        if (bakedOk()) render(baked.offers, false, baked.asOf);
+        else fail();
+      });
+  })();
+  </script>
+</body>
+</html>
