@@ -240,7 +240,7 @@ describe('host-based pages', () => {
       assert.doesNotMatch(r.body, /Vast\.ai/, p);
       assert.doesNotMatch(r.body, /TensorDock/, p);
       assert.doesNotMatch(r.body, /Voltage Park/, p);
-      assert.match(r.body, /verified partner pools|compute marketplace/, p);
+      assert.match(r.body, /verified partner pools|compute marketplace|peer-powered/, p);
     }
     const providers = await request(port, { path: '/providers', headers: { host: 'aorila.com' } });
     assert.equal(providers.status, 200);
@@ -263,7 +263,7 @@ describe('host-based pages', () => {
     assert.match(res.body, /Aorila Labs/);
     assert.match(res.body, /Aorila Compute — Compute marketplace/);
     assert.match(res.body, /class="ds"/);
-    assert.match(res.body, /href="\/labs\.css\?v=3"/);
+    assert.match(res.body, /href="\/labs\.css\?v=4"/);
     assert.match(res.body, /hero-badge/);
     assert.doesNotMatch(res.body, /labs-split/);
     assert.match(res.body, /Now Onboarding/);
@@ -506,17 +506,18 @@ describe('host-based pages', () => {
       assert.equal(res.status, 200, `aorilalabs.com${path}`);
       assert.match(res.body, /<h1>/);
       assert.match(res.body, /class="ds"/);
-      assert.match(res.body, /api@aorila\.com/);
-      assert.doesNotMatch(res.body, /href="\/about"/);
+      assert.match(res.body, /info@aorila\.com/);
+      assert.match(res.body, /href="\/about"/);
       assert.match(res.body, /href="\/tp"/);
-      assert.match(res.body, /href="https:\/\/dashboard\.aorilalabs\.com\/#support"/);
+      assert.match(res.body, /href="https:\/\/dashboard\.aorilalabs\.com\/support"/);
       assert.doesNotMatch(res.body, /href="\/privacy"/);
       assert.doesNotMatch(res.body, /href="\/terms"/);
       assert.match(res.body, /href="https:\/\/aorilalabs\.com"[^>]*aria-label="Aorila Labs home"/);
       assert.doesNotMatch(res.body, /lorem ipsum/i);
       assert.doesNotMatch(res.body, /\bTBD\b/);
       assert.doesNotMatch(res.body, /coming soon/i);
-      assert.doesNotMatch(res.body, /stripe/i);
+      // The real privacy policy names the actual payment processors (Stripe).
+      assert.match(res.body, /Stripe/);
       assert.doesNotMatch(res.body, /RunPod/i);
       assert.doesNotMatch(res.body, /Supabase/i);
       assert.doesNotMatch(res.body, /Vertex/i);
