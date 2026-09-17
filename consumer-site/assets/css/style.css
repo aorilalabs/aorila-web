@@ -47,7 +47,7 @@ img{display:block;max-width:100%}
 .stack{position:relative;overflow:clip;height:100svh}
 .stack__pin{height:calc(100svh + 300px)}
 .stack__word{position:sticky;top:56svh;z-index:2;text-align:center;pointer-events:none}
-.stack__word span{font-size:clamp(44px,7.2vw,104px);letter-spacing:.4em;text-indent:.4em;
+.stack__word > span{font-size:clamp(44px,7.2vw,104px);letter-spacing:.4em;text-indent:.4em;
   text-transform:uppercase;color:#000}
 .stack__pad{height:150px}
 .stack__media{position:absolute;inset:0;z-index:0}
