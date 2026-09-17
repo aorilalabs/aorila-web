@@ -43,14 +43,8 @@ img{display:block;max-width:100%}
 .navdrop a:hover{color:#000}
 .navdrop a:last-child{border-bottom:0}
 
-/* ---------- hero scroll-stack ---------- */
-.stack{position:relative;overflow:clip}
-.stack__pin{height:calc(100svh + 300px)}
-.stack__word{position:sticky;top:56svh;z-index:2;text-align:center;pointer-events:none}
-.stack__word span{font-size:clamp(44px,7.2vw,104px);letter-spacing:.4em;text-indent:.4em;
-  text-transform:uppercase;color:#000}
-.stack__word img{width:clamp(300px,46vw,680px);height:auto;display:block;margin:0 auto}
-.stack__pad{height:150px}
+/* ---------- hero ---------- */
+.stack{position:relative;overflow:clip;height:100svh}
 .stack__media{position:absolute;inset:0;z-index:0}
 .stack__media img{width:100%;height:100%;object-fit:cover;will-change:transform}
 .stack__shade{position:absolute;inset:0;z-index:1;pointer-events:none;
