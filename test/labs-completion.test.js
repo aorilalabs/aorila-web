@@ -133,6 +133,12 @@ describe('labs completion checklist', () => {
       assert.match(pricing(), /Open the dashboard to see current prices before you launch/);
     });
 
+    it('reachable-but-empty API shows a no-supply state, not an unreachable error', () => {
+      assert.match(pricing(), /No GPU supply right now/);
+      assert.match(pricing(), /no hosts have GPUs listed at the moment/);
+      assert.match(pricing(), /else if \(d && d\.offers\) empty\(\)/);
+    });
+
     it('build-time snapshot is labeled as a snapshot, never as live', () => {
       assert.match(pricing(), /Market snapshot from /);
       assert.match(pricing(), /the dashboard always shows the current market/);
