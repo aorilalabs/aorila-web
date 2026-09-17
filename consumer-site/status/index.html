@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Status — Aorila</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="header" id="site-header">
+  <button class="header__menu-btn" id="menu-btn">Menu</button>
+  <nav class="header__nav" id="nav-left"><a class="header__link" href="../robots/" data-drop="drop-robots">Robotics</a><a class="header__link" href="../divisions/" data-drop="drop-divisions">Divisions</a></nav>
+  <a class="header__wordmark" href="../"><img src="../assets/img/logo.svg" alt="Aorila"></a>
+  <div class="header__tools">
+    <button class="header__link" data-search-open>Search</button>
+    <a class="header__link header__account" href="https://console.aorila.com/account">Account</a>
+  </div>
+</header>
+<div class="navdrop" id="drop-robots"><a href="../robots/home-robot/">Home Robot</a><a href="https://robotics.aorila.com">Presale</a><a href="../journal/">Journal</a><a href="../company/">Company</a></div><div class="navdrop" id="drop-divisions"><a href="https://aorila.com/">Aorila</a><a href="https://atraly.com/">Atraly</a><a href="https://aorilalabs.com/">Aorila Labs</a></div>
+<div class="mnav" id="mnav">
+  <div class="mnav__top"><span class="u">Menu</span><button class="txtbtn" id="mnav-close">Close</button></div>
+  <button class="mlink mnav__acc" style="width:100%;text-align:left;display:flex;justify-content:space-between">Robotics <span class="pm">+</span></button><div class="sub" style="max-height:0;overflow:hidden;transition:max-height .25s"><a href="../robots/home-robot/">Home Robot</a><a href="https://robotics.aorila.com">Presale</a><a href="../journal/">Journal</a><a href="../company/">Company</a></div><button class="mlink mnav__acc" style="width:100%;text-align:left;display:flex;justify-content:space-between">Divisions <span class="pm">+</span></button><div class="sub" style="max-height:0;overflow:hidden;transition:max-height .25s"><a href="https://aorila.com/">Aorila</a><a href="https://atraly.com/">Atraly</a><a href="https://aorilalabs.com/">Aorila Labs</a></div>
+  <a class="mlink" href="https://console.aorila.com/account">Account</a>
+</div>
+<main><div class="page page--narrow"><h1>Status</h1>
+<p id="status-summary" class="status-summary">Checking systems&hellip;</p>
+<div id="status-list" class="status-list"></div>
+<p class="status-note">Checked live from your browser just now. This page re-checks automatically every minute.</p></div>
+<script>
+(function(){
+  var SYSTEMS = [
+    {name: "Company website", host: "aorila.com", url: "https://aorila.com/", mode: "same"},
+    {name: "Robot presale", host: "robotics.aorila.com", url: "https://robotics.aorila.com/", mode: "nocors"},
+    {name: "Presale backend", host: "console.aorila.com", url: "https://console.aorila.com/presale/v1/config", mode: "json"}
+  ];
+  var list = document.getElementById("status-list");
+  var summary = document.getElementById("status-summary");
+  function pill(state){
+    if (state === "up") return '<span class="status-pill status-pill--up">Operational</span>';
+    if (state === "down") return '<span class="status-pill status-pill--down">Unreachable</span>';
+    return '<span class="status-pill">Checking&hellip;</span>';
+  }
+  function render(states){
+    var up = 0;
+    var html = "";
+    SYSTEMS.forEach(function(s, i){
+      var st = states[i] || "wait";
+      if (st === "up") up++;
+      html += '<div class="status-row"><div><div class="status-name">' + s.name + '</div>' +
+              '<div class="status-host">' + s.host + '</div></div>' + pill(st) + '</div>';
+    });
+    list.innerHTML = html;
+    if (up === SYSTEMS.length) summary.textContent = "All systems operational.";
+    else summary.textContent = up + " of " + SYSTEMS.length + " systems operational.";
+  }
+  function check(s){
+    var url = s.url + (s.url.indexOf("?") === -1 ? "?" : "&") + "t=" + Date.now();
+    if (s.mode === "same") {
+      return fetch(url, {cache: "no-store"}).then(function(r){ return r.ok ? "up" : "down"; });
+    }
+    if (s.mode === "json") {
+      return fetch(url, {cache: "no-store"}).then(function(r){ return r.json(); }).then(function(d){
+        return (d && d.ok === true && d.configured === true) ? "up" : "down";
+      });
+    }
+    return fetch(url, {mode: "no-cors", cache: "no-store"}).then(function(){ return "up"; });
+  }
+  function run(){
+    render([]);
+    var states = SYSTEMS.map(function(){ return "wait"; });
+    SYSTEMS.forEach(function(s, i){
+      check(s).then(function(st){ states[i] = st; render(states); },
+                    function(){ states[i] = "down"; render(states); });
+    });
+  }
+  run();
+  setInterval(run, 60000);
+})();
+</script></main>
+<footer class="footer"><div class="fcol"><button class="fcol__head">Policies <span class="pm">+</span></button><div class="fcol__body"><a href="../policies/terms.html">Terms of Service</a><a href="../policies/privacy.html">Privacy Policy</a><a href="../policies/accessibility.html">Accessibility</a></div></div><div class="fcol"><button class="fcol__head">Support <span class="pm">+</span></button><div class="fcol__body"><a href="../contact/">Contact Us</a><a href="../status/">Status</a></div></div><div class="fcol"><button class="fcol__head">Divisions <span class="pm">+</span></button><div class="fcol__body"><a href="../robots/">Robotics</a><a href="https://atraly.com/">Atraly</a><a href="https://aorilalabs.com/">Aorila Labs</a></div></div></footer>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="search" id="search" role="dialog" aria-label="Search">
+  <div class="search__bar">
+    <input id="search-input" type="text" placeholder="Search" autocomplete="off">
+    <button class="txtbtn" id="search-close">Close</button>
+  </div>
+  <div class="search__list" id="search-list"></div>
+  <div class="search__foot"><a class="btn" href="../divisions/"><span class="rl"><i>View all</i><i aria-hidden="true">View all</i></span></a></div>
+</div>
+
+<aside class="drawer" id="filter" aria-label="Filter">
+  <div class="drawer__head"><span id="filter-count">Filter</span><button class="txtbtn" id="filter-close">Close</button></div>
+  <div class="drawer__body">
+    <div class="facet facet--open"><button class="facet__head">Sort <span class="pm">−</span></button>
+      <div class="facet__body"><div class="opt-row">
+        <label class="radio"><input type="radio" name="sort" value="featured" checked> Featured</label>
+        <label class="radio"><input type="radio" name="sort" value="lo"> Price: low to high</label>
+        <label class="radio"><input type="radio" name="sort" value="hi"> Price: high to low</label>
+      </div></div></div>
+    <div class="facet"><button class="facet__head">Category <span class="pm">+</span></button>
+      <div class="facet__body"><div class="opt-row">
+        <label class="check"><input type="checkbox" class="fcat" value="Hardware"> Hardware</label>
+        <label class="check"><input type="checkbox" class="fcat" value="Service"> Service</label>
+                <label class="check"><input type="checkbox" class="fcat" value="Plan"> Plan</label>
+        <label class="check"><input type="checkbox" class="fcat" value="Company"> Company</label>
+      </div></div></div>
+    <div class="facet"><button class="facet__head">Price <span class="pm">+</span></button>
+      <div class="facet__body"><div class="pricerow">
+        <input id="f-lo" type="number" min="0" placeholder="Low">
+        <input id="f-hi" type="number" min="0" placeholder="High">
+      </div></div></div>
+  </div>
+  <div class="drawer__foot"><button class="btn" id="see-n"><span class="rl"><i>See items</i><i aria-hidden="true">See items</i></span></button></div>
+</aside>
+
+<script type="application/json" id="search-index">[{"title": "Divisions", "price": "Aorila \u00b7 Aorila Labs \u00b7 Atraly", "url": "divisions/", "tags": "divisions company labs atraly robots"}, {"title": "Home Robot", "price": "$50 refundable deposit", "url": "robots/home-robot/", "tags": "robots home robot presale humanoid reserve deposit"}, {"title": "Journal", "price": "Coming soon", "url": "journal/", "tags": "journal articles blog"}, {"title": "Company", "price": "Aorila robotics company", "url": "company/", "tags": "company about robotics mission founders"}, {"title": "Status", "price": "Live system status", "url": "status/", "tags": "status systems operational uptime"}, {"title": "Contact", "price": "info@aorila.com", "url": "contact/", "tags": "contact email support company"}, {"title": "Terms of Service", "price": "", "url": "policies/terms.html", "tags": "terms legal policy"}, {"title": "Privacy Policy", "price": "", "url": "policies/privacy.html", "tags": "privacy legal policy"}, {"title": "Accessibility", "price": "", "url": "policies/accessibility.html", "tags": "accessibility legal policy"}]</script>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
