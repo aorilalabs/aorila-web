@@ -65,39 +65,6 @@ function createConsoleApp(options = {}) {
 
   app.get('/healthz', (req, res) => res.json({ ok: true, service: 'aorila-console' }));
 
-  // TEMPORARY DIAGNOSTIC — remove after DNS investigation.
-  app.get('/diag-dns', async (req, res) => {
-    const dns = require('dns').promises;
-    const out = {};
-    for (const h of ['fvxvvilgvplztbmovmxi.supabase.co', 'google.com', 'aorila.com']) {
-      try { out[h] = { lookup: await dns.lookup(h).then(r => r.address).catch(e => 'ERR:' + e.code) }; }
-      catch (e) { out[h] = { lookup: 'ERR:' + (e.code || e.message) }; }
-    }
-    try {
-      const r = await fetch('https://fvxvvilgvplztbmovmxi.supabase.co/auth/v1/health', { signal: AbortSignal.timeout(10000) });
-      out.fetch_health = r.status;
-    } catch (e) { out.fetch_health = 'ERR:' + (e.cause ? e.cause.code || String(e.cause) : e.code || e.message); }
-    try {
-      const r = await fetch('https://www.google.com/generate_204', { signal: AbortSignal.timeout(10000) });
-      out.fetch_google = r.status;
-    } catch (e) { out.fetch_google = 'ERR:' + (e.cause ? e.cause.code || String(e.cause) : e.code || e.message); }
-    const _u = process.env.SUPABASE_URL || '';
-    out.env_len = _u.length;
-    out.env_codes = [..._u].map(c => c.charCodeAt(0)).join(',');
-    out.env_SUPABASE_URL = JSON.stringify(_u);
-    out.env_keys = Object.keys(process.env).filter(k => /SUPABASE|AORILA|NODE/i.test(k));
-    try {
-      const r = await fetch(process.env.SUPABASE_URL + '/auth/v1/signup', {
-        method: 'POST',
-        headers: { apikey: 'test', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: 'x@y.zz', password: '12345678' }),
-        signal: AbortSignal.timeout(15000),
-      });
-      out.signup_probe = r.status;
-    } catch (e) { out.signup_probe = 'ERR:' + (e.cause ? e.cause.code || String(e.cause).slice(0,120) : e.code || String(e).slice(0,120)); }
-    res.json(out);
-  });
-
   app.use((req, res) => res.status(404).type('html').send(consoleNotFound()));
   return app;
 }
