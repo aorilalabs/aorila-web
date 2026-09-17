@@ -65,6 +65,25 @@ function createConsoleApp(options = {}) {
 
   app.get('/healthz', (req, res) => res.json({ ok: true, service: 'aorila-console' }));
 
+  // TEMPORARY DIAGNOSTIC — remove after DNS investigation.
+  app.get('/diag-dns', async (req, res) => {
+    const dns = require('dns').promises;
+    const out = {};
+    for (const h of ['fvxvvilgvplztbmovmxi.supabase.co', 'google.com', 'aorila.com']) {
+      try { out[h] = { lookup: await dns.lookup(h).then(r => r.address).catch(e => 'ERR:' + e.code) }; }
+      catch (e) { out[h] = { lookup: 'ERR:' + (e.code || e.message) }; }
+    }
+    try {
+      const r = await fetch('https://fvxvvilgvplztbmovmxi.supabase.co/auth/v1/health', { signal: AbortSignal.timeout(10000) });
+      out.fetch_health = r.status;
+    } catch (e) { out.fetch_health = 'ERR:' + (e.cause ? e.cause.code || String(e.cause) : e.code || e.message); }
+    try {
+      const r = await fetch('https://www.google.com/generate_204', { signal: AbortSignal.timeout(10000) });
+      out.fetch_google = r.status;
+    } catch (e) { out.fetch_google = 'ERR:' + (e.cause ? e.cause.code || String(e.cause) : e.code || e.message); }
+    res.json(out);
+  });
+
   app.use((req, res) => res.status(404).type('html').send(consoleNotFound()));
   return app;
 }
