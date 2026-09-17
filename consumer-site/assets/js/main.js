@@ -46,7 +46,7 @@ drops.forEach(function(p){
 var navWrap=$("#nav-left");
 if(navWrap){navWrap.addEventListener("mouseleave",scheduleDropClose)}
 scrim.addEventListener("click",closeDrops);
-document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrops();closeSearch();closeBag();closeFilter();closeMenu()}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrops();closeSearch();closeFilter();closeMenu()}});
 
 /* ---------- mobile menu ---------- */
 var mnav=$("#mnav");
@@ -59,14 +59,6 @@ $$(".mnav__acc").forEach(function(b){
     var s=b.nextElementSibling, open=b.classList.toggle("open");
     s.style.maxHeight=open?s.scrollHeight+"px":"0";
     b.querySelector(".pm").textContent=open?"−":"+";
-  });
-});
-
-/* ---------- footer disclosures (mobile) ---------- */
-$$(".fcol__head").forEach(function(h){
-  h.addEventListener("click",function(){
-    var c=h.parentElement, open=c.classList.toggle("fcol--open");
-    h.querySelector(".pm").textContent=open?"−":"+";
   });
 });
 
@@ -121,62 +113,6 @@ $$(".product__opts").forEach(function(wrap){
     });
   });
 });
-
-/* ---------- bag ---------- */
-var BAG_KEY="aorila_bag_v1";
-function bagGet(){try{return JSON.parse(localStorage.getItem(BAG_KEY))||[]}catch(e){return[]}}
-function bagSet(b){localStorage.setItem(BAG_KEY,JSON.stringify(b));bagPaint()}
-function bagCount(){return bagGet().reduce(function(n,i){return n+i.qty},0)}
-function bagTotal(){return bagGet().reduce(function(n,i){return n+i.qty*i.price},0)}
-var bagDrawer=$("#bag"), bagItems=$("#bag-items"), bagFoot=$("#bag-foot"), bagN=$("#bag-n");
-function bagPaint(){
-  var b=bagGet();
-  bagN.textContent=bagCount()>0?" ("+bagCount()+")":"";
-  if(!b.length){
-    bagItems.innerHTML='<div class="bag__empty">Your bag is empty</div><button class="btn" id="bag-empty-x"><span class="rl"><i>Continue browsing</i><i aria-hidden="true">Continue browsing</i></span></button>';
-    bagFoot.style.display="none";
-    var bx=$("#bag-empty-x"); if(bx)bx.addEventListener("click",closeBag);
-    return;
-  }
-  bagFoot.style.display="block";
-  bagItems.innerHTML=b.map(function(it,idx){
-    return '<div class="bagitem"><div class="bagitem__thumb"><span>'+it.title+'</span></div>'+
-    '<div class="bagitem__info"><div class="bagitem__title">'+it.title+'</div>'+
-    '<div class="bagitem__var">'+it.variant+'</div>'+
-    '<div class="bagitem__row"><span class="qty"><button data-a="dec" data-i="'+idx+'">−</button><span>'+it.qty+'</span><button data-a="inc" data-i="'+idx+'">+</button></span>'+
-    '<span class="bagitem__price">$'+(it.price*it.qty).toFixed(2)+'</span></div>'+
-    '<button class="bagitem__rm" data-a="rm" data-i="'+idx+'">Remove</button></div></div>';
-  }).join("");
-  $("#bag-total").textContent="$"+bagTotal().toFixed(2)+" USD";
-  $$("#bag-items [data-a]").forEach(function(btn){
-    btn.addEventListener("click",function(){
-      var bb=bagGet(), i=+btn.getAttribute("data-i"), a=btn.getAttribute("data-a");
-      if(a==="inc")bb[i].qty++;
-      if(a==="dec")bb[i].qty=Math.max(1,bb[i].qty-1);
-      if(a==="rm")bb.splice(i,1);
-      bagSet(bb);
-    });
-  });
-}
-function openBag(){closeDrops();bagDrawer.classList.add("drawer--on");scrimOn(true);overlay(true);bagPaint()}
-function closeBag(){if(bagDrawer.classList.contains("drawer--on")){bagDrawer.classList.remove("drawer--on");scrimOn(false);overlay(false)}}
-$("#bag-open").addEventListener("click",openBag);
-$("#bag-close").addEventListener("click",closeBag);
-$("#bag-continue").addEventListener("click",closeBag);
-scrim.addEventListener("click",closeBag);
-$$("[data-add]").forEach(function(btn){
-  btn.addEventListener("click",function(){
-    var b=bagGet(), id=btn.getAttribute("data-add");
-    var priceEl=document.getElementById(btn.getAttribute("data-price-for")||"p-price");
-    var price=parseFloat((priceEl.textContent||"").replace(/[^0-9.]/g,""))||0;
-    var variant=btn.getAttribute("data-variant")||"Standard";
-    var found=null;
-    b.forEach(function(it){if(it.id===id&&it.variant===variant)found=it});
-    if(found)found.qty++; else b.push({id:id,title:btn.getAttribute("data-title"),variant:variant,price:price,qty:1});
-    bagSet(b); openBag();
-  });
-});
-bagPaint();
 
 /* ---------- search ---------- */
 var searchBox=$("#search"), searchInput=$("#search-input"), searchList=$("#search-list");
