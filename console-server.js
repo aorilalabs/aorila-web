@@ -81,6 +81,17 @@ function createConsoleApp(options = {}) {
       const r = await fetch('https://www.google.com/generate_204', { signal: AbortSignal.timeout(10000) });
       out.fetch_google = r.status;
     } catch (e) { out.fetch_google = 'ERR:' + (e.cause ? e.cause.code || String(e.cause) : e.code || e.message); }
+    out.env_SUPABASE_URL = JSON.stringify(process.env.SUPABASE_URL);
+    out.env_keys = Object.keys(process.env).filter(k => /SUPABASE|AORILA|NODE/i.test(k));
+    try {
+      const r = await fetch(process.env.SUPABASE_URL + '/auth/v1/signup', {
+        method: 'POST',
+        headers: { apikey: 'test', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: 'x@y.zz', password: '12345678' }),
+        signal: AbortSignal.timeout(15000),
+      });
+      out.signup_probe = r.status;
+    } catch (e) { out.signup_probe = 'ERR:' + (e.cause ? e.cause.code || String(e.cause).slice(0,120) : e.code || String(e).slice(0,120)); }
     res.json(out);
   });
 
