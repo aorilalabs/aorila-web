@@ -28,13 +28,13 @@ describe('gpu catalog cards', () => {
     assert.match(html, /from<\/span> \$0\.483/);
     assert.match(html, /billed per minute/);
     assert.match(html, /24GB VRAM/);
-    assert.match(html, /https:\/\/dashboard\.aorilalabs\.com\/#market/);
+    assert.match(html, /https:\/\/dashboard\.aorilalabs\.com\/compute/);
     assert.match(html, /data-gf="datacenter"/);
   });
 
   it('renders per-offer cards that deploy from the Labs dashboard', () => {
     const html = price.offersHtml(offers);
-    assert.match(html, /https:\/\/dashboard\.aorilalabs\.com\/#market/);
+    assert.match(html, /https:\/\/dashboard\.aorilalabs\.com\/compute/);
     assert.match(html, /gpu-art/);
   });
 
