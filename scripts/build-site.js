@@ -121,7 +121,42 @@ function buildConsumer(targetDir) {
   writeRoute(targetDir, 'terms', redirectPage('Redirecting to support', '/support'));
 }
 
-function buildLabs(targetDir) {
+/* Live GPU catalog for the /pricing page. Fetched at build time so the static
+   page ships with real, timestamped numbers. Never throws: returns null when
+   the API is unreachable, and the page then shows an honest "unavailable"
+   state instead of invented prices. */
+const GPU_CATALOG_URL = 'https://api.aorilalabs.com/compute/v1/gpus';
+async function fetchPricingSnapshot() {
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 15000);
+    let res;
+    try {
+      res = await fetch(GPU_CATALOG_URL, { signal: ctrl.signal, headers: { accept: 'application/json' } });
+    } finally {
+      clearTimeout(timer);
+    }
+    if (!res.ok) return null;
+    const data = await res.json();
+    const offers = (data && data.offers) || [];
+    if (!offers.length) return null;
+    const asOf = new Date().toLocaleString('en-US', {
+      timeZone: 'America/New_York', month: 'short', day: 'numeric', year: 'numeric',
+      hour: 'numeric', minute: '2-digit',
+    }) + ' ET';
+    return {
+      asOf,
+      offers: offers.map((o) => ({
+        name: o.name, sku: o.sku, vramGb: o.vramGb, class: o.class,
+        usdPerHour: o.usdPerHour, placeable: o.placeable,
+      })),
+    };
+  } catch {
+    return null;
+  }
+}
+
+async function buildLabs(targetDir) {
   const labsDir = path.join(SITES_DIR, 'labs');
   const dashboardOrigin = STATIC_DASHBOARD_ORIGIN || 'https://dashboard.aorilalabs.com';
   // Render subdomains are disabled: bounce any *.onrender.com visitor to our domain.
@@ -146,9 +181,34 @@ function buildLabs(targetDir) {
   }
   // Legal stays a standalone page — the dashboard has no legal section.
   writeRoute(targetDir, 'tp', withBounce(fs.readFileSync(path.join(labsDir, 'tp.html'), 'utf8')));
+  // /terms serves the actual terms: same content as /tp, canonicalized to /terms.
+  const termsHtml = fs.readFileSync(path.join(labsDir, 'tp.html'), 'utf8')
+    .replace(/https:\/\/aorilalabs\.com\/tp/g, 'https://aorilalabs.com/terms');
+  writeRoute(targetDir, 'terms', withBounce(termsHtml));
   // Seller onboarding lives in the dashboard's Earn tab now — /sell forwards there.
   writeRoute(targetDir, 'sell', redirectPage('Redirecting to Earn', `${dashboardOrigin}/earn`));
   writeRoute(targetDir, 'learn', withBounce(fs.readFileSync(path.join(labsDir, 'learn.html'), 'utf8')));
+  // Pricing: bake the live catalog snapshot into the page. The page tries the
+  // live API in the browser first and falls back to this timestamped snapshot.
+  const pricingSnapshot = await fetchPricingSnapshot();
+  if (!pricingSnapshot) console.warn('labs build: GPU catalog unreachable — /pricing ships with an honest unavailable state');
+  const pricingHtml = fs.readFileSync(path.join(labsDir, 'pricing.html'), 'utf8')
+    .replace('/*__PRICING_DATA__*/null', '/*__PRICING_DATA__*/' + JSON.stringify(pricingSnapshot));
+  writeRoute(targetDir, 'pricing', withBounce(pricingHtml));
+  writeRoute(targetDir, 'about', withBounce(fs.readFileSync(path.join(labsDir, 'about.html'), 'utf8')));
+  // robots.txt + sitemap.xml for the Labs site.
+  fs.writeFileSync(
+    path.join(targetDir, 'robots.txt'),
+    'User-agent: *\nAllow: /\nSitemap: https://aorilalabs.com/sitemap.xml\n'
+  );
+  const lastmod = new Date().toISOString().slice(0, 10);
+  const sitemapUrls = ['', '/learn', '/pricing', '/about', '/sell', '/tp', '/terms']
+    .map((p) => `  <url><loc>https://aorilalabs.com${p || '/'}</loc><lastmod>${lastmod}</lastmod></url>`)
+    .join('\n');
+  fs.writeFileSync(
+    path.join(targetDir, 'sitemap.xml'),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls}\n</urlset>\n`
+  );
 }
 
 function buildRobotics(targetDir) {
@@ -161,8 +221,10 @@ fs.rmSync(targetDir, { recursive: true, force: true });
 ensureDir(targetDir);
 copyDir(PUBLIC_DIR, targetDir);
 
-if (SITE === 'consumer') buildConsumer(targetDir);
-else if (SITE === 'labs') buildLabs(targetDir);
-else buildRobotics(targetDir);
+if (SITE === 'consumer') { buildConsumer(targetDir); done(); }
+else if (SITE === 'labs') buildLabs(targetDir).then(done, (err) => { console.error(err); process.exit(1); });
+else { buildRobotics(targetDir); done(); }
 
-console.log(`Built ${SITE} site into ${path.relative(ROOT, targetDir)}`);
+function done() {
+  console.log(`Built ${SITE} site into ${path.relative(ROOT, targetDir)}`);
+}
