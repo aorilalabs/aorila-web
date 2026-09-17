@@ -114,7 +114,12 @@ function buildConsumer(targetDir) {
   // whose CTA links out to robotics.aorila.com.
   copyDir(path.join(ROOT, 'consumer-site'), targetDir);
   const apiOrigin = STATIC_CONSOLE_ORIGIN;
-  for (const route of ['console', 'account', 'dashboard', 'login', 'signin', 'signup', 'register']) {
+  // NOTE: 'login' and 'signup' are REAL pages in consumer-site/ (standalone auth
+  // cards, no header/footer). They must NOT be overwritten with redirect stubs —
+  // that created a redirect loop with console.aorila.com. Only console-only
+  // routes get stubs here. 'signin'/'register' stubs are safe: the console
+  // 301s them to the real /login and /signup pages.
+  for (const route of ['console', 'account', 'dashboard', 'signin', 'register']) {
     writeRoute(targetDir, route, redirectPage(`Redirecting to ${route}`, `${apiOrigin}/${route}`));
   }
   // Preserve old inbound URLs by pointing them at their replica pages.
