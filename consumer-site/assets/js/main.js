@@ -46,7 +46,7 @@ drops.forEach(function(p){
 var navWrap=$("#nav-left");
 if(navWrap){navWrap.addEventListener("mouseleave",scheduleDropClose)}
 scrim.addEventListener("click",closeDrops);
-document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrops();closeSearch();closeFilter();closeMenu()}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrops();closeFilter();closeMenu()}});
 
 /* ---------- mobile menu ---------- */
 var mnav=$("#mnav");
@@ -113,30 +113,6 @@ $$(".product__opts").forEach(function(wrap){
     });
   });
 });
-
-/* ---------- search ---------- */
-var searchBox=$("#search"), searchInput=$("#search-input"), searchList=$("#search-list");
-var INDEX=[];
-try{INDEX=JSON.parse(document.getElementById("search-index").textContent)}catch(e){}
-function tile(t){return '<div class="search__thumb"><span>'+t+'</span></div>'}
-function paintSearch(q){
-  q=(q||"").trim().toLowerCase();
-  var hits=INDEX.filter(function(it){
-    return !q||it.title.toLowerCase().indexOf(q)>-1||(it.tags||"").toLowerCase().indexOf(q)>-1;
-  }).slice(0,8);
-  if(!hits.length){searchList.innerHTML='<div class="search__empty">No results for &ldquo;'+q.replace(/</g,"&lt;")+'&rdquo;</div>';return}
-  searchList.innerHTML=(q?"":'<div class="search__empty" style="padding:8px 24px 4px">ALL</div>')+hits.map(function(it){
-    return '<a class="search__row" href="'+it.url+'">'+tile(it.title)+
-      '<div><div class="search__name">'+it.title+'</div><div class="search__price">'+it.price+'</div></div></a>';
-  }).join("");
-}
-function openSearch(){closeDrops();searchBox.classList.add("search--on");scrimOn(true);overlay(true);
-  paintSearch("");setTimeout(function(){searchInput.focus()},60)}
-function closeSearch(){if(searchBox.classList.contains("search--on")){searchBox.classList.remove("search--on");scrimOn(false);overlay(false)}}
-$$("[data-search-open]").forEach(function(b){b.addEventListener("click",openSearch)});
-$("#search-close").addEventListener("click",closeSearch);
-scrim.addEventListener("click",closeSearch);
-if(searchInput)searchInput.addEventListener("input",function(){paintSearch(searchInput.value)});
 
 /* ---------- filters ---------- */
 var filterDrawer=$("#filter");
