@@ -199,13 +199,14 @@ async function buildLabs(targetDir) {
     .replace('/*__PRICING_DATA__*/null', '/*__PRICING_DATA__*/' + JSON.stringify(pricingSnapshot));
   writeRoute(targetDir, 'pricing', withBounce(pricingHtml));
   writeRoute(targetDir, 'about', withBounce(fs.readFileSync(path.join(labsDir, 'about.html'), 'utf8')));
+  writeRoute(targetDir, 'status', withBounce(fs.readFileSync(path.join(labsDir, 'status.html'), 'utf8')));
   // robots.txt + sitemap.xml for the Labs site.
   fs.writeFileSync(
     path.join(targetDir, 'robots.txt'),
     'User-agent: *\nAllow: /\nSitemap: https://aorilalabs.com/sitemap.xml\n'
   );
   const lastmod = new Date().toISOString().slice(0, 10);
-  const sitemapUrls = ['', '/learn', '/pricing', '/about', '/sell', '/tp', '/terms']
+  const sitemapUrls = ['', '/learn', '/pricing', '/about', '/sell', '/tp', '/terms', '/status']
     .map((p) => `  <url><loc>https://aorilalabs.com${p || '/'}</loc><lastmod>${lastmod}</lastmod></url>`)
     .join('\n');
   fs.writeFileSync(
