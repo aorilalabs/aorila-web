@@ -22,6 +22,27 @@ services:
       - key: SUPABASE_URL
         value: https://fvxvvilgvplztbmovmxi.supabase.co
 
+  - type: web
+    name: aorila-console
+    runtime: node
+    plan: starter
+    region: oregon
+    buildCommand: npm install --omit=dev
+    startCommand: node console-server.js
+    healthCheckPath: /healthz
+    autoDeployTrigger: commit
+    disk:
+      name: console-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: DATA_DIR
+        value: /var/data/console
+      - key: SUPABASE_URL
+        value: https://fvxvvilgvplztbmovmxi.supabase.co
+
   - type: static
     name: aorila-site
     plan: free
