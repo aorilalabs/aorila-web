@@ -81,7 +81,10 @@ function createConsoleApp(options = {}) {
       const r = await fetch('https://www.google.com/generate_204', { signal: AbortSignal.timeout(10000) });
       out.fetch_google = r.status;
     } catch (e) { out.fetch_google = 'ERR:' + (e.cause ? e.cause.code || String(e.cause) : e.code || e.message); }
-    out.env_SUPABASE_URL = JSON.stringify(process.env.SUPABASE_URL);
+    const _u = process.env.SUPABASE_URL || '';
+    out.env_len = _u.length;
+    out.env_codes = [..._u].map(c => c.charCodeAt(0)).join(',');
+    out.env_SUPABASE_URL = JSON.stringify(_u);
     out.env_keys = Object.keys(process.env).filter(k => /SUPABASE|AORILA|NODE/i.test(k));
     try {
       const r = await fetch(process.env.SUPABASE_URL + '/auth/v1/signup', {
