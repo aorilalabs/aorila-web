@@ -109,29 +109,19 @@ ${gaSnippet(SITE_GA_ID[SITE] || '')}  <meta charset="UTF-8" />
 }
 
 function buildConsumer(targetDir) {
-  const consumerDir = path.join(SITES_DIR, 'consumer');
-  for (const file of fs.readdirSync(consumerDir)) {
-    if (!file.endsWith('.html')) continue;
-    const html = fs.readFileSync(path.join(consumerDir, file), 'utf8');
-    const route = file === 'index.html' ? '' : file.replace(/\.html$/, '');
-    writeRoute(targetDir, route, html);
-  }
-  for (const slug of MARKETING_SLUGS) {
-    writeRoute(targetDir, slug === 'search' ? 'search' : slug, renderMarketingPage(slug, {}));
-  }
-  writeRoute(targetDir, 'commercial', renderCommercialPage('', {}));
-  for (const slug of COMMERCIAL_SLUGS) {
-    if (!slug) continue;
-    writeRoute(targetDir, `commercial/${slug}`, renderCommercialPage(slug, {}));
-  }
+  // The consumer face (aorila.com) is the Vivet-exact replica: ship it verbatim.
+  // No on-site selling — the bag holds a $50 refundable robot-presale deposit
+  // whose CTA links out to robotics.aorila.com.
+  copyDir(path.join(ROOT, 'consumer-site'), targetDir);
   const apiOrigin = STATIC_CONSOLE_ORIGIN;
   for (const route of ['console', 'account', 'dashboard', 'login', 'signin', 'signup', 'register']) {
     writeRoute(targetDir, route, redirectPage(`Redirecting to ${route}`, `${apiOrigin}/${route}`));
   }
-  writeRoute(targetDir, 'models', redirectPage('Redirecting to AI API', '/ai-api'));
-  writeRoute(targetDir, 'enterprise', redirectPage('Redirecting to enterprise', '/commercial'));
-  writeRoute(targetDir, 'privacy', redirectPage('Redirecting to T & P', '/tp'));
-  writeRoute(targetDir, 'terms', redirectPage('Redirecting to support', '/support'));
+  // Preserve old inbound URLs by pointing them at their replica pages.
+  writeRoute(targetDir, 'models', redirectPage('Redirecting to AI API', '/ai/api/'));
+  writeRoute(targetDir, 'enterprise', redirectPage('Redirecting to divisions', '/divisions/'));
+  writeRoute(targetDir, 'privacy', redirectPage('Redirecting to privacy policy', '/policies/privacy'));
+  writeRoute(targetDir, 'terms', redirectPage('Redirecting to terms of service', '/policies/terms'));
 }
 
 /* Live GPU catalog for the /pricing page. Fetched at build time so the static
