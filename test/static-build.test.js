@@ -42,7 +42,26 @@ describe('static site builds', () => {
     const html = read('dist/labs/index.html');
     assert.match(html, /Aorila Compute — Compute marketplace/);
     const contact = read('dist/labs/contact/index.html');
-    assert.match(contact, /url=https:\/\/dashboard\.aorilalabs\.com\/#support/);
+    assert.match(contact, /url=https:\/\/dashboard\.aorilalabs\.com\/support/);
+    // New standalone pages.
+    assert.ok(fs.existsSync(path.join(DIST, 'labs', 'pricing', 'index.html')));
+    assert.ok(fs.existsSync(path.join(DIST, 'labs', 'about', 'index.html')));
+    assert.ok(fs.existsSync(path.join(DIST, 'labs', 'terms', 'index.html')));
+    assert.ok(fs.existsSync(path.join(DIST, 'labs', 'robots.txt')));
+    assert.ok(fs.existsSync(path.join(DIST, 'labs', 'sitemap.xml')));
+    const pricing = read('dist/labs/pricing/index.html');
+    assert.match(pricing, /Live GPU prices/);
+    // Pricing ships with the catalog marker: real baked data when the API was
+    // reachable at build time, otherwise an honest unavailable state.
+    assert.match(pricing, /__PRICING_DATA__/);
+    assert.match(pricing, /temporarily unavailable|Live market prices/);
+    const terms = read('dist/labs/terms/index.html');
+    assert.match(terms, /Terms of Service/);
+    assert.match(terms, /https:\/\/aorilalabs\.com\/terms/);
+    const sitemap = read('dist/labs/sitemap.xml');
+    assert.match(sitemap, /https:\/\/aorilalabs\.com\/pricing/);
+    const robots = read('dist/labs/robots.txt');
+    assert.match(robots, /Sitemap: https:\/\/aorilalabs\.com\/sitemap\.xml/);
   });
 
   it('builds a minimal honest robotics placeholder', () => {
