@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI security audits — Aorila</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<header class="header" id="site-header">
+  <button class="header__menu-btn" id="menu-btn">Menu</button>
+  <nav class="header__nav" id="nav-left"><a class="header__link" href="../robots/" data-drop="drop-robots">Robotics</a><a class="header__link" href="../divisions/" data-drop="drop-divisions">Divisions</a></nav>
+  <a class="header__wordmark" href="../"><img src="../assets/img/logo.svg" alt="Aorila"></a>
+  <div class="header__tools">
+    <a class="header__link" href="../press/" data-drop="drop-press">Press</a>
+    <a class="header__link header__account" href="https://console.aorila.com" data-drop="drop-account">Account</a>
+  </div>
+</header>
+<div class="navdrop" id="drop-robots"><a href="../robots/home-robot/">Home Robot</a><a href="../robots/brain/">Atraly for Robotics</a><a href="https://robotics.aorila.com">Presale</a><a href="../journal/">Journal</a><a href="../company/">Company</a></div>
+<div class="navdrop" id="drop-divisions"><a href="https://aorila.com/">Aorila</a><a href="https://atraly.com/">Atraly</a><a href="https://aorilalabs.com/">Aorila Labs</a></div>
+<div class="navdrop navdrop--right" id="drop-press"><a href="../press/#us">US</a><a href="../press/#other">Other</a></div>
+<div class="navdrop navdrop--right" id="drop-account"><a href="https://console.aorila.com">Console</a><a href="https://console.aorila.com/login">Sign in</a><a href="https://console.aorila.com/signup">Create account</a><a href="https://console.aorila.com/console/billing">Billing</a></div>
+<main>
+<div class="page page--narrow">
+<h1>AI security audits</h1>
+<p>Aorila reviews AI systems the way we review our own stack: what the model can do, where data moves, and what happens when it fails.</p>
+<p>This page is informational. Engagements are scoped in writing before any work begins. We do not publish pricing.</p>
+<h2>What an audit covers</h2>
+<p>Typical work includes one or more of the following, chosen after a short scoping call:</p>
+<ul>
+<li>Model and tool-use review — prompts, tools, retrieval, and agent loops that can leak data or take unintended actions.</li>
+<li>Data handling — training, logs, embeddings, third-party processors, retention, and deletion paths.</li>
+<li>Access and tenancy — auth, session handling, isolation between customers, and admin surfaces.</li>
+<li>Deployment posture — secrets, supply chain, inference endpoints, and what is exposed on the public internet.</li>
+<li>Incident readiness — what you can reconstruct after a failure, and who is notified.</li>
+</ul>
+<h2>How we work</h2>
+<p>We start with a written scope: systems in play, data classes, and the questions you need answered. Findings come back as a private report with severity, evidence, and a recommended order of work. Pricing is quoted after that scope is agreed.</p>
+<p>Aorila does not publish client names from audits unless you ask us to.</p>
+<h2>Request a scoping conversation</h2>
+<p>Write to <a href="mailto:info@aorila.com?subject=AI%20security%20audit">info@aorila.com</a> or use the form below. Tell us what you run and what you need reviewed. We will reply with next steps.</p>
+<form class="lead-form" method="post" action="/leads">
+  <input type="hidden" name="site" value="consumer">
+  <input type="hidden" name="kind" value="security-audit">
+  <p style="position:absolute;left:-9999px" aria-hidden="true"><label>Fax <input type="text" name="fax" tabindex="-1" autocomplete="off"></label></p>
+  <p><label>Name<br><input type="text" name="name" required maxlength="120"></label></p>
+  <p><label>Work email<br><input type="email" name="email" required maxlength="254"></label></p>
+  <p><label>Company<br><input type="text" name="company" maxlength="160"></label></p>
+  <p><label>What should we review?<br><textarea name="notes" rows="6" maxlength="4000" required></textarea></label></p>
+  <p><button class="btn" type="submit"><span class="rl"><i>Request a conversation</i><i aria-hidden="true">Request a conversation</i></span></button></p>
+</form>
+</div>
+</main>
+<footer class="footer"><div class="fcol"><button class="fcol__head">Policies <span class="pm">+</span></button><div class="fcol__body"><a href="../policies/terms.html">Terms of Service</a><a href="../policies/privacy.html">Privacy Policy</a><a href="../policies/accessibility.html">Accessibility</a></div></div><div class="fcol"><button class="fcol__head">Support <span class="pm">+</span></button><div class="fcol__body"><a href="../contact/">Contact Us</a><a href="../status/">Status</a></div></div><div class="fcol"><button class="fcol__head">Divisions <span class="pm">+</span></button><div class="fcol__body"><a href="../robots/">Robotics</a><a href="https://atraly.com/">Atraly</a><a href="https://aorilalabs.com/">Aorila Labs</a></div></div><div class="fcol"><button class="fcol__head">Robotics <span class="pm">+</span></button><div class="fcol__body"><a href="../robots/home-robot/">Home Robot</a><a href="../robots/brain/">Atraly for Robotics</a><a href="https://robotics.aorila.com">Presale</a><a href="../journal/">Journal</a><a href="../company/">Company</a></div></div></footer>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
