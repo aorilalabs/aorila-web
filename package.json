@@ -6,7 +6,8 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "build:site": "node scripts/build-site.js",
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js",
+    "secret-scan": "node scripts/secret-scan.js"
   },
   "engines": {
     "node": ">=20"
