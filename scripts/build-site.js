@@ -182,6 +182,9 @@ async function buildLabs(targetDir) {
   const withBounce = (html) => String(html).replace(/<\/head>/i, `  ${renderBounce}\n</head>`);
   // The Labs home page stays its own page; everything else lives inside the dashboard.
   writeRoute(targetDir, '', withBounce(fs.readFileSync(path.join(labsDir, 'index.html'), 'utf8')));
+  // Homepage intro video asset (B&W, ships beside index.html).
+  const introSrc = path.join(labsDir, 'intro.mp4');
+  if (fs.existsSync(introSrc)) fs.copyFileSync(introSrc, path.join(targetDir, 'intro.mp4'));
   // Every Labs content page lives inside the dashboard now — these routes redirect there.
   const dashboardRoutes = {
     'console': '/',
