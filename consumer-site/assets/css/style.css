@@ -237,3 +237,20 @@ img{display:block;max-width:100%}
 main.home{background-color:#f2f2ed;
   background-image:linear-gradient(#d8d8d3 1px,transparent 1px),linear-gradient(90deg,#d8d8d3 1px,transparent 1px);
   background-size:40px 40px}
+
+/* ---------- presale (products) ---------- */
+.presale{max-width:1120px;margin:0 auto;padding:120px 24px 110px;text-align:center}
+.presale__eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,0,0,.55);margin:0 0 16px}
+.presale h1{font-size:clamp(48px,7vw,84px);line-height:1.02;letter-spacing:-.02em;margin:0 0 16px}
+.presale__tag{font-size:clamp(17px,2.2vw,23px);line-height:1.5;color:rgba(0,0,0,.72);max-width:640px;margin:0 auto 14px}
+.presale__price{font-size:15px;margin:0 0 30px}
+.presale__ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:0 0 18px}
+.presale__ctas .btn{width:auto;min-width:220px;text-decoration:none}
+.presale__note{font-size:12px;color:rgba(0,0,0,.55);margin:0 0 64px}
+.presale__media{margin:0 -24px 72px;background:#fff}
+.presale__media img{display:block;width:100%;height:auto}
+.presale__specs{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;max-width:980px;margin:0 auto 76px}
+.presale__spec b{display:block;font-size:24px;letter-spacing:-.01em;margin-bottom:8px}
+.presale__spec span{font-size:13px;color:rgba(0,0,0,.6);line-height:1.5}
+.presale__accs{max-width:720px;margin:0 auto;text-align:left}
+@media(max-width:720px){.presale__specs{grid-template-columns:repeat(2,1fr);gap:24px}.presale__ctas .btn{min-width:0;flex:1 1 220px}}
