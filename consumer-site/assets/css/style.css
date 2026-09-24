@@ -235,5 +235,5 @@ img{display:block;max-width:100%}
 
 /* ---------- homepage schematic grid backdrop ---------- */
 main.home{background-color:#f2f2ed;
-  background-image:linear-gradient(#e3e3de 1px,transparent 1px),linear-gradient(90deg,#e3e3de 1px,transparent 1px);
+  background-image:linear-gradient(#d8d8d3 1px,transparent 1px),linear-gradient(90deg,#d8d8d3 1px,transparent 1px);
   background-size:40px 40px}
