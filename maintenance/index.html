@@ -1,31 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Under Maintenance</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #0a0a0b;
-    color: #f5f5f4;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 24px;
-  }
-  .wrap { max-width: 520px; }
-  h1 { font-size: 32px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 16px; }
-  p { font-size: 16px; line-height: 1.6; color: #a1a1aa; }
-</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-68Z6SM8C4B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-68Z6SM8C4B');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Aorila Labs — The Future of AI Innovation</title>
+  <meta name="description" content="Aorila Labs. The future of AI innovation. Request an API key." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='white'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-weight='bold' font-size='22' text-anchor='middle' fill='black'%3EA%3C/text%3E%3C/svg%3E" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+      background: #ffffff;
+      color: #111111;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* ---------- intro overlay ---------- */
+    #intro {
+      position: fixed; inset: 0; z-index: 1000;
+      background: #000000;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.8s ease;
+    }
+    #intro.fade { opacity: 0; pointer-events: none; }
+    #intro.hidden { display: none; }
+    #intro video {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      background: #000000;
+    }
+    /* ---------- page ---------- */
+    .page {
+      min-height: 100vh; min-height: 100dvh;
+      display: flex; flex-direction: column;
+      background: #ffffff;
+    }
+    header.nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 24px;
+    }
+    .wordmark {
+      font-size: 24px; font-weight: 800; letter-spacing: -0.5px;
+      color: #111111; text-decoration: none;
+    }
+    .nav-right { display: flex; align-items: center; gap: 22px; }
+    .nav-link {
+      font-size: 17px; font-weight: 500; color: #555555; text-decoration: none;
+    }
+    .nav-link:active { color: #111111; }
+    #menuBtn {
+      background: none; border: 0; padding: 6px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #menuBtn svg { display: block; }
+    main.hero {
+      flex: 1;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 24px;
+    }
+    .headline {
+      font-size: clamp(44px, 13.5vw, 76px);
+      line-height: 1.02;
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: #111111;
+      max-width: 12ch;
+    }
+    .cta-row {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    .btn {
+      display: inline-block;
+      font-size: 17px; font-weight: 500; text-decoration: none;
+      padding: 15px 28px; border-radius: 999px;
+      line-height: 1.2; white-space: nowrap;
+    }
+    .btn-dark { background: #111111; color: #ffffff; }
+    .btn-dark:active { background: #000000; }
+    .btn-light { background: #efefef; color: #111111; }
+    .btn-light:active { background: #e2e2e2; }
+    footer.foot {
+      border-top: 1px solid #e5e5e5;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px calc(20px + env(safe-area-inset-bottom, 0px));
+    }
+    .foot-left { display: flex; gap: 26px; }
+    .foot-link {
+      font-size: 16px; font-weight: 600; color: #333333; text-decoration: none;
+    }
+    .foot-text { font-size: 16px; font-weight: 600; color: #333333; }
+    .foot-brand { font-size: 16px; font-weight: 700; color: #111111; }
+    /* ---------- menu overlay ---------- */
+    #menu {
+      position: fixed; inset: 0; z-index: 900;
+      background: #ffffff;
+      display: none;
+      flex-direction: column;
+      padding: 22px 24px;
+    }
+    #menu.open { display: flex; }
+    .menu-head {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    #menuClose {
+      background: none; border: 0; cursor: pointer;
+      font-size: 32px; line-height: 1; color: #111111; padding: 4px 8px;
+    }
+    .menu-links {
+      display: flex; flex-direction: column; gap: 8px;
+      margin-top: 48px;
+    }
+    .menu-links a {
+      font-size: 30px; font-weight: 700; letter-spacing: -1px;
+      color: #111111; text-decoration: none;
+      padding: 10px 0;
+      border-bottom: 1px solid #eeeeee;
+    }
+  </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Under Maintenance</h1>
-    <p>We're performing scheduled maintenance. We'll be back soon.</p>
+
+  <div id="intro" role="presentation" aria-hidden="true">
+    <video id="introVideo" src="intro.mp4" muted playsinline autoplay preload="auto"></video>
   </div>
+
+  <div class="page">
+    <header class="nav">
+      <a class="wordmark" href="/">Aorila</a>
+      <div class="nav-right">
+        <a class="nav-link" href="https://dashboard.aorilalabs.com">Labs</a>
+        <button id="menuBtn" aria-label="Open menu">
+          <svg width="26" height="18" viewBox="0 0 26 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="0" y="0" width="26" height="2.4" rx="1.2" fill="#111111"/>
+            <rect x="0" y="7.8" width="26" height="2.4" rx="1.2" fill="#111111"/>
+            <rect x="0" y="15.6" width="26" height="2.4" rx="1.2" fill="#111111"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="hero">
+      <h1 class="headline">The Future of AI Innovation</h1>
+      <div class="cta-row">
+        <a class="btn btn-dark" href="https://dashboard.aorilalabs.com">Request an API key</a>
+        <a class="btn btn-light" href="https://dashboard.aorilalabs.com">Labs</a>
+      </div>
+    </main>
+
+    <footer class="foot">
+      <div class="foot-left">
+        <a class="foot-link" href="/terms">T &amp; P</a>
+        <a class="foot-link" href="/support">Support</a>
+      </div>
+      <div class="foot-brand">Aorila Labs</div>
+    </footer>
+  </div>
+
+  <div id="menu" aria-hidden="true">
+    <div class="menu-head">
+      <a class="wordmark" href="/">Aorila</a>
+      <button id="menuClose" aria-label="Close menu">&times;</button>
+    </div>
+    <nav class="menu-links">
+      <a href="https://dashboard.aorilalabs.com">Request an API key</a>
+      <a href="https://dashboard.aorilalabs.com">Labs</a>
+      <a href="/terms">T &amp; P</a>
+      <a href="/support">Support</a>
+    </nav>
+  </div>
+
+  <script>if(/(^|\.)onrender\.com$/i.test(location.hostname))location.replace("https://aorilalabs.com"+location.pathname+location.search);</script>
+  <script>
+    (function () {
+      var intro = document.getElementById('intro');
+      var video = document.getElementById('introVideo');
+      var done = false;
+
+      function showHomepage() {
+        if (done) return;
+        done = true;
+        try { sessionStorage.setItem('labs-intro-seen', '1'); } catch (e) {}
+        intro.classList.add('fade');
+        setTimeout(function () { intro.classList.add('hidden'); }, 850);
+      }
+
+      var seen = false;
+      try { seen = sessionStorage.getItem('labs-intro-seen') === '1'; } catch (e) {}
+
+      if (seen) {
+        intro.classList.add('hidden');
+      } else {
+        video.addEventListener('ended', showHomepage);
+        intro.addEventListener('click', showHomepage);
+        intro.addEventListener('touchend', showHomepage);
+        // If the video cannot play (network/codec), don't trap the visitor.
+        var failed = false;
+        video.addEventListener('error', function () { failed = true; showHomepage(); }, true);
+        setTimeout(function () {
+          if (!done && !failed && video.readyState < 2 && video.networkState === 3) showHomepage();
+        }, 8000);
+      }
+
+      // Hamburger menu
+      var menu = document.getElementById('menu');
+      var menuBtn = document.getElementById('menuBtn');
+      var menuClose = document.getElementById('menuClose');
+      function openMenu() { menu.classList.add('open'); menu.setAttribute('aria-hidden', 'false'); }
+      function closeMenu() { menu.classList.remove('open'); menu.setAttribute('aria-hidden', 'true'); }
+      menuBtn.addEventListener('click', openMenu);
+      menuClose.addEventListener('click', closeMenu);
+      menu.addEventListener('click', function (e) { if (e.target === menu) closeMenu(); });
+    })();
+  </script>
 </body>
 </html>
