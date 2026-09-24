@@ -89,7 +89,7 @@ describe('host-based pages', () => {
     assert.doesNotMatch(home.body, /<form[^>]*waitlist/i);
     assert.doesNotMatch(home.body, /api\.aorila\.com/);
     // Every replica collection and product page serves on the consumer host.
-    for (const p of ['/divisions/', '/compute/', '/compute/gpu-pods/', '/compute/cpu-pods/', '/ai/', '/ai/atraly-chat/', '/ai/api/', '/ai/atraly-plus/', '/ai/atraly-pro/', '/robots/', '/robots/home-robot/', '/journal/', '/contact/', '/policies/terms.html']) {
+    for (const p of ['/divisions/', '/compute/', '/compute/gpu-pods/', '/compute/cpu-pods/', '/ai/', '/ai/atraly-chat/', '/ai/api/', '/ai/atraly-plus/', '/ai/atraly-pro/', '/robots/', '/robots/brain/', '/blog/', '/contact/', '/policies/terms.html']) {
       const r = await request(port, { path: p, headers: { host: 'aorila.com' } });
       assert.equal(r.status, 200, p);
       assert.equal(r.headers['x-aorila-site'], 'consumer', p);
@@ -101,7 +101,7 @@ describe('host-based pages', () => {
   });
 
   it('keeps Ally out of the consumer nav', async () => {
-    for (const p of ['/', '/divisions/', '/robots/home-robot/']) {
+    for (const p of ['/', '/divisions/', '/robots/']) {
       const res = await request(port, { path: p, headers: { host: 'aorila.com' } });
       assert.equal(res.headers['x-aorila-site'], 'consumer', p);
       assert.doesNotMatch(res.body, />Ally</, p);
@@ -124,7 +124,7 @@ describe('host-based pages', () => {
     assert.match(home.body, /id="search"/);
     assert.match(home.body, /id="search-index"/);
     assert.match(home.body, /id="mnav"/);
-    const sub = await request(port, { path: '/robots/home-robot/', headers: { host: 'aorila.com' } });
+    const sub = await request(port, { path: '/robots/brain/', headers: { host: 'aorila.com' } });
     assert.match(sub.body, /class="header__nav"/);
     assert.match(sub.body, /class="header__wordmark" href="\.\.\/\.\.\/"/);
     assert.match(sub.body, /id="search"/);
@@ -494,7 +494,7 @@ describe('host-based pages', () => {
     }
   });
   it('keeps the replica off aorilalabs.com', async () => {
-    for (const path of ['/divisions/', '/robots/home-robot/', '/journal/']) {
+    for (const path of ['/divisions/', '/robots/brain/', '/blog/']) {
       const res = await request(port, { path, headers: { host: 'aorilalabs.com' } });
       assert.equal(res.status, 404, path);
     }
