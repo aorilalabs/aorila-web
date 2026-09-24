@@ -358,7 +358,7 @@ function createApp(options = {}) {
     const site = res.locals.site;
     const origin = site === 'labs' ? 'https://aorilalabs.com'
       : site === 'robotics' ? 'https://robotics.aorila.com' : 'https://aorila.com';
-    const consumerPaths = ['', '/divisions', '/compute', '/compute/gpu-pods', '/compute/cpu-pods', '/compute/credit-pack', '/ai', '/ai/atraly-chat', '/ai/api', '/ai/atraly-plus', '/ai/atraly-pro', '/robots', '/robots/home-robot', '/journal', '/contact', '/policies/terms.html', '/policies/privacy.html', '/policies/accessibility.html'];
+    const consumerPaths = ['', '/divisions', '/compute', '/compute/gpu-pods', '/compute/cpu-pods', '/compute/credit-pack', '/ai', '/ai/atraly-chat', '/ai/api', '/ai/atraly-plus', '/ai/atraly-pro', '/robots', '/blog', '/contact', '/policies/terms.html', '/policies/privacy.html', '/policies/accessibility.html'];
     const paths = site === 'labs' ? ['', '/learn', '/pricing', '/about', '/sell', '/tp', '/terms'] : consumerPaths;
     const lastmod = new Date().toISOString().slice(0, 10);
     const urls = paths.map((p) => `  <url><loc>${origin}${p || '/'}</loc><lastmod>${lastmod}</lastmod></url>`).join('\n');
