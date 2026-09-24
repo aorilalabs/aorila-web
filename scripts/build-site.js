@@ -133,6 +133,10 @@ function buildConsumer(targetDir) {
                        'compute', 'compute/cpu-pods', 'compute/gpu-pods', 'compute/credit-pack']) {
     writeRoute(targetDir, route, redirectPage('Redirecting to divisions', '/divisions/'));
   }
+  // Deleted pages: home-robot product page removed (products page is /robots/),
+  // journal renamed to blog. Redirect so the old URLs never serve stale content.
+  writeRoute(targetDir, 'robots/home-robot', redirectPage('Redirecting to robots', '/robots/'));
+  writeRoute(targetDir, 'journal', redirectPage('Redirecting to blog', '/blog/'));
 }
 
 /* Live GPU catalog for the /pricing page. Fetched at build time so the static
