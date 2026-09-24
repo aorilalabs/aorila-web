@@ -115,51 +115,5 @@ $$(".product__opts").forEach(function(wrap){
   });
 });
 
-/* ---------- filters ---------- */
-var filterDrawer=$("#filter");
-function openFilter(){filterDrawer.classList.add("drawer--on");scrimOn(true);overlay(true)}
-function closeFilter(){if(filterDrawer&&filterDrawer.classList.contains("drawer--on")){filterDrawer.classList.remove("drawer--on");scrimOn(false);overlay(false)}}
-var fb=$("#filter-open");
-if(fb)fb.addEventListener("click",openFilter);
-var fc=$("#filter-close"); if(fc)fc.addEventListener("click",closeFilter);
-scrim.addEventListener("click",closeFilter);
-$$(".facet__head").forEach(function(h){
-  h.addEventListener("click",function(){
-    var f=h.parentElement, open=f.classList.toggle("facet--open");
-    h.querySelector(".pm").textContent=open?"−":"+";
-  });
-});
-var grid=$("#product-grid");
-function applyFilters(){
-  if(!grid)return;
-  var sort=(document.querySelector('input[name="sort"]:checked')||{}).value||"featured";
-  var cats=$$(".fcat:checked").map(function(c){return c.value});
-  var lo=parseFloat(($("#f-lo")||{}).value)||0, hi=parseFloat(($("#f-hi")||{}).value)||Infinity;
-  var cards=$$(".card",grid).filter(function(card){
-    var cat=card.getAttribute("data-cat"), price=parseFloat(card.getAttribute("data-price"));
-    if(cats.length&&cats.indexOf(cat)<0)return false;
-    if(!isNaN(price)&&(price<lo||price>hi))return false;
-    return true;
-  });
-  cards.sort(function(a,b){
-    var pa=parseFloat(a.getAttribute("data-price")), pb=parseFloat(b.getAttribute("data-price"));
-    if(sort==="lo"){pa=isNaN(pa)?Infinity:pa;pb=isNaN(pb)?Infinity:pb;return pa-pb}
-    if(sort==="hi"){pa=isNaN(pa)?-1:pa;pb=isNaN(pb)?-1:pb;return pb-pa}
-    return 0;
-  });
-  cards.forEach(function(c){grid.appendChild(c)});
-  $$(".card",grid).forEach(function(c){c.style.display=cards.indexOf(c)>-1?"":"none"});
-  var n=cards.length;
-  $("#filter-n").textContent=n;
-  $("#see-n").textContent="SEE "+n+(n===1?" ITEM":" ITEMS");
-  var fh=$("#filter-count"); if(fh)fh.textContent="FILTER ("+n+")";
-}
-var seeBtn=$("#see-n");
-if(seeBtn)seeBtn.addEventListener("click",function(){applyFilters();closeFilter()});
-["change"].forEach(function(ev){
-  document.addEventListener(ev,function(e){
-    if(e.target.closest&&e.target.closest("#filter"))applyFilters();
-  });
-});
-if(grid)applyFilters();
+
 })();
