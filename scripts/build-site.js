@@ -146,10 +146,11 @@ async function buildLabs(targetDir) {
   const renderBounce = '<script>if(/(^|\\.)onrender\\.com$/i.test(location.hostname))location.replace("https://aorilalabs.com"+location.pathname+location.search);</script>';
   const withBounce = (html) => String(html).replace(/<\/head>/i, `  ${renderBounce}\n</head>`);
   // Aorila Labs marketing site — Template 1 design system, no video.
-  // Five content pages built from sites/labs/; legacy routes redirect.
+  // Six content pages built from sites/labs/; legacy routes redirect.
   writeRoute(targetDir, '', withBounce(fs.readFileSync(path.join(labsDir, 'index.html'), 'utf8')));
   writeRoute(targetDir, 'pricing', withBounce(fs.readFileSync(path.join(labsDir, 'pricing.html'), 'utf8')));
   writeRoute(targetDir, 'developers', withBounce(fs.readFileSync(path.join(labsDir, 'developers.html'), 'utf8')));
+  writeRoute(targetDir, 'marketplace', withBounce(fs.readFileSync(path.join(labsDir, 'marketplace.html'), 'utf8')));
   writeRoute(targetDir, 'support', withBounce(fs.readFileSync(path.join(labsDir, 'support.html'), 'utf8')));
   writeRoute(targetDir, 'terms', withBounce(fs.readFileSync(path.join(labsDir, 'terms.html'), 'utf8')));
   // Legacy routes keep working: /tp consolidates into /terms, /docs into /developers.
@@ -176,7 +177,7 @@ async function buildLabs(targetDir) {
     'User-agent: *\nAllow: /\nSitemap: https://aorilalabs.com/sitemap.xml\n'
   );
   const lastmod = new Date().toISOString().slice(0, 10);
-  const sitemapUrls = ['', '/pricing', '/developers', '/support', '/terms', '/tp', '/docs']
+  const sitemapUrls = ['', '/pricing', '/developers', '/marketplace', '/support', '/terms', '/tp', '/docs']
     .map((p) => `  <url><loc>https://aorilalabs.com${p || '/'}</loc><lastmod>${lastmod}</lastmod></url>`)
     .join('\n');
   fs.writeFileSync(
