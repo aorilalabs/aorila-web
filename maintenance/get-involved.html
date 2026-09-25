@@ -7,10 +7,10 @@
   <meta name="theme-color" content="#000000" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='white'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-weight='bold' font-size='22' text-anchor='middle' fill='black'%3EA%3C/text%3E%3C/svg%3E" />
   <title>Get involved — Aorila Labs</title>
-  <meta name="description" content="Work with Aorila Labs." />
+  <meta name="description" content="Get involved with Aorila Labs — open challenges, beta testing, careers, community, and research collaboration." />
   <link rel="canonical" href="https://aorilalabs.com/get-involved" />
   <meta property="og:title" content="Get involved — Aorila Labs" />
-  <meta property="og:description" content="Work with Aorila Labs." />
+  <meta property="og:description" content="Get involved with Aorila Labs — open challenges, beta testing, careers, community, and research collaboration." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aorilalabs.com/get-involved" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-68Z6SM8C4B"></script>
@@ -26,6 +26,7 @@
   <style>
     * { box-sizing: border-box; }
     html, body { height: 100%; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       min-width: 320px;
@@ -41,36 +42,135 @@
       overflow-x: hidden;
     }
     .topspace { flex: 0 0 auto; height: clamp(40px, 9vh, 81px); }
-    .stage {
+    .docs {
       flex: 1 1 auto;
-      display: flex;
-      align-items: center;
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 clamp(20px, 3vw, 48px);
+      display: flex;
+      gap: clamp(32px, 5vw, 96px);
+      align-items: flex-start;
     }
-    .hero { max-width: 640px; }
+    /* ---- Table of contents ---- */
+    .toc {
+      flex: 0 0 210px;
+      position: sticky;
+      top: 40px;
+      padding-top: 6px;
+    }
+    .toc .toc-label {
+      margin: 0 0 10px 0;
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      color: #7f7f7f;
+    }
+    .toc a {
+      display: block;
+      padding: 9px 0;
+      font-size: 12.5px;
+      color: #9c9c9c;
+      text-decoration: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .toc a:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .toc a .num { color: #5f5f5f; margin-right: 10px; font-size: 11px; }
+    .toc a:hover { color: #ffffff; }
+    .toc a:hover .num { color: #bdbdbd; }
+    /* ---- Content ---- */
+    .content { flex: 1 1 auto; min-width: 0; max-width: 700px; padding-bottom: 24px; }
     .hero h1 {
-      margin: 0 0 14px 0;
+      margin: 0 0 12px 0;
       font-family: "Playfair Display", Georgia, "Times New Roman", serif;
       font-weight: 500;
-      font-size: clamp(34px, 5.2vw, 76px);
+      font-size: clamp(34px, 5.2vw, 64px);
       line-height: 1.12;
       letter-spacing: -0.01em;
       color: #ffffff;
     }
-    .hero .sub {
-      margin: 0;
+    .hero .lede {
+      margin: 0 0 8px 0;
       font-family: "Playfair Display", Georgia, "Times New Roman", serif;
       font-weight: 400;
-      font-size: clamp(13px, 1.7vw, 17px);
+      font-size: clamp(13px, 1.7vw, 16px);
       line-height: 1.55;
       color: #9c9c9c;
     }
-    .hero .sub + .sub { margin-top: 12px; }
-    .hero a.mail { color: #d4d4d4; text-decoration: underline; text-underline-offset: 3px; }
-    .hero a.mail:hover { color: #ffffff; }
+    section.block {
+      margin-top: 56px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      scroll-margin-top: 32px;
+    }
+    .kicker {
+      margin: 0 0 10px 0;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: #7f7f7f;
+    }
+    section.block h2 {
+      margin: 0 0 8px 0;
+      font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      font-size: clamp(24px, 3.4vw, 34px);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+    }
+    section.block .desc {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #9c9c9c;
+    }
+    .details {
+      margin-top: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 10px;
+      padding: 20px 20px 18px;
+      background: #000000;
+    }
+    .status {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin: 0;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: #bdbdbd;
+    }
+    .status .dot {
+      flex: 0 0 auto;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 1px solid #6f6f6f;
+      background: transparent;
+      transform: translateY(-1px);
+    }
+    .status .lbl {
+      flex: 0 0 auto;
+      font-size: 10.5px;
+      letter-spacing: 0.12em;
+      color: #7f7f7f;
+    }
+    .action { margin: 16px 0 0 0; font-size: 13px; }
+    .action a {
+      color: #e8e8e8;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(255, 255, 255, 0.4);
+    }
+    .action a:hover { color: #ffffff; text-decoration-color: #ffffff; }
+    .links { margin: 16px 0 0 0; display: flex; flex-direction: column; gap: 10px; }
+    .links a {
+      font-size: 13px;
+      color: #e8e8e8;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(255, 255, 255, 0.4);
+    }
+    .links a:hover { color: #ffffff; text-decoration-color: #ffffff; }
     footer {
       flex: 0 0 auto;
       width: 100%;
@@ -88,6 +188,18 @@
     }
     footer a { color: #7f7f7f; text-decoration: none; }
     footer a:hover { color: #ffffff; }
+    @media (max-width: 820px) {
+      .docs { flex-direction: column; gap: 0; }
+      .toc {
+        position: static;
+        flex: none;
+        width: 100%;
+        padding: 4px 0 8px 0;
+        margin-bottom: 8px;
+      }
+      .toc a { padding: 10px 0; font-size: 13px; }
+      section.block { margin-top: 44px; padding-top: 30px; }
+    }
     @media (max-width: 700px) {
       .topspace { height: 40px; }
       .hero h1 { font-size: 40px; }
@@ -96,16 +208,97 @@
 </head>
 <body>
   <div class="topspace" aria-hidden="true"></div>
-  <main class="stage">
-    <div class="hero">
-      <h1>Get involved.</h1>
-      <p class="sub">Aorila Labs is a research lab building and training AI models.</p>
-      <p class="sub">If you want to work with us &mdash; research, collaboration, or anything else &mdash; reach out: <a class="mail" href="mailto:info@aorila.com">info@aorila.com</a></p>
+  <main class="docs">
+    <nav class="toc" aria-label="On this page">
+      <p class="toc-label">ON THIS PAGE</p>
+      <a href="?section=challenges" data-scroll="challenges"><span class="num">01</span>Open Challenges</a>
+      <a href="?section=beta" data-scroll="beta"><span class="num">02</span>Beta Testing</a>
+      <a href="?section=careers" data-scroll="careers"><span class="num">03</span>Careers</a>
+      <a href="?section=community" data-scroll="community"><span class="num">04</span>Community</a>
+      <a href="?section=researchers" data-scroll="researchers"><span class="num">05</span>Researchers</a>
+    </nav>
+    <div class="content">
+      <div class="hero">
+        <h1>Get involved.</h1>
+        <p class="lede">Five ways to work with the lab.</p>
+      </div>
+
+      <section class="block" id="challenges">
+        <p class="kicker">CHALLENGES</p>
+        <h2>Open Challenges</h2>
+        <p class="desc">Research challenges we open to the public.</p>
+        <div class="details">
+          <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>No open challenges right now &mdash; new ones get posted here.</span></p>
+        </div>
+      </section>
+
+      <section class="block" id="beta">
+        <p class="kicker">BETA</p>
+        <h2>Beta Testing</h2>
+        <p class="desc">Try what we're building before it's public.</p>
+        <div class="details">
+          <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>No beta programs open right now.</span></p>
+          <p class="action"><a href="mailto:info@aorila.com?subject=Beta%20access%20request">Request beta access</a></p>
+        </div>
+      </section>
+
+      <section class="block" id="careers">
+        <p class="kicker">CAREERS</p>
+        <h2>Careers</h2>
+        <p class="desc">Work on research that matters.</p>
+        <div class="details">
+          <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>No open roles right now.</span></p>
+          <p class="action"><a href="mailto:info@aorila.com?subject=Introduction">Introduce yourself</a></p>
+        </div>
+      </section>
+
+      <section class="block" id="community">
+        <p class="kicker">COMMUNITY</p>
+        <h2>Community</h2>
+        <p class="desc">Discord and social links.</p>
+        <div class="details">
+          <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>Community spaces are being set up &mdash; check back soon.</span></p>
+          <div class="links" data-community-links>
+            <!-- Community links (Discord, socials) get added here when ready. -->
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="researchers">
+        <p class="kicker">RESEARCHERS</p>
+        <h2>Researchers</h2>
+        <p class="desc">Work together with the lab.</p>
+        <div class="details">
+          <p class="action" style="margin-top:0"><a href="mailto:info@aorila.com?subject=Research%20collaboration">Email the lab</a></p>
+        </div>
+      </section>
     </div>
   </main>
   <footer>
     <span>&copy; 2026 Aorila Labs</span>
     <a href="/">&larr; Home</a>
   </footer>
+  <script>
+    (function () {
+      function go(id, push) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        var url = '?section=' + encodeURIComponent(id);
+        if (push) { history.pushState(null, '', url); }
+        else { history.replaceState(null, '', url); }
+      }
+      document.querySelectorAll('[data-scroll]').forEach(function (a) {
+        a.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          go(a.getAttribute('data-scroll'), true);
+        });
+      });
+      var m = /[?&]section=([a-z]+)/.exec(location.search);
+      if (m) {
+        setTimeout(function () { go(m[1], false); }, 120);
+      }
+    })();
+  </script>
 </body>
 </html>
