@@ -44,22 +44,11 @@
     .stage {
       flex: 1 1 auto;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
       padding: 0 clamp(20px, 3vw, 48px);
     }
-    .hero { width: 100%; max-width: 720px; }
-    .hero h1 {
-      margin: 0 0 22px 0;
-      font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-      font-weight: 500;
-      font-size: clamp(34px, 5.2vw, 76px);
-      line-height: 1.12;
-      letter-spacing: -0.01em;
-      color: #ffffff;
-    }
+    .hero { width: 100%; max-width: 640px; }
     .worklog {
       width: 100%;
       border: 1px solid rgba(255, 255, 255, 0.16);
@@ -114,7 +103,6 @@
     footer a:hover { color: #ffffff; }
     @media (max-width: 700px) {
       .topspace { height: 40px; }
-      .hero h1 { font-size: 40px; }
       .wl-row { font-size: 10px; column-gap: 9px; }
     }
   </style>
@@ -123,7 +111,6 @@
   <div class="topspace" aria-hidden="true"></div>
   <main class="stage">
     <div class="hero">
-      <h1>Work log.</h1>
       <div class="worklog" aria-label="Work log">
         <div class="wl-head"><span>WORK LOG</span><span>AORILA LABS INTERNAL</span></div>
         <div class="wl-div"></div>
