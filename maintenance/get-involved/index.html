@@ -26,7 +26,6 @@
   <style>
     * { box-sizing: border-box; }
     html, body { height: 100%; }
-    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       min-width: 320px;
@@ -45,40 +44,11 @@
     .docs {
       flex: 1 1 auto;
       width: 100%;
-      max-width: 1200px;
+      max-width: 760px;
       margin: 0 auto;
       padding: 0 clamp(20px, 3vw, 48px);
-      display: flex;
-      gap: clamp(32px, 5vw, 96px);
-      align-items: flex-start;
     }
-    /* ---- Table of contents ---- */
-    .toc {
-      flex: 0 0 210px;
-      position: sticky;
-      top: 40px;
-      padding-top: 6px;
-    }
-    .toc .toc-label {
-      margin: 0 0 10px 0;
-      font-size: 10.5px;
-      letter-spacing: 0.14em;
-      color: #7f7f7f;
-    }
-    .toc a {
-      display: block;
-      padding: 9px 0;
-      font-size: 12.5px;
-      color: #9c9c9c;
-      text-decoration: none;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .toc a:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
-    .toc a .num { color: #5f5f5f; margin-right: 10px; font-size: 11px; }
-    .toc a:hover { color: #ffffff; }
-    .toc a:hover .num { color: #bdbdbd; }
-    /* ---- Content ---- */
-    .content { flex: 1 1 auto; min-width: 0; max-width: 700px; padding-bottom: 24px; }
+    .hero { padding-bottom: 8px; }
     .hero h1 {
       margin: 0 0 12px 0;
       font-family: "Playfair Display", Georgia, "Times New Roman", serif;
@@ -89,26 +59,58 @@
       color: #ffffff;
     }
     .hero .lede {
-      margin: 0 0 8px 0;
+      margin: 0;
       font-family: "Playfair Display", Georgia, "Times New Roman", serif;
       font-weight: 400;
       font-size: clamp(13px, 1.7vw, 16px);
       line-height: 1.55;
       color: #9c9c9c;
     }
-    section.block {
-      margin-top: 56px;
-      padding-top: 36px;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
-      scroll-margin-top: 32px;
+    /* ---- Tab bar ---- */
+    .tabs {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: #000000;
+      display: flex;
+      gap: 4px;
+      margin-top: 28px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      overflow-x: auto;
+      scrollbar-width: none;
     }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tabs [role="tab"] {
+      flex: 1 0 auto;
+      appearance: none;
+      background: transparent;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      padding: 12px 14px 11px;
+      font: inherit;
+      font-size: 12.5px;
+      white-space: nowrap;
+      color: #9c9c9c;
+      cursor: pointer;
+      text-align: center;
+    }
+    .tabs [role="tab"] .num { color: #5f5f5f; margin-right: 8px; font-size: 11px; }
+    .tabs [role="tab"]:hover { color: #ffffff; }
+    .tabs [role="tab"]:hover .num { color: #bdbdbd; }
+    .tabs [role="tab"][aria-selected="true"] { color: #ffffff; border-bottom-color: #ffffff; }
+    .tabs [role="tab"][aria-selected="true"] .num { color: #bdbdbd; }
+    .tabs [role="tab"]:focus-visible { outline: 1px solid #ffffff; outline-offset: -1px; }
+    /* ---- Panels ---- */
+    .panel { padding: 36px 0 8px; }
+    .panel[hidden] { display: none; }
     .kicker {
       margin: 0 0 10px 0;
       font-size: 11px;
       letter-spacing: 0.18em;
       color: #7f7f7f;
     }
-    section.block h2 {
+    .panel h2 {
       margin: 0 0 8px 0;
       font-family: "Playfair Display", Georgia, "Times New Roman", serif;
       font-weight: 500;
@@ -117,7 +119,7 @@
       letter-spacing: -0.01em;
       color: #ffffff;
     }
-    section.block .desc {
+    .panel .desc {
       margin: 0;
       font-size: 13.5px;
       line-height: 1.6;
@@ -188,91 +190,79 @@
     }
     footer a { color: #7f7f7f; text-decoration: none; }
     footer a:hover { color: #ffffff; }
-    @media (max-width: 820px) {
-      .docs { flex-direction: column; gap: 0; }
-      .toc {
-        position: static;
-        flex: none;
-        width: 100%;
-        padding: 4px 0 8px 0;
-        margin-bottom: 8px;
-      }
-      .toc a { padding: 10px 0; font-size: 13px; }
-      section.block { margin-top: 44px; padding-top: 30px; }
-    }
     @media (max-width: 700px) {
       .topspace { height: 40px; }
       .hero h1 { font-size: 40px; }
+      .tabs { margin-left: calc(-1 * clamp(20px, 3vw, 48px)); margin-right: calc(-1 * clamp(20px, 3vw, 48px)); padding: 0 clamp(20px, 3vw, 48px); }
+      .tabs [role="tab"] { padding: 12px 12px 11px; font-size: 12px; text-align: left; }
     }
   </style>
 </head>
 <body>
   <div class="topspace" aria-hidden="true"></div>
   <main class="docs">
-    <nav class="toc" aria-label="On this page">
-      <p class="toc-label">ON THIS PAGE</p>
-      <a href="?section=challenges" data-scroll="challenges"><span class="num">01</span>Open Challenges</a>
-      <a href="?section=beta" data-scroll="beta"><span class="num">02</span>Beta Testing</a>
-      <a href="?section=careers" data-scroll="careers"><span class="num">03</span>Careers</a>
-      <a href="?section=community" data-scroll="community"><span class="num">04</span>Community</a>
-      <a href="?section=researchers" data-scroll="researchers"><span class="num">05</span>Researchers</a>
-    </nav>
-    <div class="content">
-      <div class="hero">
-        <h1>Get involved.</h1>
-        <p class="lede">Five ways to work with the lab.</p>
-      </div>
-
-      <section class="block" id="challenges">
-        <p class="kicker">CHALLENGES</p>
-        <h2>Open Challenges</h2>
-        <p class="desc">Research challenges we open to the public.</p>
-        <div class="details">
-          <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>No open challenges right now &mdash; new ones get posted here.</span></p>
-        </div>
-      </section>
-
-      <section class="block" id="beta">
-        <p class="kicker">BETA</p>
-        <h2>Beta Testing</h2>
-        <p class="desc">Try what we're building before it's public.</p>
-        <div class="details">
-          <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>No beta programs open right now.</span></p>
-          <p class="action"><a href="mailto:info@aorila.com?subject=Beta%20access%20request">Request beta access</a></p>
-        </div>
-      </section>
-
-      <section class="block" id="careers">
-        <p class="kicker">CAREERS</p>
-        <h2>Careers</h2>
-        <p class="desc">Work on research that matters.</p>
-        <div class="details">
-          <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>No open roles right now.</span></p>
-          <p class="action"><a href="mailto:info@aorila.com?subject=Introduction">Introduce yourself</a></p>
-        </div>
-      </section>
-
-      <section class="block" id="community">
-        <p class="kicker">COMMUNITY</p>
-        <h2>Community</h2>
-        <p class="desc">Discord and social links.</p>
-        <div class="details">
-          <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>Community spaces are being set up &mdash; check back soon.</span></p>
-          <div class="links" data-community-links>
-            <!-- Community links (Discord, socials) get added here when ready. -->
-          </div>
-        </div>
-      </section>
-
-      <section class="block" id="researchers">
-        <p class="kicker">RESEARCHERS</p>
-        <h2>Researchers</h2>
-        <p class="desc">Work together with the lab.</p>
-        <div class="details">
-          <p class="action" style="margin-top:0"><a href="mailto:info@aorila.com?subject=Research%20collaboration">Email the lab</a></p>
-        </div>
-      </section>
+    <div class="hero">
+      <h1>Get involved.</h1>
+      <p class="lede">Five ways to work with the lab.</p>
     </div>
+
+    <div class="tabs" role="tablist" aria-label="Get involved sections">
+      <button role="tab" id="tab-challenges" aria-controls="panel-challenges" aria-selected="true" data-tab="challenges"><span class="num">01</span>Open Challenges</button>
+      <button role="tab" id="tab-beta" aria-controls="panel-beta" aria-selected="false" data-tab="beta" tabindex="-1"><span class="num">02</span>Beta Testing</button>
+      <button role="tab" id="tab-careers" aria-controls="panel-careers" aria-selected="false" data-tab="careers" tabindex="-1"><span class="num">03</span>Careers</button>
+      <button role="tab" id="tab-community" aria-controls="panel-community" aria-selected="false" data-tab="community" tabindex="-1"><span class="num">04</span>Community</button>
+      <button role="tab" id="tab-researchers" aria-controls="panel-researchers" aria-selected="false" data-tab="researchers" tabindex="-1"><span class="num">05</span>Researchers</button>
+    </div>
+
+    <section class="panel" role="tabpanel" id="panel-challenges" aria-labelledby="tab-challenges">
+      <p class="kicker">CHALLENGES</p>
+      <h2>Open Challenges</h2>
+      <p class="desc">Research challenges we open to the public.</p>
+      <div class="details">
+        <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>No open challenges right now &mdash; new ones get posted here.</span></p>
+      </div>
+    </section>
+
+    <section class="panel" role="tabpanel" id="panel-beta" aria-labelledby="tab-beta">
+      <p class="kicker">BETA</p>
+      <h2>Beta Testing</h2>
+      <p class="desc">Try what we're building before it's public.</p>
+      <div class="details">
+        <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>No beta programs open right now.</span></p>
+        <p class="action"><a href="mailto:info@aorila.com?subject=Beta%20access%20request">Request beta access</a></p>
+      </div>
+    </section>
+
+    <section class="panel" role="tabpanel" id="panel-careers" aria-labelledby="tab-careers">
+      <p class="kicker">CAREERS</p>
+      <h2>Careers</h2>
+      <p class="desc">Work on research that matters.</p>
+      <div class="details">
+        <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>No open roles right now.</span></p>
+        <p class="action"><a href="mailto:info@aorila.com?subject=Introduction">Introduce yourself</a></p>
+      </div>
+    </section>
+
+    <section class="panel" role="tabpanel" id="panel-community" aria-labelledby="tab-community">
+      <p class="kicker">COMMUNITY</p>
+      <h2>Community</h2>
+      <p class="desc">Discord and social links.</p>
+      <div class="details">
+        <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>Community spaces are being set up &mdash; check back soon.</span></p>
+        <div class="links" data-community-links>
+          <!-- Community links (Discord, socials) get added here when ready. -->
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" role="tabpanel" id="panel-researchers" aria-labelledby="tab-researchers">
+      <p class="kicker">RESEARCHERS</p>
+      <h2>Researchers</h2>
+      <p class="desc">Work together with the lab.</p>
+      <div class="details">
+        <p class="action" style="margin-top:0"><a href="mailto:info@aorila.com?subject=Research%20collaboration">Email the lab</a></p>
+      </div>
+    </section>
   </main>
   <footer>
     <span>&copy; 2026 Aorila Labs</span>
@@ -280,24 +270,40 @@
   </footer>
   <script>
     (function () {
-      function go(id, push) {
-        var el = document.getElementById(id);
-        if (!el) return;
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+      var panels = {};
+      tabs.forEach(function (t) {
+        panels[t.getAttribute('data-tab')] = document.getElementById('panel-' + t.getAttribute('data-tab'));
+      });
+      function activate(id, push) {
+        if (!panels[id]) return;
+        tabs.forEach(function (t) {
+          var on = t.getAttribute('data-tab') === id;
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          t.tabIndex = on ? 0 : -1;
+          panels[t.getAttribute('data-tab')].hidden = !on;
+        });
         var url = '?section=' + encodeURIComponent(id);
         if (push) { history.pushState(null, '', url); }
         else { history.replaceState(null, '', url); }
       }
-      document.querySelectorAll('[data-scroll]').forEach(function (a) {
-        a.addEventListener('click', function (ev) {
-          ev.preventDefault();
-          go(a.getAttribute('data-scroll'), true);
+      tabs.forEach(function (t, i) {
+        t.addEventListener('click', function () { activate(t.getAttribute('data-tab'), true); });
+        t.addEventListener('keydown', function (ev) {
+          var j = null;
+          if (ev.key === 'ArrowRight') j = (i + 1) % tabs.length;
+          else if (ev.key === 'ArrowLeft') j = (i - 1 + tabs.length) % tabs.length;
+          else if (ev.key === 'Home') j = 0;
+          else if (ev.key === 'End') j = tabs.length - 1;
+          if (j !== null) {
+            ev.preventDefault();
+            tabs[j].focus();
+            activate(tabs[j].getAttribute('data-tab'), true);
+          }
         });
       });
       var m = /[?&]section=([a-z]+)/.exec(location.search);
-      if (m) {
-        setTimeout(function () { go(m[1], false); }, 120);
-      }
+      activate(m && panels[m[1]] ? m[1] : 'challenges', false);
     })();
   </script>
 </body>
