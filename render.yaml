@@ -4,3 +4,6 @@ services:
     plan: free
     staticPublishPath: consumer-site
     pullRequestPreviewsEnabled: true
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
