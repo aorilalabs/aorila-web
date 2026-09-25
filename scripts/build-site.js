@@ -146,16 +146,18 @@ async function buildLabs(targetDir) {
   const renderBounce = '<script>if(/(^|\\.)onrender\\.com$/i.test(location.hostname))location.replace("https://aorilalabs.com"+location.pathname+location.search);</script>';
   const withBounce = (html) => String(html).replace(/<\/head>/i, `  ${renderBounce}\n</head>`);
   // Aorila Labs marketing site — Template 1 design system, no video.
-  // Six content pages built from sites/labs/; legacy routes redirect.
+  // Two content pages built from sites/labs/ (home + terms). Pricing,
+  // Developers, Marketplace, and Support live in the dashboard — those
+  // routes redirect to the matching dashboard tab.
   writeRoute(targetDir, '', withBounce(fs.readFileSync(path.join(labsDir, 'index.html'), 'utf8')));
-  writeRoute(targetDir, 'pricing', withBounce(fs.readFileSync(path.join(labsDir, 'pricing.html'), 'utf8')));
-  writeRoute(targetDir, 'developers', withBounce(fs.readFileSync(path.join(labsDir, 'developers.html'), 'utf8')));
-  writeRoute(targetDir, 'marketplace', withBounce(fs.readFileSync(path.join(labsDir, 'marketplace.html'), 'utf8')));
-  writeRoute(targetDir, 'support', withBounce(fs.readFileSync(path.join(labsDir, 'support.html'), 'utf8')));
   writeRoute(targetDir, 'terms', withBounce(fs.readFileSync(path.join(labsDir, 'terms.html'), 'utf8')));
-  // Legacy routes keep working: /tp consolidates into /terms, /docs into /developers.
+  writeRoute(targetDir, 'marketplace', redirectPage('Marketplace — Aorila Labs', `${dashboardOrigin}/compute`));
+  writeRoute(targetDir, 'developers', redirectPage('Developers — Aorila Labs', `${dashboardOrigin}/api`));
+  writeRoute(targetDir, 'pricing', redirectPage('Pricing — Aorila Labs', `${dashboardOrigin}/credits`));
+  writeRoute(targetDir, 'support', redirectPage('Support — Aorila Labs', `${dashboardOrigin}/support`));
+  // Legacy routes keep working: /tp consolidates into /terms, /docs into the dashboard API tab.
   writeRoute(targetDir, 'tp', redirectPage('Terms & Privacy — Aorila Labs', 'https://aorilalabs.com/terms'));
-  writeRoute(targetDir, 'docs', redirectPage('Developers — Aorila Labs', 'https://aorilalabs.com/developers'));
+  writeRoute(targetDir, 'docs', redirectPage('Developers — Aorila Labs', `${dashboardOrigin}/api`));
   // Every other Labs route lives inside the dashboard — these redirect there.
   const dashboardRoutes = {
     'console': '/',
@@ -177,7 +179,7 @@ async function buildLabs(targetDir) {
     'User-agent: *\nAllow: /\nSitemap: https://aorilalabs.com/sitemap.xml\n'
   );
   const lastmod = new Date().toISOString().slice(0, 10);
-  const sitemapUrls = ['', '/pricing', '/developers', '/marketplace', '/support', '/terms', '/tp', '/docs']
+  const sitemapUrls = ['', '/terms', '/tp', '/docs']
     .map((p) => `  <url><loc>https://aorilalabs.com${p || '/'}</loc><lastmod>${lastmod}</lastmod></url>`)
     .join('\n');
   fs.writeFileSync(
