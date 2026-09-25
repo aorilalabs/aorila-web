@@ -108,6 +108,10 @@
       padding: 20px 20px 18px;
       background: #000000;
     }
+    .none { margin: 0; font-size: 13px; color: #7f7f7f; }
+    .items { display: flex; flex-direction: column; gap: 14px; margin: 0 0 4px; }
+    .item-title { font-size: 13px; color: #ffffff; }
+    .item-detail { margin-top: 4px; font-size: 12px; color: #9c9c9c; line-height: 1.5; }
     .action { margin: 16px 0 0 0; font-size: 13px; }
     .action a {
       color: #e8e8e8;
@@ -201,6 +205,50 @@
   </footer>
   <script>
     (function () {
+      /* ---- Open items: add entries here and they render as lists.
+         Leave an array empty and its panel shows the "none" message. ---- */
+      var OPEN_CHALLENGES = []; /* { title: '...', detail: '...' } */
+      var BETA_TESTS = [];      /* { title: '...', detail: '...' } */
+      var OPEN_ROLES = [];      /* { title: '...', detail: '...' } */
+      var EMPTY_TEXT = {
+        challenges: 'No open challenges right now.',
+        beta: 'No beta tests open right now.',
+        careers: 'No open roles right now.'
+      };
+      function renderEmptyState(panelId, items) {
+        var panel = document.getElementById('panel-' + panelId);
+        if (!panel) return;
+        var box = panel.querySelector('.details');
+        if (!box) return;
+        var wrap = document.createElement('div');
+        wrap.className = 'items';
+        if (items.length) {
+          items.forEach(function (it) {
+            var el = document.createElement('div');
+            var t = document.createElement('div');
+            t.className = 'item-title';
+            t.textContent = it.title || '';
+            el.appendChild(t);
+            if (it.detail) {
+              var d = document.createElement('div');
+              d.className = 'item-detail';
+              d.textContent = it.detail;
+              el.appendChild(d);
+            }
+            wrap.appendChild(el);
+          });
+        } else {
+          var p = document.createElement('p');
+          p.className = 'none';
+          p.textContent = EMPTY_TEXT[panelId];
+          wrap.appendChild(p);
+        }
+        box.insertBefore(wrap, box.firstChild);
+      }
+      renderEmptyState('challenges', OPEN_CHALLENGES);
+      renderEmptyState('beta', BETA_TESTS);
+      renderEmptyState('careers', OPEN_ROLES);
+
       var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
       var panels = {};
       tabs.forEach(function (t) {
