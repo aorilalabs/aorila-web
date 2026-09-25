@@ -141,50 +141,29 @@ function buildConsumer(targetDir) {
 
 async function buildLabs(targetDir) {
   const labsDir = path.join(SITES_DIR, 'labs');
-  const dashboardOrigin = STATIC_DASHBOARD_ORIGIN || 'https://dashboard.aorilalabs.com';
-  // Render subdomains are disabled: bounce any *.onrender.com visitor to our domain.
-  const renderBounce = '<script>if(/(^|\\.)onrender\\.com$/i.test(location.hostname))location.replace("https://aorilalabs.com"+location.pathname+location.search);</script>';
-  const withBounce = (html) => String(html).replace(/<\/head>/i, `  ${renderBounce}\n</head>`);
-  // Aorila Labs marketing site — Template 1 design system, no video.
-  // Two content pages built from sites/labs/ (home + terms). Pricing,
-  // Developers, Marketplace, and Support live in the dashboard — those
-  // routes redirect to the matching dashboard tab.
-  writeRoute(targetDir, '', withBounce(fs.readFileSync(path.join(labsDir, 'index.html'), 'utf8')));
-  writeRoute(targetDir, 'terms', withBounce(fs.readFileSync(path.join(labsDir, 'terms.html'), 'utf8')));
-  writeRoute(targetDir, 'marketplace', redirectPage('Marketplace — Aorila Labs', `${dashboardOrigin}/compute`));
-  writeRoute(targetDir, 'developers', redirectPage('Developers — Aorila Labs', `${dashboardOrigin}/api`));
-  writeRoute(targetDir, 'pricing', redirectPage('Pricing — Aorila Labs', `${dashboardOrigin}/credits`));
-  writeRoute(targetDir, 'support', redirectPage('Support — Aorila Labs', `${dashboardOrigin}/support`));
-  // Legacy routes keep working: /tp consolidates into /terms, /docs into the dashboard API tab.
-  writeRoute(targetDir, 'tp', redirectPage('Terms & Privacy — Aorila Labs', 'https://aorilalabs.com/terms'));
-  writeRoute(targetDir, 'docs', redirectPage('Developers — Aorila Labs', `${dashboardOrigin}/api`));
-  // Every other Labs route lives inside the dashboard — these redirect there.
-  const dashboardRoutes = {
-    'console': '/',
-    'compute': '/compute',
-    'api': '/api',
-    'training': '/compute',
-    'models': '/compute',
-    'trust': '/support',
-    'contact': '/support',
-  };
-  for (const [route, target] of Object.entries(dashboardRoutes)) {
-    writeRoute(targetDir, route, redirectPage('Redirecting to dashboard', `${dashboardOrigin}${target}`));
+  // Aorila Labs is a single front page. Every route that ever existed on this
+  // host bounces back to the front page — the static host overlays deploys
+  // instead of wiping, so these deterministic stubs overwrite the ghosts of
+  // deleted pages. Nothing on this host goes to the dashboard anymore.
+  // NOTE: the homepage is written verbatim (no api-origin meta, no bounce
+  // script) — it must stay byte-identical to the approved "Work in training."
+  // page, which carries zero JavaScript.
+  fs.writeFileSync(path.join(targetDir, 'index.html'), fs.readFileSync(path.join(labsDir, 'index.html'), 'utf8'));
+  const home = 'https://aorilalabs.com/';
+  for (const route of ['terms', 'marketplace', 'developers', 'pricing', 'support',
+                       'tp', 'docs', 'sell', 'console', 'compute', 'api',
+                       'training', 'models', 'trust', 'contact']) {
+    writeRoute(targetDir, route, redirectPage('Aorila Labs', home));
   }
-  // Seller onboarding lives in the dashboard's Earn tab now — /sell forwards there.
-  writeRoute(targetDir, 'sell', redirectPage('Redirecting to Earn', `${dashboardOrigin}/earn`));
-  // robots.txt + sitemap.xml for the Labs site.
+  // robots.txt + sitemap.xml for the Labs site (front page only).
   fs.writeFileSync(
     path.join(targetDir, 'robots.txt'),
     'User-agent: *\nAllow: /\nSitemap: https://aorilalabs.com/sitemap.xml\n'
   );
   const lastmod = new Date().toISOString().slice(0, 10);
-  const sitemapUrls = ['', '/terms', '/tp', '/docs']
-    .map((p) => `  <url><loc>https://aorilalabs.com${p || '/'}</loc><lastmod>${lastmod}</lastmod></url>`)
-    .join('\n');
   fs.writeFileSync(
     path.join(targetDir, 'sitemap.xml'),
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls}\n</urlset>\n`
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${home}</loc><lastmod>${lastmod}</lastmod></url>\n</urlset>\n`
   );
 }
 
