@@ -84,6 +84,109 @@
       white-space: nowrap;
     }
     .wl-row .r { text-align: right; }
+    .wl-searchbtn {
+      background: none;
+      border: none;
+      padding: 6px;
+      margin: -6px;
+      cursor: pointer;
+      color: #d4d4d4;
+      display: inline-flex;
+      align-items: center;
+    }
+    .wl-searchbtn:hover { color: #ffffff; }
+    .wl-searchbtn svg { display: block; }
+    .wl-search { margin-top: 11px; }
+    .wl-search input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 0;
+      color: #ffffff;
+      font: inherit;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+      padding: 7px 2px;
+      outline: none;
+    }
+    .wl-search input::placeholder { color: #6f6f6f; }
+    .wl-cols {
+      display: grid;
+      grid-template-columns: auto auto auto auto;
+      justify-content: space-between;
+      column-gap: 24px;
+      align-items: baseline;
+      padding: 10px 0 2px;
+      white-space: nowrap;
+    }
+    .wl-cols button {
+      background: none;
+      border: none;
+      padding: 4px 0;
+      font: inherit;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      color: #6f6f6f;
+      cursor: pointer;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .wl-cols button:hover { color: #d4d4d4; }
+    .wl-cols button .arr { color: #d4d4d4; }
+    .wl-empty { color: #6f6f6f; }
+    .suggest { margin-top: 30px; }
+    .suggest h2 {
+      margin: 0 0 8px;
+      font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+    }
+    .sg-sub {
+      margin: 0 0 16px;
+      font-size: 11px;
+      line-height: 1.65;
+      color: #9c9c9c;
+    }
+    .sg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .suggest input, .suggest select, .suggest textarea {
+      width: 100%;
+      background: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      color: #ffffff;
+      font: inherit;
+      font-size: 12px;
+      padding: 10px 12px;
+      margin: 0 0 10px;
+      outline: none;
+    }
+    .suggest input:focus, .suggest select:focus, .suggest textarea:focus {
+      border-color: rgba(255, 255, 255, 0.42);
+    }
+    .suggest input::placeholder, .suggest textarea::placeholder { color: #6f6f6f; }
+    .suggest select { appearance: none; -webkit-appearance: none; }
+    .suggest textarea { resize: vertical; min-height: 92px; line-height: 1.6; }
+    .suggest button[type="submit"] {
+      background: #ffffff;
+      color: #000000;
+      border: none;
+      border-radius: 8px;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 11px 20px;
+      cursor: pointer;
+    }
+    .suggest button[type="submit"]:hover { background: #d4d4d4; }
+    .sg-note {
+      margin: 10px 0 0;
+      font-size: 10px;
+      line-height: 1.65;
+      color: #6f6f6f;
+    }
     footer {
       flex: 0 0 auto;
       width: 100%;
@@ -104,6 +207,8 @@
     @media (max-width: 700px) {
       .topspace { height: 40px; }
       .wl-row { font-size: 10px; column-gap: 9px; }
+      .wl-cols { column-gap: 9px; }
+      .sg-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -112,10 +217,27 @@
   <main class="stage">
     <div class="hero">
       <div class="worklog" aria-label="Work log">
-        <div class="wl-head"><span>WORK LOG</span><span>AORILA LABS INTERNAL</span></div>
+        <div class="wl-head">
+          <span>WORK LOG</span>
+          <button class="wl-searchbtn" id="wl-searchbtn" aria-label="Search the work log" title="Search">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+              <circle cx="7" cy="7" r="5.2" />
+              <line x1="11" y1="11" x2="14.8" y2="14.8" />
+            </svg>
+          </button>
+        </div>
+        <div class="wl-search" id="wl-search" hidden>
+          <input type="search" id="wl-q" placeholder="Search the log&hellip;" aria-label="Search the work log" autocomplete="off" />
+        </div>
         <div class="wl-div"></div>
-        <div class="wl-rows">
-          <div class="wl-row"><span>2026-09-24</span><span>ER-AI</span><span class="r">run 18</span><span class="r">eval up</span></div>
+        <div class="wl-cols" role="row">
+          <button type="button" data-sort="date" aria-sort="none">DATE<span class="arr"></span></button>
+          <button type="button" data-sort="project" aria-sort="none">PROJECT<span class="arr"></span></button>
+          <button type="button" data-sort="run" aria-sort="none" style="text-align:right">RUN<span class="arr"></span></button>
+          <button type="button" data-sort="status" aria-sort="none" style="text-align:right">STATUS<span class="arr"></span></button>
+        </div>
+        <div class="wl-rows" id="wl-rows">
+                    <div class="wl-row"><span>2026-09-24</span><span>ER-AI</span><span class="r">run 18</span><span class="r">eval up</span></div>
           <div class="wl-row"><span>2026-09-23</span><span>ER-AI</span><span class="r">run 17</span><span class="r">latent drift</span></div>
           <div class="wl-row"><span>2026-09-22</span><span>Atraly adapter</span><span class="r"></span><span class="r">v0.4</span></div>
           <div class="wl-row"><span>2026-09-21</span><span>ER-AI</span><span class="r">run 16</span><span class="r">stability</span></div>
@@ -125,11 +247,111 @@
           <div class="wl-row"><span>2026-09-17</span><span>ER-AI</span><span class="r">run 15</span><span class="r">eval</span></div>
         </div>
       </div>
+      <section class="suggest" aria-label="Suggest an update">
+        <h2>Suggest an update</h2>
+        <p class="sg-sub">Done work you think belongs here, an addition, or a comment &mdash; send it in and we&rsquo;ll take a look.</p>
+        <form id="suggest-form">
+          <div class="sg-grid">
+            <input type="text" name="name" placeholder="Name" required autocomplete="name" />
+            <input type="email" name="email" placeholder="Email" required autocomplete="email" />
+          </div>
+          <select name="type" aria-label="Suggestion type">
+            <option>Work I&rsquo;ve done</option>
+            <option>Addition</option>
+            <option>Comment</option>
+          </select>
+          <textarea name="message" rows="4" placeholder="What should we know?" required></textarea>
+          <button type="submit">Send suggestion</button>
+          <p class="sg-note">This opens your email app with a draft addressed to info@aorila.com &mdash; nothing is sent automatically.</p>
+        </form>
+      </section>
     </div>
   </main>
   <footer>
     <span>&copy; 2026 Aorila Labs</span>
     <a href="/">&larr; Home</a>
   </footer>
+  <script type="application/json" id="wl-data">[{"date":"2026-09-24","project":"ER-AI","run":"run 18","status":"eval up"},{"date":"2026-09-23","project":"ER-AI","run":"run 17","status":"latent drift"},{"date":"2026-09-22","project":"Atraly adapter","run":"","status":"v0.4"},{"date":"2026-09-21","project":"ER-AI","run":"run 16","status":"stability"},{"date":"2026-09-20","project":"memory bank","run":"","status":"compress"},{"date":"2026-09-19","project":"robot planner","run":"","status":"sim"},{"date":"2026-09-18","project":"Atraly adapter","run":"","status":"train patch"},{"date":"2026-09-17","project":"ER-AI","run":"run 15","status":"eval"}]</script>
+  <script>
+    (function () {
+      'use strict';
+      var dataEl = document.getElementById('wl-data');
+      var rowsEl = document.getElementById('wl-rows');
+      if (!dataEl || !rowsEl) return;
+      var entries;
+      try { entries = JSON.parse(dataEl.textContent); } catch (e) { return; }
+      if (!Array.isArray(entries)) return;
+      var searchBtn = document.getElementById('wl-searchbtn');
+      var searchWrap = document.getElementById('wl-search');
+      var searchInput = document.getElementById('wl-q');
+      var sortKey = null;
+      var sortDir = 1;
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+      function render() {
+        var q = searchInput.value.trim().toLowerCase();
+        var list = entries.filter(function (e) {
+          if (!q) return true;
+          return (e.date + ' ' + e.project + ' ' + e.run + ' ' + e.status).toLowerCase().indexOf(q) !== -1;
+        });
+        if (sortKey) {
+          list = list.slice().sort(function (a, b) {
+            var va = a[sortKey] || '', vb = b[sortKey] || '', c;
+            if (sortKey === 'date') c = va < vb ? -1 : va > vb ? 1 : 0;
+            else c = String(va).toLowerCase().localeCompare(String(vb).toLowerCase());
+            return c * sortDir;
+          });
+        }
+        if (!list.length) {
+          rowsEl.innerHTML = '<div class="wl-row wl-empty"><span>No matches.</span></div>';
+          return;
+        }
+        rowsEl.innerHTML = list.map(function (e) {
+          return '<div class="wl-row"><span>' + esc(e.date) + '</span><span>' + esc(e.project) +
+            '</span><span class="r">' + esc(e.run) + '</span><span class="r">' + esc(e.status) + '</span></div>';
+        }).join('');
+      }
+      var sortBtns = Array.prototype.slice.call(document.querySelectorAll('[data-sort]'));
+      sortBtns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var k = b.getAttribute('data-sort');
+          if (sortKey === k) { sortDir = -sortDir; }
+          else { sortKey = k; sortDir = 1; }
+          sortBtns.forEach(function (x) {
+            x.querySelector('.arr').textContent = '';
+            x.setAttribute('aria-sort', 'none');
+          });
+          b.querySelector('.arr').textContent = sortDir === 1 ? ' \u2191' : ' \u2193';
+          b.setAttribute('aria-sort', sortDir === 1 ? 'ascending' : 'descending');
+          render();
+        });
+      });
+      searchBtn.addEventListener('click', function () {
+        if (searchWrap.hasAttribute('hidden')) {
+          searchWrap.removeAttribute('hidden');
+          searchInput.focus();
+        } else {
+          searchWrap.setAttribute('hidden', '');
+          searchInput.value = '';
+          render();
+        }
+      });
+      searchInput.addEventListener('input', render);
+      var form = document.getElementById('suggest-form');
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var name = form.elements.name.value.trim();
+        var email = form.elements.email.value.trim();
+        var type = form.elements.type.value;
+        var msg = form.elements.message.value.trim();
+        var body = 'Name: ' + name + '\nEmail: ' + email + '\nType: ' + type + '\n\n' + msg;
+        location.href = 'mailto:info@aorila.com?subject=' +
+          encodeURIComponent('Work log suggestion') + '&body=' + encodeURIComponent(body);
+      });
+    })();
+  </script>
 </body>
 </html>
