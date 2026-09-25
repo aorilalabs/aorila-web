@@ -95,7 +95,8 @@
       white-space: nowrap;
     }
     .wl-row .r { text-align: right; }
-    .wl-searchbtn {
+    .wl-tools { display: inline-flex; align-items: center; gap: 14px; }
+    .wl-iconbtn {
       background: none;
       border: none;
       padding: 6px;
@@ -105,8 +106,8 @@
       display: inline-flex;
       align-items: center;
     }
-    .wl-searchbtn:hover { color: #ffffff; }
-    .wl-searchbtn svg { display: block; }
+    .wl-iconbtn:hover { color: #ffffff; }
+    .wl-iconbtn svg { display: block; }
     .wl-search { margin-top: 11px; }
     .wl-search input {
       width: 100%;
@@ -209,12 +210,21 @@
       <div class="worklog" aria-label="Work log">
         <div class="wl-head">
           <span>WORK LOG</span>
-          <button class="wl-searchbtn" id="wl-searchbtn" aria-label="Search the work log" title="Search">
+          <span class="wl-tools">
+          <button class="wl-iconbtn" id="wl-downloadbtn" aria-label="Download the work log" title="Download">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="2.5" x2="8" y2="10.5" />
+              <polyline points="4.8,7.6 8,10.8 11.2,7.6" />
+              <line x1="3" y1="13.5" x2="13" y2="13.5" />
+            </svg>
+          </button>
+          <button class="wl-iconbtn" id="wl-searchbtn" aria-label="Search the work log" title="Search">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
               <circle cx="7" cy="7" r="5.2" />
               <line x1="11" y1="11" x2="14.8" y2="14.8" />
             </svg>
           </button>
+          </span>
         </div>
         <div class="wl-search" id="wl-search" hidden>
           <input type="search" id="wl-q" placeholder="Search the log&hellip;" aria-label="Search the work log" autocomplete="off" />
@@ -359,6 +369,21 @@
         }
       });
       searchInput.addEventListener('input', function () { page = 1; render(); });
+      var dlBtn = document.getElementById('wl-downloadbtn');
+      if (dlBtn) {
+        dlBtn.addEventListener('click', function () {
+          var clean = entries.map(function (e) {
+            return { date: e.date, project: e.project, run: e.run, status: e.status };
+          });
+          var blob = new Blob([JSON.stringify(clean, null, 2)], { type: 'application/json' });
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'work-log.json';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 400);
+        });
+      }
       render();
     })();
   </script>
