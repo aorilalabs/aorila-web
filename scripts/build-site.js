@@ -199,9 +199,9 @@ async function buildLabs(targetDir) {
     return Object.assign({}, e, { slug: wlSlug(e, usedSlugs) });
   });
   const wlJson = JSON.stringify(wlEntries);
-  function labsPage(name, indent) {
+  function labsPage(name, indent, entries) {
     return fs.readFileSync(path.join(labsDir, name), 'utf8')
-      .split('<!--WORKLOG_ROWS-->').join(wlRowsHtml(wlEntries, indent))
+      .split('<!--WORKLOG_ROWS-->').join(wlRowsHtml(entries || wlEntries, indent))
       .split('<!--WORKLOG_JSON-->').join(wlJson);
   }
   // Aorila Labs is a front page plus /get-involved and /work-log. Every
@@ -211,7 +211,8 @@ async function buildLabs(targetDir) {
   // NOTE: the pages are written with rendered work-log rows (no
   // api-origin meta, no bounce script). work-log.json ships alongside so
   // the data file is publicly readable too.
-  fs.writeFileSync(path.join(targetDir, 'index.html'), labsPage('index.html', '        '));
+  // Front page shows the 10 most recent entries; /work-log shows all (paginated).
+  fs.writeFileSync(path.join(targetDir, 'index.html'), labsPage('index.html', '        ', wlEntries.slice(0, 10)));
   fs.copyFileSync(path.join(labsDir, 'work-log.json'), path.join(targetDir, 'work-log.json'));
   const getInvolved = fs.readFileSync(path.join(labsDir, 'get-involved.html'), 'utf8');
   fs.writeFileSync(path.join(targetDir, 'get-involved.html'), getInvolved);
