@@ -145,20 +145,24 @@ async function buildLabs(targetDir) {
   // other route that ever existed on this host bounces back to the front
   // page — the static host overlays deploys instead of wiping, so these
   // deterministic stubs overwrite the ghosts of deleted pages.
-  // NOTE: the homepage and get-involved are written verbatim (no api-origin
-  // meta, no bounce script).
+  // NOTE: the homepage, get-involved, and work-log are written verbatim (no
+  // api-origin meta, no bounce script).
   fs.writeFileSync(path.join(targetDir, 'index.html'), fs.readFileSync(path.join(labsDir, 'index.html'), 'utf8'));
   const getInvolved = fs.readFileSync(path.join(labsDir, 'get-involved.html'), 'utf8');
   fs.writeFileSync(path.join(targetDir, 'get-involved.html'), getInvolved);
   ensureDir(path.join(targetDir, 'get-involved'));
   fs.writeFileSync(path.join(targetDir, 'get-involved', 'index.html'), getInvolved);
+  const workLog = fs.readFileSync(path.join(labsDir, 'work-log.html'), 'utf8');
+  fs.writeFileSync(path.join(targetDir, 'work-log.html'), workLog);
+  ensureDir(path.join(targetDir, 'work-log'));
+  fs.writeFileSync(path.join(targetDir, 'work-log', 'index.html'), workLog);
   const home = 'https://aorilalabs.com/';
   for (const route of ['terms', 'marketplace', 'developers', 'pricing', 'support',
                        'tp', 'docs', 'sell', 'console', 'compute', 'api',
                        'training', 'models', 'trust', 'contact']) {
     writeRoute(targetDir, route, redirectPage('Aorila Labs', home));
   }
-  // robots.txt + sitemap.xml for the Labs site (front page + get-involved).
+  // robots.txt + sitemap.xml for the Labs site (front page + get-involved + work-log).
   fs.writeFileSync(
     path.join(targetDir, 'robots.txt'),
     'User-agent: *\nAllow: /\nSitemap: https://aorilalabs.com/sitemap.xml\n'
@@ -166,7 +170,7 @@ async function buildLabs(targetDir) {
   const lastmod = new Date().toISOString().slice(0, 10);
   fs.writeFileSync(
     path.join(targetDir, 'sitemap.xml'),
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${home}</loc><lastmod>${lastmod}</lastmod></url>\n  <url><loc>${home}get-involved</loc><lastmod>${lastmod}</lastmod></url>\n</urlset>\n`
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${home}</loc><lastmod>${lastmod}</lastmod></url>\n  <url><loc>${home}get-involved</loc><lastmod>${lastmod}</lastmod></url>\n  <url><loc>${home}work-log</loc><lastmod>${lastmod}</lastmod></url>\n</urlset>\n`
   );
 }
 
