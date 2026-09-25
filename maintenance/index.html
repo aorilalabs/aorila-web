@@ -190,6 +190,13 @@
     .feature { background: var(--page); padding: 34px 30px 38px; }
     .feature h3 { margin: 0 0 10px; font-size: 18px; letter-spacing: -.025em; font-weight: 600; }
     .feature p { margin: 0; color: var(--muted); font-size: 15px; }
+    .market-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .market-card { background: var(--page); padding: 44px 40px 48px; }
+    .market-card .principle-num { display: block; margin-bottom: 24px; }
+    .market-card h3 { margin: 0 0 12px; font-size: 26px; letter-spacing: -.04em; font-weight: 600; }
+    .market-card p { margin: 0 0 26px; color: var(--muted); font-size: 16px; max-width: 400px; }
+    .market-link { font-weight: 600; font-size: 15px; border-bottom: 1px solid var(--line); padding-bottom: 3px; }
+    .market-link:hover, .market-link:focus-visible { border-color: var(--ink); }
 
     .split { display: grid; grid-template-columns: .82fr 1.18fr; gap: 110px; padding: 130px 0; border-bottom: 1px solid var(--line); }
     .rules { border-top: 1px solid var(--line); margin: 0; }
@@ -257,6 +264,7 @@
       .step-card, .step-card + .step-card { padding: 28px 0; border-right: 0; border-bottom: 1px solid var(--line); }
       .step-card:last-child { border-bottom: 0; }
       .feature-grid { grid-template-columns: 1fr; }
+      .market-grid { grid-template-columns: 1fr; }
       .split, .developer-grid { grid-template-columns: 1fr; gap: 60px; }
       .split { padding: 95px 0; }
       .developer, .band { padding: 95px 0; }
@@ -285,6 +293,7 @@
       .rule dd { font-size: 16px; }
       .developer-grid { gap: 42px; }
       pre { padding: 22px 18px; font-size: 12px; }
+      .market-card { padding: 32px 24px 36px; }
       .closing { padding: 76px 0; }
       .closing-inner { align-items: stretch; flex-direction: column; }
       .footer-inner { align-items: flex-start; flex-direction: column; justify-content: center; padding: 25px 0; }
@@ -307,6 +316,7 @@
         <a class="brand" href="/">Aorila Labs</a>
         <a href="/pricing" class="nav-link-hide">Pricing</a>
         <a href="/developers" class="nav-link-hide">Developers</a>
+        <a href="/marketplace" class="nav-link-hide">Marketplace</a>
         <a href="/support">Support</a>
         <a class="nav-cta" href="https://dashboard.aorilalabs.com">Request an API key <span aria-hidden="true">&rarr;</span></a>
       </nav>
@@ -314,7 +324,7 @@
       <div class="hero-grid hero-home">
         <div class="hero-copy">
           <h1>The Future of AI Innovation</h1>
-          <p class="lead">GPU compute for the AI era. Launch workloads without long-term commitments and pay only for the minutes you use.</p>
+          <p class="lead">GPU compute for the AI era. A two-sided marketplace: run workloads on hardware listed by hosts &mdash; or list your own GPUs and earn. Pay only for the minutes you use.</p>
           <div class="actions">
             <a class="button button-primary" href="https://dashboard.aorilalabs.com">Request an API key <span class="arrow" aria-hidden="true">&rarr;</span></a>
             <a class="button button-secondary" href="/developers">Read the docs</a>
@@ -390,10 +400,34 @@
       </div>
     </section>
 
+    <section class="band" aria-label="Marketplace">
+      <div class="wrap">
+        <div class="band-head">
+          <span class="section-index">02 / MARKETPLACE</span>
+          <h2>Two sides, one marketplace.</h2>
+          <p class="section-copy">Aorila Labs is a two-sided marketplace for GPU compute &mdash; not just an API key. Buyers run workloads on hardware listed by hosts. Hosts list their GPUs and earn for every minute of usage.</p>
+        </div>
+        <div class="market-grid">
+          <div class="market-card">
+            <span class="principle-num">FOR BUYERS</span>
+            <h3>Get compute</h3>
+            <p>Request an API key and run workloads on marketplace hardware. Billed per minute, 1 credit = $1, workloads stop at $0.</p>
+            <a class="market-link" href="https://dashboard.aorilalabs.com">Request an API key <span aria-hidden="true">&rarr;</span></a>
+          </div>
+          <div class="market-card">
+            <span class="principle-num">FOR HOSTS</span>
+            <h3>Sell compute</h3>
+            <p>List your GPUs and earn per minute of usage. Seller onboarding lives in the dashboard&rsquo;s Earn tab.</p>
+            <a class="market-link" href="https://dashboard.aorilalabs.com/earn">List your hardware <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="band" aria-label="Platform features">
       <div class="wrap">
         <div class="band-head">
-          <span class="section-index">02 / PLATFORM</span>
+          <span class="section-index">03 / PLATFORM</span>
           <h2>Everything around the metal.</h2>
         </div>
         <div class="feature-grid">
@@ -409,7 +443,7 @@
 
     <section class="wrap split">
       <div>
-        <span class="section-index">03 / CONTROL</span>
+        <span class="section-index">04 / CONTROL</span>
         <h2>Compute that stays legible.</h2>
         <p class="section-copy">Infrastructure should make the work clearer, not add another layer of complexity. Aorila Labs keeps the commercial model explicit from the first minute.</p>
       </div>
@@ -424,7 +458,7 @@
     <section class="developer">
       <div class="wrap developer-grid">
         <div>
-          <span class="section-index">04 / DEVELOPERS</span>
+          <span class="section-index">05 / DEVELOPERS</span>
           <h2>A direct path to the platform.</h2>
           <p>Start with the dashboard, then connect through the API when your workflow is ready.</p>
         </div>
@@ -446,7 +480,7 @@
     <section class="band" aria-label="Frequently asked questions">
       <div class="wrap">
         <div class="band-head">
-          <span class="section-index">05 / FAQ</span>
+          <span class="section-index">06 / FAQ</span>
           <h2>Asked, answered.</h2>
         </div>
         <div class="faq">
@@ -472,6 +506,7 @@
       <div class="footer-links">
         <a href="/pricing">Pricing</a>
         <a href="/developers">Developers</a>
+        <a href="/marketplace">Marketplace</a>
         <a href="/terms">T &amp; P</a>
         <a href="/support">Support</a>
       </div>
