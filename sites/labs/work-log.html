@@ -229,7 +229,7 @@
         <div class="wl-rows" id="wl-rows">
           <!--WORKLOG_ROWS-->
         </div>
-        <div class="wl-pages" id="wl-pages" hidden></div>
+        <div class="wl-pages" id="wl-pages"></div>
       </div>
     </div>
   </main>
@@ -284,7 +284,6 @@
       }
       function renderPages(totalPages) {
         if (!pagesEl) return;
-        if (totalPages <= 1) { pagesEl.setAttribute('hidden', ''); pagesEl.innerHTML = ''; return; }
         pagesEl.removeAttribute('hidden');
         var html = '<button type="button" data-pg="prev"' + (page <= 1 ? ' disabled' : '') + '>&larr; Prev</button>';
         pageWindow(page, totalPages).forEach(function (n) {
