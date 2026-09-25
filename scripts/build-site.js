@@ -230,19 +230,18 @@ async function buildLabs(targetDir) {
   fs.writeFileSync(path.join(targetDir, 'work-log.html'), workLog);
   ensureDir(path.join(targetDir, 'work-log'));
   fs.writeFileSync(path.join(targetDir, 'work-log', 'index.html'), workLog);
-  // Per-entry detail pages at /work-log/<slug> (slashless canonical).
-  // The old trailing-slash URL /work-log/<slug>/ now serves a redirect
-  // stub to the slashless version (static hosts overlay deploys, so the
-  // stub overwrites the old full-page copy).
+  // Per-entry detail pages. NOTE (2026-09-25): Render resolves the clean
+  // URL /work-log/<slug> to work-log/<slug>/index.html, NOT to the flat
+  // <slug>.html — verified live. So a redirect stub at the directory path
+  // would hijack the canonical URL itself (infinite self-redirect). Both
+  // copies therefore carry the full page; the slashless canonical +
+  // slashless sitemap + slashless links declare the one true URL.
   const entryTemplate = fs.readFileSync(path.join(labsDir, 'work-log-entry.html'), 'utf8');
   for (const entry of wlEntries) {
     const detail = wlDetailHtml(entryTemplate, entry);
     fs.writeFileSync(path.join(targetDir, 'work-log', entry.slug + '.html'), detail);
     ensureDir(path.join(targetDir, 'work-log', entry.slug));
-    fs.writeFileSync(
-      path.join(targetDir, 'work-log', entry.slug, 'index.html'),
-      redirectPage('Aorila Labs', 'https://aorilalabs.com/work-log/' + entry.slug)
-    );
+    fs.writeFileSync(path.join(targetDir, 'work-log', entry.slug, 'index.html'), detail);
   }
   // Share image + branded 404.
   fs.copyFileSync(path.join(labsDir, 'og-image.png'), path.join(targetDir, 'og-image.png'));
