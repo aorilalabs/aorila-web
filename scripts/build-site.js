@@ -164,7 +164,7 @@ function wlSlug(entry, used) {
 
 function wlRowsHtml(entries, indent) {
   return entries.map(function (e) {
-    const href = '/work-log/' + e.slug + '/';
+    const href = '/work-log/' + e.slug;
     return indent + '<div class="wl-row">' +
       '<a href="' + href + '">' + escHtml(e.date) + '</a>' +
       '<a href="' + href + '">' + escHtml(e.project) + '</a>' +
@@ -176,6 +176,12 @@ function wlRowsHtml(entries, indent) {
 // Detail page for one work-log entry. No invented copy — just the row's own
 // fields, an honest "No updates yet." placeholder, and a plain-text
 // mailto link for suggestions.
+// Unique meta description per entry, built from its own fields.
+function wlEntryDesc(entry) {
+  return [entry.date, [entry.project, entry.run].filter(Boolean).join(' '), entry.status]
+    .filter(Boolean).join(' — ') + '. A work log entry from Aorila Labs.';
+}
+
 function wlDetailHtml(template, entry) {
   const titleBits = [entry.project, entry.run].filter(Boolean).join(' ');
   const subject = encodeURIComponent(
@@ -183,6 +189,8 @@ function wlDetailHtml(template, entry) {
   );
   return template
     .split('<!--ENTRY_TITLE-->').join(escHtml(titleBits + ' — Work log'))
+    .split('<!--ENTRY_H1-->').join(escHtml(titleBits))
+    .split('<!--ENTRY_DESC-->').join(escHtml(wlEntryDesc(entry)))
     .split('<!--ENTRY_SLUG-->').join(entry.slug)
     .split('<!--ENTRY_DATE-->').join(escHtml(entry.date))
     .split('<!--ENTRY_PROJECT-->').join(escHtml(entry.project))
@@ -222,15 +230,23 @@ async function buildLabs(targetDir) {
   fs.writeFileSync(path.join(targetDir, 'work-log.html'), workLog);
   ensureDir(path.join(targetDir, 'work-log'));
   fs.writeFileSync(path.join(targetDir, 'work-log', 'index.html'), workLog);
-  // Per-entry detail pages at /work-log/<slug>/ (both the flat file and the
-  // directory copy, matching this host's overlay behavior).
+  // Per-entry detail pages at /work-log/<slug> (slashless canonical).
+  // The old trailing-slash URL /work-log/<slug>/ now serves a redirect
+  // stub to the slashless version (static hosts overlay deploys, so the
+  // stub overwrites the old full-page copy).
   const entryTemplate = fs.readFileSync(path.join(labsDir, 'work-log-entry.html'), 'utf8');
   for (const entry of wlEntries) {
     const detail = wlDetailHtml(entryTemplate, entry);
     fs.writeFileSync(path.join(targetDir, 'work-log', entry.slug + '.html'), detail);
     ensureDir(path.join(targetDir, 'work-log', entry.slug));
-    fs.writeFileSync(path.join(targetDir, 'work-log', entry.slug, 'index.html'), detail);
+    fs.writeFileSync(
+      path.join(targetDir, 'work-log', entry.slug, 'index.html'),
+      redirectPage('Aorila Labs', 'https://aorilalabs.com/work-log/' + entry.slug)
+    );
   }
+  // Share image + branded 404.
+  fs.copyFileSync(path.join(labsDir, 'og-image.png'), path.join(targetDir, 'og-image.png'));
+  fs.copyFileSync(path.join(labsDir, '404.html'), path.join(targetDir, '404.html'));
   const home = 'https://aorilalabs.com/';
   for (const route of ['terms', 'marketplace', 'developers', 'pricing', 'support',
                        'tp', 'docs', 'sell', 'console', 'compute', 'api',
@@ -248,7 +264,7 @@ async function buildLabs(targetDir) {
     `${home}`,
     `${home}get-involved`,
     `${home}work-log`,
-  ].concat(wlEntries.map(function (e) { return `${home}work-log/${e.slug}/`; }));
+  ].concat(wlEntries.map(function (e) { return `${home}work-log/${e.slug}`; }));
   fs.writeFileSync(
     path.join(targetDir, 'sitemap.xml'),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
