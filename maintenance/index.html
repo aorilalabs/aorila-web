@@ -38,39 +38,41 @@
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
     }
-    .topspace { flex: 0 0 auto; height: 81px; }
+    .topspace { flex: 0 0 auto; height: clamp(40px, 9vh, 81px); }
     .stage {
-      flex: 1;
+      flex: 1 1 auto;
       display: flex;
       align-items: center;
-      gap: 20px;
+      justify-content: space-between;
+      gap: clamp(28px, 4vw, 72px);
       width: 100%;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 clamp(20px, 3vw, 48px);
     }
-    .hero { flex: 1 1 auto; min-width: 0; position: relative; top: 15px; }
+    .hero { flex: 1 1 auto; min-width: 0; }
     .hero h1 {
       margin: 0 0 14px 0;
       font-family: "Playfair Display", Georgia, "Times New Roman", serif;
       font-weight: 500;
-      font-size: clamp(34px, 5.73vw, 72px);
+      font-size: clamp(34px, 5.2vw, 76px);
       line-height: 1.12;
       letter-spacing: -0.01em;
       color: #ffffff;
-      white-space: nowrap;
     }
     .hero .sub {
       margin: 0;
       font-family: "Playfair Display", Georgia, "Times New Roman", serif;
       font-weight: 400;
-      font-size: clamp(12px, 1.87vw, 18px);
+      font-size: clamp(13px, 1.7vw, 17px);
       line-height: 1.55;
       color: #9c9c9c;
-      white-space: nowrap;
     }
     .worklog {
       width: 316px;
+      max-width: 100%;
       flex: 0 0 auto;
       border: 1px solid rgba(255, 255, 255, 0.16);
       border-radius: 10px;
@@ -107,9 +109,11 @@
     .wl-row .r { text-align: right; }
     footer {
       flex: 0 0 auto;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px clamp(20px, 3vw, 48px) 21px;
       border-top: 1px solid rgba(255, 255, 255, 0.12);
-      margin: 0 20px;
-      padding: 16px 0 21px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -125,13 +129,9 @@
         align-items: stretch;
         justify-content: center;
         gap: 36px;
-        padding: 0 24px;
       }
-      .hero { top: 0; }
-      .hero h1 { font-size: 40px; white-space: normal; }
-      .hero .sub { white-space: normal; }
+      .hero h1 { font-size: 40px; }
       .worklog { width: 100%; }
-      footer { margin: 0 24px; }
     }
   </style>
 </head>
