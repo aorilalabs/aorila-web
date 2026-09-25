@@ -1,0 +1,32 @@
+/* Quiet storefront. White field, light type, no picture. */
+.header{background:#fff}
+main.home .stack{
+  background:#fff;
+  background-image:none;
+  height:100svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+main.home .stack__pin{height:auto;width:100%}
+main.home .stack__word{position:static;top:auto}
+main.home .stack__word > h1.hero-word{
+  font-weight:400;
+  letter-spacing:-0.035em;
+  text-indent:0;
+  text-transform:none;
+  font-size:clamp(52px,7.2vw,96px);
+  line-height:0.95;
+}
+main.home .hero-delivery{
+  letter-spacing:0.18em;
+  font-weight:400;
+  color:rgba(0,0,0,.55);
+  margin-top:28px;
+}
+main.home .hero-cta{margin-top:28px}
+main.home .home-facts{border-color:#e6e6e6}
+main.home .home-fact{border-color:#e6e6e6;padding:64px 32px}
+main.home .home-band{padding-top:96px;padding-bottom:40px}
+main.home .home-reserve{background:#fff;border-top:1px solid #e6e6e6;padding:96px 24px 120px}
+main.home .footer{border-top-color:#e6e6e6}
