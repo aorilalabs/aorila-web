@@ -48,24 +48,6 @@
       margin: 0 auto;
       padding: 0 clamp(20px, 3vw, 48px);
     }
-    .hero { padding-bottom: 8px; }
-    .hero h1 {
-      margin: 0 0 12px 0;
-      font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-      font-weight: 500;
-      font-size: clamp(34px, 5.2vw, 64px);
-      line-height: 1.12;
-      letter-spacing: -0.01em;
-      color: #ffffff;
-    }
-    .hero .lede {
-      margin: 0;
-      font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-      font-weight: 400;
-      font-size: clamp(13px, 1.7vw, 16px);
-      line-height: 1.55;
-      color: #9c9c9c;
-    }
     /* ---- Tab bar ---- */
     .tabs {
       position: sticky;
@@ -74,7 +56,7 @@
       background: #000000;
       display: flex;
       gap: 4px;
-      margin-top: 28px;
+      margin-top: 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       overflow-x: auto;
       scrollbar-width: none;
@@ -118,12 +100,6 @@
       line-height: 1.2;
       letter-spacing: -0.01em;
       color: #ffffff;
-    }
-    .panel .desc {
-      margin: 0;
-      font-size: 13.5px;
-      line-height: 1.6;
-      color: #9c9c9c;
     }
     .details {
       margin-top: 20px;
@@ -193,7 +169,6 @@
     footer a:hover { color: #ffffff; }
     @media (max-width: 700px) {
       .topspace { height: 40px; }
-      .hero h1 { font-size: 40px; }
       .tabs { margin-left: calc(-1 * clamp(20px, 3vw, 48px)); margin-right: calc(-1 * clamp(20px, 3vw, 48px)); padding: 0 clamp(20px, 3vw, 48px); }
       .tabs [role="tab"] { padding: 12px 12px 11px; font-size: 12px; text-align: left; }
     }
@@ -202,11 +177,6 @@
 <body>
   <div class="topspace" aria-hidden="true"></div>
   <main class="docs">
-    <div class="hero">
-      <h1>Get involved.</h1>
-      <p class="lede">Five ways to work with the lab.</p>
-    </div>
-
     <div class="tabs" role="tablist" aria-label="Get involved sections">
       <button role="tab" id="tab-challenges" aria-controls="panel-challenges" aria-selected="true" data-tab="challenges">Open Challenges</button>
       <button role="tab" id="tab-beta" aria-controls="panel-beta" aria-selected="false" data-tab="beta" tabindex="-1">Beta Testing</button>
@@ -216,14 +186,12 @@
     </div>
 
     <section class="panel" role="tabpanel" id="panel-challenges" aria-labelledby="tab-challenges">
-      <p class="desc">Research challenges we open to the public.</p>
       <div class="details">
         <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>No open challenges right now &mdash; new ones get posted here.</span></p>
       </div>
     </section>
 
     <section class="panel" role="tabpanel" id="panel-beta" aria-labelledby="tab-beta">
-      <p class="desc">Try what we're building before it's public.</p>
       <div class="details">
         <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>No beta programs open right now.</span></p>
         <p class="action"><a href="mailto:info@aorila.com?subject=Beta%20access%20request">Request beta access</a></p>
@@ -231,7 +199,6 @@
     </section>
 
     <section class="panel" role="tabpanel" id="panel-careers" aria-labelledby="tab-careers">
-      <p class="desc">Work on research that matters.</p>
       <div class="details">
         <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>No open roles right now.</span></p>
         <p class="action"><a href="mailto:info@aorila.com?subject=Introduction">Introduce yourself</a></p>
@@ -239,7 +206,6 @@
     </section>
 
     <section class="panel" role="tabpanel" id="panel-community" aria-labelledby="tab-community">
-      <p class="desc">Social links.</p>
       <div class="details">
         <div class="links" data-community-links>
           <!-- Real hrefs get added here when Nicholas sends the URLs. -->
@@ -251,7 +217,6 @@
     </section>
 
     <section class="panel" role="tabpanel" id="panel-researchers" aria-labelledby="tab-researchers">
-      <p class="desc">Work together with the lab.</p>
       <div class="details">
         <p class="action" style="margin-top:0"><a href="mailto:info@aorila.com?subject=Research%20collaboration">Email the lab</a></p>
       </div>
