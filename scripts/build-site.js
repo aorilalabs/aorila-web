@@ -139,20 +139,45 @@ function buildConsumer(targetDir) {
   writeRoute(targetDir, 'journal', redirectPage('Redirecting to blog', '/blog/'));
 }
 
+function escHtml(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+// Work-log rows are rendered at build time from sites/labs/work-log.json —
+// the JSON is the single source of truth. Adding entries = editing the JSON.
+function wlRowsHtml(entries, indent) {
+  return entries.map(function (e) {
+    return indent + '<div class="wl-row"><span>' + escHtml(e.date) + '</span><span>' +
+      escHtml(e.project) + '</span><span class="r">' + escHtml(e.run) +
+      '</span><span class="r">' + escHtml(e.status) + '</span></div>';
+  }).join('\n');
+}
+
 async function buildLabs(targetDir) {
   const labsDir = path.join(SITES_DIR, 'labs');
-  // Aorila Labs is a front page plus one second page (/get-involved). Every
+  const wlEntries = JSON.parse(fs.readFileSync(path.join(labsDir, 'work-log.json'), 'utf8'));
+  const wlJson = JSON.stringify(wlEntries);
+  function labsPage(name, indent) {
+    return fs.readFileSync(path.join(labsDir, name), 'utf8')
+      .split('<!--WORKLOG_ROWS-->').join(wlRowsHtml(wlEntries, indent))
+      .split('<!--WORKLOG_JSON-->').join(wlJson);
+  }
+  // Aorila Labs is a front page plus /get-involved and /work-log. Every
   // other route that ever existed on this host bounces back to the front
   // page — the static host overlays deploys instead of wiping, so these
   // deterministic stubs overwrite the ghosts of deleted pages.
-  // NOTE: the homepage, get-involved, and work-log are written verbatim (no
-  // api-origin meta, no bounce script).
-  fs.writeFileSync(path.join(targetDir, 'index.html'), fs.readFileSync(path.join(labsDir, 'index.html'), 'utf8'));
+  // NOTE: the pages are written with rendered work-log rows (no
+  // api-origin meta, no bounce script). work-log.json ships alongside so
+  // the data file is publicly readable too.
+  fs.writeFileSync(path.join(targetDir, 'index.html'), labsPage('index.html', '        '));
+  fs.copyFileSync(path.join(labsDir, 'work-log.json'), path.join(targetDir, 'work-log.json'));
   const getInvolved = fs.readFileSync(path.join(labsDir, 'get-involved.html'), 'utf8');
   fs.writeFileSync(path.join(targetDir, 'get-involved.html'), getInvolved);
   ensureDir(path.join(targetDir, 'get-involved'));
   fs.writeFileSync(path.join(targetDir, 'get-involved', 'index.html'), getInvolved);
-  const workLog = fs.readFileSync(path.join(labsDir, 'work-log.html'), 'utf8');
+  const workLog = labsPage('work-log.html', '          ');
   fs.writeFileSync(path.join(targetDir, 'work-log.html'), workLog);
   ensureDir(path.join(targetDir, 'work-log'));
   fs.writeFileSync(path.join(targetDir, 'work-log', 'index.html'), workLog);
