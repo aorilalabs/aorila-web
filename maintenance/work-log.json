@@ -46,5 +46,65 @@
     "project": "ER-AI",
     "run": "run 15",
     "status": "eval"
+  },
+  {
+    "date": "2026-09-16",
+    "project": "ER-AI",
+    "run": "run 14",
+    "status": "eval up"
+  },
+  {
+    "date": "2026-09-15",
+    "project": "ER-AI",
+    "run": "run 14",
+    "status": "train"
+  },
+  {
+    "date": "2026-09-14",
+    "project": "Atraly adapter",
+    "run": "",
+    "status": "fine-tune"
+  },
+  {
+    "date": "2026-09-13",
+    "project": "ER-AI",
+    "run": "run 13",
+    "status": "eval"
+  },
+  {
+    "date": "2026-09-12",
+    "project": "memory bank",
+    "run": "",
+    "status": "prune"
+  },
+  {
+    "date": "2026-09-11",
+    "project": "ER-AI",
+    "run": "run 13",
+    "status": "train"
+  },
+  {
+    "date": "2026-09-10",
+    "project": "robot planner",
+    "run": "",
+    "status": "nav test"
+  },
+  {
+    "date": "2026-09-09",
+    "project": "ER-AI",
+    "run": "run 12",
+    "status": "eval up"
+  },
+  {
+    "date": "2026-09-08",
+    "project": "Atraly adapter",
+    "run": "",
+    "status": "v0.3"
+  },
+  {
+    "date": "2026-09-07",
+    "project": "ER-AI",
+    "run": "run 12",
+    "status": "train"
   }
 ]
