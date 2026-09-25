@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='white'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-weight='bold' font-size='22' text-anchor='middle' fill='black'%3EA%3C/text%3E%3C/svg%3E" />
+  <title>ER-AI run 16 — Work log — Aorila Labs</title>
+  <meta name="description" content="A work log entry from Aorila Labs." />
+  <link rel="canonical" href="https://aorilalabs.com/work-log/2026-09-21-er-ai-run-16/" />
+  <meta property="og:title" content="ER-AI run 16 — Work log — Aorila Labs" />
+  <meta property="og:description" content="A work log entry from Aorila Labs." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aorilalabs.com/work-log/2026-09-21-er-ai-run-16/" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-68Z6SM8C4B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-68Z6SM8C4B');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: #000000;
+      color: #ffffff;
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+    .topspace { flex: 0 0 auto; height: clamp(40px, 9vh, 81px); }
+    .stage {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: flex-start;
+      width: 100%;
+      padding: 0 clamp(20px, 3vw, 48px);
+    }
+    .hero { width: 100%; max-width: 640px; }
+    .worklog {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 10px;
+      padding: 22px 18px 18px;
+      background: #000000;
+    }
+    .wl-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      font-size: 10.5px;
+      letter-spacing: 0.05em;
+      color: #d4d4d4;
+      white-space: nowrap;
+    }
+    .wl-head a { color: #d4d4d4; text-decoration: none; }
+    .wl-head a:hover { color: #ffffff; }
+    .wl-div {
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+      margin: 11px 0 10px;
+    }
+    .wl-fields { margin: 0; }
+    .wl-fields > div {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      column-gap: 16px;
+      align-items: baseline;
+      padding: 7px 0;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .wl-fields dt {
+      margin: 0;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      color: #6f6f6f;
+      white-space: nowrap;
+    }
+    .wl-fields dd { margin: 0; color: #d4d4d4; }
+    .wl-updates-head {
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      color: #6f6f6f;
+      margin: 2px 0 8px;
+    }
+    .wl-updates p {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #9c9c9c;
+    }
+    .wl-suggest {
+      margin: 26px 0 0;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+    }
+    .wl-suggest a { color: #7f7f7f; text-decoration: none; }
+    .wl-suggest a:hover { color: #ffffff; text-decoration: underline; }
+    footer {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px clamp(20px, 3vw, 48px) 21px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+      color: #7f7f7f;
+    }
+    footer a { color: #7f7f7f; text-decoration: none; }
+    footer a:hover { color: #ffffff; }
+    @media (max-width: 700px) {
+      .topspace { height: 40px; }
+      .wl-fields > div { font-size: 10px; grid-template-columns: 78px 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topspace" aria-hidden="true"></div>
+  <main class="stage">
+    <div class="hero">
+      <div class="worklog" aria-label="Work log entry">
+        <div class="wl-head">
+          <span>WORK LOG</span>
+          <a href="/work-log">&larr; All entries</a>
+        </div>
+        <div class="wl-div"></div>
+        <dl class="wl-fields">
+          <div><dt>DATE</dt><dd>2026-09-21</dd></div>
+          <div><dt>PROJECT</dt><dd>ER-AI</dd></div>
+          <div><dt>RUN</dt><dd>run 16</dd></div>
+          <div><dt>STATUS</dt><dd>stability</dd></div>
+        </dl>
+        <div class="wl-div"></div>
+        <div class="wl-updates">
+          <div class="wl-updates-head">UPDATES</div>
+          <p>No updates yet.</p>
+        </div>
+      </div>
+      <p class="wl-suggest"><a href="mailto:info@aorila.com?subject=Work%20log%20suggestion%3A%202026-09-21%20ER-AI%20run%2016">Suggest an update</a></p>
+    </div>
+  </main>
+  <footer>
+    <span>&copy; 2026 Aorila Labs</span>
+    <a href="/work-log">&larr; Work log</a>
+  </footer>
+</body>
+</html>
