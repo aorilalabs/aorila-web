@@ -108,30 +108,6 @@
       padding: 20px 20px 18px;
       background: #000000;
     }
-    .status {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      margin: 0;
-      font-size: 12.5px;
-      line-height: 1.6;
-      color: #bdbdbd;
-    }
-    .status .dot {
-      flex: 0 0 auto;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      border: 1px solid #6f6f6f;
-      background: transparent;
-      transform: translateY(-1px);
-    }
-    .status .lbl {
-      flex: 0 0 auto;
-      font-size: 10.5px;
-      letter-spacing: 0.12em;
-      color: #7f7f7f;
-    }
     .action { margin: 16px 0 0 0; font-size: 13px; }
     .action a {
       color: #e8e8e8;
@@ -140,7 +116,7 @@
       text-decoration-color: rgba(255, 255, 255, 0.4);
     }
     .action a:hover { color: #ffffff; text-decoration-color: #ffffff; }
-    .links { margin: 16px 0 0 0; display: flex; flex-direction: column; gap: 10px; }
+    .links { margin: 0; display: flex; flex-direction: column; gap: 10px; }
     .links a {
       font-size: 13px;
       color: #e8e8e8;
@@ -187,20 +163,17 @@
 
     <section class="panel" role="tabpanel" id="panel-challenges" aria-labelledby="tab-challenges">
       <div class="details">
-        <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>No open challenges right now &mdash; new ones get posted here.</span></p>
       </div>
     </section>
 
     <section class="panel" role="tabpanel" id="panel-beta" aria-labelledby="tab-beta">
       <div class="details">
-        <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>No beta programs open right now.</span></p>
         <p class="action"><a href="mailto:info@aorila.com?subject=Beta%20access%20request">Request beta access</a></p>
       </div>
     </section>
 
     <section class="panel" role="tabpanel" id="panel-careers" aria-labelledby="tab-careers">
       <div class="details">
-        <p class="status"><span class="dot" aria-hidden="true"></span><span class="lbl">STATUS</span><span>No open roles right now.</span></p>
         <p class="action"><a href="mailto:info@aorila.com?subject=Introduction">Introduce yourself</a></p>
       </div>
     </section>
