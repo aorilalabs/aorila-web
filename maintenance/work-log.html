@@ -135,58 +135,11 @@
     .wl-cols button:hover { color: #d4d4d4; }
     .wl-cols button .arr { color: #d4d4d4; }
     .wl-empty { color: #6f6f6f; }
-    .suggest { margin-top: 30px; }
-    .suggest h2 {
-      margin: 0 0 8px;
-      font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-      font-weight: 500;
-      font-size: 22px;
-      letter-spacing: -0.01em;
-      color: #ffffff;
+    .wl-row a {
+      color: inherit;
+      text-decoration: none;
     }
-    .sg-sub {
-      margin: 0 0 16px;
-      font-size: 11px;
-      line-height: 1.65;
-      color: #9c9c9c;
-    }
-    .sg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .suggest input, .suggest select, .suggest textarea {
-      width: 100%;
-      background: #000000;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 8px;
-      color: #ffffff;
-      font: inherit;
-      font-size: 12px;
-      padding: 10px 12px;
-      margin: 0 0 10px;
-      outline: none;
-    }
-    .suggest input:focus, .suggest select:focus, .suggest textarea:focus {
-      border-color: rgba(255, 255, 255, 0.42);
-    }
-    .suggest input::placeholder, .suggest textarea::placeholder { color: #6f6f6f; }
-    .suggest select { appearance: none; -webkit-appearance: none; }
-    .suggest textarea { resize: vertical; min-height: 92px; line-height: 1.6; }
-    .suggest button[type="submit"] {
-      background: #ffffff;
-      color: #000000;
-      border: none;
-      border-radius: 8px;
-      font: inherit;
-      font-size: 12px;
-      font-weight: 500;
-      padding: 11px 20px;
-      cursor: pointer;
-    }
-    .suggest button[type="submit"]:hover { background: #d4d4d4; }
-    .sg-note {
-      margin: 10px 0 0;
-      font-size: 10px;
-      line-height: 1.65;
-      color: #6f6f6f;
-    }
+    .wl-row a:hover { color: #ffffff; }
     footer {
       flex: 0 0 auto;
       width: 100%;
@@ -208,7 +161,6 @@
       .topspace { height: 40px; }
       .wl-row { font-size: 10px; column-gap: 9px; }
       .wl-cols { column-gap: 9px; }
-      .sg-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -237,42 +189,23 @@
           <button type="button" data-sort="status" aria-sort="none" style="text-align:right">STATUS<span class="arr"></span></button>
         </div>
         <div class="wl-rows" id="wl-rows">
-                    <div class="wl-row"><span>2026-09-24</span><span>ER-AI</span><span class="r">run 18</span><span class="r">eval up</span></div>
-          <div class="wl-row"><span>2026-09-23</span><span>ER-AI</span><span class="r">run 17</span><span class="r">latent drift</span></div>
-          <div class="wl-row"><span>2026-09-22</span><span>Atraly adapter</span><span class="r"></span><span class="r">v0.4</span></div>
-          <div class="wl-row"><span>2026-09-21</span><span>ER-AI</span><span class="r">run 16</span><span class="r">stability</span></div>
-          <div class="wl-row"><span>2026-09-20</span><span>memory bank</span><span class="r"></span><span class="r">compress</span></div>
-          <div class="wl-row"><span>2026-09-19</span><span>robot planner</span><span class="r"></span><span class="r">sim</span></div>
-          <div class="wl-row"><span>2026-09-18</span><span>Atraly adapter</span><span class="r"></span><span class="r">train patch</span></div>
-          <div class="wl-row"><span>2026-09-17</span><span>ER-AI</span><span class="r">run 15</span><span class="r">eval</span></div>
+                    <div class="wl-row"><a href="/work-log/2026-09-24-er-ai-run-18/">2026-09-24</a><a href="/work-log/2026-09-24-er-ai-run-18/">ER-AI</a><a href="/work-log/2026-09-24-er-ai-run-18/" class="r">run 18</a><a href="/work-log/2026-09-24-er-ai-run-18/" class="r">eval up</a></div>
+          <div class="wl-row"><a href="/work-log/2026-09-23-er-ai-run-17/">2026-09-23</a><a href="/work-log/2026-09-23-er-ai-run-17/">ER-AI</a><a href="/work-log/2026-09-23-er-ai-run-17/" class="r">run 17</a><a href="/work-log/2026-09-23-er-ai-run-17/" class="r">latent drift</a></div>
+          <div class="wl-row"><a href="/work-log/2026-09-22-atraly-adapter/">2026-09-22</a><a href="/work-log/2026-09-22-atraly-adapter/">Atraly adapter</a><a href="/work-log/2026-09-22-atraly-adapter/" class="r"></a><a href="/work-log/2026-09-22-atraly-adapter/" class="r">v0.4</a></div>
+          <div class="wl-row"><a href="/work-log/2026-09-21-er-ai-run-16/">2026-09-21</a><a href="/work-log/2026-09-21-er-ai-run-16/">ER-AI</a><a href="/work-log/2026-09-21-er-ai-run-16/" class="r">run 16</a><a href="/work-log/2026-09-21-er-ai-run-16/" class="r">stability</a></div>
+          <div class="wl-row"><a href="/work-log/2026-09-20-memory-bank/">2026-09-20</a><a href="/work-log/2026-09-20-memory-bank/">memory bank</a><a href="/work-log/2026-09-20-memory-bank/" class="r"></a><a href="/work-log/2026-09-20-memory-bank/" class="r">compress</a></div>
+          <div class="wl-row"><a href="/work-log/2026-09-19-robot-planner/">2026-09-19</a><a href="/work-log/2026-09-19-robot-planner/">robot planner</a><a href="/work-log/2026-09-19-robot-planner/" class="r"></a><a href="/work-log/2026-09-19-robot-planner/" class="r">sim</a></div>
+          <div class="wl-row"><a href="/work-log/2026-09-18-atraly-adapter/">2026-09-18</a><a href="/work-log/2026-09-18-atraly-adapter/">Atraly adapter</a><a href="/work-log/2026-09-18-atraly-adapter/" class="r"></a><a href="/work-log/2026-09-18-atraly-adapter/" class="r">train patch</a></div>
+          <div class="wl-row"><a href="/work-log/2026-09-17-er-ai-run-15/">2026-09-17</a><a href="/work-log/2026-09-17-er-ai-run-15/">ER-AI</a><a href="/work-log/2026-09-17-er-ai-run-15/" class="r">run 15</a><a href="/work-log/2026-09-17-er-ai-run-15/" class="r">eval</a></div>
         </div>
       </div>
-      <section class="suggest" aria-label="Suggest an update">
-        <h2>Suggest an update</h2>
-        <p class="sg-sub">Done work you think belongs here, an addition, or a comment &mdash; send it in and we&rsquo;ll take a look.</p>
-        <form id="suggest-form">
-          <div class="sg-grid">
-            <input type="text" name="name" placeholder="Name" required autocomplete="name" />
-            <input type="email" name="email" placeholder="Email" required autocomplete="email" />
-          </div>
-          <select name="type" aria-label="Suggestion type">
-            <option>Work I&rsquo;ve done</option>
-            <option>Addition</option>
-            <option>Comment</option>
-          </select>
-          <input type="url" name="link" placeholder="Link to your work (optional)" autocomplete="url" />
-          <textarea name="message" rows="4" placeholder="What should we know?" required></textarea>
-          <button type="submit">Send suggestion</button>
-          <p class="sg-note">This opens your email app with a draft addressed to info@aorila.com &mdash; nothing is sent automatically.</p>
-        </form>
-      </section>
     </div>
   </main>
   <footer>
     <span>&copy; 2026 Aorila Labs</span>
     <a href="/">&larr; Home</a>
   </footer>
-  <script type="application/json" id="wl-data">[{"date":"2026-09-24","project":"ER-AI","run":"run 18","status":"eval up"},{"date":"2026-09-23","project":"ER-AI","run":"run 17","status":"latent drift"},{"date":"2026-09-22","project":"Atraly adapter","run":"","status":"v0.4"},{"date":"2026-09-21","project":"ER-AI","run":"run 16","status":"stability"},{"date":"2026-09-20","project":"memory bank","run":"","status":"compress"},{"date":"2026-09-19","project":"robot planner","run":"","status":"sim"},{"date":"2026-09-18","project":"Atraly adapter","run":"","status":"train patch"},{"date":"2026-09-17","project":"ER-AI","run":"run 15","status":"eval"}]</script>
+  <script type="application/json" id="wl-data">[{"date":"2026-09-24","project":"ER-AI","run":"run 18","status":"eval up","slug":"2026-09-24-er-ai-run-18"},{"date":"2026-09-23","project":"ER-AI","run":"run 17","status":"latent drift","slug":"2026-09-23-er-ai-run-17"},{"date":"2026-09-22","project":"Atraly adapter","run":"","status":"v0.4","slug":"2026-09-22-atraly-adapter"},{"date":"2026-09-21","project":"ER-AI","run":"run 16","status":"stability","slug":"2026-09-21-er-ai-run-16"},{"date":"2026-09-20","project":"memory bank","run":"","status":"compress","slug":"2026-09-20-memory-bank"},{"date":"2026-09-19","project":"robot planner","run":"","status":"sim","slug":"2026-09-19-robot-planner"},{"date":"2026-09-18","project":"Atraly adapter","run":"","status":"train patch","slug":"2026-09-18-atraly-adapter"},{"date":"2026-09-17","project":"ER-AI","run":"run 15","status":"eval","slug":"2026-09-17-er-ai-run-15"}]</script>
   <script>
     (function () {
       'use strict';
@@ -311,8 +244,12 @@
           return;
         }
         rowsEl.innerHTML = list.map(function (e) {
-          return '<div class="wl-row"><span>' + esc(e.date) + '</span><span>' + esc(e.project) +
-            '</span><span class="r">' + esc(e.run) + '</span><span class="r">' + esc(e.status) + '</span></div>';
+          var href = '/work-log/' + e.slug + '/';
+          return '<div class="wl-row">' +
+            '<a href="' + href + '">' + esc(e.date) + '</a>' +
+            '<a href="' + href + '">' + esc(e.project) + '</a>' +
+            '<a href="' + href + '" class="r">' + esc(e.run) + '</a>' +
+            '<a href="' + href + '" class="r">' + esc(e.status) + '</a></div>';
         }).join('');
       }
       var sortBtns = Array.prototype.slice.call(document.querySelectorAll('[data-sort]'));
@@ -341,19 +278,6 @@
         }
       });
       searchInput.addEventListener('input', render);
-      var form = document.getElementById('suggest-form');
-      form.addEventListener('submit', function (ev) {
-        ev.preventDefault();
-        var name = form.elements.name.value.trim();
-        var email = form.elements.email.value.trim();
-        var type = form.elements.type.value;
-        var link = form.elements.link.value.trim();
-        var msg = form.elements.message.value.trim();
-        var body = 'Name: ' + name + '\nEmail: ' + email + '\nType: ' + type + '\n' +
-          (link ? 'Link: ' + link + '\n' : '') + '\n' + msg;
-        location.href = 'mailto:info@aorila.com?subject=' +
-          encodeURIComponent('Work log suggestion') + '&body=' + encodeURIComponent(body);
-      });
     })();
   </script>
 </body>
