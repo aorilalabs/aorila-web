@@ -147,17 +147,57 @@ function escHtml(s) {
 
 // Work-log rows are rendered at build time from sites/labs/work-log.json —
 // the JSON is the single source of truth. Adding entries = editing the JSON.
+// Every entry gets a stable slug (date + project + run, hyphenated) used for
+// its detail page at /work-log/<slug>/.
+function wlSlug(entry, used) {
+  const base = [entry.date, entry.project, entry.run]
+    .filter(Boolean).join(' ')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  let slug = base;
+  let i = 2;
+  while (used.has(slug)) slug = base + '-' + (i++);
+  used.add(slug);
+  return slug;
+}
+
 function wlRowsHtml(entries, indent) {
   return entries.map(function (e) {
-    return indent + '<div class="wl-row"><span>' + escHtml(e.date) + '</span><span>' +
-      escHtml(e.project) + '</span><span class="r">' + escHtml(e.run) +
-      '</span><span class="r">' + escHtml(e.status) + '</span></div>';
+    const href = '/work-log/' + e.slug + '/';
+    return indent + '<div class="wl-row">' +
+      '<a href="' + href + '">' + escHtml(e.date) + '</a>' +
+      '<a href="' + href + '">' + escHtml(e.project) + '</a>' +
+      '<a href="' + href + '" class="r">' + escHtml(e.run) + '</a>' +
+      '<a href="' + href + '" class="r">' + escHtml(e.status) + '</a></div>';
   }).join('\n');
+}
+
+// Detail page for one work-log entry. No invented copy — just the row's own
+// fields, an honest "No updates yet." placeholder, and a plain-text
+// mailto link for suggestions.
+function wlDetailHtml(template, entry) {
+  const titleBits = [entry.project, entry.run].filter(Boolean).join(' ');
+  const subject = encodeURIComponent(
+    'Work log suggestion: ' + [entry.date, entry.project, entry.run].filter(Boolean).join(' ')
+  );
+  return template
+    .split('<!--ENTRY_TITLE-->').join(escHtml(titleBits + ' — Work log'))
+    .split('<!--ENTRY_SLUG-->').join(entry.slug)
+    .split('<!--ENTRY_DATE-->').join(escHtml(entry.date))
+    .split('<!--ENTRY_PROJECT-->').join(escHtml(entry.project))
+    .split('<!--ENTRY_RUN-->').join(escHtml(entry.run) || '&mdash;')
+    .split('<!--ENTRY_STATUS-->').join(escHtml(entry.status))
+    .split('<!--ENTRY_SUBJECT-->').join(subject);
 }
 
 async function buildLabs(targetDir) {
   const labsDir = path.join(SITES_DIR, 'labs');
-  const wlEntries = JSON.parse(fs.readFileSync(path.join(labsDir, 'work-log.json'), 'utf8'));
+  const rawEntries = JSON.parse(fs.readFileSync(path.join(labsDir, 'work-log.json'), 'utf8'));
+  const usedSlugs = new Set();
+  const wlEntries = rawEntries.map(function (e) {
+    return Object.assign({}, e, { slug: wlSlug(e, usedSlugs) });
+  });
   const wlJson = JSON.stringify(wlEntries);
   function labsPage(name, indent) {
     return fs.readFileSync(path.join(labsDir, name), 'utf8')
@@ -181,21 +221,38 @@ async function buildLabs(targetDir) {
   fs.writeFileSync(path.join(targetDir, 'work-log.html'), workLog);
   ensureDir(path.join(targetDir, 'work-log'));
   fs.writeFileSync(path.join(targetDir, 'work-log', 'index.html'), workLog);
+  // Per-entry detail pages at /work-log/<slug>/ (both the flat file and the
+  // directory copy, matching this host's overlay behavior).
+  const entryTemplate = fs.readFileSync(path.join(labsDir, 'work-log-entry.html'), 'utf8');
+  for (const entry of wlEntries) {
+    const detail = wlDetailHtml(entryTemplate, entry);
+    fs.writeFileSync(path.join(targetDir, 'work-log', entry.slug + '.html'), detail);
+    ensureDir(path.join(targetDir, 'work-log', entry.slug));
+    fs.writeFileSync(path.join(targetDir, 'work-log', entry.slug, 'index.html'), detail);
+  }
   const home = 'https://aorilalabs.com/';
   for (const route of ['terms', 'marketplace', 'developers', 'pricing', 'support',
                        'tp', 'docs', 'sell', 'console', 'compute', 'api',
                        'training', 'models', 'trust', 'contact']) {
     writeRoute(targetDir, route, redirectPage('Aorila Labs', home));
   }
-  // robots.txt + sitemap.xml for the Labs site (front page + get-involved + work-log).
+  // robots.txt + sitemap.xml for the Labs site (front page + get-involved +
+  // work-log + every work-log entry detail page).
   fs.writeFileSync(
     path.join(targetDir, 'robots.txt'),
     'User-agent: *\nAllow: /\nSitemap: https://aorilalabs.com/sitemap.xml\n'
   );
   const lastmod = new Date().toISOString().slice(0, 10);
+  const sitemapUrls = [
+    `${home}`,
+    `${home}get-involved`,
+    `${home}work-log`,
+  ].concat(wlEntries.map(function (e) { return `${home}work-log/${e.slug}/`; }));
   fs.writeFileSync(
     path.join(targetDir, 'sitemap.xml'),
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${home}</loc><lastmod>${lastmod}</lastmod></url>\n  <url><loc>${home}get-involved</loc><lastmod>${lastmod}</lastmod></url>\n  <url><loc>${home}work-log</loc><lastmod>${lastmod}</lastmod></url>\n</urlset>\n`
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+    sitemapUrls.map(function (u) { return `  <url><loc>${u}</loc><lastmod>${lastmod}</lastmod></url>`; }).join('\n') +
+    `\n</urlset>\n`
   );
 }
 
