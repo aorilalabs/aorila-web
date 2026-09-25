@@ -102,6 +102,32 @@
     }
     .nav-cta { min-height: 38px; background: white; color: black; }
     .nav-cta:hover, .nav-cta:focus-visible { background: #d7d7d4; }
+    .nav { position: relative; }
+    .nav-menu-btn {
+      display: inline-flex; flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 40px; height: 40px; padding: 0; cursor: pointer;
+      background: transparent; border: 1px solid var(--inverse-line); border-radius: 10px;
+    }
+    .nav-menu-btn span { display: block; width: 18px; height: 2px; border-radius: 2px; background: white; transition: transform .18s ease, opacity .18s ease; }
+    .nav-menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-menu {
+      position: absolute; top: calc(100% + 10px); right: 0; z-index: 60; min-width: 230px;
+      display: flex; flex-direction: column; padding: 8px;
+      background: #0b0b0b; border: 1px solid var(--inverse-line); border-radius: 14px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.55);
+    }
+    .nav-menu a { padding: 12px 14px; border-radius: 9px; font-size: 14px; font-weight: 500; }
+    .nav-menu a:hover, .nav-menu a:focus-visible { background: rgba(255,255,255,.08); color: white; }
+    .band-dark { background: var(--inverse); color: var(--inverse-ink); border-bottom: 1px solid var(--inverse-line); }
+    .band-dark .section-index { color: var(--inverse-muted); }
+    .band-dark .section-copy { color: var(--inverse-muted); }
+    .band-dark .market-grid { background: var(--inverse-line); border-color: var(--inverse-line); }
+    .band-dark .market-card { background: var(--inverse); }
+    .band-dark .market-card p { color: var(--inverse-muted); }
+    .band-dark .market-link { color: var(--inverse-ink); border-color: var(--inverse-line); }
+    .band-dark .market-link:hover, .band-dark .market-link:focus-visible { border-color: var(--inverse-ink); }
 
     .hero-home { min-height: min(860px, 95svh); }
     .hero-grid {
@@ -314,11 +340,16 @@
     <div class="wrap">
       <nav class="nav" aria-label="Primary navigation">
         <a class="brand" href="/">Aorila Labs</a>
-        <a href="/pricing" class="nav-link-hide">Pricing</a>
-        <a href="/developers" class="nav-link-hide">Developers</a>
-        <a href="/marketplace" class="nav-link-hide">Marketplace</a>
-        <a href="/support">Support</a>
         <a class="nav-cta" href="https://dashboard.aorilalabs.com">Request an API key <span aria-hidden="true">&rarr;</span></a>
+        <button class="nav-menu-btn" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+          <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+        </button>
+        <div class="nav-menu" id="nav-menu" hidden>
+          <a href="https://dashboard.aorilalabs.com/compute">Marketplace</a>
+          <a href="https://dashboard.aorilalabs.com/api">Developers</a>
+          <a href="https://dashboard.aorilalabs.com/credits">Pricing</a>
+          <a href="https://dashboard.aorilalabs.com/support">Support</a>
+        </div>
       </nav>
 
       <div class="hero-grid hero-home">
@@ -327,7 +358,7 @@
           <p class="lead">GPU compute for the AI era. A two-sided marketplace: run workloads on hardware listed by hosts &mdash; or list your own GPUs and earn. Pay only for the minutes you use.</p>
           <div class="actions">
             <a class="button button-primary" href="https://dashboard.aorilalabs.com">Request an API key <span class="arrow" aria-hidden="true">&rarr;</span></a>
-            <a class="button button-secondary" href="/developers">Read the docs</a>
+            <a class="button button-secondary" href="https://dashboard.aorilalabs.com/api">Read the docs</a>
           </div>
         </div>
 
@@ -400,7 +431,7 @@
       </div>
     </section>
 
-    <section class="band" aria-label="Marketplace">
+    <section class="band band-dark" aria-label="Marketplace">
       <div class="wrap">
         <div class="band-head">
           <span class="section-index">02 / MARKETPLACE</span>
@@ -504,11 +535,11 @@
     <div class="wrap footer-inner">
       <span>Aorila Labs</span>
       <div class="footer-links">
-        <a href="/pricing">Pricing</a>
-        <a href="/developers">Developers</a>
-        <a href="/marketplace">Marketplace</a>
+        <a href="https://dashboard.aorilalabs.com/compute">Marketplace</a>
+        <a href="https://dashboard.aorilalabs.com/api">Developers</a>
+        <a href="https://dashboard.aorilalabs.com/credits">Pricing</a>
         <a href="/terms">T &amp; P</a>
-        <a href="/support">Support</a>
+        <a href="https://dashboard.aorilalabs.com/support">Support</a>
       </div>
     </div>
   </footer>
@@ -531,6 +562,24 @@
 
       var button = document.getElementById('copyCode');
       var command = 'curl -X GET \n  https://api.aorilalabs.com/compute/v1/stats \n  -H "Authorization: Bearer YOUR_API_KEY"';
+      (function () {
+        var btn = document.querySelector('.nav-menu-btn');
+        var menu = document.getElementById('nav-menu');
+        if (!btn || !menu) return;
+        function closeMenu() { btn.setAttribute('aria-expanded', 'false'); menu.hidden = true; }
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          if (btn.getAttribute('aria-expanded') === 'true') { closeMenu(); return; }
+          btn.setAttribute('aria-expanded', 'true'); menu.hidden = false;
+        });
+        document.addEventListener('click', function (e) {
+          if (!menu.hidden && !menu.contains(e.target)) closeMenu();
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && !menu.hidden) { closeMenu(); btn.focus(); }
+        });
+      }());
+
       if (button) button.addEventListener('click', function () {
         if (!navigator.clipboard) return;
         navigator.clipboard.writeText(command).then(function () {
