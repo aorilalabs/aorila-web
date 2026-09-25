@@ -236,7 +236,7 @@
           <div class="wl-row"><a href="/work-log/2026-09-18-atraly-adapter/">2026-09-18</a><a href="/work-log/2026-09-18-atraly-adapter/">Atraly adapter</a><a href="/work-log/2026-09-18-atraly-adapter/" class="r"></a><a href="/work-log/2026-09-18-atraly-adapter/" class="r">train patch</a></div>
           <div class="wl-row"><a href="/work-log/2026-09-17-er-ai-run-15/">2026-09-17</a><a href="/work-log/2026-09-17-er-ai-run-15/">ER-AI</a><a href="/work-log/2026-09-17-er-ai-run-15/" class="r">run 15</a><a href="/work-log/2026-09-17-er-ai-run-15/" class="r">eval</a></div>
         </div>
-        <div class="wl-pages" id="wl-pages" hidden></div>
+        <div class="wl-pages" id="wl-pages"></div>
       </div>
     </div>
   </main>
@@ -291,7 +291,6 @@
       }
       function renderPages(totalPages) {
         if (!pagesEl) return;
-        if (totalPages <= 1) { pagesEl.setAttribute('hidden', ''); pagesEl.innerHTML = ''; return; }
         pagesEl.removeAttribute('hidden');
         var html = '<button type="button" data-pg="prev"' + (page <= 1 ? ' disabled' : '') + '>&larr; Prev</button>';
         pageWindow(page, totalPages).forEach(function (n) {
