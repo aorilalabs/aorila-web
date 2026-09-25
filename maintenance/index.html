@@ -112,14 +112,33 @@
     .nav-menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
     .nav-menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-menu-wrap { position: relative; display: inline-flex; }
     .nav-menu {
-      position: absolute; top: calc(100% + 10px); right: 0; z-index: 60; min-width: 230px;
+      position: absolute; top: calc(100% + 12px); right: 0; z-index: 60; min-width: 240px;
       display: flex; flex-direction: column; padding: 8px;
-      background: #0b0b0b; border: 1px solid var(--inverse-line); border-radius: 14px;
-      box-shadow: 0 18px 50px rgba(0,0,0,.55);
+      background: #0b0b0b; border: 1px solid var(--inverse-line); border-radius: 16px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.55), 0 2px 8px rgba(0,0,0,.40);
+      opacity: 0; transform: translateY(-6px) scale(.98); transform-origin: top right;
+      transition: opacity .16s ease, transform .16s ease;
     }
-    .nav-menu a { padding: 12px 14px; border-radius: 9px; font-size: 14px; font-weight: 500; }
+    .nav-menu[hidden] { display: none; }
+    .nav-menu.open { opacity: 1; transform: none; }
+    .nav-menu::before {
+      content: ""; position: absolute; top: -6px; right: 18px; width: 12px; height: 12px;
+      background: #0b0b0b; border-left: 1px solid var(--inverse-line); border-top: 1px solid var(--inverse-line);
+      transform: rotate(45deg);
+    }
+    .nav-menu a {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 12px 14px; border-radius: 10px; font-size: 14px; font-weight: 500; color: #e8e8e6;
+      transition: background .14s ease;
+    }
+    .nav-menu a .go { opacity: 0; transform: translateX(-4px); transition: opacity .14s ease, transform .14s ease; color: #8a8a86; }
     .nav-menu a:hover, .nav-menu a:focus-visible { background: rgba(255,255,255,.08); color: white; }
+    .nav-menu a:hover .go, .nav-menu a:focus-visible .go { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .nav-menu, .nav-menu a .go { transition: none; }
+    }
     .band-dark { background: var(--inverse); color: var(--inverse-ink); border-bottom: 1px solid var(--inverse-line); }
     .band-dark .section-index { color: var(--inverse-muted); }
     .band-dark .section-copy { color: var(--inverse-muted); }
@@ -341,15 +360,17 @@
       <nav class="nav" aria-label="Primary navigation">
         <a class="brand" href="/">Aorila Labs</a>
         <a class="nav-cta" href="https://dashboard.aorilalabs.com">Request an API key <span aria-hidden="true">&rarr;</span></a>
-        <button class="nav-menu-btn" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
-          <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
-        </button>
-        <div class="nav-menu" id="nav-menu" hidden>
-          <a href="https://dashboard.aorilalabs.com/compute">Marketplace</a>
-          <a href="https://dashboard.aorilalabs.com/api">Developers</a>
-          <a href="https://dashboard.aorilalabs.com/credits">Pricing</a>
-          <a href="https://dashboard.aorilalabs.com/support">Support</a>
-        </div>
+        <span class="nav-menu-wrap">
+          <button class="nav-menu-btn" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+            <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+          </button>
+          <div class="nav-menu" id="nav-menu" hidden>
+            <a href="https://dashboard.aorilalabs.com/compute">Marketplace <span class="go" aria-hidden="true">&rarr;</span></a>
+            <a href="https://dashboard.aorilalabs.com/api">Developers <span class="go" aria-hidden="true">&rarr;</span></a>
+            <a href="https://dashboard.aorilalabs.com/credits">Pricing <span class="go" aria-hidden="true">&rarr;</span></a>
+            <a href="https://dashboard.aorilalabs.com/support">Support <span class="go" aria-hidden="true">&rarr;</span></a>
+          </div>
+        </span>
       </nav>
 
       <div class="hero-grid hero-home">
@@ -566,17 +587,37 @@
         var btn = document.querySelector('.nav-menu-btn');
         var menu = document.getElementById('nav-menu');
         if (!btn || !menu) return;
-        function closeMenu() { btn.setAttribute('aria-expanded', 'false'); menu.hidden = true; }
+        function isOpen() { return btn.getAttribute('aria-expanded') === 'true'; }
+        function openMenu() {
+          btn.setAttribute('aria-expanded', 'true');
+          menu.hidden = false;
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () { if (isOpen()) menu.classList.add('open'); });
+          });
+        }
+        function closeMenu() {
+          btn.setAttribute('aria-expanded', 'false');
+          menu.classList.remove('open');
+          menu.hidden = true;
+        }
+        function outside(e) {
+          var t = e.target;
+          return t !== btn && !btn.contains(t) && !menu.contains(t);
+        }
         btn.addEventListener('click', function (e) {
           e.stopPropagation();
-          if (btn.getAttribute('aria-expanded') === 'true') { closeMenu(); return; }
-          btn.setAttribute('aria-expanded', 'true'); menu.hidden = false;
+          if (isOpen()) { closeMenu(); } else { openMenu(); }
         });
         document.addEventListener('click', function (e) {
-          if (!menu.hidden && !menu.contains(e.target)) closeMenu();
+          if (isOpen() && outside(e)) closeMenu();
         });
+        /* iOS Safari does not reliably bubble click from non-interactive elements,
+           so close on touchend outside the menu and button as well. */
+        document.addEventListener('touchend', function (e) {
+          if (isOpen() && outside(e)) closeMenu();
+        }, { passive: true });
         document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape' && !menu.hidden) { closeMenu(); btn.focus(); }
+          if (e.key === 'Escape' && isOpen()) { closeMenu(); btn.focus(); }
         });
       }());
 
