@@ -260,6 +260,7 @@
             <option>Addition</option>
             <option>Comment</option>
           </select>
+          <input type="url" name="link" placeholder="Link to your work (optional)" autocomplete="url" />
           <textarea name="message" rows="4" placeholder="What should we know?" required></textarea>
           <button type="submit">Send suggestion</button>
           <p class="sg-note">This opens your email app with a draft addressed to info@aorila.com &mdash; nothing is sent automatically.</p>
@@ -346,8 +347,10 @@
         var name = form.elements.name.value.trim();
         var email = form.elements.email.value.trim();
         var type = form.elements.type.value;
+        var link = form.elements.link.value.trim();
         var msg = form.elements.message.value.trim();
-        var body = 'Name: ' + name + '\nEmail: ' + email + '\nType: ' + type + '\n\n' + msg;
+        var body = 'Name: ' + name + '\nEmail: ' + email + '\nType: ' + type + '\n' +
+          (link ? 'Link: ' + link + '\n' : '') + '\n' + msg;
         location.href = 'mailto:info@aorila.com?subject=' +
           encodeURIComponent('Work log suggestion') + '&body=' + encodeURIComponent(body);
       });
