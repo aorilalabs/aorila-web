@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#050505" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='white'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-weight='bold' font-size='22' text-anchor='middle' fill='black'%3EA%3C/text%3E%3C/svg%3E" />
+  <title>Support — Aorila Labs</title>
+  <meta name="description" content="Aorila Labs support: help with accounts, billing, API keys, and workloads via the dashboard." />
+  <meta name="aorila-api-origin" content="https://dashboard.aorilalabs.com" />
+  <link rel="canonical" href="https://aorilalabs.com/support" />
+  <meta property="og:title" content="Support — Aorila Labs" />
+  <meta property="og:description" content="Aorila Labs support: help with accounts, billing, API keys, and workloads via the dashboard." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aorilalabs.com/support" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-68Z6SM8C4B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-68Z6SM8C4B');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+    :root {
+      color-scheme: light dark;
+      --page: #f5f5f3;
+      --surface: #ffffff;
+      --ink: #090909;
+      --muted: #5d5d59;
+      --faint: #868681;
+      --line: rgba(9,9,9,.14);
+      --inverse: #050505;
+      --inverse-ink: #f7f7f5;
+      --inverse-muted: #aaa9a4;
+      --inverse-line: rgba(255,255,255,.15);
+      --shadow: rgba(0,0,0,.08);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --page: #090909;
+        --surface: #101010;
+        --ink: #f5f5f2;
+        --muted: #b4b4ae;
+        --faint: #858580;
+        --line: rgba(255,255,255,.15);
+        --inverse: #020202;
+        --inverse-ink: #f7f7f5;
+        --inverse-muted: #aaa9a4;
+        --inverse-line: rgba(255,255,255,.16);
+        --shadow: rgba(0,0,0,.35);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; min-width: 320px; overflow-x: hidden;
+      background: var(--page); color: var(--ink);
+      font-family: "DM Sans", sans-serif; font-size: 16px; line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .wrap { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+
+    .hero {
+      --mx: 68%; --my: 32%;
+      position: relative; overflow: hidden; isolation: isolate;
+      color: var(--inverse-ink); background: var(--inverse);
+      border-bottom: 1px solid var(--inverse-line);
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; z-index: -2;
+      background:
+        radial-gradient(620px circle at var(--mx) var(--my), rgba(255,255,255,.13), rgba(255,255,255,.035) 35%, transparent 70%),
+        linear-gradient(115deg, transparent 0 58%, rgba(255,255,255,.025) 58.1% 58.3%, transparent 58.4%);
+      transition: opacity .25s ease;
+    }
+    .hero::after {
+      content: ""; position: absolute; inset: 0; z-index: -1; opacity: .28;
+      background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+    .nav {
+      height: 72px; display: flex; align-items: center; justify-content: flex-end;
+      gap: 30px; border-bottom: 1px solid var(--inverse-line);
+      font-size: 14px; font-weight: 500;
+    }
+    .nav .brand { margin-right: auto; color: white; font-weight: 600; letter-spacing: -.02em; font-size: 16px; }
+    .nav a:not(.nav-cta) { color: var(--inverse-muted); }
+    .nav a:not(.nav-cta):hover, .nav a:not(.nav-cta):focus-visible { color: white; }
+    .nav a[aria-current="page"] { color: white; }
+    .nav-cta, .button {
+      display: inline-flex; min-height: 44px; align-items: center; justify-content: center;
+      gap: 10px; padding: 0 18px; border-radius: 999px; font-weight: 600; line-height: 1;
+      transition: background .18s ease, color .18s ease, border-color .18s ease;
+    }
+    .nav-cta { min-height: 38px; background: white; color: black; }
+    .nav-cta:hover, .nav-cta:focus-visible { background: #d7d7d4; }
+
+    .hero-home { min-height: min(860px, 95svh); }
+    .hero-grid {
+      display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(420px, .95fr);
+      align-items: center; gap: 80px; padding: 88px 0 110px;
+    }
+    .hero-copy { max-width: 680px; }
+    h1 {
+      max-width: 720px; margin: 0;
+      font-size: clamp(52px, 6.5vw, 94px); line-height: .96;
+      letter-spacing: -.065em; font-weight: 500; text-wrap: balance;
+    }
+    .hero-sub h1 { font-size: clamp(40px, 5vw, 64px); max-width: 800px; }
+    .hero-sub { padding: 84px 0 96px; }
+    .lead {
+      max-width: 590px; margin: 30px 0 0; color: var(--inverse-muted);
+      font-size: clamp(18px, 2vw, 23px); letter-spacing: -.025em; text-wrap: balance;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
+    .button-primary { background: white; color: black; }
+    .button-primary:hover, .button-primary:focus-visible { background: #d9d9d6; }
+    .button-secondary { border: 1px solid rgba(255,255,255,.28); color: white; }
+    .button-secondary:hover, .button-secondary:focus-visible { border-color: white; background: rgba(255,255,255,.08); }
+    .arrow { font-size: 18px; transform: translateY(-1px); }
+
+    .product-stage { position: relative; min-width: 0; perspective: 1000px; }
+    .product-stage::before {
+      content: ""; position: absolute; width: 75%; aspect-ratio: 1; left: 12%; top: 4%;
+      border: 1px solid rgba(255,255,255,.14); border-radius: 50%;
+      transform: rotateX(68deg) translateY(-32%);
+    }
+    .console {
+      position: relative; overflow: hidden; background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,.24);
+      box-shadow: 0 45px 80px rgba(0,0,0,.55);
+      transform: rotateY(-7deg) rotateX(3deg);
+    }
+    .console-bar {
+      height: 48px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 16px; border-bottom: 1px solid var(--inverse-line);
+      color: #c9c9c5; font-size: 12px;
+    }
+    .dots { display: flex; gap: 6px; }
+    .dots i { width: 6px; height: 6px; border-radius: 50%; background: #5e5e5b; }
+    .console-body { padding: 28px; }
+    .console-label { color: #84847f; font: 500 11px/1.3 "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: .09em; }
+    .console-title { margin: 10px 0 25px; font-size: 24px; letter-spacing: -.04em; color: #f7f7f5; }
+    .pipeline { display: grid; gap: 8px; }
+    .pipeline-row {
+      display: grid; grid-template-columns: 24px 1fr auto; align-items: center; gap: 12px;
+      min-height: 57px; padding: 0 14px; background: #0f0f0f;
+      border: 1px solid rgba(255,255,255,.11); color: #dededb; font-size: 13px;
+    }
+    .step {
+      display: grid; width: 21px; height: 21px; place-items: center;
+      border: 1px solid #666662; border-radius: 50%; color: #a6a6a1;
+      font: 11px "IBM Plex Mono", monospace;
+    }
+    .pipeline-row span:last-child { color: #858580; font: 11px "IBM Plex Mono", monospace; }
+    .usage-rule { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--inverse-line); color: #9c9c97; font-size: 12px; }
+
+    .principles { border-bottom: 1px solid var(--line); }
+    .principle-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .principle { min-height: 190px; padding: 38px 40px 42px 0; border-right: 1px solid var(--line); }
+    .principle + .principle { padding-left: 40px; }
+    .principle:last-child { border-right: 0; }
+    .principle-num { color: var(--faint); font: 12px "IBM Plex Mono", monospace; }
+    .principle h2 { margin: 35px 0 8px; font-size: 19px; letter-spacing: -.025em; font-weight: 600; }
+    .principle p { margin: 0; max-width: 290px; color: var(--muted); font-size: 15px; }
+
+    .band { padding: 125px 0; border-bottom: 1px solid var(--line); }
+    .band-head { max-width: 720px; margin-bottom: 64px; }
+    .section-index { display: inline-block; margin-bottom: 34px; color: var(--faint); font: 12px "IBM Plex Mono", monospace; }
+    .band h2, .split h2, .closing h2 { margin: 0; font-size: clamp(38px, 5vw, 66px); line-height: 1.02; letter-spacing: -.055em; font-weight: 500; text-wrap: balance; }
+    .section-copy { margin: 25px 0 0; max-width: 500px; color: var(--muted); font-size: 18px; }
+
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+    .step-card { padding: 36px 36px 40px 0; border-right: 1px solid var(--line); }
+    .step-card + .step-card { padding-left: 36px; }
+    .step-card:last-child { border-right: 0; }
+    .step-card .principle-num { display: block; margin-bottom: 24px; }
+    .step-card h3 { margin: 0 0 10px; font-size: 21px; letter-spacing: -.03em; font-weight: 600; }
+    .step-card p { margin: 0; color: var(--muted); font-size: 15px; max-width: 300px; }
+
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .feature { background: var(--page); padding: 34px 30px 38px; }
+    .feature h3 { margin: 0 0 10px; font-size: 18px; letter-spacing: -.025em; font-weight: 600; }
+    .feature p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    .split { display: grid; grid-template-columns: .82fr 1.18fr; gap: 110px; padding: 130px 0; border-bottom: 1px solid var(--line); }
+    .rules { border-top: 1px solid var(--line); margin: 0; }
+    .rule { display: grid; grid-template-columns: 90px 1fr; padding: 25px 0; border-bottom: 1px solid var(--line); }
+    .rule dt { color: var(--faint); font: 12px "IBM Plex Mono", monospace; }
+    .rule dd { margin: 0; font-size: 18px; letter-spacing: -.02em; }
+
+    .developer { padding: 125px 0; background: var(--ink); color: var(--page); }
+    .developer-grid { display: grid; grid-template-columns: .74fr 1.26fr; gap: 95px; align-items: start; }
+    .developer h2 { margin: 0; max-width: 410px; font-size: clamp(38px, 5vw, 62px); line-height: 1.04; letter-spacing: -.052em; font-weight: 500; }
+    .developer p { max-width: 430px; color: color-mix(in srgb, var(--page) 64%, transparent); font-size: 17px; }
+    .developer .section-index { color: color-mix(in srgb, var(--page) 45%, transparent); }
+    .code-panel { background: var(--page); color: var(--ink); border: 1px solid color-mix(in srgb, var(--page) 18%, transparent); }
+    .code-head { min-height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 18px; border-bottom: 1px solid var(--line); }
+    .code-head span { font: 12px "IBM Plex Mono", monospace; color: var(--muted); }
+    .copy { padding: 7px 11px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; font-size: 12px; }
+    .copy:hover, .copy:focus-visible { background: var(--ink); color: var(--page); }
+    pre { margin: 0; padding: 30px; overflow-x: auto; white-space: pre-wrap; word-break: break-word; color: var(--ink); font: 13px/1.8 "IBM Plex Mono", monospace; }
+    .token-muted { color: var(--muted); }
+    .code-note { margin-top: 16px; font-size: 13px; color: color-mix(in srgb, var(--page) 55%, transparent); max-width: 520px; }
+
+    .faq { border-top: 1px solid var(--line); }
+    .faq-item { padding: 30px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px; }
+    .faq-item h3 { margin: 0; font-size: 19px; letter-spacing: -.025em; font-weight: 600; }
+    .faq-item p { margin: 0; color: var(--muted); font-size: 16px; max-width: 560px; }
+
+    .notice {
+      border: 1px solid var(--line); background: var(--surface);
+      padding: 28px 30px; margin-top: 48px; max-width: 760px;
+    }
+    .notice h3 { margin: 0 0 8px; font-size: 17px; letter-spacing: -.02em; }
+    .notice p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    .closing { padding: 120px 0; }
+    .closing-inner { display: flex; align-items: flex-end; justify-content: space-between; gap: 50px; }
+    .closing h2 { max-width: 700px; }
+    .closing .button { flex: 0 0 auto; background: var(--ink); color: var(--page); }
+    .closing .button:hover, .closing .button:focus-visible { opacity: .72; }
+
+    .legal-body { padding: 90px 0 110px; border-bottom: 1px solid var(--line); }
+    .legal-body h2 { margin: 64px 0 16px; font-size: 28px; letter-spacing: -.04em; font-weight: 600; }
+    .legal-body h2:first-child { margin-top: 0; }
+    .legal-body h3 { margin: 34px 0 10px; font-size: 18px; letter-spacing: -.025em; font-weight: 600; }
+    .legal-body p, .legal-body li { color: var(--muted); font-size: 16px; max-width: 760px; }
+    .legal-body ul { padding-left: 22px; }
+
+    footer { border-top: 1px solid var(--line); }
+    .footer-inner { min-height: 92px; display: flex; align-items: center; justify-content: space-between; gap: 24px; color: var(--muted); font-size: 13px; }
+    .footer-links { display: flex; gap: 26px; flex-wrap: wrap; }
+    .footer-links a:hover, .footer-links a:focus-visible { color: var(--ink); }
+
+    :focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+    @media (max-width: 900px) {
+      .hero-home { min-height: auto; }
+      .hero-grid { grid-template-columns: 1fr; gap: 68px; padding: 70px 0 88px; }
+      .hero-copy { max-width: 740px; }
+      .product-stage { width: min(620px, 95%); justify-self: center; }
+      .console { transform: none; }
+      .principle-grid { grid-template-columns: 1fr; }
+      .principle, .principle + .principle { min-height: auto; padding: 28px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+      .principle:last-child { border-bottom: 0; }
+      .principle h2 { margin-top: 18px; }
+      .steps { grid-template-columns: 1fr; }
+      .step-card, .step-card + .step-card { padding: 28px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+      .step-card:last-child { border-bottom: 0; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .split, .developer-grid { grid-template-columns: 1fr; gap: 60px; }
+      .split { padding: 95px 0; }
+      .developer, .band { padding: 95px 0; }
+      .faq-item { grid-template-columns: 1fr; gap: 12px; }
+    }
+    @media (max-width: 640px) {
+      .wrap { width: min(100% - 32px, 1180px); }
+      .nav { height: 64px; gap: 18px; }
+      .nav .nav-link-hide { display: none; }
+      .nav-cta { margin-left: auto; padding-inline: 15px; }
+      .hero-grid { padding: 58px 0 72px; gap: 55px; }
+      .hero-sub { padding: 60px 0 70px; }
+      h1 { font-size: clamp(48px, 15vw, 67px); }
+      .hero-sub h1 { font-size: clamp(38px, 11vw, 52px); }
+      .lead { margin-top: 24px; font-size: 18px; }
+      .actions { margin-top: 31px; }
+      .button { width: 100%; }
+      .product-stage { width: 100%; }
+      .console-body { padding: 20px; }
+      .console-title { font-size: 21px; }
+      .pipeline-row { grid-template-columns: 24px 1fr; padding: 9px 12px; }
+      .pipeline-row span:last-child { grid-column: 2; }
+      .principle { padding: 25px 0; }
+      .split, .developer, .band { padding: 75px 0; }
+      .rule { grid-template-columns: 65px 1fr; gap: 8px; }
+      .rule dd { font-size: 16px; }
+      .developer-grid { gap: 42px; }
+      pre { padding: 22px 18px; font-size: 12px; }
+      .closing { padding: 76px 0; }
+      .closing-inner { align-items: stretch; flex-direction: column; }
+      .footer-inner { align-items: flex-start; flex-direction: column; justify-content: center; padding: 25px 0; }
+    }
+    @media (hover: none), (pointer: coarse) {
+      .hero::before { background: radial-gradient(520px circle at 70% 27%, rgba(255,255,255,.11), transparent 70%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+      .hero::before { background: radial-gradient(520px circle at 70% 27%, rgba(255,255,255,.11), transparent 70%); }
+    }
+
+  </style>
+</head>
+<body>
+  <header class="hero" id="hero">
+    <div class="wrap">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="/">Aorila Labs</a>
+        <a href="/pricing" class="nav-link-hide">Pricing</a>
+        <a href="/developers" class="nav-link-hide">Developers</a>
+        <a href="/support" aria-current="page">Support</a>
+        <a class="nav-cta" href="https://dashboard.aorilalabs.com">Request an API key <span aria-hidden="true">&rarr;</span></a>
+      </nav>
+
+      <div class="wrap hero-sub">
+        <div class="hero-copy">
+          <span class="section-index" style="color: var(--inverse-muted)">SUPPORT</span>
+          <h1>Help lives in your dashboard.</h1>
+          <p class="lead">Account, billing, and workload support are handled where your compute runs.</p>
+          <div class="actions">
+            <a class="button button-primary" href="https://dashboard.aorilalabs.com">Open the dashboard <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="band" aria-label="Get support">
+      <div class="wrap">
+        <div class="band-head">
+          <span class="section-index">01 / CONTACT</span>
+          <h2>Two ways to get unstuck.</h2>
+        </div>
+        <div class="steps">
+          <div class="step-card">
+            <span class="principle-num">01</span>
+            <h3>Dashboard support</h3>
+            <p>Sign in to the dashboard for account, billing, and workload help tied to your usage.</p>
+          </div>
+          <div class="step-card">
+            <span class="principle-num">02</span>
+            <h3>Read the answers first</h3>
+            <p>Most questions about billing and keys are answered below.</p>
+          </div>
+          <div class="step-card">
+            <span class="principle-num">03</span>
+            <h3>One login everywhere</h3>
+            <p>Your dashboard login works across Aorila, Aorila Labs, and Atraly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" aria-label="Support questions">
+      <div class="wrap">
+        <div class="band-head">
+          <span class="section-index">02 / FAQ</span>
+          <h2>Common questions.</h2>
+        </div>
+        <div class="faq">
+          <div class="faq-item"><h3>How do I get an API key?</h3><p>Request one from the dashboard. Keys are issued to your account there.</p></div>
+          <div class="faq-item"><h3>Why did my workload stop?</h3><p>Workloads stop automatically when your credit balance reaches $0. Add credits in the dashboard to resume.</p></div>
+          <div class="faq-item"><h3>How am I billed?</h3><p>Per minute of compute at 1 credit = $1. There are no contracts and no minimum spend.</p></div>
+          <div class="faq-item"><h3>I lost my API key. What now?</h3><p>Revoke it in the dashboard and issue a new one. Never share keys in chat, logs, or screenshots.</p></div>
+        </div>
+      </div>
+    </section>
+    <section class="closing">
+      <div class="wrap closing-inner">
+        <h2>Still stuck? The dashboard is the fastest route.</h2>
+        <a class="button" href="https://dashboard.aorilalabs.com">Request an API key <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      </div>
+    </section>
+
+  </main>
+  <footer>
+    <div class="wrap footer-inner">
+      <span>Aorila Labs</span>
+      <div class="footer-links">
+        <a href="/pricing">Pricing</a>
+        <a href="/developers">Developers</a>
+        <a href="/terms">T &amp; P</a>
+        <a href="/support">Support</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    (function () {
+      var hero = document.getElementById('hero');
+      if (!hero) return;
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+      function moveGlow(event) {
+        if (reduced.matches || !finePointer.matches) return;
+        var box = hero.getBoundingClientRect();
+        var x = ((event.clientX - box.left) / box.width) * 100;
+        var y = ((event.clientY - box.top) / box.height) * 100;
+        hero.style.setProperty('--mx', x.toFixed(2) + '%');
+        hero.style.setProperty('--my', y.toFixed(2) + '%');
+      }
+      hero.addEventListener('pointermove', moveGlow, { passive: true });
+    }());
+
+  </script>
+</body>
+</html>
