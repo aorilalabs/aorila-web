@@ -3,10 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="refresh" content="0; url=/">
-<title>Aorila</title>
-<meta name="robots" content="noindex">
-<link rel="canonical" href="https://aorila.com/">
+<title>Status — Aorila</title>
+<meta name="description" content="Service status for aorila.com.">
+<link rel="canonical" href="https://aorila.com/status/">
+<meta name="robots" content="noindex,follow">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body></body>
+<body>
+<header class="header" id="site-header">
+  <button class="header__menu-btn" id="menu-btn">Menu</button>
+  <nav class="header__nav"><a class="header__link" href="../robots/">Robotics</a><a class="header__link" href="../company/">Company</a></nav>
+  <a class="header__wordmark" href="../"><img src="../assets/img/logo.svg" alt="Aorila"></a>
+  <div class="header__tools"><a class="header__link" href="../">Home</a></div>
+</header>
+<main><div class="page page--narrow"><h1>Status</h1>
+<p id="status-summary" class="status-summary">Checking aorila.com…</p>
+<div id="status-list" class="status-list"></div>
+</div>
+<script>
+(function(){
+  var s={name:"Aorila",host:"aorila.com",url:"https://aorila.com/"};
+  var list=document.getElementById("status-list");
+  var summary=document.getElementById("status-summary");
+  fetch(s.url+"?t="+Date.now(),{cache:"no-store"}).then(function(r){
+    var up=r.ok;
+    list.innerHTML='<div class="status-row"><div><div class="status-name">'+s.name+'</div><div class="status-host">'+s.host+'</div></div><span class="status-pill '+(up?'status-pill--up':'status-pill--down')+'">'+(up?'Operational':'Unreachable')+'</span></div>';
+    summary.textContent=up?'All systems operational.':'aorila.com is unreachable.';
+  }).catch(function(){
+    summary.textContent='aorila.com is unreachable.';
+  });
+})();
+</script></main>
+<script src="../assets/js/main.js"></script>
+</body>
 </html>

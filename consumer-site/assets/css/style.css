@@ -94,7 +94,7 @@ img{display:block;max-width:100%}
 .grid{display:grid;grid-template-columns:repeat(5,1fr);
   border-left:1px solid var(--ink)}
 .card{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);display:block}
-.divisions-grid{grid-template-columns:repeat(3,1fr)}
+.divisions-grid{grid-template-columns:repeat(2,1fr)}
 .card__media{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff}
 .card__media img,.card__media .tile{width:100%;height:100%;object-fit:cover;object-position:22% 50%;
   transition:transform .35s ease}
