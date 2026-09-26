@@ -1,14 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /blog/
-Disallow: /company/
-Disallow: /contact/
-Disallow: /divisions/
 Disallow: /login/
 Disallow: /signup/
-Disallow: /press/
-Disallow: /status/
-Disallow: /security/
-Disallow: /robots/
-Disallow: /policies/
 Sitemap: https://aorila.com/sitemap.xml
