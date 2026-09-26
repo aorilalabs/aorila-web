@@ -30,3 +30,18 @@
 }
 
 .frame .kicker + .facts{margin-top:22px}
+
+.frame--last{height:auto;min-height:100svh}
+.frame--last .frame__copy{
+  position:relative;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;
+  padding-bottom:28px;
+}
+.pills{display:flex;gap:12px;flex-wrap:wrap}
+.home .footer{
+  background:transparent;border-top:1px solid rgba(255,255,255,.35);
+  color:#fff;margin:28px 0 0;padding:22px 0 0;max-width:none;
+}
+.home .fcol__head,.home .footer button{color:#fff}
+.home .fcol__body a{color:rgba(255,255,255,.82)}
+.home .fcol__body a:hover{color:#fff}
