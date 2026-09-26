@@ -3,59 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sign in — Aorila</title>
-<meta name="description" content="Sign in to your Aorila account.">
-<link rel="canonical" href="https://aorila.com/login/">
-<meta name="robots" content="noindex,follow">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Aorila">
-<meta property="og:title" content="Sign in — Aorila">
-<meta property="og:description" content="Sign in to your Aorila account.">
-<meta property="og:url" content="https://aorila.com/login/">
-<meta property="og:image" content="https://aorila.com/assets/img/logo.svg">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sign in — Aorila">
-<meta name="twitter:description" content="Sign in to your Aorila account.">
-<meta name="twitter:image" content="https://aorila.com/assets/img/logo.svg">
-
-<link rel="icon" href="../favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../assets/css/style.css">
+<meta http-equiv="refresh" content="0; url=/">
+<title>Aorila</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://aorila.com/">
 </head>
-<body>
-<main class="authpage">
-<div class="auth-card">
-  <a class="auth-wordmark" href="../">Aorila</a>
-  <div class="auth-err" id="auth-err" role="alert"></div>
-  <h1>Sign in to Aorila.</h1>
-  <p class="lede">One login for Aorila, Aorila Labs, and Atraly.</p>
-  <form method="post" action="https://console.aorila.com/login">
-    <input type="hidden" id="f-next" name="next" value="/account">
-    
-    <label>Email<input id="f-email" name="email" type="email" required autocomplete="email"></label>
-    <label>Password<input name="password" type="password" required minlength="8" autocomplete="current-password"></label>
-    <button class="btn btn--round" type="submit"><span class="rl"><i>Sign in</i><i aria-hidden="true">Sign in</i></span></button>
-  </form>
-  <p class="auth-alt">No account? <a href="../signup/">Create one</a>.</p>
-</div></main>
-<script>
-(function(){
-  "use strict";
-  var q = new URLSearchParams(location.search);
-  var err = q.get("error"), email = q.get("email"), next = q.get("next");
-  if (err) {
-    var box = document.getElementById("auth-err");
-    box.textContent = err;
-    box.classList.add("auth-err--on");
-  }
-  if (email) {
-    var em = document.getElementById("f-email");
-    if (em) em.value = email;
-  }
-  if (next && next.charAt(0) === "/" && next.charAt(1) !== "/") {
-    var nx = document.getElementById("f-next");
-    if (nx) nx.value = next;
-  }
-})();
-</script>
-</body>
+<body></body>
 </html>
