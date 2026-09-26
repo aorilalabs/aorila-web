@@ -3,59 +3,76 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aorila — Home robot in development</title>
-<meta name="description" content="Aorila is building a home robot. Model A. Early 2028.">
+<title>Aorila — Model A Home Robot</title>
+<meta name="description" content="Aorila builds Model A, a customizable home robot. Presale open. Early 2028 delivery. Columbia, South Carolina.">
 <link rel="canonical" href="https://aorila.com/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Aorila">
-<meta property="og:description" content="Aorila is building a home robot. Model A. Early 2028.">
+<meta property="og:site_name" content="Aorila">
+<meta property="og:title" content="Aorila — Model A Home Robot">
+<meta property="og:description" content="Aorila builds Model A, a customizable home robot. Presale open. Early 2028 delivery. Columbia, South Carolina.">
 <meta property="og:url" content="https://aorila.com/">
+<meta property="og:image" content="https://aorila.com/assets/img/logo.svg">
+<meta name="twitter:card" content="summary">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{
-  min-height:100svh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#f4f4f1;
-  color:#111;
-  font-family:Helvetica,Arial,sans-serif;
-  text-align:center;
-  padding:32px;
-}
-.mark{
-  font-size:clamp(42px,8vw,92px);
-  font-weight:400;
-  letter-spacing:0.42em;
-  text-indent:0.42em;
-  text-transform:uppercase;
-  line-height:1;
-}
-.line{
-  margin:28px auto 0;
-  max-width:28em;
-  font-size:15px;
-  line-height:1.5;
-  letter-spacing:0.01em;
-}
-.mail{
-  display:inline-block;
-  margin-top:22px;
-  color:#111;
-  font-size:13px;
-  letter-spacing:0.08em;
-  text-decoration:none;
-  border-bottom:1px solid rgba(0,0,0,.35);
-}
-</style>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/home.css">
 </head>
 <body>
-<main>
-  <p class="mark">Aorila</p>
-  <p class="line">Aorila is building a home robot. Model A. Early 2028.</p>
-  <a class="mail" href="mailto:info@aorila.com">info@aorila.com</a>
+<header class="header" id="site-header">
+  <button class="header__menu-btn" id="menu-btn">Menu</button>
+  <nav class="header__nav" id="nav-left"><a class="header__link" href="robots/" data-drop="drop-robots">Robotics</a><a class="header__link" href="company/" data-drop="drop-company">Company</a></nav>
+  <a class="header__wordmark" href="/" aria-label="Aorila home"><img src="assets/img/logo.svg" alt="Aorila"></a>
+  <div class="header__tools">
+    <a class="header__link" href="press/">Press</a>
+    <a class="header__link" href="login/">Account</a>
+  </div>
+</header>
+<div class="navdrop" id="drop-robots"><a href="robots/">Presale</a><a href="blog/">Blog</a><a href="contact/">Contact</a></div>
+<div class="navdrop" id="drop-company"><a href="company/">About</a><a href="https://aorilalabs.com">Aorila Labs</a></div>
+<div class="mnav" id="mnav">
+  <div class="mnav__top"><span class="u">Menu</span><button class="txtbtn" id="mnav-close">Close</button></div>
+  <a class="mlink" href="robots/">Presale</a>
+  <a class="mlink" href="company/">Company</a>
+  <a class="mlink" href="https://aorilalabs.com">Aorila Labs</a>
+  <a class="mlink" href="press/">Press</a>
+  <a class="mlink" href="login/">Account</a>
+</div>
+<main class="home">
+<section class="stack" id="stack">
+  <div class="stack__pin"><div class="stack__word"><h1 class="hero-word">Meet the home robot</h1>
+    <p class="hero-delivery">Early 2028 delivery</p>
+    <div class="hero-cta">
+      <a class="btn btn--round" href="robots/"><span class="rl"><i>Model A</i><i aria-hidden="true">Model A</i></span></a>
+    </div>
+  </div></div>
+</section>
+<section class="home-band" id="intro">
+  <p class="home-kicker">Aorila</p>
+  <h2>One product.</h2>
+  <p class="home-lede">Model A is Aorila’s only robot. Customizable. Zero setup. No subscription.</p>
+</section>
+<section class="home-facts" id="facts">
+  <div class="home-fact"><b>5 ft</b><span>Human-scale height</span></div>
+  <div class="home-fact"><b>Full-day</b><span>Battery, endurance-first</span></div>
+  <div class="home-fact"><b>360°</b><span>Vision, no LiDAR hump</span></div>
+  <div class="home-fact"><b>$0</b><span>Subscription, ever</span></div>
+</section>
+<section class="home-reserve" id="reserve">
+  <p class="home-kicker">Presale</p>
+  <h2>Reserve a place.</h2>
+  <p class="home-lede">$50 fully refundable deposit, or $4,999 outright.</p>
+  <div class="home-reserve__row">
+    <a class="btn" href="robots/"><span class="rl"><i>See Model A</i><i aria-hidden="true">See Model A</i></span></a>
+    <a class="btn btn--outline" href="contact/"><span class="rl"><i>Contact</i><i aria-hidden="true">Contact</i></span></a>
+  </div>
+</section>
 </main>
+<footer class="footer">
+<div class="fcol"><button class="fcol__head">Policies</button><div class="fcol__body"><a href="policies/terms.html">Terms</a><a href="policies/privacy.html">Privacy</a><a href="policies/accessibility.html">Accessibility</a></div></div>
+<div class="fcol"><button class="fcol__head">Support</button><div class="fcol__body"><a href="contact/">Contact</a><a href="status/">Status</a></div></div>
+<div class="fcol"><button class="fcol__head">Company</button><div class="fcol__body"><a href="company/">About</a><a href="https://aorilalabs.com">Aorila Labs</a><a href="robots/">Model A</a></div></div>
+</footer>
+<div class="scrim" id="scrim"></div>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
