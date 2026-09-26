@@ -2,86 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Model A — Aorila</title>
-<meta name="description" content="Model A is Aorila’s home robot. In development. Not for sale. Early 2028.">
-<link rel="canonical" href="https://aorila.com/robots/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Aorila">
-<meta property="og:title" content="Model A — Aorila">
-<meta property="og:url" content="https://aorila.com/robots/">
-<meta property="og:image" content="https://aorila.com/assets/img/logo.svg">
-<meta name="twitter:card" content="summary">
-<link rel="icon" href="../favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/product.css">
-<link rel="stylesheet" href="../assets/css/home.css">
+<meta http-equiv="refresh" content="0;url=/projects/">
+<link rel="canonical" href="https://aorila.com/projects/">
+<title>Projects — Aorila</title>
 </head>
 <body>
-<header class="header" id="site-header">
-  <button class="header__menu-btn" id="menu-btn">Menu</button>
-  <nav class="header__nav" id="nav-left"><a class="header__link" href="../robots/">Model A</a><a class="header__link" href="../company/">Company</a></nav>
-  <a class="header__wordmark" href="../" aria-label="Aorila home"><img src="../assets/img/logo.svg" alt="Aorila"></a>
-  <div class="header__tools"><a class="header__link" href="../press/">Press</a><a class="header__link" href="../contact/">Contact</a></div>
-</header>
-<div class="mnav" id="mnav">
-  <div class="mnav__top"><span class="u">Menu</span><button class="txtbtn" id="mnav-close">Close</button></div>
-  <a class="mlink" href="../robots/">Model A</a>
-  <a class="mlink" href="../company/">Company</a>
-  <a class="mlink" href="../press/">Press</a>
-  <a class="mlink" href="../contact/">Contact</a>
-</div>
-<main>
-<div class="presale">
-  <p class="presale__eyebrow">In development</p>
-  <h1>Model A</h1>
-  <p class="presale__tag">Aorila’s only product. Customizable home robot. Zero setup.</p>
-  <p class="presale__price">Not for sale. The plan, when it is, is $4,999 or a $50 refundable deposit. Early 2028.</p>
-  <div class="presale__ctas">
-    <a class="btn" href="mailto:info@aorila.com?subject=Model%20A"><span class="rl"><i>Write us</i><i aria-hidden="true">Write us</i></span></a>
-  </div>
-  <p class="presale__note">There is no checkout on this site. Email is the only step.</p>
-  <div class="config" id="configure">
-    <h2>A note for later</h2>
-    <p>Pick a finish if you want us to remember it. This does not place an order.</p>
-    <div class="config__row"><p class="config__label">Finish</p><div class="config__opts" data-key="finish"><button type="button" class="opt opt--sel" data-val="Bone">Bone</button><button type="button" class="opt" data-val="Graphite">Graphite</button><button type="button" class="opt" data-val="Custom">Custom color</button></div></div>
-    <div class="config__row"><p class="config__label">Hands</p><div class="config__opts" data-key="hands"><button type="button" class="opt opt--sel" data-val="Standard">Standard</button><button type="button" class="opt" data-val="Dexterous">Dexterous</button></div></div>
-    <p class="config__out" id="config-out">Your Model A: Bone · Standard hands</p>
-  </div>
-  <div class="presale__specs">
-    <div class="presale__spec"><b>5 ft</b><span>Planned height</span></div>
-    <div class="presale__spec"><b>Full-day</b><span>Planned battery</span></div>
-    <div class="presale__spec"><b>360°</b><span>Planned vision</span></div>
-    <div class="presale__spec"><b>$0</b><span>No subscription planned</span></div>
-  </div>
-  <div class="presale__accs">
-    <div class="acc acc--open"><button class="acc__head">Description <span class="pm">−</span></button><div class="acc__body"><p>Model A is the only robot Aorila is building. It is not finished and it is not for sale.</p></div></div>
-    <div class="acc"><button class="acc__head">Billing <span class="pm">+</span></button><div class="acc__body"><p>Nothing to pay today. When presale opens, the plan is a $50 refundable deposit or $4,999. Until then, write to info@aorila.com.</p></div></div>
-    <div class="acc"><button class="acc__head">Delivery <span class="pm">+</span></button><div class="acc__body"><p>Early 2028.</p></div></div>
-  </div>
-</div>
-</main>
-<footer class="footer">
-<div class="fcol"><button class="fcol__head">Policies</button><div class="fcol__body"><a href="../policies/terms.html">Terms</a><a href="../policies/privacy.html">Privacy</a><a href="../policies/accessibility.html">Accessibility</a></div></div>
-<div class="fcol"><button class="fcol__head">Support</button><div class="fcol__body"><a href="../contact/">Contact</a></div></div>
-<div class="fcol"><button class="fcol__head">Company</button><div class="fcol__body"><a href="../company/">About</a><a href="../robots/">Model A</a><a href="https://aorilalabs.com">Aorila Labs</a></div></div>
-</footer>
-<div class="scrim" id="scrim"></div>
-<script src="../assets/js/main.js"></script>
-<script>
-(function(){
-  var state={finish:"Bone",hands:"Standard"};
-  var out=document.getElementById("config-out");
-  document.querySelectorAll(".config__opts").forEach(function(row){
-    row.addEventListener("click",function(e){
-      var btn=e.target.closest(".opt"); if(!btn) return;
-      row.querySelectorAll(".opt").forEach(function(b){b.classList.remove("opt--sel")});
-      btn.classList.add("opt--sel");
-      state[row.getAttribute("data-key")]=btn.getAttribute("data-val");
-      out.textContent="Your Model A: "+state.finish+" · "+state.hands+" hands";
-    });
-  });
-})();
-</script>
+<p><a href="/projects/">Projects</a></p>
 </body>
 </html>

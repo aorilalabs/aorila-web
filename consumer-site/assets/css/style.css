@@ -299,3 +299,7 @@ main.home .stack{
 .presale__spec span{font-size:13px;color:rgba(0,0,0,.6);line-height:1.5}
 .presale__accs{max-width:720px;margin:0 auto;text-align:left}
 @media(max-width:720px){.presale__specs{grid-template-columns:repeat(2,1fr);gap:24px}.presale__ctas .btn{min-width:0;flex:1 1 220px}}
+
+.blank{min-height:100vh;display:flex;flex-direction:column;background:#fff}
+.blank main{flex:1}
+.blank .header{background:#fff}
