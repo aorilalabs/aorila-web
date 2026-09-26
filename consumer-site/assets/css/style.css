@@ -8,7 +8,8 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px;-webkit-text-size-adjust:100%}
 body{font-family:var(--font);font-weight:400;color:var(--ink);background:var(--bg);
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-size:13px;line-height:1.6}
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-size:13px;line-height:1.6;
+  min-height:100vh;display:flex;flex-direction:column}
 h1,h2,h3,h4,h5,h6{font-weight:400}
 a{color:var(--ink);text-decoration:none}
 button{font-family:var(--font);font-weight:400;background:none;border:0;cursor:pointer;color:var(--ink)}
@@ -65,8 +66,9 @@ body:not(:has(main.home)) .header{background:#fff}
 .hero-deposit{margin:0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
 
 /* ---------- footer ---------- */
-.footer{border-top:1px solid var(--ink);padding:56px 24px 64px;
-  display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:150rem;margin:0 auto}
+.footer{border-top:1px solid #000;padding:96px 24px 72px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:32px;width:100%;max-width:none;margin-top:auto}
+main{flex:1 0 auto}
 .fcol__head{display:flex;justify-content:space-between;align-items:center;width:100%;
   padding:0 0 18px;font-size:12px;letter-spacing:.13em;pointer-events:none}
 .fcol__head .pm{display:none}
