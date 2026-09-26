@@ -28,3 +28,5 @@
   .frame__copy{padding:16vh 24px 8vh}
   .frame__copy--end{flex-wrap:wrap}
 }
+
+.frame .kicker + .facts{margin-top:22px}

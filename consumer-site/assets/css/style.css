@@ -22,6 +22,7 @@ img{display:block;max-width:100%}
   transition:transform .28s ease,background-color .2s ease;background:transparent}
 .header--hidden{transform:translateY(-100%)}
 .header--solid{background:var(--bg)}
+body:not(:has(main.home)) .header{background:#fff}
 .header__nav{display:flex;gap:28px;align-items:center}
 .header__link{font-size:11px;letter-spacing:.13em;text-transform:uppercase;padding:6px 0;position:relative}
 .header__wordmark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);

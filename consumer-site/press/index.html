@@ -19,20 +19,28 @@
 <body>
 <header class="header" id="site-header">
   <button class="header__menu-btn" id="menu-btn">Menu</button>
-  <nav class="header__nav" id="nav-left"><a class="header__link" href="../robots/">Robotics</a><a class="header__link" href="../divisions/">Divisions</a></nav>
-  <a class="header__wordmark" href="../"><img src="../assets/img/logo.svg" alt="Aorila"></a>
-  <div class="header__tools"><a class="header__link" href="../press/">Press</a><a class="header__link" href="../login/">Account</a></div>
+  <nav class="header__nav" id="nav-left"><a class="header__link" href="../robots/">Model A</a><a class="header__link" href="../company/">Company</a></nav>
+  <a class="header__wordmark" href="../" aria-label="Aorila home"><img src="../assets/img/logo.svg" alt="Aorila"></a>
+  <div class="header__tools"><a class="header__link" href="../press/">Press</a><a class="header__link" href="../contact/">Contact</a></div>
 </header>
+<div class="mnav" id="mnav">
+  <div class="mnav__top"><span class="u">Menu</span><button class="txtbtn" id="mnav-close">Close</button></div>
+  <a class="mlink" href="../robots/">Model A</a>
+  <a class="mlink" href="../company/">Company</a>
+  <a class="mlink" href="../press/">Press</a>
+  <a class="mlink" href="../contact/">Contact</a>
+</div>
 <main><div class="page page--narrow">
 <h1>Press</h1>
 <p>One inbox: <a href="mailto:info@aorila.com">info@aorila.com</a>.</p>
 <h2>About Aorila</h2>
-<p>Aorila is a robotics company in Columbia, South Carolina. Founded by Nicholas Baldwin and Jordan Baldwin. Our only product is Model A, a customizable home robot. Presale: $50 refundable deposit or $4,999. No subscription. Early 2028 delivery.</p>
+<p>Aorila is a robotics company in Columbia, South Carolina. Founded by Nicholas Baldwin and Jordan Baldwin. Our only product is Model A, a customizable home robot, still in development and not for sale. The plan is a $50 refundable deposit or $4,999, no subscription, early 2028.</p>
 <h2 id="us">US</h2>
 <p><a href="mailto:info@aorila.com">info@aorila.com</a></p>
 <h2 id="other">Other</h2>
 <p><a href="mailto:info@aorila.com">info@aorila.com</a></p>
 </div></main>
+<div class="scrim" id="scrim"></div>
 <script src="../assets/js/main.js"></script>
 <script>
 (function(){var m=/[?&]section=(us|other)\b/.exec(location.search);if(!m)return;var el=document.getElementById(m[1]);if(el)setTimeout(function(){el.scrollIntoView({behavior:"smooth"})},200);})();

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI security audits — Aorila</title>
 <meta name="description" content="Aorila reviews AI systems: model behavior, data movement, and failure modes. Informational only. No published pricing. Write to info@aorila.com.">
+<meta name="robots" content="noindex,follow">
 <link rel="canonical" href="https://aorila.com/security/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Aorila">
@@ -19,10 +20,17 @@
 <body>
 <header class="header" id="site-header">
   <button class="header__menu-btn" id="menu-btn">Menu</button>
-  <nav class="header__nav" id="nav-left"><a class="header__link" href="../robots/">Robotics</a><a class="header__link" href="../divisions/">Divisions</a></nav>
-  <a class="header__wordmark" href="../"><img src="../assets/img/logo.svg" alt="Aorila"></a>
-  <div class="header__tools"><a class="header__link" href="../press/">Press</a><a class="header__link" href="../login/">Account</a></div>
+  <nav class="header__nav" id="nav-left"><a class="header__link" href="../robots/">Model A</a><a class="header__link" href="../company/">Company</a></nav>
+  <a class="header__wordmark" href="../" aria-label="Aorila home"><img src="../assets/img/logo.svg" alt="Aorila"></a>
+  <div class="header__tools"><a class="header__link" href="../press/">Press</a><a class="header__link" href="../contact/">Contact</a></div>
 </header>
+<div class="mnav" id="mnav">
+  <div class="mnav__top"><span class="u">Menu</span><button class="txtbtn" id="mnav-close">Close</button></div>
+  <a class="mlink" href="../robots/">Model A</a>
+  <a class="mlink" href="../company/">Company</a>
+  <a class="mlink" href="../press/">Press</a>
+  <a class="mlink" href="../contact/">Contact</a>
+</div>
 <main><div class="page page--narrow">
 <h1>AI security audits</h1>
 <p>Aorila reviews AI systems the way we review our own stack: what the model can do, where data moves, and what happens when it fails.</p>
@@ -40,7 +48,12 @@
 <h2>Request a scoping conversation</h2>
 <p>Write to <a href="mailto:info@aorila.com?subject=AI%20security%20audit">info@aorila.com</a>. Tell us what you run and what you need reviewed. We will reply with next steps.</p>
 </div></main>
-<footer class="footer"><div class="fcol"><button class="fcol__head">Support</button><div class="fcol__body"><a href="../contact/">Contact Us</a><a href="../robots/">Model A</a></div></div></footer>
+<footer class="footer">
+<div class="fcol"><button class="fcol__head">Policies</button><div class="fcol__body"><a href="../policies/terms.html">Terms</a><a href="../policies/privacy.html">Privacy</a><a href="../policies/accessibility.html">Accessibility</a></div></div>
+<div class="fcol"><button class="fcol__head">Support</button><div class="fcol__body"><a href="../contact/">Contact</a></div></div>
+<div class="fcol"><button class="fcol__head">Company</button><div class="fcol__body"><a href="../company/">About</a><a href="../robots/">Model A</a><a href="https://aorilalabs.com">Aorila Labs</a></div></div>
+</footer>
+<div class="scrim" id="scrim"></div>
 <script src="../assets/js/main.js"></script>
 </body>
 </html>

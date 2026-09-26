@@ -13,28 +13,19 @@
 <body>
 <header class="header" id="site-header">
   <button class="header__menu-btn" id="menu-btn">Menu</button>
-  <nav class="header__nav"><a class="header__link" href="../robots/">Robotics</a><a class="header__link" href="../company/">Company</a></nav>
-  <a class="header__wordmark" href="../"><img src="../assets/img/logo.svg" alt="Aorila"></a>
-  <div class="header__tools"><a class="header__link" href="../">Home</a></div>
+  <nav class="header__nav" id="nav-left"><a class="header__link" href="../robots/">Model A</a><a class="header__link" href="../company/">Company</a></nav>
+  <a class="header__wordmark" href="../" aria-label="Aorila home"><img src="../assets/img/logo.svg" alt="Aorila"></a>
+  <div class="header__tools"><a class="header__link" href="../press/">Press</a><a class="header__link" href="../contact/">Contact</a></div>
 </header>
-<main><div class="page page--narrow"><h1>Status</h1>
-<p id="status-summary" class="status-summary">Checking aorila.com…</p>
-<div id="status-list" class="status-list"></div>
+<div class="mnav" id="mnav">
+  <div class="mnav__top"><span class="u">Menu</span><button class="txtbtn" id="mnav-close">Close</button></div>
+  <a class="mlink" href="../robots/">Model A</a>
+  <a class="mlink" href="../company/">Company</a>
+  <a class="mlink" href="../press/">Press</a>
+  <a class="mlink" href="../contact/">Contact</a>
 </div>
-<script>
-(function(){
-  var s={name:"Aorila",host:"aorila.com",url:"https://aorila.com/"};
-  var list=document.getElementById("status-list");
-  var summary=document.getElementById("status-summary");
-  fetch(s.url+"?t="+Date.now(),{cache:"no-store"}).then(function(r){
-    var up=r.ok;
-    list.innerHTML='<div class="status-row"><div><div class="status-name">'+s.name+'</div><div class="status-host">'+s.host+'</div></div><span class="status-pill '+(up?'status-pill--up':'status-pill--down')+'">'+(up?'Operational':'Unreachable')+'</span></div>';
-    summary.textContent=up?'All systems operational.':'aorila.com is unreachable.';
-  }).catch(function(){
-    summary.textContent='aorila.com is unreachable.';
-  });
-})();
-</script></main>
+<main><div class="page page--narrow"><h1>Status</h1><p>This is a static website. There is no product service to monitor yet. Model A is in development.</p></div></main>
+<div class="scrim" id="scrim"></div>
 <script src="../assets/js/main.js"></script>
 </body>
 </html>
